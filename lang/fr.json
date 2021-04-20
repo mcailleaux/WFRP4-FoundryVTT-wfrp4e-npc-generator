@@ -6,5 +6,6 @@
   "WFRP4NPCGEN.dependencies.miss.title": "Dépendance manquante",
   "WFRP4NPCGEN.dependencies.miss.label": "Dépendance",
   "WFRP4NPCGEN.career.select.title": "Choisir une Carrière",
-  "WFRP4NPCGEN.career.select.label": "Carrière"
+  "WFRP4NPCGEN.career.select.label": "Carrière",
+  "WFRP4NPCGEN.species.skills.select.title": "Choisir les Compétences Raciale"
 }
