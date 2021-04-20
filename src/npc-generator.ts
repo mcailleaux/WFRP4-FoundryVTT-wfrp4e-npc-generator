@@ -1,5 +1,5 @@
-import SpeciesChooser from './util/species-chooser';
-import { NpcModel } from './npc-model';
+import SpeciesChooser from './util/species-chooser.js';
+import NpcModel from './npc-model.js';
 
 export default class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
