@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "sourceRoot": "./src",
+    "sourceRoot": "src",
     "strictNullChecks": true,
     "target": "es6",
     "types": ["foundry-pc-types"]
