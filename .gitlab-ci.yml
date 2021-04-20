@@ -1,0 +1,72 @@
+image: docker-repository-greenskin.cailleaux.com/greenskin/ci-builder-node14:2.0
+
+variables:
+  GIT_DEPTH: 0
+  GIT_STRATEGY: fetch
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - npm ci
+    - npm run build
+    - mkdir -p dist/lang
+    - cp lang/* dist/lang/
+    - cp module.json dist
+    - cd dist
+    - zip wfrp4e-npc-generator.zip -r *.* src lang -x ".*"
+  artifacts:
+    name: wfrp4e-npc-generator
+    when: on_success
+    paths:
+      - dist/wfrp4e-npc-generator.zip
+  only:
+    - tags
+    - master
+
+build_beta:
+  stage: build
+  script:
+    - npm ci
+    - npm run build
+    - mkdir -p dist/lang
+    - cp lang/* dist/lang/
+    - cp module-beta.json dist/module.json
+    - cd dist
+    - zip wfrp4e-npc-generator.zip -r *.* src lang -x ".*"
+  artifacts:
+    name: wfrp4e-npc-generator
+    when: on_success
+    paths:
+      - dist/wfrp4e-npc-generator.zip
+  rules:
+    - if: '$CI_COMMIT_BRANCH =~ /^(dev)\/.*$/'
+      when: on_success
+
+deploy:
+  stage: deploy
+  script:
+    - git config --global user.email "$GIT_USER_EMAIL"
+    - git config --global user.name "$GIT_USER_NAME"
+    - git add -f dist/wfrp4e-npc-generator.zip
+    - git commit -m "push artifact on dist branch"
+    - git remote set-url origin $GIT_SSH_URL
+    - git push -f origin HEAD:dist
+  only:
+    - master
+
+deploy_beta:
+  stage: deploy
+  script:
+    - git config --global user.email "$GIT_USER_EMAIL"
+    - git config --global user.name "$GIT_USER_NAME"
+    - git add -f dist/wfrp4e-npc-generator.zip
+    - git commit -m "push artifact on dist-beta branch"
+    - git remote set-url origin $GIT_SSH_URL
+    - git push -f origin HEAD:dist-beta
+  rules:
+    - if: '$CI_COMMIT_BRANCH =~ /^(dev)\/.*$/'
+      when: on_success

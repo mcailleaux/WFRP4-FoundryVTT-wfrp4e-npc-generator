@@ -1,0 +1,33 @@
+{
+  "name": "wfrp4e-npc-generator-beta",
+  "title": "[WFRP4] NPC macro generator BETA version",
+  "description": "Macro to generate NPC",
+  "version": "0.0.1",
+  "minimumCoreVersion": "0.7.9",
+  "compatibleCoreVersion": "0.7.9",
+  "author": "Skeroujvapluvit",
+  "dependencies": [
+    {
+      "name": "wfrp4e",
+      "type": "system"
+    }
+  ],
+  "esmodules": ["main.js"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "fr",
+      "name": "Français",
+      "path": "lang/fr.json"
+    }
+  ],
+  "url": "https://github.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/tree/dist-beta",
+  "download": "https://github.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/blob/dist-beta/dist/wfrp4e-npc-generator.zip?raw=true",
+  "manifest": "https://raw.githubusercontent.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/dist-beta/module-beta.json",
+  "readme": "https://raw.githubusercontent.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/dist-beta/README.md",
+  "changelog": "https://raw.githubusercontent.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/dist-beta/CHANGELOG.md"
+}
