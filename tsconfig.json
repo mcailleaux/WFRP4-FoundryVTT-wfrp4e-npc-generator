@@ -16,6 +16,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "inlineSources": true,
+    "sourceRoot": "scr",
     "strictNullChecks": true,
     "target": "es6",
     "types": ["foundry-pc-types"]
