@@ -10,6 +10,10 @@
     {
       "name": "wfrp4e",
       "type": "system"
+    },
+    {
+      "name": "wfrp4e-core",
+      "type": "module"
     }
   ],
   "esmodules": ["main.js"],
