@@ -40,9 +40,9 @@ export default class SpeciesSkillsChooser {
               function check(elm, isMajor) {
                  const nbrMajor = Number(document.getElementById('select-skill-major-nbr-${dialogId}').value)
                  const nbrMinor = Number(document.getElementById('select-skill-minor-nbr-${dialogId}').value)
-                if (elm.checked && (isMajor && nbrMajor >= 3 || !isMajor && nbrMinor >= 3)) {
-                   elm.checked = false
-                }
+                 if (elm?.checked && (isMajor && nbrMajor >= 3 || !isMajor && nbrMinor >= 3)) {
+                    elm.checked = false
+                 }
                  const majorClass = 'select-skill-major-${dialogId}'
                  const minorClass = 'select-skill-minor-${dialogId}'                
                  const majors = toArray(document.getElementsByClassName(majorClass))
@@ -72,6 +72,8 @@ export default class SpeciesSkillsChooser {
                  }
                  return array;
               }
+              
+              check(null, true);
           </script>
                  `,
       buttons: {
