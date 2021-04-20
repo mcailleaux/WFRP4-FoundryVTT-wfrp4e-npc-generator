@@ -1,8 +1,10 @@
 {
   "WFRP4NPCGEN.common.button.OK": "OK",
   "WFRP4NPCGEN.common.button.Cancel": "Cancel",
-  "WFRP4NPCGEN.species.select.title": "Choisir une race",
+  "WFRP4NPCGEN.species.select.title": "Choisir une Race",
   "WFRP4NPCGEN.species.select.label": "Race",
   "WFRP4NPCGEN.dependencies.miss.title": "Dépendance manquante",
-  "WFRP4NPCGEN.dependencies.miss.label": "Dépendance"
+  "WFRP4NPCGEN.dependencies.miss.label": "Dépendance",
+  "WFRP4NPCGEN.career.select.title": "Choisir une Carrière",
+  "WFRP4NPCGEN.career.select.label": "Carrière"
 }
