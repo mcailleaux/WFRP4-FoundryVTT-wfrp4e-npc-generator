@@ -1,16 +1,28 @@
 import SpeciesChooser from './util/species-chooser.js';
 import NpcModel from './npc-model.js';
+import CheckDependencies from './check-dependencies.js';
 
 export default class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
 
   public static async generateNpcModel(callback: (model: NpcModel) => void) {
     const npcModel = new NpcModel();
-    await this.speciesChooser.selectSpecies((key: string, value: string) => {
-      npcModel.speciesKey = key;
-      npcModel.speciesValue = value;
+    CheckDependencies.check((canRun) => {
+      if (canRun) {
+        this.selectSpecies(npcModel, callback);
+      }
+    });
+  }
 
-      callback(npcModel);
+  private static async selectSpecies(
+    model: NpcModel,
+    callback: (model: NpcModel) => void
+  ) {
+    await this.speciesChooser.selectSpecies((key: string, value: string) => {
+      model.speciesKey = key;
+      model.speciesValue = value;
+
+      callback(model);
     });
   }
 }
