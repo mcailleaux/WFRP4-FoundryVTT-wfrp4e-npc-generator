@@ -30,11 +30,11 @@ export default class SpeciesTalentsChooser {
                       ${tl}          
                   </label> 
                 
-                  <input class="select-talent-left-${dialogId}" onclick="check()" style="flex: 10%;" type="radio" id="select-talent-left-${tl}-${dialogId}" name="select-left-${tl}" value="${tl}"/>
+                  <input class="select-talent-left-${dialogId}" onclick="check()" style="flex: 10%;" type="radio" id="select-talent-left-${tl}-${dialogId}" name="select-talent-${tl}" value="${tl}"/>
                  <label style="word-break: break-all; flex: 40%;">
                       ${tr}          
                   </label> 
-                  <input class="select-talent-right-${dialogId}" onclick="check()" style="flex: 10%;" type="radio" id="select-talent-right-${tr}-${dialogId}" name="select-right-${tr}" value="${tr}"/>
+                  <input class="select-talent-right-${dialogId}" onclick="check()" style="flex: 10%;" type="radio" id="select-talent-right-${tr}-${dialogId}" name="select-talent-${tr}" value="${tr}"/>
                   </div>      
               `;
                 })
