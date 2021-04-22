@@ -125,10 +125,39 @@ export default class NpcGenerator {
   }
 
   private static async addCareerPath(model: NpcModel) {
-    const careersPack = game.packs.get('wfrp4e-core.careers');
-    const careers = await careersPack.getContent();
+    let careers: Item[];
+    let career: Item;
+    if (model.career.data != null) {
+      careers = game.items.entities.filter((item) => item.type === 'career');
+      career = model.career;
+    } else {
+      const careersPack = game.packs.get('wfrp4e-core.careers');
+      careers = await careersPack.getContent();
+      career = <Item>careers.find((c: Item) => c.id === model.career._id);
+      console.dir(careers);
+    }
+
+    const careerData: any = career?.data?.data;
+    if (careerData?.careergroup?.value != null) {
+      model.careerPath = careers
+        .filter((c: Item) => {
+          const data: any = c?.data?.data;
+          return data?.careergroup?.value === careerData?.careergroup?.value;
+        })
+        .sort((a, b) => {
+          const aData: any = a?.data?.data;
+          const bData: any = b?.data?.data;
+          const aLevelStr = aData?.level?.value;
+          const bLevelStr = bData?.level?.value;
+          const aLevel = aLevelStr != null ? Number(aLevelStr) : 0;
+          const bLevel = bLevelStr != null ? Number(bLevelStr) : 0;
+          return aLevel - bLevel;
+        });
+    } else {
+      model.careerPath = [career];
+    }
+
     console.dir(model);
-    console.dir(careers);
   }
 
   private static async addBasicSkill(model: NpcModel) {
