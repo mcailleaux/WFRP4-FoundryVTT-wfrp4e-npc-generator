@@ -30,4 +30,22 @@ export default class RandomUtil {
          }
     `;
   }
+
+  public static getRandomValuesScript(): string {
+    return `
+         function getRandomValues(array, nbr) {
+              if (array == null || nbr < 1 || array.length < nbr) {
+                return null;
+              }
+              const indexes = [];
+              while (indexes.length < nbr) {
+                const idx = Math.floor(Math.random() * array.length);
+                if (!indexes.includes(idx)) {
+                  indexes.push(idx);
+                }
+              }
+              return indexes.map((idx) => array[idx]);
+         }
+    `;
+  }
 }

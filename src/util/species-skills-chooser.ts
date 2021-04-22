@@ -1,4 +1,5 @@
 import DialogUtil from './dialog-util.js';
+import RandomUtil from './random-util.js';
 
 export default class SpeciesSkillsChooser {
   public static getSpeciesSkillsMap(): { [key: string]: string[] } {
@@ -16,7 +17,13 @@ export default class SpeciesSkillsChooser {
     const speciesSkillsMap = this.getSpeciesSkillsMap();
     new Dialog({
       title: game.i18n.localize('WFRP4NPCGEN.species.skills.select.title'),
-      content: `<form>            
+      content: `<form>
+                <div class="form-group">
+                      ${DialogUtil.getButtonScript(
+                        'WFRP4NPCGEN.common.button.Random',
+                        'random()'
+                      )}
+              </div>            
               ${speciesSkillsMap[speciesKey]
                 .map(
                   (s) => `
@@ -88,6 +95,30 @@ export default class SpeciesSkillsChooser {
                  const yesButton = document.getElementById('yes-icon-${dialogId}').parentElement;
                  yesButton.disabled = nbrMajorsChecked < 3 || nbrMinorsChecked < 3;
               }
+              
+              function random() {
+                  const speciesSkills = [${speciesSkillsMap[speciesKey]
+                    .map((skill) => `"${skill}"`)
+                    .join(',')}];
+                  const randomSpeciesSkills = getRandomValues(speciesSkills, 6);
+                  if (randomSpeciesSkills != null && randomSpeciesSkills.length > 0) {
+                      const randomMajors = getRandomValues(randomSpeciesSkills, 3);
+                      const randomMinors = randomSpeciesSkills.filter((skill) => !randomMajors.includes(skill));
+                      const majorClass = 'select-skill-major-${dialogId}';
+                      const minorClass = 'select-skill-minor-${dialogId}';          
+                      const majors = toArray(document.getElementsByClassName(majorClass));
+                      const minors = toArray(document.getElementsByClassName(minorClass));
+                      majors.forEach((r) => {
+                          r.checked = randomMajors.includes(r.value);
+                      });
+                      minors.forEach((r) => {
+                          r.checked = randomMinors.includes(r.value);
+                      });
+                      check(null, true);
+                  }
+              }
+              
+              ${RandomUtil.getRandomValuesScript()}
 
               function toArray(obj) {
                  const array = [];
