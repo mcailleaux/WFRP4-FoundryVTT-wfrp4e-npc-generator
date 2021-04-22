@@ -54,6 +54,7 @@ export default class CareerChooser {
               const randomCareer = getRandomValue(careers);
               if (randomCareer != null) {
                   document.getElementById('select-career-${dialogId}').value = randomCareer;
+                  check();
               }
             }
               
