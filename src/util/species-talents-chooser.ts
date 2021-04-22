@@ -27,6 +27,12 @@ export default class SpeciesTalentsChooser {
     const randomTalentsForm =
       randomTalentsNbr > 0
         ? `
+        <div class="form-group">
+          ${DialogUtil.getButtonScript(
+            'WFRP4NPCGEN.common.button.Random',
+            'randomTalents()'
+          )}
+        </div>
         <div class="form-group" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: stretch;">
         ${randomTalents
           .map(
@@ -39,6 +45,7 @@ export default class SpeciesTalentsChooser {
               type: 'checkbox',
               initValue: t,
               style: 'flex: 20%',
+              classes: `select-talent-random-${dialogId}`,
             })}
             </div>
             `
@@ -52,10 +59,10 @@ export default class SpeciesTalentsChooser {
       title: game.i18n.localize('WFRP4NPCGEN.species.talents.select.title'),
       content: `<form>   
               <div class="form-group">
-                      ${DialogUtil.getButtonScript(
-                        'WFRP4NPCGEN.common.button.Random',
-                        'random()'
-                      )}
+                  ${DialogUtil.getButtonScript(
+                    'WFRP4NPCGEN.common.button.Random',
+                    'random()'
+                  )}
               </div>                 
               ${speciesTalent
                 .map((t) => {
@@ -133,6 +140,20 @@ export default class SpeciesTalentsChooser {
                      });
                      check();
                   }
+              }
+              
+              function randomTalents() {
+                  const talents = [${randomTalents
+                    .map((t) => `"${t}"`)
+                    .join(',')}];
+                  const nbrTalents = ${randomTalentsNbr};
+                  const randomTalents = nbrTalents > 1 ? getRandomValues(talents, nbrTalents) : [getRandomValue(talents)];
+                  const talentClass = 'select-talent-random-${dialogId}';                
+                  const talentsElm = toArray(document.getElementsByClassName(talentClass));
+                  talentsElm.forEach((elm) => {
+                     elm.checked = randomTalents.includes(elm.value); 
+                  });
+                  check();
               }
               
               ${RandomUtil.getRandomValueScript()}
