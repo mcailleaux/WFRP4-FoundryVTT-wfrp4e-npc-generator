@@ -94,7 +94,7 @@ export default class DialogUtil {
       options?.onClick != null ? ` onclick="${options.onClick}"` : '';
     const inputListId = hasDataList ? ` list="${options.dataListId}"` : '';
     const initValueStr =
-      options?.initValue != null ? ` value=${options.initValue}` : '';
+      options?.initValue != null ? ` value="${options.initValue}"` : '';
     const styleStr = options?.style != null ? ` style="${options.style}"` : '';
     const classesStr =
       options?.classes != null ? ` class="${options.classes}"` : '';
