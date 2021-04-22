@@ -30,10 +30,10 @@ export default class SpeciesTalentsChooser {
     if (randomTalentsNbr > 0) {
       const lastIndexOfChoice = initTalents.length - randomTalentsNbr;
       if (lastIndexOfChoice >= 0) {
-        initRandomTalents = initTalents.filter(
+        initChoiceTalents = initTalents.filter(
           (_t, i) => i < lastIndexOfChoice
         );
-        initChoiceTalents = initTalents.filter(
+        initRandomTalents = initTalents.filter(
           (_t, i) => i >= lastIndexOfChoice
         );
       } else {
