@@ -110,9 +110,24 @@ export default class SpeciesTalentsChooser {
                  const rights = toArray(document.getElementsByClassName(rightClass));
                  const nbrLeftsChecked = lefts.filter((r) => r.checked).length;
                  const nbrRightsChecked = rights.filter((r) => r.checked).length;
-                 const nbrChecked = nbrLeftsChecked + nbrRightsChecked;                 
+                 const nbrChecked = nbrLeftsChecked + nbrRightsChecked;
+                 const nbrTalents = ${randomTalentsNbr};
+                 let nbrRandomChecked = 0;
+                 let hasGoodNbrOfTalents = true;
+                 if (nbrTalents > 0) {
+                    const talentClass = 'select-talent-random-${dialogId}';                
+                    const talentsElm = toArray(document.getElementsByClassName(talentClass));
+                    nbrRandomChecked = talentsElm.filter((cb) => cb.checked).length;
+                    hasGoodNbrOfTalents = nbrRandomChecked >= nbrTalents;
+                    if (hasGoodNbrOfTalents) {
+                        talentsElm.forEach((cb) => cb.disabled = !cb.checked);    
+                    }                    
+                 }  
+                
                  const yesButton = document.getElementById('yes-icon-${dialogId}').parentElement;
-                 yesButton.disabled = nbrChecked < ${speciesTalent.length};
+                 yesButton.disabled = nbrChecked < ${
+                   speciesTalent.length
+                 } || !hasGoodNbrOfTalents;
               }
               
               function random() {
@@ -180,6 +195,14 @@ export default class SpeciesTalentsChooser {
             .each((_i, r: HTMLInputElement) => {
               talents.push(r.value);
             });
+          if (randomTalentsNbr > 0) {
+            html
+              .find(`select-talent-random-${dialogId}`)
+              .filter((_i, r: HTMLInputElement) => r.checked)
+              .each((_i, r: HTMLInputElement) => {
+                talents.push(r.value);
+              });
+          }
           callback(talents);
         },
         undo
