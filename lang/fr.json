@@ -1,6 +1,7 @@
 {
   "WFRP4NPCGEN.common.button.OK": "OK",
   "WFRP4NPCGEN.common.button.Cancel": "Annuler",
+  "WFRP4NPCGEN.common.button.Undo": "Précédent",
   "WFRP4NPCGEN.common.button.Random": "Aléatoire",
   "WFRP4NPCGEN.species.select.title": "Choisir une Race",
   "WFRP4NPCGEN.species.select.label": "Race",

@@ -7,6 +7,7 @@ export default class SpeciesChooser {
   }
 
   public static async selectSpecies(
+    initSpeciesKey: string,
     callback: (speciesKey: string, speciesValue: string) => void
   ) {
     const dialogId = new Date().getTime();
@@ -24,7 +25,8 @@ export default class SpeciesChooser {
               ${DialogUtil.getLabelScript('WFRP4NPCGEN.species.select.label')}
               ${DialogUtil.getSelectScript(
                 `select-species-${dialogId}`,
-                speciesMap
+                speciesMap,
+                initSpeciesKey
               )}
               </div>
           </form>
@@ -43,24 +45,13 @@ export default class SpeciesChooser {
                 
             </script>
 `,
-      buttons: {
-        yes: {
-          icon: "<i class='fas fa-check'></i>",
-          label: game.i18n.localize('WFRP4NPCGEN.common.button.OK'),
-
-          callback: (html: JQuery) => {
-            const speciesKey = <string>(
-              html.find(`#select-species-${dialogId}`).val()
-            );
-            const speciesValue = speciesMap[speciesKey];
-            callback(speciesKey, speciesValue);
-          },
-        },
-        no: {
-          icon: "<i class='fas fa-times'></i>",
-          label: game.i18n.localize('WFRP4NPCGEN.common.button.Cancel'),
-        },
-      },
+      buttons: DialogUtil.getDialogButtons(dialogId, (html: JQuery) => {
+        const speciesKey = <string>(
+          html.find(`#select-species-${dialogId}`).val()
+        );
+        const speciesValue = speciesMap[speciesKey];
+        callback(speciesKey, speciesValue);
+      }),
       default: 'yes',
     }).render(true);
   }

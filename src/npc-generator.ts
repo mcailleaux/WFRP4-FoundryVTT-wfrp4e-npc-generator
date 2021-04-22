@@ -24,23 +24,32 @@ export default class NpcGenerator {
     model: NpcModel,
     callback: (model: NpcModel) => void
   ) {
-    await this.speciesChooser.selectSpecies((key: string, value: string) => {
-      model.speciesKey = key;
-      model.speciesValue = value;
+    await this.speciesChooser.selectSpecies(
+      model.speciesKey,
+      (key: string, value: string) => {
+        model.speciesKey = key;
+        model.speciesValue = value;
 
-      this.selectCareer(model, callback);
-    });
+        this.selectCareer(model, callback);
+      }
+    );
   }
 
   private static async selectCareer(
     model: NpcModel,
     callback: (model: NpcModel) => void
   ) {
-    await this.careerChooser.selectCareer((career: Item) => {
-      model.career = career;
+    await this.careerChooser.selectCareer(
+      model.career?.name,
+      (career: Item) => {
+        model.career = career;
 
-      this.selectSpeciesSkills(model, callback);
-    });
+        this.selectSpeciesSkills(model, callback);
+      },
+      () => {
+        this.selectSpecies(model, callback);
+      }
+    );
   }
 
   private static async selectSpeciesSkills(
