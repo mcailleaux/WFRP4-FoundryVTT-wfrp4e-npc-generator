@@ -83,12 +83,12 @@ export default class SpeciesSkillsChooser {
                  document.getElementById('select-skill-major-nbr-${dialogId}').value = nbrMajorsChecked
                  document.getElementById('select-skill-minor-nbr-${dialogId}').value = nbrMinorsChecked 
                  if (nbrMajorsChecked >= 3) {
-                    majors.filter((r) => !r.checked).forEach((r) => r.disabled = true)
+                    majors.forEach((r) => r.disabled = !r.checked)
                  } else {
                     majors.forEach((r) => r.disabled = false)
                  }
                  if (nbrMinorsChecked >= 3) {
-                    minors.filter((r) => !r.checked).forEach((r) => r.disabled = true)
+                    minors.forEach((r) => r.disabled = !r.checked)
                  } else {
                     minors.forEach((r) => r.disabled = false)
                  }
