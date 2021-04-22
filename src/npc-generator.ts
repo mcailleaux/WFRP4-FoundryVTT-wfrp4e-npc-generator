@@ -125,16 +125,19 @@ export default class NpcGenerator {
   }
 
   private static async addCareerPath(model: NpcModel) {
-    let careers: Item[];
+    const careersPack = game.packs.get('wfrp4e-core.careers');
+    const careers: Item[] = await careersPack.getContent();
+    const worldCareers = game.items?.entities?.filter(
+      (item) => item.type === 'career'
+    );
+    if (worldCareers != null && worldCareers.length > 0) {
+      careers.push(...worldCareers);
+    }
     let career: Item;
     if (model.career.data != null) {
-      careers = game.items.entities.filter((item) => item.type === 'career');
       career = model.career;
     } else {
-      const careersPack = game.packs.get('wfrp4e-core.careers');
-      careers = await careersPack.getContent();
       career = <Item>careers.find((c: Item) => c.id === model.career._id);
-      console.dir(careers);
     }
 
     const careerData: any = career?.data?.data;
@@ -156,8 +159,6 @@ export default class NpcGenerator {
     } else {
       model.careerPath = [career];
     }
-
-    console.dir(model);
   }
 
   private static async addBasicSkill(model: NpcModel) {

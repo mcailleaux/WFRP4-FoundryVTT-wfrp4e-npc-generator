@@ -5,10 +5,12 @@ export default class CareerChooser {
   public static async getCareers(): Promise<Item[]> {
     const careersPack = game.packs.get('wfrp4e-core.careers');
     const careers: Item[] = await careersPack.getIndex();
-    const worldCareers = game.items.entities.filter(
+    const worldCareers = game.items?.entities?.filter(
       (item) => item.type === 'career'
     );
-    careers.push(...worldCareers);
+    if (worldCareers != null && worldCareers.length > 0) {
+      careers.push(...worldCareers);
+    }
     return Promise.resolve(careers);
   }
 
