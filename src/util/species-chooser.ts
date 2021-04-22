@@ -37,9 +37,8 @@ export default class SpeciesChooser {
                     .map((key) => `"${key}"`)
                     .join(',')}];
                   const randomSpeciesKey = getRandomValue(speciesKeys);
-                  console.dir(randomSpeciesKey);
                   if (randomSpeciesKey != null) {
-                      document.getElementById('select-species-${dialogId}').value = speciesKeys;
+                      document.getElementById('select-species-${dialogId}').value = randomSpeciesKey;
                   }
               }
               
