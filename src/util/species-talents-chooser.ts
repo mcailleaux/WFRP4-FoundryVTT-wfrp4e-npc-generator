@@ -122,6 +122,8 @@ export default class SpeciesTalentsChooser {
                     hasGoodNbrOfTalents = nbrRandomChecked >= nbrTalents;
                     if (hasGoodNbrOfTalents) {
                         talentsElm.forEach((cb) => cb.disabled = !cb.checked);    
+                    } else {
+                        talentsElm.forEach((cb) => cb.disabled = false);
                     }                    
                  }  
                 
