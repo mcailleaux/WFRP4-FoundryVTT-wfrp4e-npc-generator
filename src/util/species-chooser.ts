@@ -1,4 +1,5 @@
 import RandomUtil from './random-util.js';
+import DialogUtil from './dialog-util.js';
 
 export default class SpeciesChooser {
   public static getSpeciesMap(): { [key: string]: string } {
@@ -14,9 +15,10 @@ export default class SpeciesChooser {
       title: game.i18n.localize('WFRP4NPCGEN.species.select.title'),
       content: `<form>
               <div class="form-group">
-              <button type="button" onclick="random()">
-              ${game.i18n.localize('WFRP4NPCGEN.common.button.Random')} 
-              </button>
+              ${DialogUtil.getButtonScript(
+                'WFRP4NPCGEN.common.button.Random',
+                'random()'
+              )}
               </div>
               <div class="form-group">
               <label>
