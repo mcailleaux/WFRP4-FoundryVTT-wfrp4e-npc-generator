@@ -100,7 +100,7 @@ export default class DialogUtil {
       options?.classes != null ? ` class="${options.classes}"` : '';
     const checkedStr = options?.checked ? ' checked' : '';
     const input = `
-        <input${onInputStr}${onClickStr}${inputListId}${styleStr}${classesStr}${checkedStr} type="${options?.type}" id="${options?.id}" name="${options?.name}"${initValueStr}/>
+        <input${onInputStr}${onClickStr}${inputListId}${styleStr}${classesStr}${checkedStr}${initValueStr} type="${options?.type}" id="${options?.id}" name="${options?.name}" />
       `;
     const dataList = hasDataList
       ? `
