@@ -94,6 +94,9 @@ export default class NpcGenerator {
     model: NpcModel,
     callback: (model: NpcModel) => void
   ) {
+    if (model.name == null) {
+      model.name = `${model.career.name} ${model.speciesValue}`;
+    }
     await this.nameChooser.selectName(
       model.name,
       (name: string) => {
