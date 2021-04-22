@@ -44,7 +44,7 @@ export default class SpeciesChooser {
               ${RandomUtil.getRandomValueScript()}
                 
             </script>
-`,
+            `,
       buttons: DialogUtil.getDialogButtons(dialogId, (html: JQuery) => {
         const speciesKey = <string>(
           html.find(`#select-species-${dialogId}`).val()

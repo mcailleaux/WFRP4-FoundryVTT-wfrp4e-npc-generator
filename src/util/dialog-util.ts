@@ -58,10 +58,11 @@ export default class DialogUtil {
         : '';
     return `
         <select id="${id}" value="${finalInitValue}">
-            ${Object.entries(options).map(
-              ([key, value]) =>
-                `<option id="${id}-${key}" value="${key}">${value}</option>`
-            )}
+            ${Object.entries(options).map(([key, value]) => {
+              const selected =
+                finalInitValue === key ? ' selected="selected"' : '';
+              return `<option${selected} id="${id}-${key}" value="${key}">${value}</option>`;
+            })}
         </select>
         `;
   }
