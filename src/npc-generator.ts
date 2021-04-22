@@ -113,21 +113,44 @@ export default class NpcGenerator {
     model: NpcModel,
     callback: (model: NpcModel) => void
   ) {
-    this.addCareerPath(model);
-    this.addBasicSkill(model);
-    this.addCareerSkill(model);
+    await this.addCareerPath(model);
+    await this.addBasicSkill(model);
+    await this.addCareerSkill(model);
+    await this.addBasicSkill(model);
+    await this.addBasicCaracs(model);
+    await this.addMovement(model);
+    await this.addAdvanceSkills(model);
+    await this.addAdvanceCaracs(model);
     callback(model);
   }
 
-  private static addCareerPath(model: NpcModel) {
+  private static async addCareerPath(model: NpcModel) {
+    const careersPack = game.packs.get('wfrp4e-core.careers');
+    const career = await careersPack.getEntity(model.career.id);
+    console.dir(career);
+  }
+
+  private static async addBasicSkill(model: NpcModel) {
     console.dir(model);
   }
 
-  private static addBasicSkill(model: NpcModel) {
+  private static async addCareerSkill(model: NpcModel) {
     console.dir(model);
   }
 
-  private static addCareerSkill(model: NpcModel) {
+  private static async addBasicCaracs(model: NpcModel) {
+    console.dir(model);
+  }
+
+  private static async addMovement(model: NpcModel) {
+    console.dir(model);
+  }
+
+  private static async addAdvanceSkills(model: NpcModel) {
+    console.dir(model);
+  }
+
+  private static async addAdvanceCaracs(model: NpcModel) {
     console.dir(model);
   }
 }
