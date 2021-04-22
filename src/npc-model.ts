@@ -6,5 +6,6 @@ export default class NpcModel {
     major: [],
     minor: [],
   };
-  public speciesTalents: string[];
+  public speciesTalents: string[] = [];
+  public name: string;
 }

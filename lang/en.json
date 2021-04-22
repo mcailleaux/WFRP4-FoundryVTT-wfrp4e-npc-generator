@@ -10,5 +10,7 @@
   "WFRP4NPCGEN.career.select.title": "Choose a Career",
   "WFRP4NPCGEN.career.select.label": "Career",
   "WFRP4NPCGEN.species.skills.select.title": "Choose Species Skills",
-  "WFRP4NPCGEN.species.talents.select.title": "Choose Species Talents"
+  "WFRP4NPCGEN.species.talents.select.title": "Choose Species Talents",
+  "WFRP4NPCGEN.name.select.title": "Choose a Name",
+  "WFRP4NPCGEN.name.select.label": "Name"
 }

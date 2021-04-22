@@ -10,5 +10,7 @@
   "WFRP4NPCGEN.career.select.title": "Choisir une Carrière",
   "WFRP4NPCGEN.career.select.label": "Carrière",
   "WFRP4NPCGEN.species.skills.select.title": "Choisir les Compétences Raciales",
-  "WFRP4NPCGEN.species.talents.select.title": "Choisir les Talents Raciaux"
+  "WFRP4NPCGEN.species.talents.select.title": "Choisir les Talents Raciaux",
+  "WFRP4NPCGEN.name.select.title": "Choisir un Nom",
+  "WFRP4NPCGEN.name.select.label": "Nom"
 }

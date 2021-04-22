@@ -46,7 +46,7 @@ export default class CareerChooser {
                 const careers = [${careers.map((c) => `"${c.name}"`).join(',')}]
                 const career = document.getElementById('select-career-${dialogId}').value;
                 const yesButton = document.getElementById('yes-icon-${dialogId}').parentElement;
-                yesButton.disabled=!careers.includes(career);
+                yesButton.disabled = !careers.includes(career);
             }
             
             function random() {

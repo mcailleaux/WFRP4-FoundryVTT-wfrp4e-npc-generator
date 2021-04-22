@@ -4,12 +4,14 @@ import CheckDependencies from './check-dependencies.js';
 import CareerChooser from './util/career-chooser.js';
 import SpeciesSkillsChooser from './util/species-skills-chooser.js';
 import SpeciesTalentsChooser from './util/species-talents-chooser.js';
+import NameChooser from './util/name-chooser.js';
 
 export default class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
   public static readonly careerChooser = CareerChooser;
   public static readonly speciesSkillsChooser = SpeciesSkillsChooser;
   public static readonly speciesTalentsChooser = SpeciesTalentsChooser;
+  public static readonly nameChooser = NameChooser;
 
   public static async generateNpcModel(callback: (model: NpcModel) => void) {
     const npcModel = new NpcModel();
@@ -76,14 +78,53 @@ export default class NpcGenerator {
     callback: (model: NpcModel) => void
   ) {
     await this.speciesTalentsChooser.selectSpeciesTalents(
+      model.speciesTalents,
       model.speciesKey,
       (talents: string[]) => {
         model.speciesTalents = talents;
-        callback(model);
+        this.selectName(model, callback);
       },
       () => {
         this.selectSpeciesSkills(model, callback);
       }
     );
+  }
+
+  private static async selectName(
+    model: NpcModel,
+    callback: (model: NpcModel) => void
+  ) {
+    await this.nameChooser.selectName(
+      model.name,
+      (name: string) => {
+        model.name = name;
+        this.finalize(model, callback);
+      },
+      () => {
+        this.selectSpeciesTalents(model, callback);
+      }
+    );
+  }
+
+  private static async finalize(
+    model: NpcModel,
+    callback: (model: NpcModel) => void
+  ) {
+    this.addCareerPath(model);
+    this.addBasicSkill(model);
+    this.addCareerSkill(model);
+    callback(model);
+  }
+
+  private static addCareerPath(model: NpcModel) {
+    console.dir(model);
+  }
+
+  private static addBasicSkill(model: NpcModel) {
+    console.dir(model);
+  }
+
+  private static addCareerSkill(model: NpcModel) {
+    console.dir(model);
   }
 }

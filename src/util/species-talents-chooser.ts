@@ -7,6 +7,7 @@ export default class SpeciesTalentsChooser {
   }
 
   public static async selectSpeciesTalents(
+    initTalents: string[],
     speciesKey: string,
     callback: (speciesTalents: string[]) => void,
     undo: () => void
@@ -23,6 +24,24 @@ export default class SpeciesTalentsChooser {
     const randomTalents: string[] = game.wfrp4e.tables.talents.rows.map(
       (row: any) => row.name
     );
+
+    let initChoiceTalents: string[];
+    let initRandomTalents: string[] = [];
+    if (randomTalentsNbr > 0) {
+      const lastIndexOfChoice = initTalents.length - randomTalentsNbr;
+      if (lastIndexOfChoice >= 0) {
+        initRandomTalents = initTalents.filter(
+          (_t, i) => i < lastIndexOfChoice
+        );
+        initChoiceTalents = initTalents.filter(
+          (_t, i) => i >= lastIndexOfChoice
+        );
+      } else {
+        initChoiceTalents = initTalents;
+      }
+    } else {
+      initChoiceTalents = initTalents;
+    }
 
     const randomTalentsForm =
       randomTalentsNbr > 0
@@ -47,6 +66,7 @@ export default class SpeciesTalentsChooser {
               style: 'flex: 20%',
               classes: `select-talent-random-${dialogId}`,
               onClick: 'check()',
+              checked: initRandomTalents.includes(t),
             })}
             </div>
             `
@@ -83,6 +103,7 @@ export default class SpeciesTalentsChooser {
                     onClick: 'check()',
                     classes: `select-talent-left-${dialogId}`,
                     style: 'flex: 10%;',
+                    checked: initChoiceTalents.includes(tl),
                   })}    
                   ${DialogUtil.getLabelScript(
                     tr,
@@ -96,6 +117,7 @@ export default class SpeciesTalentsChooser {
                     onClick: 'check()',
                     classes: `select-talent-right-${dialogId}`,
                     style: 'flex: 10%;',
+                    checked: initChoiceTalents.includes(tr),
                   })} 
                   </div>      
               `;
