@@ -1,6 +1,7 @@
 {
   "WFRP4NPCGEN.common.button.OK": "OK",
   "WFRP4NPCGEN.common.button.Cancel": "Cancel",
+  "WFRP4NPCGEN.common.button.Random": "Random",
   "WFRP4NPCGEN.species.select.title": "Choose a Species",
   "WFRP4NPCGEN.species.select.label": "Species",
   "WFRP4NPCGEN.dependencies.miss.title": "Missing dependencies",

@@ -1,3 +1,5 @@
+import RandomUtil from './random-util.js';
+
 export default class SpeciesChooser {
   public static getSpeciesMap(): { [key: string]: string } {
     return game.wfrp4e.config.species;
@@ -12,6 +14,11 @@ export default class SpeciesChooser {
       title: game.i18n.localize('WFRP4NPCGEN.species.select.title'),
       content: `<form>
               <div class="form-group">
+              <button onclick="random()">
+              ${game.i18n.localize('WFRP4NPCGEN.common.button.Random')} 
+              </button>
+              </div>
+              <div class="form-group">
               <label>
                   ${game.i18n.localize(
                     'WFRP4NPCGEN.species.select.label'
@@ -23,7 +30,22 @@ export default class SpeciesChooser {
               )}
               </select>
               </div>
-          </form>`,
+          </form>
+          <script>  
+              function random() {
+                  const speciesKeys = [${Object.keys(speciesMap)
+                    .map((key) => `"${key}"`)
+                    .join(',')}];
+                  const randomSpeciesKey = getRandomValue(speciesKeys);
+                  if (randomSpeciesKey != null) {
+                      document.getElementById('select-species-${dialogId}').value = speciesKeys;
+                  }
+              }
+              
+              ${RandomUtil.getRandomValueScript()}
+                
+            </script>
+`,
       buttons: {
         yes: {
           icon: "<i class='fas fa-check'></i>",
