@@ -21,16 +21,11 @@ export default class SpeciesChooser {
               )}
               </div>
               <div class="form-group">
-              <label>
-                  ${game.i18n.localize(
-                    'WFRP4NPCGEN.species.select.label'
-                  )}          
-              </label> 
-              <select id="select-species-${dialogId}">
-              ${Object.entries(speciesMap).map(
-                ([key, value]) => `<option value="${key}">${value}</option>`
+              ${DialogUtil.getLabelScript('WFRP4NPCGEN.species.select.label')}
+              ${DialogUtil.getSelectScript(
+                `select-species-${dialogId}`,
+                speciesMap
               )}
-              </select>
               </div>
           </form>
           <script>  
