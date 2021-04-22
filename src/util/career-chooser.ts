@@ -23,15 +23,15 @@ export default class CareerChooser {
       content: `<form>
               <div class="form-group">
               ${DialogUtil.getLabelScript('WFRP4NPCGEN.career.select.label')}
-              ${DialogUtil.getInputScript(
-                `select-career-${dialogId}`,
-                'text',
-                initCareer,
-                'select-career',
-                'check()',
-                `select-career-list-${dialogId}`,
-                careers.map((c) => c.name)
-              )}
+              ${DialogUtil.getInputScript({
+                id: `select-career-${dialogId}`,
+                type: 'text',
+                initValue: initCareer,
+                name: 'select-career',
+                onInput: 'check()',
+                dataListId: `select-career-list-${dialogId}`,
+                options: careers.map((c) => c.name),
+              })}
               </div>
           </form>
           <script>

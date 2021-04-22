@@ -39,9 +39,13 @@ export default class DialogUtil {
         `;
   }
 
-  public static getLabelScript(label: string): string {
+  public static getLabelScript(
+    label: string,
+    style: string = null as any
+  ): string {
+    const styleStr = style != null ? ` style="${style}"` : '';
     return `
-        <label>
+        <label${styleStr}>
             ${game.i18n.localize(label)}          
         </label> 
         `;
@@ -67,26 +71,43 @@ export default class DialogUtil {
         `;
   }
 
-  public static getInputScript(
-    id: string,
-    type = 'text',
-    initValue: string | number = null as any,
-    name = id,
-    onInput: string = null as any,
-    dataListId: string = null as any,
-    options: string[] = null as any
-  ): string {
-    const hasDataList = dataListId != null && options?.length > 0;
-    const onInputStr = onInput != null ? ` oninput="${onInput}"` : '';
-    const inputListId = hasDataList ? ` list="${dataListId}"` : '';
-    const initValueStr = initValue != null ? ` value=${initValue}` : '';
+  public static getInputScript(options: {
+    id: string;
+    type: string;
+    initValue?: string | number | boolean;
+    name?: string;
+    onInput?: string;
+    onClick?: string;
+    dataListId?: string;
+    options?: string[];
+    classes?: string;
+    style?: string;
+    checked?: boolean;
+  }): string {
+    const hasDataList =
+      options?.dataListId != null &&
+      options?.options != null &&
+      options?.options?.length > 0;
+    const onInputStr =
+      options?.onInput != null ? ` oninput="${options.onInput}"` : '';
+    const onClickStr =
+      options?.onClick != null ? ` onclick="${options.onClick}"` : '';
+    const inputListId = hasDataList ? ` list="${options.dataListId}"` : '';
+    const initValueStr =
+      options?.initValue != null ? ` value=${options.initValue}` : '';
+    const styleStr = options?.style != null ? ` style="${options.style}"` : '';
+    const classesStr =
+      options?.classes != null ? ` class="${options.classes}"` : '';
+    const checkedStr = options?.checked ? ' checked' : '';
     const input = `
-        <input${onInputStr}${inputListId} type="${type}" id="${id}" name="${name}"${initValueStr}/>
+        <input${onInputStr}${onClickStr}${inputListId}${styleStr}${classesStr}${checkedStr} type="${options?.type}" id="${options?.id}" name="${options?.name}"${initValueStr}/>
       `;
     const dataList = hasDataList
       ? `
-    <datalist id="${dataListId}">
-    ${options.map((val) => `<option value="${val}"></option>`).join('')}
+    <datalist id="${options?.dataListId}">
+    ${options?.options
+      ?.map((val) => `<option value="${val}"></option>`)
+      .join('')}
     </datalist>
     `
       : '';
@@ -96,11 +117,4 @@ export default class DialogUtil {
           ${dataList}
           `;
   }
-
-  /*
-    <input oninput="check()" list="select-career-list-${dialogId}" type="text" id="select-career-${dialogId}" name="select-career" />
-                <datalist id="select-career-list-${dialogId}">
-                   ${careers.map((c) => `<option value="${c.name}"></option>`)}
-                </datalist>
-     */
 }

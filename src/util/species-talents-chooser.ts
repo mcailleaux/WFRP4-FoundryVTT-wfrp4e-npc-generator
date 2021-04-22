@@ -1,3 +1,5 @@
+import DialogUtil from './dialog-util.js';
+
 export default class SpeciesTalentsChooser {
   public static getSpeciesTalentsMap(): { [key: string]: any[] } {
     return game.wfrp4e.config.speciesTalents;
@@ -5,7 +7,8 @@ export default class SpeciesTalentsChooser {
 
   public static async selectSpeciesTalents(
     speciesKey: string,
-    callback: (speciesTalents: string[]) => void
+    callback: (speciesTalents: string[]) => void,
+    undo: () => void
   ) {
     const dialogId = new Date().getTime();
     const speciesTalentsMap = this.getSpeciesTalentsMap();
@@ -64,32 +67,26 @@ export default class SpeciesTalentsChooser {
               check();
           </script>
                  `,
-      buttons: {
-        yes: {
-          icon: `<i class="fas fa-check" id="yes-icon-${dialogId}"></i>`,
-          label: game.i18n.localize('WFRP4NPCGEN.common.button.OK'),
-          callback: (html: JQuery) => {
-            const talents: string[] = [];
-            html
-              .find(`.select-talent-left-${dialogId}`)
-              .filter((_i, r: HTMLInputElement) => r.checked)
-              .each((_i, r: HTMLInputElement) => {
-                talents.push(r.value);
-              });
-            html
-              .find(`.select-talent-right-${dialogId}`)
-              .filter((_i, r: HTMLInputElement) => r.checked)
-              .each((_i, r: HTMLInputElement) => {
-                talents.push(r.value);
-              });
-            callback(talents);
-          },
+      buttons: DialogUtil.getDialogButtons(
+        dialogId,
+        (html: JQuery) => {
+          const talents: string[] = [];
+          html
+            .find(`.select-talent-left-${dialogId}`)
+            .filter((_i, r: HTMLInputElement) => r.checked)
+            .each((_i, r: HTMLInputElement) => {
+              talents.push(r.value);
+            });
+          html
+            .find(`.select-talent-right-${dialogId}`)
+            .filter((_i, r: HTMLInputElement) => r.checked)
+            .each((_i, r: HTMLInputElement) => {
+              talents.push(r.value);
+            });
+          callback(talents);
         },
-        no: {
-          icon: "<i class='fas fa-times'></i>",
-          label: game.i18n.localize('WFRP4NPCGEN.common.button.Cancel'),
-        },
-      },
+        undo
+      ),
       default: 'yes',
     }).render(true);
   }

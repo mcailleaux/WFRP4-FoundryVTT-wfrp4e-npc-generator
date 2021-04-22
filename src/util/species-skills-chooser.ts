@@ -1,11 +1,16 @@
+import DialogUtil from './dialog-util.js';
+
 export default class SpeciesSkillsChooser {
   public static getSpeciesSkillsMap(): { [key: string]: string[] } {
     return game.wfrp4e.config.speciesSkills;
   }
 
   public static async selectSpeciesSkills(
+    initMajors: string[],
+    initMinors: string[],
     speciesKey: string,
-    callback: (major: string[], minor: string[]) => void
+    callback: (major: string[], minor: string[]) => void,
+    undo: () => void
   ) {
     const dialogId = new Date().getTime();
     const speciesSkillsMap = this.getSpeciesSkillsMap();
@@ -16,25 +21,44 @@ export default class SpeciesSkillsChooser {
                 .map(
                   (s) => `
                   <div class="form-group" style="display: flex; flex-direction: row; justify-content: space-between; align-items: stretch;">                  
-                  <label style="word-break: break-all; flex: 40%;">
-                      ${s}          
-                  </label> 
+                  ${DialogUtil.getLabelScript(
+                    s,
+                    'word-break: break-all; flex: 40%;'
+                  )}                 
                   <div style="flex: 60%; display: flex; flex-direction: row; justify-content: flex-end; align-items: stretch;">
-                  <label style="flex: 25%;">
-                     +5         
-                  </label> 
-                  <input class="select-skill-major-${dialogId}" onclick="check(this, true)" style="flex: 25%;" type="radio" id="select-skill-major-${s}-${dialogId}" name="select-skill-${s}" value="${s}"/>
-                  <label style="flex: 25%;">
-                     +3      
-                  </label> 
-                  <input class="select-skill-minor-${dialogId}" onclick="check(this, false)" style="flex: 25%;" type="radio" id="select-skill-minor-${s}-${dialogId}" name="select-skill-${s}" value="${s}"/>
+                  ${DialogUtil.getLabelScript('+5', 'flex: 25%;')}
+                  ${DialogUtil.getInputScript({
+                    id: `select-skill-major-${s}-${dialogId}`,
+                    type: 'radio',
+                    name: `select-skill-${s}`,
+                    initValue: s,
+                    onClick: 'check(this, false)',
+                    classes: `select-skill-major-${dialogId}`,
+                    style: 'flex: 25%;',
+                    checked: initMajors?.includes(s),
+                  })}
+                  ${DialogUtil.getLabelScript('+3', 'flex: 25%;')}
+                  ${DialogUtil.getInputScript({
+                    id: `select-skill-minor-${s}-${dialogId}`,
+                    type: 'radio',
+                    name: `select-skill-${s}`,
+                    initValue: s,
+                    onClick: 'check(this, true)',
+                    classes: `select-skill-minor-${dialogId}`,
+                    style: 'flex: 25%;',
+                    checked: initMinors?.includes(s),
+                  })}
                   </div>
                   </div>      
               `
                 )
                 .join('')}       
-                  <input type="hidden" id="select-skill-major-nbr-${dialogId}" value="0"/>
-                  <input type="hidden" id="select-skill-minor-nbr-${dialogId}" value="0"/>       
+                  <input type="hidden" id="select-skill-major-nbr-${dialogId}" value="${
+        initMajors.length
+      }"/>
+                  <input type="hidden" id="select-skill-minor-nbr-${dialogId}" value="${
+        initMinors.length
+      }"/>       
           </form>
           <script>                        
               function check(elm, isMajor) {
@@ -76,33 +100,27 @@ export default class SpeciesSkillsChooser {
               check(null, true);
           </script>
                  `,
-      buttons: {
-        yes: {
-          icon: `<i class="fas fa-check" id="yes-icon-${dialogId}"></i>`,
-          label: game.i18n.localize('WFRP4NPCGEN.common.button.OK'),
-          callback: (html: JQuery) => {
-            const major: string[] = [];
-            const minor: string[] = [];
-            html
-              .find(`.select-skill-major-${dialogId}`)
-              .filter((_i, r: HTMLInputElement) => r.checked)
-              .each((_i, r: HTMLInputElement) => {
-                major.push(r.value);
-              });
-            html
-              .find(`.select-skill-minor-${dialogId}`)
-              .filter((_i, r: HTMLInputElement) => r.checked)
-              .each((_i, r: HTMLInputElement) => {
-                minor.push(r.value);
-              });
-            callback(major, minor);
-          },
+      buttons: DialogUtil.getDialogButtons(
+        dialogId,
+        (html: JQuery) => {
+          const major: string[] = [];
+          const minor: string[] = [];
+          html
+            .find(`.select-skill-major-${dialogId}`)
+            .filter((_i, r: HTMLInputElement) => r.checked)
+            .each((_i, r: HTMLInputElement) => {
+              major.push(r.value);
+            });
+          html
+            .find(`.select-skill-minor-${dialogId}`)
+            .filter((_i, r: HTMLInputElement) => r.checked)
+            .each((_i, r: HTMLInputElement) => {
+              minor.push(r.value);
+            });
+          callback(major, minor);
         },
-        no: {
-          icon: "<i class='fas fa-times'></i>",
-          label: game.i18n.localize('WFRP4NPCGEN.common.button.Cancel'),
-        },
-      },
+        undo
+      ),
       default: 'yes',
     }).render(true);
   }

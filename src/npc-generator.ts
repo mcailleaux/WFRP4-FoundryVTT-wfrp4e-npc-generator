@@ -57,12 +57,16 @@ export default class NpcGenerator {
     callback: (model: NpcModel) => void
   ) {
     await this.speciesSkillsChooser.selectSpeciesSkills(
+      model.speciesSkills.major,
+      model.speciesSkills.minor,
       model.speciesKey,
       (major: string[], minor: string[]) => {
         model.speciesSkills.major = major;
         model.speciesSkills.minor = minor;
-
         this.selectSpeciesTalents(model, callback);
+      },
+      () => {
+        this.selectCareer(model, callback);
       }
     );
   }
@@ -75,8 +79,10 @@ export default class NpcGenerator {
       model.speciesKey,
       (talents: string[]) => {
         model.speciesTalents = talents;
-
         callback(model);
+      },
+      () => {
+        this.selectSpeciesSkills(model, callback);
       }
     );
   }
