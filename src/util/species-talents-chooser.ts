@@ -46,6 +46,7 @@ export default class SpeciesTalentsChooser {
               initValue: t,
               style: 'flex: 20%',
               classes: `select-talent-random-${dialogId}`,
+              onClick: 'check()',
             })}
             </div>
             `
@@ -197,7 +198,7 @@ export default class SpeciesTalentsChooser {
             });
           if (randomTalentsNbr > 0) {
             html
-              .find(`select-talent-random-${dialogId}`)
+              .find(`.select-talent-random-${dialogId}`)
               .filter((_i, r: HTMLInputElement) => r.checked)
               .each((_i, r: HTMLInputElement) => {
                 talents.push(r.value);
