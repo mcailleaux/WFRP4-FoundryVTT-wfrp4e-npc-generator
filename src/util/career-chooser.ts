@@ -24,7 +24,7 @@ export default class CareerChooser {
               <div class="form-group">
               ${DialogUtil.getLabelScript('WFRP4NPCGEN.career.select.label')}
               ${DialogUtil.getInputScript(
-                `select-career-list-${dialogId}`,
+                `select-career-${dialogId}`,
                 'text',
                 initCareer,
                 'select-career',

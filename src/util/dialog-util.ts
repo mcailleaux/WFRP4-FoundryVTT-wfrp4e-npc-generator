@@ -86,7 +86,7 @@ export default class DialogUtil {
     const dataList = hasDataList
       ? `
     <datalist id="${dataListId}">
-    ${options.map((val) => `<option value="${val}"></option>`)}
+    ${options.map((val) => `<option value="${val}"></option>`).join('')}
     </datalist>
     `
       : '';
