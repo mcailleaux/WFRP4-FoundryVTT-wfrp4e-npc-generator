@@ -18,8 +18,35 @@ export default class SpeciesTalentsChooser {
         index !== speciesTalentsMap[speciesKey].length - 1 &&
         talent.includes(',')
     );
-    // const randomTalents: number =
-    //   speciesTalentsMap[speciesKey][speciesTalentsMap[speciesKey].length - 1];
+    const randomTalentsNbr: number =
+      speciesTalentsMap[speciesKey][speciesTalentsMap[speciesKey].length - 1];
+    const randomTalents: string[] = game.wfrp4e.tables.talents.rows.map(
+      (row: any) => row.name
+    );
+
+    const randomTalentsForm =
+      randomTalentsNbr > 0
+        ? `
+        <div class="form-group" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: stretch;">
+        ${randomTalents
+          .map(
+            (t) =>
+              `
+            <div class="form-group" style="flex: 50%; display: flex; flex-direction: row; justify-content: space-between; align-items: stretch;">
+            ${DialogUtil.getLabelScript(t, 'flex: 80%')}
+            ${DialogUtil.getInputScript({
+              id: `select-talent-random-${t}-${dialogId}`,
+              type: 'checkbox',
+              initValue: t,
+              style: 'flex: 20%',
+            })}
+            </div>
+            `
+          )
+          .join('')}
+        </div>
+        `
+        : '';
 
     new Dialog({
       title: game.i18n.localize('WFRP4NPCGEN.species.talents.select.title'),
@@ -65,7 +92,8 @@ export default class SpeciesTalentsChooser {
                   </div>      
               `;
                 })
-                .join('')}       
+                .join('')} 
+              ${randomTalentsForm}      
           </form>
           <script>                        
               function check() {
