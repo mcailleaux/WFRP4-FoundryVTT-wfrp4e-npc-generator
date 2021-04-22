@@ -14,7 +14,7 @@ export default class SpeciesChooser {
       title: game.i18n.localize('WFRP4NPCGEN.species.select.title'),
       content: `<form>
               <div class="form-group">
-              <button onclick="random()">
+              <button type="button" onclick="random()">
               ${game.i18n.localize('WFRP4NPCGEN.common.button.Random')} 
               </button>
               </div>
