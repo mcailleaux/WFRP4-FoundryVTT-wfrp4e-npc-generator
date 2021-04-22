@@ -126,8 +126,9 @@ export default class NpcGenerator {
 
   private static async addCareerPath(model: NpcModel) {
     const careersPack = game.packs.get('wfrp4e-core.careers');
-    const career = await careersPack.getEntity(model.career.id);
-    console.dir(career);
+    const careers = await careersPack.getContent();
+    console.dir(model);
+    console.dir(careers);
   }
 
   private static async addBasicSkill(model: NpcModel) {
