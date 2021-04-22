@@ -1,4 +1,5 @@
 import DialogUtil from './dialog-util.js';
+import RandomUtil from './random-util.js';
 
 export default class SpeciesTalentsChooser {
   public static getSpeciesTalentsMap(): { [key: string]: any[] } {
@@ -22,22 +23,45 @@ export default class SpeciesTalentsChooser {
 
     new Dialog({
       title: game.i18n.localize('WFRP4NPCGEN.species.talents.select.title'),
-      content: `<form>            
+      content: `<form>   
+              <div class="form-group">
+                      ${DialogUtil.getButtonScript(
+                        'WFRP4NPCGEN.common.button.Random',
+                        'random()'
+                      )}
+              </div>                 
               ${speciesTalent
                 .map((t) => {
                   const tl = t.split(',')[0].trim();
                   const tr = t.split(',')[1].trim();
                   return `
-                  <div class="form-group" style="display: flex; flex-direction: row; justify-content: space-between; align-items: stretch;">                  
-                  <label style="word-break: break-all; flex: 40%;">
-                      ${tl}          
-                  </label> 
-                
-                  <input class="select-talent-left-${dialogId}" onclick="check()" style="flex: 10%;" type="radio" id="select-talent-left-${tl}-${dialogId}" name="select-talent-${t}" value="${tl}"/>
-                 <label style="word-break: break-all; flex: 40%;">
-                      ${tr}          
-                  </label> 
-                  <input class="select-talent-right-${dialogId}" onclick="check()" style="flex: 10%;" type="radio" id="select-talent-right-${tr}-${dialogId}" name="select-talent-${t}" value="${tr}"/>
+                  <div class="form-group" style="display: flex; flex-direction: row; justify-content: space-between; align-items: stretch;">
+                  ${DialogUtil.getLabelScript(
+                    tl,
+                    'word-break: break-all; flex: 40%;'
+                  )}   
+                  ${DialogUtil.getInputScript({
+                    id: `select-talent-left-${tl}-${dialogId}`,
+                    type: 'radio',
+                    name: `select-talent-${t}`,
+                    initValue: tl,
+                    onClick: 'check()',
+                    classes: `select-talent-left-${dialogId}`,
+                    style: 'flex: 10%;',
+                  })}    
+                  ${DialogUtil.getLabelScript(
+                    tr,
+                    'word-break: break-all; flex: 40%;'
+                  )}              
+                  ${DialogUtil.getInputScript({
+                    id: `select-talent-right-${tr}-${dialogId}`,
+                    type: 'radio',
+                    name: `select-talent-${t}`,
+                    initValue: tr,
+                    onClick: 'check()',
+                    classes: `select-talent-right-${dialogId}`,
+                    style: 'flex: 10%;',
+                  })} 
                   </div>      
               `;
                 })
@@ -55,14 +79,38 @@ export default class SpeciesTalentsChooser {
                  const yesButton = document.getElementById('yes-icon-${dialogId}').parentElement;
                  yesButton.disabled = nbrChecked < ${speciesTalent.length};
               }
-
-              function toArray(obj) {
-                 const array = [];
-                 for (let i = 0; i < obj.length; i++) { 
-                    array[i] = obj[i];
-                 }
-                 return array;
+              
+              function random() {
+                  const speciesTalents = [${speciesTalent
+                    .map((t) => `"${t}"`)
+                    .join(',')}];
+                  const randomTalents = [];
+                  speciesTalents.forEach((st) => {
+                      const choices = st.split(',').map((t) => t.trim());
+                      const randomTalent = getRandomValue(choices);
+                      if (randomTalent != null) {
+                          randomTalents.push(randomTalent);
+                      }
+                  });
+                  if (randomTalents.length > 0) {
+                     const leftClass = 'select-talent-left-${dialogId}';
+                     const rightClass = 'select-talent-right-${dialogId}';                
+                     const lefts = toArray(document.getElementsByClassName(leftClass));
+                     const rights = toArray(document.getElementsByClassName(rightClass));
+                     lefts.forEach((r) => {
+                        r.checked = randomTalents.includes(r.value);
+                     });
+                     rights.forEach((r) => {
+                        r.checked = randomTalents.includes(r.value);
+                     });
+                     check();
+                  }
               }
+              
+              ${RandomUtil.getRandomValueScript()}
+              ${RandomUtil.getRandomValuesScript()}
+
+              ${DialogUtil.getToArrayScript()}
               
               check();
           </script>

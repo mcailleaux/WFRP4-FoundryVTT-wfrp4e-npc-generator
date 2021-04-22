@@ -120,13 +120,7 @@ export default class SpeciesSkillsChooser {
               
               ${RandomUtil.getRandomValuesScript()}
 
-              function toArray(obj) {
-                 const array = [];
-                 for (let i = 0; i < obj.length; i++) { 
-                    array[i] = obj[i];
-                 }
-                 return array;
-              }
+              ${DialogUtil.getToArrayScript()}
               
               check(null, true);
           </script>
