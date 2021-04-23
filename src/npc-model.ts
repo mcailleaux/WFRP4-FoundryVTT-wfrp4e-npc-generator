@@ -13,6 +13,9 @@ export default class NpcModel {
     skill: Item.Data;
     adv: number;
   }[] = [];
+  public talents: {
+    talent: Item.Data;
+  }[] = [];
   public chars: {
     char: string;
     base: number;

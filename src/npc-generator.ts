@@ -229,11 +229,36 @@ export default class NpcGenerator {
   }
 
   private static async addCareerTalents(model: NpcModel) {
-    console.dir(model);
+    for (let i = 0; i < model.careerPath.length; i++) {
+      const data: any = model.careerPath[i]?.data?.data;
+      await this.addTalents(model, data?.talents);
+    }
   }
 
   private static async addSpeciesTalents(model: NpcModel) {
-    console.dir(model);
+    await this.addTalents(model, model.speciesTalents);
+  }
+
+  private static async addTalents(model: NpcModel, names: string[]) {
+    if (names == null || names.length === 0) {
+      return;
+    }
+    for (let i = 0; i < names.length; i++) {
+      const talent = names[i];
+      await this.addTalent(model, talent);
+    }
+  }
+
+  private static async addTalent(model: NpcModel, name: string) {
+    if (name == null || name.length === 0) {
+      return;
+    }
+    if (!model.talents.map((ms) => ms.talent.name).includes(name)) {
+      const talentToAdd = await game.wfrp4e.utility.findTalent(name);
+      model.talents.push({
+        talent: talentToAdd.data,
+      });
+    }
   }
 
   private static async addBasicChars(model: NpcModel) {
