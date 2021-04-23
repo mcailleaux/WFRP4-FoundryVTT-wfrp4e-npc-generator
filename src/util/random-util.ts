@@ -1,4 +1,12 @@
 export default class RandomUtil {
+  public static getRandomBoolean(): boolean {
+    return this.getRandomPositiveNumber(2) === 0;
+  }
+
+  public static getRandomPositiveNumber(max: number): number {
+    return Math.floor(Math.random() * max);
+  }
+
   public static getRandomValue<T>(array: T[]): T {
     if (array == null || array.length === 0) {
       return null as any;

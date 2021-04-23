@@ -5,6 +5,7 @@ import CareerChooser from './util/career-chooser.js';
 import SpeciesSkillsChooser from './util/species-skills-chooser.js';
 import SpeciesTalentsChooser from './util/species-talents-chooser.js';
 import NameChooser from './util/name-chooser.js';
+import RandomUtil from './util/random-util.js';
 
 export default class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
@@ -226,7 +227,20 @@ export default class NpcGenerator {
   }
 
   private static async addBasicCaracs(model: NpcModel) {
-    console.dir(model);
+    const averageChars = await game.wfrp4e.utility.speciesCharacteristics(
+      model.speciesKey,
+      true
+    );
+    Object.entries(averageChars).forEach(([key, char]) => {
+      const positive = RandomUtil.getRandomBoolean();
+      const adjust =
+        (positive ? 1 : -1) * (RandomUtil.getRandomPositiveNumber(3) + 1);
+      model.chars.push({
+        char: key,
+        base: (<any>char).value + adjust,
+        adv: 0,
+      });
+    });
   }
 
   private static async addMovement(model: NpcModel) {
