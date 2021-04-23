@@ -12,5 +12,10 @@
   "WFRP4NPCGEN.species.skills.select.title": "Choisir les Compétences Raciales",
   "WFRP4NPCGEN.species.talents.select.title": "Choisir les Talents Raciaux",
   "WFRP4NPCGEN.name.select.title": "Choisir un Nom",
-  "WFRP4NPCGEN.name.select.label": "Nom"
+  "WFRP4NPCGEN.name.select.label": "Nom",
+  "WFRP4NPCGEN.native.tongue.human": "Language (Reikspiel)",
+  "WFRP4NPCGEN.native.tongue.welf": "Language (Elthárin)",
+  "WFRP4NPCGEN.native.tongue.helf": "Language (Elthárin)",
+  "WFRP4NPCGEN.native.tongue.halfling": "Language (Halfling)",
+  "WFRP4NPCGEN.native.tongue.dwarf": "Language (Khazalid)"
 }

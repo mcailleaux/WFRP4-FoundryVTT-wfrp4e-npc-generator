@@ -118,7 +118,7 @@ export default class NpcGenerator {
     await this.addBasicSkill(model);
     await this.addCareerSkill(model);
     await this.addSpeciesSkill(model);
-    await this.addBasicSkill(model);
+    await this.addNativeTongueSkill(model);
     await this.addBasicCaracs(model);
     await this.addMovement(model);
     await this.addAdvanceSkills(model);
@@ -174,25 +174,55 @@ export default class NpcGenerator {
 
   private static async addBasicSkill(model: NpcModel) {
     const skills: Item.Data[] = await game.wfrp4e.utility.allBasicSkills();
-    model.skills = skills.map((id) => {
+    model.skills = skills.map((itemData) => {
       return {
-        skill: id,
+        skill: itemData,
         adv: 0,
       };
     });
   }
 
   private static async addCareerSkill(model: NpcModel) {
-    // const careerData: any = model.career?.data?.data;
-    // const careerSkills: string[] = careerData?.skills;
-    // careerSkills?.forEach((skill) => {
-    //   if (!model.skills.includes((ms) => ms.))
-    // })
-    console.dir(model);
+    const careerData: any = model.career?.data?.data;
+    const careerSkills: string[] = careerData?.skills;
+    await this.addSkills(model, careerSkills);
   }
 
   private static async addSpeciesSkill(model: NpcModel) {
-    console.dir(model);
+    const speciesSkill = model.speciesSkills.major.concat(
+      model.speciesSkills.minor
+    );
+    await this.addSkills(model, speciesSkill);
+  }
+
+  private static async addNativeTongueSkill(model: NpcModel) {
+    await this.addSkill(
+      model,
+      game.i18n.localize(`WFRP4NPCGEN.native.tongue.${model.speciesKey}`)
+    );
+  }
+
+  private static async addSkills(model: NpcModel, names: string[]) {
+    if (names == null || names.length === 0) {
+      return;
+    }
+    for (let i = 0; i < names.length; i++) {
+      const skill = names[i];
+      await this.addSkill(model, skill);
+    }
+  }
+
+  private static async addSkill(model: NpcModel, name: string) {
+    if (name == null || name.length === 0) {
+      return;
+    }
+    if (!model.skills.map((ms) => ms.skill.name).includes(name)) {
+      const skillToAdd = await game.wfrp4e.utility.findSkill(name);
+      model.skills.push({
+        skill: skillToAdd.data,
+        adv: 0,
+      });
+    }
   }
 
   private static async addBasicCaracs(model: NpcModel) {
