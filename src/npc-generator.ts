@@ -297,7 +297,7 @@ export default class NpcGenerator {
     const data: any = model.career?.data?.data;
     data?.skills?.forEach((skill: string) => {
       const sk = model.skills.find(
-        (s) => s.skill.name === skill && sk.adv === 0
+        (s) => s.skill.name === skill && s.adv === 0
       );
       if (sk != null) {
         sk.adv += model.careerPath.length * 5;
