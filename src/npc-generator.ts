@@ -120,6 +120,8 @@ export default class NpcGenerator {
     await this.addCareerSkill(model);
     await this.addSpeciesSkill(model);
     await this.addNativeTongueSkill(model);
+    await this.addCareerTalents(model);
+    await this.addSpeciesTalents(model);
     await this.addBasicChars(model);
     await this.addMovement(model);
     await this.addAdvanceSkills(model);
@@ -224,6 +226,14 @@ export default class NpcGenerator {
         adv: 0,
       });
     }
+  }
+
+  private static async addCareerTalents(model: NpcModel) {
+    console.dir(model);
+  }
+
+  private static async addSpeciesTalents(model: NpcModel) {
+    console.dir(model);
   }
 
   private static async addBasicChars(model: NpcModel) {
