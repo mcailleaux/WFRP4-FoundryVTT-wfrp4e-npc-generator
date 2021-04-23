@@ -4,14 +4,14 @@ export default class RandomUtil {
   }
 
   public static getRandomPositiveNumber(max: number): number {
-    return Math.floor(Math.random() * max);
+    return Math.floor(this.random() * max);
   }
 
   public static getRandomValue<T>(array: T[]): T {
     if (array == null || array.length === 0) {
       return null as any;
     }
-    return array[Math.floor(Math.random() * array.length)];
+    return array[Math.floor(this.random() * array.length)];
   }
 
   public static getRandomValues<T>(array: T[], nbr: number): T[] {
@@ -20,7 +20,7 @@ export default class RandomUtil {
     }
     const indexes: number[] = [];
     while (indexes.length < nbr) {
-      const idx = Math.floor(Math.random() * array.length);
+      const idx = Math.floor(this.random() * array.length);
       if (!indexes.includes(idx)) {
         indexes.push(idx);
       }
@@ -34,7 +34,11 @@ export default class RandomUtil {
              if (array == null || array.length === 0) {
                 return null;
              }
-             return array[Math.floor(Math.random() * array.length)];
+             let random = 0;
+             Array(10).forEach(() => {
+               random = Math.random();
+             });
+             return array[Math.floor(random * array.length)];
          }
     `;
   }
@@ -47,7 +51,11 @@ export default class RandomUtil {
               }
               const indexes = [];
               while (indexes.length < nbr) {
-                const idx = Math.floor(Math.random() * array.length);
+                let random = 0;
+                Array(10).forEach(() => {
+                  random = Math.random();
+                });
+                const idx = Math.floor(random * array.length);
                 if (!indexes.includes(idx)) {
                   indexes.push(idx);
                 }
@@ -55,5 +63,13 @@ export default class RandomUtil {
               return indexes.map((idx) => array[idx]);
          }
     `;
+  }
+
+  private static random(): number {
+    let random = 0;
+    Array(10).forEach(() => {
+      random = Math.random();
+    });
+    return random;
   }
 }

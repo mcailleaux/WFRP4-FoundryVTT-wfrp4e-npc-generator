@@ -235,8 +235,7 @@ export default class NpcGenerator {
       const positive = RandomUtil.getRandomBoolean();
       const amplitude = RandomUtil.getRandomPositiveNumber(6);
       const adjust =
-        (positive ? 1 : -1) *
-        (RandomUtil.getRandomPositiveNumber(amplitude) + 1);
+        (positive ? 1 : -1) * RandomUtil.getRandomPositiveNumber(amplitude);
       model.chars.push({
         char: key,
         base: (<any>char).value + adjust,
