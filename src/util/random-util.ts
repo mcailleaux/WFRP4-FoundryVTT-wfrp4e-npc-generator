@@ -35,9 +35,9 @@ export default class RandomUtil {
                 return null;
              }
              let random = 0;
-             Array(10).forEach(() => {
-               random = Math.random();
-             });
+             for (let i = 0; i < 10; i++) {
+                 random = Math.random();
+             }
              return array[Math.floor(random * array.length)];
          }
     `;
@@ -52,9 +52,9 @@ export default class RandomUtil {
               const indexes = [];
               while (indexes.length < nbr) {
                 let random = 0;
-                Array(10).forEach(() => {
-                  random = Math.random();
-                });
+                for (let i = 0; i < 10; i++) {
+                   random = Math.random();
+                }
                 const idx = Math.floor(random * array.length);
                 if (!indexes.includes(idx)) {
                   indexes.push(idx);
@@ -67,9 +67,9 @@ export default class RandomUtil {
 
   private static random(): number {
     let random = 0;
-    Array(10).forEach(() => {
+    for (let i = 0; i < 10; i++) {
       random = Math.random();
-    });
+    }
     return random;
   }
 }
