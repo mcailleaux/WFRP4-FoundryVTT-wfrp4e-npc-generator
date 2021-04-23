@@ -219,7 +219,10 @@ export default class NpcGenerator {
     if (name == null || name.length === 0) {
       return;
     }
-    if (!model.skills.map((ms) => ms.skill.name).includes(name)) {
+    if (
+      !model.skills.map((ms) => ms.skill.name).includes(name) ||
+      name.includes('(')
+    ) {
       const skillToAdd = await game.wfrp4e.utility.findSkill(name);
       model.skills.push({
         skill: skillToAdd.data,
@@ -291,15 +294,12 @@ export default class NpcGenerator {
   }
 
   private static async addAdvanceSkills(model: NpcModel) {
-    model.careerPath.forEach((career: Item, index) => {
-      const data: any = career?.data?.data;
-      data?.skills?.forEach((skill: string) => {
-        const sk = model.skills.find((s) => s.skill.name === skill);
-        if (sk != null) {
-          let adv = sk.adv === 0 ? (index + 1) * 5 : 5;
-          sk.adv += adv;
-        }
-      });
+    const data: any = model.career?.data?.data;
+    data?.skills?.forEach((skill: string) => {
+      const sk = model.skills.find((s) => s.skill.name === skill);
+      if (sk != null) {
+        sk.adv += model.careerPath.length * 5;
+      }
     });
     model.speciesSkills.major.forEach((skill) => {
       const sk = model.skills.find((s) => s.skill.name === skill);
@@ -316,15 +316,12 @@ export default class NpcGenerator {
   }
 
   private static async addAdvanceChars(model: NpcModel) {
-    model.careerPath.forEach((career: Item, index) => {
-      const data: any = career?.data?.data;
-      data?.characteristics?.forEach((char: string) => {
-        const ch = model.chars.find((c) => c.char === char);
-        if (ch != null) {
-          let adv = ch.adv === 0 ? (index + 1) * 5 : 5;
-          ch.adv += adv;
-        }
-      });
+    const data: any = model.career?.data?.data;
+    data?.characteristics?.forEach((char: string) => {
+      const ch = model.chars.find((c) => c.char === char);
+      if (ch != null) {
+        ch.adv += model.careerPath.length * 5;
+      }
     });
   }
 }
