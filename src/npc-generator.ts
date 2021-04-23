@@ -296,7 +296,9 @@ export default class NpcGenerator {
   private static async addAdvanceSkills(model: NpcModel) {
     const data: any = model.career?.data?.data;
     data?.skills?.forEach((skill: string) => {
-      const sk = model.skills.find((s) => s.skill.name === skill);
+      const sk = model.skills.find(
+        (s) => s.skill.name === skill && sk.adv === 0
+      );
       if (sk != null) {
         sk.adv += model.careerPath.length * 5;
       }
