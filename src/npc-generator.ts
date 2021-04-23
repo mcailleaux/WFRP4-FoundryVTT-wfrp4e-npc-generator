@@ -146,7 +146,15 @@ export default class NpcGenerator {
       model.careerPath = careers
         .filter((c: Item) => {
           const data: any = c?.data?.data;
-          return data?.careergroup?.value === careerData?.careergroup?.value;
+          const levelStr = data?.level?.value;
+          const selectLevelStr = careerData?.level?.value;
+          const level = levelStr != null ? Number(levelStr) : 0;
+          const selectLevel =
+            selectLevelStr != null ? Number(selectLevelStr) : 0;
+          return (
+            data?.careergroup?.value === careerData?.careergroup?.value &&
+            level <= selectLevel
+          );
         })
         .sort((a, b) => {
           const aData: any = a?.data?.data;
