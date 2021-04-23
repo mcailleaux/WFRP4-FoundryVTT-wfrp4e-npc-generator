@@ -236,6 +236,13 @@ export default class NpcGenerator {
   }
 
   private static async addSpeciesTalents(model: NpcModel) {
+    const speciesTalentsMap = this.speciesTalentsChooser.getSpeciesTalentsMap();
+    const speciesTalent: string[] = speciesTalentsMap[model.speciesKey].filter(
+      (talent: string, index) =>
+        index !== speciesTalentsMap[model.speciesKey].length - 1 &&
+        !talent.includes(',')
+    );
+    await this.addTalents(model, speciesTalent);
     await this.addTalents(model, model.speciesTalents);
   }
 
