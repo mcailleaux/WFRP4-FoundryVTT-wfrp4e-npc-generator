@@ -99,6 +99,7 @@ export default class NpcGenerator {
     }
     await this.nameChooser.selectName(
       model.name,
+      model.speciesKey,
       (name: string) => {
         model.name = name;
         this.finalize(model, callback);

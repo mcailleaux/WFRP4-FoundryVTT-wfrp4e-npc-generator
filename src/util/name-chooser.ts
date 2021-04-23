@@ -3,13 +3,20 @@ import DialogUtil from './dialog-util.js';
 export default class NameChooser {
   public static async selectName(
     initName: string,
+    speciesKey: string,
     callback: (name: string) => void,
     undo: () => void
   ) {
     const dialogId = new Date().getTime();
     new Dialog({
       title: game.i18n.localize('WFRP4NPCGEN.name.select.title'),
-      content: `<form>              
+      content: `<form>
+              <div class="form-group">
+                                  ${DialogUtil.getButtonScript(
+                                    'WFRP4NPCGEN.common.button.Random',
+                                    'random()'
+                                  )}
+              </div>              
               <div class="form-group">
               ${DialogUtil.getLabelScript('WFRP4NPCGEN.name.select.label')}
               ${DialogUtil.getInputScript({
@@ -26,7 +33,13 @@ export default class NameChooser {
                 const name = document.getElementById('select-name-${dialogId}').value;
                 const yesButton = document.getElementById('yes-icon-${dialogId}').parentElement;
                 yesButton.disabled = name == null || name.length <= 0;    
-              }                                        
+              }
+              function random() {
+                  document.getElementById('select-name-${dialogId}').value = generateName('${speciesKey}');
+                  check();
+              }
+              
+              ${DialogUtil.getNameRandomScript()};
             </script>
             `,
       buttons: DialogUtil.getDialogButtons(

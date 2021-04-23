@@ -43,43 +43,10 @@ export default class SpeciesTalentsChooser {
       initChoiceTalents = initTalents;
     }
 
-    const randomTalentsForm =
-      randomTalentsNbr > 0
+    const choiceTalentsForm =
+      speciesTalent.length > 0
         ? `
-        <div class="form-group">
-          ${DialogUtil.getButtonScript(
-            'WFRP4NPCGEN.common.button.Random',
-            'randomTalents()'
-          )}
-        </div>
-        <div class="form-group" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: stretch;">
-        ${randomTalents
-          .map(
-            (t) =>
-              `
-            <div class="form-group" style="flex: 50%; display: flex; flex-direction: row; justify-content: space-between; align-items: stretch;">
-            ${DialogUtil.getLabelScript(t, 'flex: 80%')}
-            ${DialogUtil.getInputScript({
-              id: `select-talent-random-${t}-${dialogId}`,
-              type: 'checkbox',
-              initValue: t,
-              style: 'flex: 20%',
-              classes: `select-talent-random-${dialogId}`,
-              onClick: 'check()',
-              checked: initRandomTalents.includes(t),
-            })}
-            </div>
-            `
-          )
-          .join('')}
-        </div>
-        `
-        : '';
-
-    new Dialog({
-      title: game.i18n.localize('WFRP4NPCGEN.species.talents.select.title'),
-      content: `<form>   
-              <div class="form-group">
+               <div class="form-group">
                   ${DialogUtil.getButtonScript(
                     'WFRP4NPCGEN.common.button.Random',
                     'random()'
@@ -123,6 +90,46 @@ export default class SpeciesTalentsChooser {
               `;
                 })
                 .join('')} 
+    `
+        : '';
+
+    const randomTalentsForm =
+      randomTalentsNbr > 0
+        ? `
+        <div class="form-group">
+          ${DialogUtil.getButtonScript(
+            'WFRP4NPCGEN.common.button.Random',
+            'randomTalents()'
+          )}
+        </div>
+        <div class="form-group" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: stretch;">
+        ${randomTalents
+          .map(
+            (t) =>
+              `
+            <div class="form-group" style="flex: 50%; display: flex; flex-direction: row; justify-content: space-between; align-items: stretch;">
+            ${DialogUtil.getLabelScript(t, 'flex: 80%')}
+            ${DialogUtil.getInputScript({
+              id: `select-talent-random-${t}-${dialogId}`,
+              type: 'checkbox',
+              initValue: t,
+              style: 'flex: 20%',
+              classes: `select-talent-random-${dialogId}`,
+              onClick: 'check()',
+              checked: initRandomTalents.includes(t),
+            })}
+            </div>
+            `
+          )
+          .join('')}
+        </div>
+        `
+        : '';
+
+    new Dialog({
+      title: game.i18n.localize('WFRP4NPCGEN.species.talents.select.title'),
+      content: `<form>   
+              ${choiceTalentsForm}
               ${randomTalentsForm}      
           </form>
           <script>                        

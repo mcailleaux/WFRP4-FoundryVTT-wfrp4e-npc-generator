@@ -129,4 +129,13 @@ export default class DialogUtil {
         }
     `;
   }
+
+  public static getNameRandomScript(): string {
+    return `
+        function generateName(speciesKey) {
+            const nameGen = game.wfrp4e.names;
+            return nameGen.generateName({ species: 'human' });
+        }
+    `;
+  }
 }
