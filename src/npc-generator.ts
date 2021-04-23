@@ -120,10 +120,10 @@ export default class NpcGenerator {
     await this.addCareerSkill(model);
     await this.addSpeciesSkill(model);
     await this.addNativeTongueSkill(model);
-    await this.addBasicCaracs(model);
+    await this.addBasicChars(model);
     await this.addMovement(model);
     await this.addAdvanceSkills(model);
-    await this.addAdvanceCaracs(model);
+    await this.addAdvanceChars(model);
     callback(model);
   }
 
@@ -226,7 +226,7 @@ export default class NpcGenerator {
     }
   }
 
-  private static async addBasicCaracs(model: NpcModel) {
+  private static async addBasicChars(model: NpcModel) {
     const averageChars = await game.wfrp4e.utility.speciesCharacteristics(
       model.speciesKey,
       true
@@ -245,14 +245,34 @@ export default class NpcGenerator {
   }
 
   private static async addMovement(model: NpcModel) {
-    console.dir(model);
+    model.move = await game.wfrp4e.utility.speciesMovement(model.speciesKey);
   }
 
   private static async addAdvanceSkills(model: NpcModel) {
-    console.dir(model);
+    model.careerPath.forEach((career: Item) => {
+      const data: any = career?.data?.data;
+      data?.skills?.forEach((skill: string) => {
+        const sk = model.skills.find((s) => s.skill.name === skill);
+        if (sk != null) {
+          sk.adv += 5;
+        }
+      });
+    });
+    model.speciesSkills.major.forEach((skill) => {
+      const sk = model.skills.find((s) => s.skill.name === skill);
+      if (sk != null && sk.adv === 0) {
+        sk.adv += 5;
+      }
+    });
+    model.speciesSkills.minor.forEach((skill) => {
+      const sk = model.skills.find((s) => s.skill.name === skill);
+      if (sk != null && sk.adv === 0) {
+        sk.adv += 3;
+      }
+    });
   }
 
-  private static async addAdvanceCaracs(model: NpcModel) {
+  private static async addAdvanceChars(model: NpcModel) {
     console.dir(model);
   }
 }

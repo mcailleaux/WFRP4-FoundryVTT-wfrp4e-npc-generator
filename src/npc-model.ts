@@ -18,4 +18,5 @@ export default class NpcModel {
     base: number;
     adv: number;
   }[] = [];
+  public move: string;
 }
