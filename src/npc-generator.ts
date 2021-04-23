@@ -291,12 +291,13 @@ export default class NpcGenerator {
   }
 
   private static async addAdvanceSkills(model: NpcModel) {
-    model.careerPath.forEach((career: Item) => {
+    model.careerPath.forEach((career: Item, index) => {
       const data: any = career?.data?.data;
       data?.skills?.forEach((skill: string) => {
         const sk = model.skills.find((s) => s.skill.name === skill);
         if (sk != null) {
-          sk.adv += 5;
+          let adv = sk.adv === 0 ? (index + 1) * 5 : 5;
+          sk.adv += adv;
         }
       });
     });
@@ -315,12 +316,13 @@ export default class NpcGenerator {
   }
 
   private static async addAdvanceChars(model: NpcModel) {
-    model.careerPath.forEach((career: Item) => {
+    model.careerPath.forEach((career: Item, index) => {
       const data: any = career?.data?.data;
       data?.characteristics?.forEach((char: string) => {
         const ch = model.chars.find((c) => c.char === char);
         if (ch != null) {
-          ch.adv += 5;
+          let adv = ch.adv === 0 ? (index + 1) * 5 : 5;
+          ch.adv += adv;
         }
       });
     });
