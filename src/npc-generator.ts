@@ -117,6 +117,7 @@ export default class NpcGenerator {
     await this.addCareerPath(model);
     await this.addBasicSkill(model);
     await this.addCareerSkill(model);
+    await this.addSpeciesSkill(model);
     await this.addBasicSkill(model);
     await this.addBasicCaracs(model);
     await this.addMovement(model);
@@ -140,6 +141,7 @@ export default class NpcGenerator {
     } else {
       career = <Item>careers.find((c: Item) => c.id === model.career._id);
     }
+    model.career = career;
 
     const careerData: any = career?.data?.data;
     if (careerData?.careergroup?.value != null) {
@@ -171,10 +173,25 @@ export default class NpcGenerator {
   }
 
   private static async addBasicSkill(model: NpcModel) {
-    console.dir(model);
+    const skills: Item.Data[] = await game.wfrp4e.utility.allBasicSkills();
+    model.skills = skills.map((id) => {
+      return {
+        skill: id,
+        adv: 0,
+      };
+    });
   }
 
   private static async addCareerSkill(model: NpcModel) {
+    // const careerData: any = model.career?.data?.data;
+    // const careerSkills: string[] = careerData?.skills;
+    // careerSkills?.forEach((skill) => {
+    //   if (!model.skills.includes((ms) => ms.))
+    // })
+    console.dir(model);
+  }
+
+  private static async addSpeciesSkill(model: NpcModel) {
     console.dir(model);
   }
 

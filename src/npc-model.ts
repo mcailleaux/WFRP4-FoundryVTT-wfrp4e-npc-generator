@@ -9,4 +9,8 @@ export default class NpcModel {
   };
   public speciesTalents: string[] = [];
   public name: string;
+  public skills: {
+    skill: Item.Data;
+    adv: number;
+  }[] = [];
 }
