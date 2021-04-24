@@ -55,9 +55,9 @@ export default class NpcGenerator {
     callback: (model: NpcModel) => void
   ) {
     await this.careerChooser.selectCareer(
-      model.career?.name,
+      model.slectedCareer?.name,
       (career: Item) => {
-        model.career = career.data;
+        model.slectedCareer = career;
 
         this.selectSpeciesSkills(model, callback);
       },
@@ -108,7 +108,7 @@ export default class NpcGenerator {
     callback: (model: NpcModel) => void
   ) {
     if (model.name == null) {
-      model.name = `${model.career.name} ${model.speciesValue}`;
+      model.name = `${model.slectedCareer.name} ${model.speciesValue}`;
     }
     await this.nameChooser.selectName(
       model.name,
@@ -151,11 +151,12 @@ export default class NpcGenerator {
       careers.push(...worldCareers);
     }
     let career: Item.Data;
-    if (model.career.data != null) {
-      career = model.career;
+    if (model.slectedCareer.data != null) {
+      career = model.slectedCareer.data;
     } else {
-      career = (<Item>careers.find((c: Item) => c.id === model.career._id))
-        ?.data;
+      career = (<Item>(
+        careers.find((c: Item) => c.id === model.slectedCareer._id)
+      ))?.data;
     }
     model.career = career;
 
