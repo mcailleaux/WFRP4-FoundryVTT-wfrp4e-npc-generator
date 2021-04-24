@@ -34,17 +34,15 @@ const reComboMark = RegExp(rsCombo, 'g');
  *
  * @since 3.0.0
  * @category String
- * @param {string} [string=''] The string to deburr.
+ * @param {string} [s=''] The string to deburr.
  * @returns {string} Returns the deburred string.
  * @example
  *
  * deburr('déjà vu')
  * // => 'deja vu'
  */
-function deburr(string) {
-  return (
-    string && string.replace(reLatin, deburrLetter).replace(reComboMark, '')
-  );
+function deburr(s: string) {
+  return s && s.replace(reLatin, deburrLetter).replace(reComboMark, '');
 }
 
 export default deburr;
