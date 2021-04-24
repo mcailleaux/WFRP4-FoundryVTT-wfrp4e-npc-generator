@@ -134,7 +134,7 @@ export default class DialogUtil {
     return `
         function generateName(speciesKey) {
             const nameGen = game.wfrp4e.names;
-            return nameGen.generateName({ species: 'human' });
+            return nameGen.generateName({ species: speciesKey });
         }
     `;
   }
