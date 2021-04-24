@@ -115,8 +115,23 @@ game.wfrp4e.npcGen.nameChooser.selectName(
 })
 ```
 
+## Generation rules
+
+- Actor is created with npc template (creature template comming soon)
+- Actor have all his career skills, species skills, native tongue skill and basic skills
+  - All career skills have 5 x career level advance
+  - Majors species skill have 5 advance if not present in career
+  - Minors species skill have 3 advance if not present in career
+- Actor have all his career talent since the level 1 career and species talents
+  - Only one advance by talent
+  - Talent are added after Actor creation to attach effect
+- Actor have adverage characteristic
+  - Each characteristics have +/- 0-5
+  - All career characteristics have 5 x career level advance
+
 ## Comming soon
 
+- Add option to limit career choices by species career random table
 - Create a function to Prompt option to generate trappings or not
 - Generate actor with trapping
 - Create a function to Prompt a generation mode (simple or advanced)

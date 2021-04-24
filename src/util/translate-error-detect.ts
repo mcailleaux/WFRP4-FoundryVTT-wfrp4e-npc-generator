@@ -21,7 +21,13 @@ export default class TranslateErrorDetect {
     });
 
     Object.values(speciesTalentsMap).forEach((tl) => {
-      talents.push(...tl.filter((_t, i) => i !== tl.length - 1));
+      tl.filter((_t, i) => i !== tl.length - 1).forEach((t: string) => {
+        if (t.includes(',')) {
+          talents.push(...t.split(','));
+        } else {
+          talents.push(t);
+        }
+      });
     });
     talents.push(...randomTalents);
 
