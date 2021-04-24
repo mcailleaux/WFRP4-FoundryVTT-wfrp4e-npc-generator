@@ -42,12 +42,21 @@ export class ActorBuilder {
       },
       items: [
         ...model.skills,
-        ...model.talents,
+        // ...model.talents,
         ...model.careerPath,
         ...moneyItems,
       ],
-      effects: model.effects,
+      // effects: model.effects,
     };
     return Promise.resolve(actorData);
+  }
+
+  public static async createActor(model: NpcModel, data: any) {
+    const actor = await Actor.create(data);
+    for (let i = 0; i < model.talents.length; i++) {
+      await actor.createEmbeddedEntity(model.talents[i].name, model.talents[i]);
+    }
+
+    return Promise.resolve(actor);
   }
 }

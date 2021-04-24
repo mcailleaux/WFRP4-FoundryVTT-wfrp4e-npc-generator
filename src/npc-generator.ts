@@ -22,7 +22,7 @@ export default class NpcGenerator {
   ) {
     this.generateNpcModel(async (model) => {
       const actorData = await ActorBuilder.buildActorData(model, 'npc');
-      const actor = await Actor.create(actorData);
+      const actor = await ActorBuilder.createActor(model, actorData);
       callback(model, actorData, actor);
     });
   }
