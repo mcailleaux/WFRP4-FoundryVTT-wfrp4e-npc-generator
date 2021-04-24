@@ -6,6 +6,7 @@ import SpeciesSkillsChooser from './util/species-skills-chooser.js';
 import SpeciesTalentsChooser from './util/species-talents-chooser.js';
 import NameChooser from './util/name-chooser.js';
 import RandomUtil from './util/random-util.js';
+import { ActorBuilder } from './actor-builder.js';
 
 export default class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
@@ -13,6 +14,17 @@ export default class NpcGenerator {
   public static readonly speciesSkillsChooser = SpeciesSkillsChooser;
   public static readonly speciesTalentsChooser = SpeciesTalentsChooser;
   public static readonly nameChooser = NameChooser;
+  public static readonly actorBuilder = ActorBuilder;
+
+  public static async generateNpc(
+    callback: (model: NpcModel, actorData: any, actor: any) => void
+  ) {
+    this.generateNpcModel(async (model) => {
+      const actorData = await ActorBuilder.buildActorData(model, 'npc');
+      const actor = await Actor.create(actorData);
+      callback(model, actorData, actor);
+    });
+  }
 
   public static async generateNpcModel(callback: (model: NpcModel) => void) {
     const npcModel = new NpcModel();
@@ -45,7 +57,7 @@ export default class NpcGenerator {
     await this.careerChooser.selectCareer(
       model.career?.name,
       (career: Item) => {
-        model.career = career;
+        model.career = career.data;
 
         this.selectSpeciesSkills(model, callback);
       },
@@ -138,19 +150,21 @@ export default class NpcGenerator {
     if (worldCareers != null && worldCareers.length > 0) {
       careers.push(...worldCareers);
     }
-    let career: Item;
+    let career: Item.Data;
     if (model.career.data != null) {
       career = model.career;
     } else {
-      career = <Item>careers.find((c: Item) => c.id === model.career._id);
+      career = (<Item>careers.find((c: Item) => c.id === model.career._id))
+        ?.data;
     }
     model.career = career;
 
-    const careerData: any = career?.data?.data;
+    const careerData: any = career?.data;
     if (careerData?.careergroup?.value != null) {
       model.careerPath = careers
-        .filter((c: Item) => {
-          const data: any = c?.data?.data;
+        .map((c: Item) => c.data)
+        .filter((c: Item.Data) => {
+          const data: any = c?.data;
           const levelStr = data?.level?.value;
           const selectLevelStr = careerData?.level?.value;
           const level = levelStr != null ? Number(levelStr) : 0;
@@ -162,8 +176,8 @@ export default class NpcGenerator {
           );
         })
         .sort((a, b) => {
-          const aData: any = a?.data?.data;
-          const bData: any = b?.data?.data;
+          const aData: any = a?.data;
+          const bData: any = b?.data;
           const aLevelStr = aData?.level?.value;
           const bLevelStr = bData?.level?.value;
           const aLevel = aLevelStr != null ? Number(aLevelStr) : 0;
@@ -173,20 +187,23 @@ export default class NpcGenerator {
     } else {
       model.careerPath = [career];
     }
-  }
-
-  private static async addBasicSkill(model: NpcModel) {
-    const skills: Item.Data[] = await game.wfrp4e.utility.allBasicSkills();
-    model.skills = skills.map((itemData) => {
-      return {
-        skill: itemData,
-        adv: 0,
-      };
+    model.careerPath.forEach((c, i) => {
+      const data: any = c?.data;
+      if (data?.current != null) {
+        data.current.value = i === model.careerPath.length - 1;
+      }
+      if (data?.complete != null) {
+        data.current.complete = true;
+      }
     });
   }
 
+  private static async addBasicSkill(model: NpcModel) {
+    model.skills = await game.wfrp4e.utility.allBasicSkills();
+  }
+
   private static async addCareerSkill(model: NpcModel) {
-    const careerData: any = model.career?.data?.data;
+    const careerData: any = model.career?.data;
     const careerSkills: string[] = careerData?.skills;
     await this.addSkills(model, careerSkills);
   }
@@ -220,20 +237,17 @@ export default class NpcGenerator {
       return;
     }
     if (
-      !model.skills.map((ms) => ms.skill.name).includes(name) ||
+      !model.skills.map((ms) => ms.name).includes(name) ||
       name.includes('(')
     ) {
       const skillToAdd = await game.wfrp4e.utility.findSkill(name);
-      model.skills.push({
-        skill: skillToAdd.data,
-        adv: 0,
-      });
+      model.skills.push(skillToAdd.data);
     }
   }
 
   private static async addCareerTalents(model: NpcModel) {
     for (let i = 0; i < model.careerPath.length; i++) {
-      const data: any = model.careerPath[i]?.data?.data;
+      const data: any = model.careerPath[i]?.data;
       await this.addTalents(model, data?.talents);
     }
   }
@@ -263,11 +277,9 @@ export default class NpcGenerator {
     if (name == null || name.length === 0) {
       return;
     }
-    if (!model.talents.map((ms) => ms.talent.name).includes(name)) {
+    if (!model.talents.map((ms) => ms.name).includes(name)) {
       const talentToAdd = await game.wfrp4e.utility.findTalent(name);
-      model.talents.push({
-        talent: talentToAdd.data,
-      });
+      model.talents.push(talentToAdd.data);
     }
   }
 
@@ -281,11 +293,10 @@ export default class NpcGenerator {
       const amplitude = RandomUtil.getRandomPositiveNumber(6);
       const adjust =
         (positive ? 1 : -1) * RandomUtil.getRandomPositiveNumber(amplitude);
-      model.chars.push({
-        char: key,
-        base: (<any>char).value + adjust,
-        adv: 0,
-      });
+      model.chars[key] = {
+        initial: (<any>char).value + adjust,
+        advances: 0,
+      };
     });
   }
 
@@ -294,35 +305,35 @@ export default class NpcGenerator {
   }
 
   private static async addAdvanceSkills(model: NpcModel) {
-    const data: any = model.career?.data?.data;
+    const data: any = model.career?.data;
     data?.skills?.forEach((skill: string) => {
       const sk = model.skills.find(
-        (s) => s.skill.name === skill && s.adv === 0
+        (s) => s.name === skill && (<any>s.data).advances.value === 0
       );
       if (sk != null) {
-        sk.adv += model.careerPath.length * 5;
+        (<any>sk.data).advances.value += model.careerPath.length * 5;
       }
     });
     model.speciesSkills.major.forEach((skill) => {
-      const sk = model.skills.find((s) => s.skill.name === skill);
-      if (sk != null && sk.adv === 0) {
-        sk.adv += 5;
+      const sk = model.skills.find((s) => s.name === skill);
+      if (sk != null && (<any>sk.data).advances.value === 0) {
+        (<any>sk.data).advances.value += 5;
       }
     });
     model.speciesSkills.minor.forEach((skill) => {
-      const sk = model.skills.find((s) => s.skill.name === skill);
-      if (sk != null && sk.adv === 0) {
-        sk.adv += 3;
+      const sk = model.skills.find((s) => s.name === skill);
+      if (sk != null && (<any>sk.data).advances.value === 0) {
+        (<any>sk.data).advances.value += 3;
       }
     });
   }
 
   private static async addAdvanceChars(model: NpcModel) {
-    const data: any = model.career?.data?.data;
+    const data: any = model.career?.data;
     data?.characteristics?.forEach((char: string) => {
-      const ch = model.chars.find((c) => c.char === char);
+      const ch = model.chars[char];
       if (ch != null) {
-        ch.adv += model.careerPath.length * 5;
+        ch.advances += model.careerPath.length * 5;
       }
     });
   }
