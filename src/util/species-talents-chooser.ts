@@ -6,6 +6,10 @@ export default class SpeciesTalentsChooser {
     return game.wfrp4e.config.speciesTalents;
   }
 
+  public static getRandomTalents(): string[] {
+    return game.wfrp4e.tables.talents.rows.map((row: any) => row.name);
+  }
+
   public static async selectSpeciesTalents(
     initTalents: string[],
     speciesKey: string,
@@ -21,9 +25,7 @@ export default class SpeciesTalentsChooser {
     );
     const randomTalentsNbr: number =
       speciesTalentsMap[speciesKey][speciesTalentsMap[speciesKey].length - 1];
-    const randomTalents: string[] = game.wfrp4e.tables.talents.rows.map(
-      (row: any) => row.name
-    );
+    const randomTalents: string[] = this.getRandomTalents();
 
     let initChoiceTalents: string[];
     let initRandomTalents: string[] = [];

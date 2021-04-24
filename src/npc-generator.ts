@@ -8,6 +8,7 @@ import NameChooser from './util/name-chooser.js';
 import RandomUtil from './util/random-util.js';
 import { ActorBuilder } from './actor-builder.js';
 import StringUtil from './util/string-util.js';
+import TranslateErrorDetect from './util/translate-error-detect.js';
 
 export default class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
@@ -16,6 +17,7 @@ export default class NpcGenerator {
   public static readonly speciesTalentsChooser = SpeciesTalentsChooser;
   public static readonly nameChooser = NameChooser;
   public static readonly actorBuilder = ActorBuilder;
+  public static readonly translateErrorDetect = TranslateErrorDetect;
 
   public static async generateNpc(
     callback?: (model: NpcModel, actorData: any, actor: any) => void
@@ -237,14 +239,10 @@ export default class NpcGenerator {
   }
 
   private static async addNativeTongueSkill(model: NpcModel) {
-    const skill = game.i18n.localize(
-      `WFRP4NPCGEN.native.tongue.${model.speciesKey}`
+    await this.addSkill(
+      model,
+      game.i18n.localize(`WFRP4NPCGEN.native.tongue.${model.speciesKey}`)
     );
-    try {
-      await this.addSkill(model, skill);
-    } catch (e) {
-      console.warn('Cant find Native Tongue skill : ' + skill);
-    }
   }
 
   private static async addSkills(model: NpcModel, names: string[]) {
@@ -272,8 +270,12 @@ export default class NpcGenerator {
           game.i18n.localize('WFRP4NPCGEN.item.any')
         ))
     ) {
-      const skillToAdd = await game.wfrp4e.utility.findSkill(name);
-      model.skills.push(skillToAdd.data);
+      try {
+        const skillToAdd = await game.wfrp4e.utility.findSkill(name);
+        model.skills.push(skillToAdd.data);
+      } catch (e) {
+        console.warn('Cant find Skill : ' + name);
+      }
     }
   }
 
@@ -315,8 +317,12 @@ export default class NpcGenerator {
         name
       )
     ) {
-      const talentToAdd = await game.wfrp4e.utility.findTalent(name);
-      model.talents.push(talentToAdd.data);
+      try {
+        const talentToAdd = await game.wfrp4e.utility.findTalent(name);
+        model.talents.push(talentToAdd.data);
+      } catch (e) {
+        console.warn('Cant find Talent : ' + name);
+      }
     }
   }
 
