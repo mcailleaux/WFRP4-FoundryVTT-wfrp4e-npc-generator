@@ -2,7 +2,9 @@ import SpeciesSkillsChooser from './species-skills-chooser.js';
 import SpeciesTalentsChooser from './species-talents-chooser.js';
 
 export default class TranslateErrorDetect {
-  public static async detectTranslateError() {
+  public static async detectTranslateError(
+    callback: (errors: string[]) => void
+  ) {
     const speciesSkillsMap = SpeciesSkillsChooser.getSpeciesSkillsMap();
     const speciesTalentsMap = SpeciesTalentsChooser.getSpeciesTalentsMap();
     const randomTalents = SpeciesTalentsChooser.getRandomTalents();
@@ -12,6 +14,7 @@ export default class TranslateErrorDetect {
 
     const skills: string[] = [];
     const talents: string[] = [];
+    const errors: string[] = [];
 
     Object.values(speciesSkillsMap).forEach((s) => {
       skills.push(...s);
@@ -32,20 +35,26 @@ export default class TranslateErrorDetect {
       }
     });
 
-    skills.forEach(async (s) => {
+    for (let i = 0; i < skills.length; i++) {
+      const s = skills[i];
       try {
         await game.wfrp4e.utility.findSkill(s);
       } catch (e) {
+        errors.push(s);
         console.warn('Cant find Skill : ' + s);
       }
-    });
+    }
 
-    talents.forEach(async (t) => {
+    for (let i = 0; i < talents.length; i++) {
+      const t = talents[i];
       try {
         await game.wfrp4e.utility.findTalent(t);
       } catch (e) {
+        errors.push(t);
         console.warn('Cant find Talent : ' + t);
       }
-    });
+    }
+
+    callback(errors);
   }
 }
