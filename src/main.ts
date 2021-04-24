@@ -6,11 +6,12 @@ Hooks.once('init', () => {
 
 Hooks.on('renderActorDirectory', (_app: ActorSheet, html: JQuery) => {
   const npcGenButton = document.createElement('button');
+  npcGenButton.style.width = '95%';
   npcGenButton.innerHTML = game.i18n.localize(
     'WFRP4NPCGEN.actor.directory.button'
   );
   npcGenButton.addEventListener('click', () => {
     NpcGenerator.generateNpc();
   });
-  html.find('.header-actions').append(npcGenButton);
+  html.find('.header-actions').after(npcGenButton);
 });
