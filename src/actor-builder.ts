@@ -4,11 +4,16 @@ export class ActorBuilder {
   public static async buildActorData(model: NpcModel, type: string) {
     let moneyItems: Item.Data[] =
       (await game.wfrp4e.utility.allMoneyItems()) ?? [];
-    moneyItems = moneyItems.sort((a, b) => {
-      const aData: any = a.data;
-      const bData: any = b.data;
-      return aData.coinValue.value > bData.coinValue.value ? -1 : 1;
-    });
+    moneyItems = moneyItems
+      .map((mi) => {
+        (<any>mi.data).quantity.value = 0;
+        return mi;
+      })
+      .sort((a, b) => {
+        const aData: any = a.data;
+        const bData: any = b.data;
+        return aData.coinValue.value > bData.coinValue.value ? -1 : 1;
+      });
     const actorData = {
       name: model.name,
       type: type,
@@ -30,6 +35,7 @@ export class ActorBuilder {
         ...model.careerPath,
         ...moneyItems,
       ],
+      effects: model.effects,
     };
     return Promise.resolve(actorData);
   }

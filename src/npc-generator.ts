@@ -138,6 +138,7 @@ export default class NpcGenerator {
     await this.addMovement(model);
     await this.addAdvanceSkills(model);
     await this.addAdvanceChars(model);
+    await this.addEffects(model);
     callback(model);
   }
 
@@ -194,7 +195,7 @@ export default class NpcGenerator {
         data.current.value = i === model.careerPath.length - 1;
       }
       if (data?.complete != null) {
-        data.current.complete = true;
+        data.complete.value = true;
       }
     });
   }
@@ -336,6 +337,12 @@ export default class NpcGenerator {
       if (ch != null) {
         ch.advances += model.careerPath.length * 5;
       }
+    });
+  }
+
+  private static async addEffects(model: NpcModel) {
+    model.talents.forEach((talent) => {
+      model.effects.push(...(<any>talent).effects);
     });
   }
 }
