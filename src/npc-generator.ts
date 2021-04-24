@@ -237,10 +237,14 @@ export default class NpcGenerator {
   }
 
   private static async addNativeTongueSkill(model: NpcModel) {
-    await this.addSkill(
-      model,
-      game.i18n.localize(`WFRP4NPCGEN.native.tongue.${model.speciesKey}`)
+    const skill = game.i18n.localize(
+      `WFRP4NPCGEN.native.tongue.${model.speciesKey}`
     );
+    try {
+      await this.addSkill(model, skill);
+    } catch (e) {
+      console.warn('Cant find Native Tongue skill : ' + skill);
+    }
   }
 
   private static async addSkills(model: NpcModel, names: string[]) {

@@ -14,11 +14,11 @@
   "WFRP4NPCGEN.species.talents.select.title": "Choose Species Talents",
   "WFRP4NPCGEN.name.select.title": "Choose a Name",
   "WFRP4NPCGEN.name.select.label": "Name",
-  "WFRP4NPCGEN.native.tongue.human": "Langue (Reikspiel)",
-  "WFRP4NPCGEN.native.tongue.welf": "Langue (Elthárin)",
-  "WFRP4NPCGEN.native.tongue.helf": "Langue (Elthárin)",
-  "WFRP4NPCGEN.native.tongue.halfling": "Langue (Mootish)",
-  "WFRP4NPCGEN.native.tongue.dwarf": "Langue (Khazalid)",
+  "WFRP4NPCGEN.native.tongue.human": "Language (Reikspiel)",
+  "WFRP4NPCGEN.native.tongue.welf": "Language (Elthárin)",
+  "WFRP4NPCGEN.native.tongue.helf": "Language (Elthárin)",
+  "WFRP4NPCGEN.native.tongue.halfling": "Language (Mootish)",
+  "WFRP4NPCGEN.native.tongue.dwarf": "Language (Khazalid)",
   "WFRP4NPCGEN.item.any": "any",
   "WFRP4NPCGEN.notification.actor.created": "NPC {name} has been created"
 }

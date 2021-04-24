@@ -2,7 +2,7 @@
   "name": "wfrp4e-npc-generator-beta",
   "title": "[WFRP4] NPC macro generator BETA version",
   "description": "Macro to generate NPC",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "minimumCoreVersion": "0.7.9",
   "compatibleCoreVersion": "0.7.9",
   "author": "Skeroujvapluvit",
