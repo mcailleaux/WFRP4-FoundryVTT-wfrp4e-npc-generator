@@ -251,12 +251,12 @@ export default class NpcGenerator {
       return;
     }
     if (
-      !StringUtil.arrayIncludesLocalEnIgnoreCase(
+      !StringUtil.arrayIncludesDeburrIgnoreCase(
         model.skills.map((ms) => ms.name),
         name
       ) ||
       (name.includes('(') &&
-        StringUtil.includesLocalEnIgnoreCase(
+        StringUtil.includesDeburrIgnoreCase(
           name,
           game.i18n.localize('WFRP4NPCGEN.item.any')
         ))
@@ -299,7 +299,7 @@ export default class NpcGenerator {
       return;
     }
     if (
-      !StringUtil.arrayIncludesLocalEnIgnoreCase(
+      !StringUtil.arrayIncludesDeburrIgnoreCase(
         model.talents.map((ms) => ms.name),
         name
       )
