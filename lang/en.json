@@ -1,4 +1,5 @@
 {
+  "WFRP4NPCGEN.actor.directory.button": "Generate NPC",
   "WFRP4NPCGEN.common.button.OK": "OK",
   "WFRP4NPCGEN.common.button.Cancel": "Cancel",
   "WFRP4NPCGEN.common.button.Undo": "Undo",
@@ -18,5 +19,6 @@
   "WFRP4NPCGEN.native.tongue.helf": "Langue (Elthárin)",
   "WFRP4NPCGEN.native.tongue.halfling": "Langue (Mootish)",
   "WFRP4NPCGEN.native.tongue.dwarf": "Langue (Khazalid)",
-  "WFRP4NPCGEN.item.any": "any"
+  "WFRP4NPCGEN.item.any": "any",
+  "WFRP4NPCGEN.notification.actor.created": "NPC {name} has been created"
 }

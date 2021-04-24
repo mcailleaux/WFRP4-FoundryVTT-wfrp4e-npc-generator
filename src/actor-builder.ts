@@ -40,13 +40,7 @@ export class ActorBuilder {
           },
         },
       },
-      items: [
-        ...model.skills,
-        // ...model.talents,
-        ...model.careerPath,
-        ...moneyItems,
-      ],
-      // effects: model.effects,
+      items: [...model.skills, ...model.careerPath, ...moneyItems],
     };
     return Promise.resolve(actorData);
   }

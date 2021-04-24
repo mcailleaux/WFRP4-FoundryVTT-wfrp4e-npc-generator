@@ -1,4 +1,5 @@
 {
+  "WFRP4NPCGEN.actor.directory.button": "Générer un PNJ",
   "WFRP4NPCGEN.common.button.OK": "OK",
   "WFRP4NPCGEN.common.button.Cancel": "Annuler",
   "WFRP4NPCGEN.common.button.Undo": "Précédent",
@@ -18,5 +19,6 @@
   "WFRP4NPCGEN.native.tongue.helf": "Language (Elthárin)",
   "WFRP4NPCGEN.native.tongue.halfling": "Language (Halfling)",
   "WFRP4NPCGEN.native.tongue.dwarf": "Language (Khazalid)",
-  "WFRP4NPCGEN.item.any": "choix"
+  "WFRP4NPCGEN.item.any": "choix",
+  "WFRP4NPCGEN.notification.actor.created": "Le PNJ {name} a été créé"
 }

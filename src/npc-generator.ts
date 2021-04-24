@@ -18,12 +18,19 @@ export default class NpcGenerator {
   public static readonly actorBuilder = ActorBuilder;
 
   public static async generateNpc(
-    callback: (model: NpcModel, actorData: any, actor: any) => void
+    callback?: (model: NpcModel, actorData: any, actor: any) => void
   ) {
-    this.generateNpcModel(async (model) => {
+    await this.generateNpcModel(async (model) => {
       const actorData = await ActorBuilder.buildActorData(model, 'npc');
       const actor = await ActorBuilder.createActor(model, actorData);
-      callback(model, actorData, actor);
+      ui.notifications.info(
+        game.i18n.format('WFRP4NPCGEN.notification.actor.created', {
+          name: actor.name,
+        })
+      );
+      if (callback != null) {
+        callback(model, actorData, actor);
+      }
     });
   }
 
