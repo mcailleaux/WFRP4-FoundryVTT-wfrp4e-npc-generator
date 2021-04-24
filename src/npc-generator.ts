@@ -7,6 +7,7 @@ import SpeciesTalentsChooser from './util/species-talents-chooser.js';
 import NameChooser from './util/name-chooser.js';
 import RandomUtil from './util/random-util.js';
 import { ActorBuilder } from './actor-builder.js';
+import StringUtil from './util/string-util.js';
 
 export default class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
@@ -250,8 +251,15 @@ export default class NpcGenerator {
       return;
     }
     if (
-      !model.skills.map((ms) => ms.name).includes(name) ||
-      (name.includes('(') && name.toLowerCase().includes('any'))
+      !StringUtil.arrayIncludesLocalEnIgnoreCase(
+        model.skills.map((ms) => ms.name),
+        name
+      ) ||
+      (name.includes('(') &&
+        StringUtil.includesLocalEnIgnoreCase(
+          name,
+          game.i18n.localize('WFRP4NPCGEN.item.any')
+        ))
     ) {
       const skillToAdd = await game.wfrp4e.utility.findSkill(name);
       model.skills.push(skillToAdd.data);
@@ -290,7 +298,12 @@ export default class NpcGenerator {
     if (name == null || name.length === 0) {
       return;
     }
-    if (!model.talents.map((ms) => ms.name).includes(name)) {
+    if (
+      !StringUtil.arrayIncludesLocalEnIgnoreCase(
+        model.talents.map((ms) => ms.name),
+        name
+      )
+    ) {
       const talentToAdd = await game.wfrp4e.utility.findTalent(name);
       model.talents.push(talentToAdd.data);
     }
