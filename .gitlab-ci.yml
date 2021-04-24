@@ -17,7 +17,7 @@ build:
     - cp lang/* dist/lang/
     - cp module.json dist
     - cd dist
-    - zip wfrp4e-npc-generator.zip -r *.* src lang -x ".*"
+    - zip wfrp4e-npc-generator.zip -r *.* src lang util -x ".*"
   artifacts:
     name: wfrp4e-npc-generator
     when: on_success
@@ -36,7 +36,7 @@ build_beta:
     - cp lang/* dist/lang/
     - cp module-beta.json dist/module.json
     - cd dist
-    - zip wfrp4e-npc-generator.zip -r *.* src lang -x ".*"
+    - zip wfrp4e-npc-generator.zip -r *.* src lang util -x ".*"
   artifacts:
     name: wfrp4e-npc-generator
     when: on_success
