@@ -131,9 +131,9 @@ export default class NpcGenerator {
     await this.addCareerPath(model);
     await this.addStatus(model);
     await this.addBasicSkill(model);
+    await this.addNativeTongueSkill(model);
     await this.addCareerSkill(model);
     await this.addSpeciesSkill(model);
-    await this.addNativeTongueSkill(model);
     await this.addSpeciesTalents(model);
     await this.addCareerTalents(model);
     await this.addBasicChars(model);

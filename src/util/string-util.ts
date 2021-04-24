@@ -19,7 +19,9 @@ export default class StringUtil {
     if (input == null || input.length === 0 || include == null) {
       return false;
     }
-    return input.toLocaleLowerCase(this.local).includes(include);
+    return input
+      .toLocaleLowerCase(this.local)
+      .includes(include.toLocaleLowerCase(this.local));
   }
 
   public static arrayIncludesLocalEnIgnoreCase(
@@ -29,6 +31,8 @@ export default class StringUtil {
     if (array == null || array.length === 0 || include == null) {
       return false;
     }
-    return array.map((s) => s.toLocaleLowerCase(this.local)).includes(include);
+    return array
+      .map((s) => s.toLocaleLowerCase(this.local))
+      .includes(include.toLocaleLowerCase(this.local));
   }
 }
