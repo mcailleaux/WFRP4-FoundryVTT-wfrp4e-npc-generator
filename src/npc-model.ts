@@ -10,8 +10,8 @@ export default class NpcModel {
   };
   public speciesTalents: string[] = [];
   public name: string;
-  public skills: Item.Data[];
-  public talents: Item.Data[];
+  public skills: Item.Data[] = [];
+  public talents: Item.Data[] = [];
   public chars: { [char: string]: { initial: number; advances: number } } = {};
   public move: string;
   public actor: Actor;
