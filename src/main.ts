@@ -12,5 +12,5 @@ Hooks.on('renderActorDirectory', (_app: ActorSheet, html: JQuery) => {
   npcGenButton.addEventListener('click', () => {
     NpcGenerator.generateNpc();
   });
-  html.find('.directory-header').append(npcGenButton);
+  html.find('.header-actions').append(npcGenButton);
 });
