@@ -55,9 +55,9 @@ export default class NpcGenerator {
     callback: (model: NpcModel) => void
   ) {
     await this.careerChooser.selectCareer(
-      model.slectedCareer?.name,
+      model.selectedCareer?.name,
       (career: Item) => {
-        model.slectedCareer = career;
+        model.selectedCareer = career;
 
         this.selectSpeciesSkills(model, callback);
       },
@@ -108,7 +108,7 @@ export default class NpcGenerator {
     callback: (model: NpcModel) => void
   ) {
     if (model.name == null) {
-      model.name = `${model.slectedCareer.name} ${model.speciesValue}`;
+      model.name = `${model.selectedCareer.name} ${model.speciesValue}`;
     }
     await this.nameChooser.selectName(
       model.name,
@@ -128,6 +128,7 @@ export default class NpcGenerator {
     callback: (model: NpcModel) => void
   ) {
     await this.addCareerPath(model);
+    await this.addStatus(model);
     await this.addBasicSkill(model);
     await this.addCareerSkill(model);
     await this.addSpeciesSkill(model);
@@ -152,11 +153,11 @@ export default class NpcGenerator {
       careers.push(...worldCareers);
     }
     let career: Item.Data;
-    if (model.slectedCareer.data != null) {
-      career = model.slectedCareer.data;
+    if (model.selectedCareer.data != null) {
+      career = model.selectedCareer.data;
     } else {
       career = (<Item>(
-        careers.find((c: Item) => c.id === model.slectedCareer._id)
+        careers.find((c: Item) => c.id === model.selectedCareer._id)
       ))?.data;
     }
     model.career = career;
@@ -200,6 +201,16 @@ export default class NpcGenerator {
     });
   }
 
+  private static async addStatus(model: NpcModel) {
+    const careerData: any = model.career?.data;
+    if (careerData?.status != null) {
+      const statusTiers = game.wfrp4e.config.statusTiers;
+      const standing = careerData.status.standing;
+      const tier = statusTiers[careerData.status.tier];
+      model.status = `${tier} ${standing}`;
+    }
+  }
+
   private static async addBasicSkill(model: NpcModel) {
     model.skills = await game.wfrp4e.utility.allBasicSkills();
   }
@@ -240,7 +251,7 @@ export default class NpcGenerator {
     }
     if (
       !model.skills.map((ms) => ms.name).includes(name) ||
-      name.includes('(')
+      (name.includes('(') && name.toLowerCase().includes('any'))
     ) {
       const skillToAdd = await game.wfrp4e.utility.findSkill(name);
       model.skills.push(skillToAdd.data);
@@ -342,7 +353,12 @@ export default class NpcGenerator {
 
   private static async addEffects(model: NpcModel) {
     model.talents.forEach((talent) => {
-      model.effects.push(...(<any>talent).effects);
+      model.effects.push(
+        ...(<any>talent).effects.map((eff: any) => {
+          eff.sourcename = talent.name;
+          return eff;
+        })
+      );
     });
   }
 }

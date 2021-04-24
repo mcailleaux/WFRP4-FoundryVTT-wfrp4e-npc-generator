@@ -28,6 +28,17 @@ export class ActorBuilder {
       },
       data: {
         characteristics: model.chars,
+        details: {
+          move: {
+            value: model.move,
+          },
+          species: {
+            value: model.speciesValue,
+          },
+          status: {
+            value: model.status,
+          },
+        },
       },
       items: [
         ...model.skills,
