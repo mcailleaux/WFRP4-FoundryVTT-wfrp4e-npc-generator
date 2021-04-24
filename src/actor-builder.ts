@@ -52,9 +52,9 @@ export class ActorBuilder {
   }
 
   public static async createActor(model: NpcModel, data: any) {
-    const actor = await Actor.create(data);
+    const actor: Actor = <Actor>await Actor.create(data);
     for (let i = 0; i < model.talents.length; i++) {
-      await actor.createEmbeddedEntity(model.talents[i].name, model.talents[i]);
+      await actor.createOwnedItem(model.talents[i]);
     }
 
     return Promise.resolve(actor);
