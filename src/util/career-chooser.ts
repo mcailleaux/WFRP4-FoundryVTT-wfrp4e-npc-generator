@@ -76,7 +76,7 @@ export default class CareerChooser {
             
             function randomSpecies() {
               const careers = [${this.getRandomSpeciesCareers(speciesKey)
-                .map((c) => `${c}`)
+                .map((c) => `"${c}"`)
                 .join(',')}];
                 performRandom(careers);  
               }
