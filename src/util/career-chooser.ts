@@ -14,8 +14,18 @@ export default class CareerChooser {
     return Promise.resolve(careers);
   }
 
+  public static getRandomSpeciesCareers(speciesKey: string): string[] {
+    if (speciesKey == null) {
+      return [];
+    }
+    return game.wfrp4e.tables.career.rows
+      .filter((row: any) => row?.range[speciesKey]?.length > 0)
+      .map((row: any) => row.name);
+  }
+
   public static async selectCareer(
     initCareer: string,
+    speciesKey: string,
     callback: (item: Item) => void,
     undo: () => void
   ) {
@@ -28,6 +38,14 @@ export default class CareerChooser {
                       ${DialogUtil.getButtonScript(
                         'WFRP4NPCGEN.common.button.Random',
                         'random()'
+                      )}
+              </div>
+              <div class="form-group">
+                      ${DialogUtil.getButtonScript(
+                        `${game.i18n.localize(
+                          'WFRP4NPCGEN.common.button.Random'
+                        )} ${game.wfrp4e.config.species[speciesKey]}`,
+                        'randomSpecies()'
                       )}
               </div>
               <div class="form-group">
@@ -52,12 +70,23 @@ export default class CareerChooser {
             }
             
             function random() {
-              const careers = [${careers.map((c) => `"${c.name}"`).join(',')}]
+              const careers = [${careers.map((c) => `"${c.name}"`).join(',')}];
+              performRandom(careers);
+            }
+            
+            function randomSpecies() {
+              const careers = [${this.getRandomSpeciesCareers(speciesKey).join(
+                ','
+              )}];
+              performRandom(careers);  
+            }
+            
+            function performRandom(careers) {
               const randomCareer = getRandomValue(careers);
               if (randomCareer != null) {
                   document.getElementById('select-career-${dialogId}').value = randomCareer;
                   check();
-              }
+              } 
             }
               
             ${RandomUtil.getRandomValueScript()}

@@ -66,6 +66,7 @@ export default class NpcGenerator {
   ) {
     await this.careerChooser.selectCareer(
       model.selectedCareer?.name,
+      model.speciesKey,
       (career: Item) => {
         model.selectedCareer = career;
 

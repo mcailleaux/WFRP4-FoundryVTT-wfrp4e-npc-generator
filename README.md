@@ -75,6 +75,7 @@ game.wfrp4e.npcGen.speciesChooser.selectSpecies(
 ```
 game.wfrp4e.npcGen.careerChooser.selectCareer(
     'Advisor', // default selected Career
+    'human', // The species key for get random career from species career table
     (career) => {
     console.dir(career)     // The chosen career Item
 })

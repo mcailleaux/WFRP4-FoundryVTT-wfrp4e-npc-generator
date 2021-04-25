@@ -2,7 +2,26 @@ import SpeciesSkillsChooser from './species-skills-chooser.js';
 import SpeciesTalentsChooser from './species-talents-chooser.js';
 
 export default class TranslateErrorDetect {
-  public static async detectTranslateError(
+  public static async detectRandomCareerTranslateError(
+    callback: (errors: string[]) => void
+  ) {
+    const randomCareers: string[] = game.wfrp4e.tables.career.rows.map(
+      (row: any) => row.name
+    );
+    const careersPack = game.packs.get('wfrp4e-core.careers');
+    const careers: Item[] = await careersPack.getIndex();
+    const careersNames = careers.map((c) => c.name);
+
+    const errors: string[] = [];
+    randomCareers.forEach((c) => {
+      if (!careersNames.includes(c)) {
+        errors.push(c);
+      }
+    });
+    callback(errors);
+  }
+
+  public static async detectSkillsAndTalentsTranslateError(
     callback: (errors: string[]) => void
   ) {
     const speciesSkillsMap = SpeciesSkillsChooser.getSpeciesSkillsMap();
