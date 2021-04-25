@@ -75,16 +75,16 @@ export default class CareerChooser {
             }
             
             function randomSpecies() {
-              const careers = [${this.getRandomSpeciesCareers(speciesKey).join(
-                ','
-              )}];
-              performRandom(careers);  
-            }
-            
-            function performRandom(careers) {
-              const randomCareer = getRandomValue(careers);
-              if (randomCareer != null) {
-                  document.getElementById('select-career-${dialogId}').value = randomCareer;
+              const careers = [${this.getRandomSpeciesCareers(speciesKey)
+                .map((c) => `${c}`)
+                .join(',')}];
+                performRandom(careers);  
+              }
+              
+              function performRandom(careers) {
+                const randomCareer = getRandomValue(careers);
+                if (randomCareer != null) {
+                    document.getElementById('select-career-${dialogId}').value = randomCareer;
                   check();
               } 
             }
