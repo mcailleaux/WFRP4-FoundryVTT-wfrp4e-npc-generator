@@ -19,5 +19,12 @@ Hooks.on('renderActorDirectory', (_app: ActorSheet, html: JQuery) => {
 Hooks.on('createToken', async (scene: any, token: any) => {
   console.dir(scene);
   console.dir(token);
-  console.dir(await scene.getEmbeddedEntity('Token', token._id).actor);
+  const actor = game.actors.get(token.actorId);
+  if (actor != null) {
+    console.dir(actor);
+    token.actorData = {
+      effects: actor.effects,
+      items: actor.items,
+    };
+  }
 });
