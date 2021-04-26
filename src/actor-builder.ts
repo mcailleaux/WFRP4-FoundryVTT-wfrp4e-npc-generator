@@ -33,7 +33,9 @@ export class ActorBuilder {
       items: [...model.skills, ...model.careerPath, ...moneyItems],
       effects: [
         {
-          name: 'Generate Money On Token Creation',
+          data: {
+            label: 'Generate Money On Token Creation',
+          },
         },
       ],
     };
