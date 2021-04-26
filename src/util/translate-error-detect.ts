@@ -21,7 +21,7 @@ export default class TranslateErrorDetect {
         )
       );
       if (cs.length !== 4) {
-        errors.push(...cs.map((c) => c.name));
+        errors.push(rc);
       }
     });
     callback(errors);
