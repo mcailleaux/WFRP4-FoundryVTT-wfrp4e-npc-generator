@@ -21,7 +21,8 @@ export default class TranslateErrorDetect {
         )
       );
       if (cs.length !== 4) {
-        errors.push(rc);
+        errors.push('Random : ' + rc);
+        errors.push(...cs.map((c) => c.name));
       }
     });
     callback(errors);
