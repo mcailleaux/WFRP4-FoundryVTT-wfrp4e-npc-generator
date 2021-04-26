@@ -31,13 +31,7 @@ export class ActorBuilder {
         },
       },
       items: [...model.skills, ...model.careerPath, ...moneyItems],
-      effects: [
-        {
-          data: {
-            label: 'Generate Money On Token Creation',
-          },
-        },
-      ],
+      effects: [await ActiveEffect.create('Generate Money On Token Creation')],
     };
     return Promise.resolve(actorData);
   }
