@@ -4,6 +4,9 @@ import ReferentialUtil from './util/referential-util.js';
 export class ActorBuilder {
   public static async buildActorData(model: NpcModel, type: string) {
     const moneyItems = await ReferentialUtil.getAllMoneyItems();
+    const generateMoneyEffect = await ActiveEffect.create();
+    generateMoneyEffect.data.label = 'Generate Money On Token Creation';
+
     const actorData = {
       name: model.name,
       type: type,
@@ -31,7 +34,7 @@ export class ActorBuilder {
         },
       },
       items: [...model.skills, ...model.careerPath, ...moneyItems],
-      effects: [await ActiveEffect.create('Generate Money On Token Creation')],
+      effects: [generateMoneyEffect],
     };
     return Promise.resolve(actorData);
   }
