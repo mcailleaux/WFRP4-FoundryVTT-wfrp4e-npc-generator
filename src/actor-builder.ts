@@ -44,7 +44,7 @@ export class ActorBuilder {
     const generateMoneyEffect: any = {
       label: 'Generate Money On Token Creation',
     };
-    generateMoneyEffect['flags.wfrp4e.effectApplication'] = 'apply';
+    generateMoneyEffect['flags.wfrp4e.effectApplication'] = 'actor';
     await (<any>actor).createEmbeddedEntity(
       'ActiveEffect',
       generateMoneyEffect
