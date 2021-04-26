@@ -12,6 +12,16 @@ export default class StringUtil {
     return deburr(input).toLowerCase().includes(deburr(include).toLowerCase());
   }
 
+  public static equalsDeburrIgnoreCase(
+    input: string,
+    include: string
+  ): boolean {
+    if (input == null || input.length === 0 || include == null) {
+      return false;
+    }
+    return deburr(input).toLowerCase() === deburr(include).toLowerCase();
+  }
+
   public static arrayIncludesDeburrIgnoreCase(
     array: string[],
     include: string

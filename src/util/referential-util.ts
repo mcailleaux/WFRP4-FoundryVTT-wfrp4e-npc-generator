@@ -56,12 +56,27 @@ export default class ReferentialUtil {
     const result: string[] = [];
 
     randomCareers.forEach((rc) => {
-      const cs = careers.filter((c) =>
+      let cs = careers.filter((c) =>
         StringUtil.includesDeburrIgnoreCase(
           (<any>c.data?.data)?.careergroup?.value,
           rc
         )
       );
+
+      if (cs.length !== 4) {
+        const strictCareer = careers.find((c) =>
+          StringUtil.equalsDeburrIgnoreCase(c.name, rc)
+        );
+        if (strictCareer != null) {
+          cs = careers.filter((c) =>
+            StringUtil.includesDeburrIgnoreCase(
+              (<any>c.data?.data)?.careergroup?.value,
+              (<any>strictCareer.data?.data)?.careergroup?.value
+            )
+          );
+        }
+      }
+
       if (cs.length === 4) {
         result.push(...cs.map((c) => c.name));
       }
