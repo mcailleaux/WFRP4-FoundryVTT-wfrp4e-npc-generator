@@ -10,6 +10,7 @@ import { ActorBuilder } from './actor-builder.js';
 import StringUtil from './util/string-util.js';
 import TranslateErrorDetect from './util/translate-error-detect.js';
 import ReferentialUtil from './util/referential-util.js';
+import TrappingUtil from './util/trapping-util.js';
 
 export default class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
@@ -19,6 +20,7 @@ export default class NpcGenerator {
   public static readonly nameChooser = NameChooser;
   public static readonly actorBuilder = ActorBuilder;
   public static readonly referential = ReferentialUtil;
+  public static readonly trapping = TrappingUtil;
   public static readonly translateErrorDetect = TranslateErrorDetect;
 
   public static async generateNpc(

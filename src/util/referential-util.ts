@@ -129,4 +129,20 @@ export default class ReferentialUtil {
   public static async getSpeciesMovement(speciesKey: string) {
     return await game.wfrp4e.utility.speciesMovement(speciesKey);
   }
+
+  public static async getAllMoneyItems(): Promise<Item.Data[]> {
+    let moneyItems: Item.Data[] =
+      (await game.wfrp4e.utility.allMoneyItems()) ?? [];
+    moneyItems = moneyItems
+      .map((mi) => {
+        (<any>mi.data).quantity.value = 0;
+        return mi;
+      })
+      .sort((a, b) => {
+        const aData: any = a.data;
+        const bData: any = b.data;
+        return aData.coinValue.value > bData.coinValue.value ? -1 : 1;
+      });
+    return Promise.resolve(moneyItems);
+  }
 }
