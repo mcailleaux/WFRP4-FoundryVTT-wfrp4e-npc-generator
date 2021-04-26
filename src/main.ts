@@ -19,5 +19,5 @@ Hooks.on('renderActorDirectory', (_app: ActorSheet, html: JQuery) => {
 Hooks.on('createToken', async (scene: any, token: any) => {
   console.dir(scene);
   console.dir(token);
-  console.dir(await scene.getEmbeddedEntity('Token', token._id));
+  console.dir(await scene.getEmbeddedEntity('Token', token._id).actor);
 });
