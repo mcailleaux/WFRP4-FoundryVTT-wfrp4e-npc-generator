@@ -132,7 +132,6 @@ game.wfrp4e.npcGen.nameChooser.selectName(
 
 ## Comming soon
 
-- Add option to limit career choices by species career random table
 - Create a function to Prompt option to generate trappings or not
 - Generate actor with trapping
 - Create a function to Prompt a generation mode (simple or advanced)
