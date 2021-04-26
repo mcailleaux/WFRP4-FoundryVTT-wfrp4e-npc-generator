@@ -17,5 +17,5 @@ Hooks.on('renderActorDirectory', (_app: ActorSheet, html: JQuery) => {
 });
 
 Hooks.on('createToken', (_scene: Scene, token: any) => {
-  console.dir(token.actorData);
+  console.dir(token);
 });
