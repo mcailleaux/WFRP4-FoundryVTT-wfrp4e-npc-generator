@@ -69,7 +69,7 @@ export default class ReferentialUtil {
         );
         if (strictCareer != null) {
           cs = careers.filter((c) =>
-            StringUtil.includesDeburrIgnoreCase(
+            StringUtil.equalsDeburrIgnoreCase(
               (<any>c.data?.data)?.careergroup?.value,
               (<any>strictCareer.data?.data)?.careergroup?.value
             )
