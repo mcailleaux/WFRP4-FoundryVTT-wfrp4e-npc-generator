@@ -29,14 +29,16 @@ export default class ReferentialUtil {
     return Promise.resolve(careers);
   }
 
-  public static async getCareerEntities(): Promise<Item[]> {
+  public static async getCareerEntities(withWorld = true): Promise<Item[]> {
     const careersPack = game.packs.get('wfrp4e-core.careers');
     const careers: Item[] = await careersPack.getContent();
-    const worldCareers = game.items?.entities?.filter(
-      (item) => item.type === 'career'
-    );
-    if (worldCareers != null && worldCareers.length > 0) {
-      careers.push(...worldCareers);
+    if (withWorld) {
+      const worldCareers = game.items?.entities?.filter(
+        (item) => item.type === 'career'
+      );
+      if (worldCareers != null && worldCareers.length > 0) {
+        careers.push(...worldCareers);
+      }
     }
     return Promise.resolve(careers);
   }
@@ -51,7 +53,7 @@ export default class ReferentialUtil {
       .filter((row: any) => row?.range[speciesKey]?.length > 0)
       .map((row: any) => row.name);
 
-    const careers = await this.getCareerEntities();
+    const careers = await this.getCareerEntities(false);
 
     const result: string[] = [];
 

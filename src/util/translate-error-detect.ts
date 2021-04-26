@@ -9,7 +9,7 @@ export default class TranslateErrorDetect {
       (row: any) => row.name
     );
 
-    const careers = await ReferentialUtil.getCareerEntities();
+    const careers = await ReferentialUtil.getCareerEntities(false);
 
     const errors: string[] = [];
 
