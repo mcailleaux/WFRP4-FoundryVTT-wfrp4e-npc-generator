@@ -1,3 +1,5 @@
+import StringUtil from './string-util.js';
+
 export default class ReferentialUtil {
   public static getSpeciesMap(): { [key: string]: string } {
     return game.wfrp4e.config.species;
@@ -45,18 +47,27 @@ export default class ReferentialUtil {
     if (speciesKey == null) {
       return [];
     }
-    // const randomCareer = game.wfrp4e.tables.career.rows
-    //   .filter((row: any) => row?.range[speciesKey]?.length > 0)
-    //   .map((row: any) => row.name);
-    // const careers = await this.getCareers();
-    // const result = careers
-    //   .map((c) => c.name)
-    //   .filter((c) => {
-    //     let randomC;
-    //   });
+    const randomCareers: string[] = game.wfrp4e.tables.career.rows
+      .filter((row: any) => row?.range[speciesKey]?.length > 0)
+      .map((row: any) => row.name);
 
-    // FIXME TMP to check best way to do this
-    return Promise.resolve((await this.getCareerIndexes()).map((c) => c.name));
+    const careers = await this.getCareerEntities();
+
+    const result: string[] = [];
+
+    randomCareers.forEach((rc) => {
+      const cs = careers.filter((c) =>
+        StringUtil.includesDeburrIgnoreCase(
+          (<any>c.data?.data)?.careergroup?.value,
+          rc
+        )
+      );
+      if (cs.length === 4) {
+        result.push(...cs.map((c) => c.name));
+      }
+    });
+
+    return Promise.resolve(result);
   }
 
   public static getStatusTiers() {
