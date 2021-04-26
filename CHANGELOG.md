@@ -1,7 +1,5 @@
 ## In development
 
-- Create a function to Prompt option to generate trappings or not
-- Generate actor with trapping
 - Create a function to Prompt a generation mode (simple or advanced)
   - Simple generator Prompt only Species, Career and Name select and une random for species and talent skill
 - Add Gnome if rnhd module is present
@@ -12,8 +10,19 @@
   - A Object { [type: string]: {genDirectory: string, tokenIconPath: string}} to allow user create type of npc generation with specific path and icon
 - Create a function to Prompt select an npc type (used with settings to set a spcific generation path and a token icon path)
 - Create a simpliest generator with creature template
+- Allow to select many careers to create a career path instead of de automatic career path
+- Manage other language
+
+## 1.2.0
+
+### New features
+
+- Create a function to Prompt option to generate trappings or not
+- Generate actor with trapping
 
 ## 1.1.0
+
+### New features
 
 - Add a button "Random {Species}" on career chooser to limit random career allowed for selected species
 

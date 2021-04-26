@@ -2,6 +2,25 @@ import ReferentialUtil from './referential-util.js';
 import StringUtil from './string-util.js';
 
 export default class TranslateErrorDetect {
+  public static async detectTrappingsTranslateError(
+    callback: (errors: string[]) => void
+  ) {
+    const careers = await ReferentialUtil.getCareerEntities(false);
+    const trappings = (await ReferentialUtil.getTrappingEntities(false)).map(
+      (t) => t.name
+    );
+    const errors: string[] = [];
+    careers.forEach((c) => {
+      const cData: any = c.data?.data;
+      cData?.trappings?.forEach((t: string) => {
+        if (trappings.includes(t)) {
+          errors.push(t);
+        }
+      });
+    });
+    callback(errors);
+  }
+
   public static async detectRandomCareerTranslateError(
     callback: (errors: string[]) => void
   ) {
