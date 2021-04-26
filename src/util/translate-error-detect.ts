@@ -1,5 +1,4 @@
-import SpeciesSkillsChooser from './species-skills-chooser.js';
-import SpeciesTalentsChooser from './species-talents-chooser.js';
+import ReferentialUtil from './referential-util.js';
 
 export default class TranslateErrorDetect {
   public static async detectRandomCareerTranslateError(
@@ -24,12 +23,11 @@ export default class TranslateErrorDetect {
   public static async detectSkillsAndTalentsTranslateError(
     callback: (errors: string[]) => void
   ) {
-    const speciesSkillsMap = SpeciesSkillsChooser.getSpeciesSkillsMap();
-    const speciesTalentsMap = SpeciesTalentsChooser.getSpeciesTalentsMap();
-    const randomTalents = SpeciesTalentsChooser.getRandomTalents();
+    const speciesSkillsMap = ReferentialUtil.getSpeciesSkillsMap();
+    const speciesTalentsMap = ReferentialUtil.getSpeciesTalentsMap();
+    const randomTalents = ReferentialUtil.getRandomTalents();
 
-    const careersPack = game.packs.get('wfrp4e-core.careers');
-    const careers: Item[] = await careersPack.getContent();
+    const careers: Item[] = await ReferentialUtil.getCareerEntities();
 
     const skills: string[] = [];
     const talents: string[] = [];
@@ -63,7 +61,7 @@ export default class TranslateErrorDetect {
     for (let i = 0; i < skills.length; i++) {
       const s = skills[i];
       try {
-        await game.wfrp4e.utility.findSkill(s);
+        await ReferentialUtil.findSkill(s);
       } catch (e) {
         errors.push(s);
         console.warn('Cant find Skill : ' + s);
@@ -73,7 +71,7 @@ export default class TranslateErrorDetect {
     for (let i = 0; i < talents.length; i++) {
       const t = talents[i];
       try {
-        await game.wfrp4e.utility.findTalent(t);
+        await ReferentialUtil.findTalent(t);
       } catch (e) {
         errors.push(t);
         console.warn('Cant find Talent : ' + t);
