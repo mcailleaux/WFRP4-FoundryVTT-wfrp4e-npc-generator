@@ -5,6 +5,7 @@ export class ActorBuilder {
   public static async buildActorData(model: NpcModel, type: string) {
     const moneyItems = await ReferentialUtil.getAllMoneyItems();
     const generateMoneyEffect = await ActiveEffect.create();
+    generateMoneyEffect.data = {};
     generateMoneyEffect.data.displayLabel = 'Generate Money On Token Creation';
 
     const actorData = {
