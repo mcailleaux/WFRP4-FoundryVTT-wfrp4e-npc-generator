@@ -4,10 +4,6 @@ import ReferentialUtil from './util/referential-util.js';
 export class ActorBuilder {
   public static async buildActorData(model: NpcModel, type: string) {
     const moneyItems = await ReferentialUtil.getAllMoneyItems();
-    const generateMoneyEffect = await ActiveEffect.create();
-    generateMoneyEffect.data = {};
-    generateMoneyEffect.data.displayLabel = 'Generate Money On Token Creation';
-
     const actorData = {
       name: model.name,
       type: type,
@@ -35,7 +31,6 @@ export class ActorBuilder {
         },
       },
       items: [...model.skills, ...model.careerPath, ...moneyItems],
-      effects: [generateMoneyEffect],
     };
     return Promise.resolve(actorData);
   }
@@ -45,6 +40,15 @@ export class ActorBuilder {
     for (let i = 0; i < model.talents.length; i++) {
       await actor.createOwnedItem(model.talents[i]);
     }
+
+    const generateMoneyEffect: any = {
+      label: 'Generate Money On Token Creation',
+    };
+    generateMoneyEffect['flags.wfrp4e.effectApplication'] = 'apply';
+    await (<any>actor).createEmbeddedEntity(
+      'ActiveEffect',
+      generateMoneyEffect
+    );
 
     return Promise.resolve(actor);
   }
