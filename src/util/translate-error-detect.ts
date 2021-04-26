@@ -13,7 +13,7 @@ export default class TranslateErrorDetect {
     careers.forEach((c) => {
       const cData: any = c.data?.data;
       cData?.trappings?.forEach((t: string) => {
-        if (trappings.includes(t)) {
+        if (!trappings.includes(t)) {
           errors.push(t);
         }
       });
