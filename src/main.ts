@@ -16,8 +16,6 @@ Hooks.on('renderActorDirectory', (_app: ActorSheet, html: JQuery) => {
   html.find('.header-actions').after(npcGenButton);
 });
 
-Hooks.on('createToken', (data1: any, data2: any, data3: any) => {
-  console.dir(data1);
-  console.dir(data2);
-  console.dir(data3);
+Hooks.on('createToken', (_scene: Scene, token: any) => {
+  console.dir(token.actorData);
 });
