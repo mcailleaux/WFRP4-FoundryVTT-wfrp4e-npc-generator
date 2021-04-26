@@ -61,7 +61,7 @@ export default class TrappingUtil {
         (<any>createGCoin.data).quantity.value = gold;
         await actor.createOwnedItem(createGCoin);
       } else {
-        await actor.updateEmbeddedEntity('OwnedItem', {
+        await actor.updateOwnedItem({
           _id: gCoin._id,
           'data.quantity.value': gold,
         });
@@ -73,7 +73,7 @@ export default class TrappingUtil {
         (<any>createSCoin.data).quantity.value = silver;
         await actor.createOwnedItem(createSCoin);
       } else {
-        await actor.updateEmbeddedEntity('OwnedItem', {
+        await actor.updateOwnedItem({
           _id: sCoin._id,
           'data.quantity.value': silver,
         });
@@ -85,7 +85,7 @@ export default class TrappingUtil {
         (<any>createBCoin.data).quantity.value = brass;
         await actor.createOwnedItem(createBCoin);
       } else {
-        await actor.updateEmbeddedEntity('OwnedItem', {
+        await actor.updateOwnedItem({
           _id: bCoin._id,
           'data.quantity.value': brass,
         });
