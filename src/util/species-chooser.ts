@@ -1,17 +1,14 @@
 import RandomUtil from './random-util.js';
 import DialogUtil from './dialog-util.js';
+import ReferentialUtil from './referential-util.js';
 
 export default class SpeciesChooser {
-  public static getSpeciesMap(): { [key: string]: string } {
-    return game.wfrp4e.config.species;
-  }
-
   public static async selectSpecies(
     initSpeciesKey: string,
     callback: (speciesKey: string, speciesValue: string) => void
   ) {
     const dialogId = new Date().getTime();
-    const speciesMap = this.getSpeciesMap();
+    const speciesMap = ReferentialUtil.getSpeciesMap();
     new Dialog({
       title: game.i18n.localize('WFRP4NPCGEN.species.select.title'),
       content: `<form>

@@ -1,11 +1,8 @@
 import DialogUtil from './dialog-util.js';
 import RandomUtil from './random-util.js';
+import ReferentialUtil from './referential-util.js';
 
 export default class SpeciesSkillsChooser {
-  public static getSpeciesSkillsMap(): { [key: string]: string[] } {
-    return game.wfrp4e.config.speciesSkills;
-  }
-
   public static async selectSpeciesSkills(
     initMajors: string[],
     initMinors: string[],
@@ -14,7 +11,7 @@ export default class SpeciesSkillsChooser {
     undo: () => void
   ) {
     const dialogId = new Date().getTime();
-    const speciesSkillsMap = this.getSpeciesSkillsMap();
+    const speciesSkillsMap = ReferentialUtil.getSpeciesSkillsMap();
     new Dialog({
       title: game.i18n.localize('WFRP4NPCGEN.species.skills.select.title'),
       content: `<form>

@@ -9,6 +9,7 @@ import RandomUtil from './util/random-util.js';
 import { ActorBuilder } from './actor-builder.js';
 import StringUtil from './util/string-util.js';
 import TranslateErrorDetect from './util/translate-error-detect.js';
+import ReferentialUtil from './util/referential-util.js';
 
 export default class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
@@ -17,6 +18,7 @@ export default class NpcGenerator {
   public static readonly speciesTalentsChooser = SpeciesTalentsChooser;
   public static readonly nameChooser = NameChooser;
   public static readonly actorBuilder = ActorBuilder;
+  public static readonly referential = ReferentialUtil;
   public static readonly translateErrorDetect = TranslateErrorDetect;
 
   public static async generateNpc(
@@ -155,14 +157,7 @@ export default class NpcGenerator {
   }
 
   private static async addCareerPath(model: NpcModel) {
-    const careersPack = game.packs.get('wfrp4e-core.careers');
-    const careers: Item[] = await careersPack.getContent();
-    const worldCareers = game.items?.entities?.filter(
-      (item) => item.type === 'career'
-    );
-    if (worldCareers != null && worldCareers.length > 0) {
-      careers.push(...worldCareers);
-    }
+    const careers: Item[] = await this.referential.getCareerEntities();
     let career: Item.Data;
     if (model.selectedCareer.data != null) {
       career = model.selectedCareer.data;
@@ -215,7 +210,7 @@ export default class NpcGenerator {
   private static async addStatus(model: NpcModel) {
     const careerData: any = model.career?.data;
     if (careerData?.status != null) {
-      const statusTiers = game.wfrp4e.config.statusTiers;
+      const statusTiers = this.referential.getStatusTiers();
       const standing = careerData.status.standing;
       const tier = statusTiers[careerData.status.tier];
       model.status = `${tier} ${standing}`;
@@ -223,7 +218,7 @@ export default class NpcGenerator {
   }
 
   private static async addBasicSkill(model: NpcModel) {
-    model.skills = await game.wfrp4e.utility.allBasicSkills();
+    model.skills = await this.referential.getAllBasicSkills();
   }
 
   private static async addCareerSkill(model: NpcModel) {
@@ -272,7 +267,7 @@ export default class NpcGenerator {
         ))
     ) {
       try {
-        const skillToAdd = await game.wfrp4e.utility.findSkill(name);
+        const skillToAdd = await this.referential.findSkill(name);
         model.skills.push(skillToAdd.data);
       } catch (e) {
         console.warn('Cant find Skill : ' + name);
@@ -288,7 +283,7 @@ export default class NpcGenerator {
   }
 
   private static async addSpeciesTalents(model: NpcModel) {
-    const speciesTalentsMap = this.speciesTalentsChooser.getSpeciesTalentsMap();
+    const speciesTalentsMap = this.referential.getSpeciesTalentsMap();
     const speciesTalent: string[] = speciesTalentsMap[model.speciesKey].filter(
       (talent: string, index) =>
         index !== speciesTalentsMap[model.speciesKey].length - 1 &&
@@ -319,7 +314,7 @@ export default class NpcGenerator {
       )
     ) {
       try {
-        const talentToAdd = await game.wfrp4e.utility.findTalent(name);
+        const talentToAdd = await this.referential.findTalent(name);
         model.talents.push(talentToAdd.data);
       } catch (e) {
         console.warn('Cant find Talent : ' + name);
@@ -328,9 +323,8 @@ export default class NpcGenerator {
   }
 
   private static async addBasicChars(model: NpcModel) {
-    const averageChars = await game.wfrp4e.utility.speciesCharacteristics(
-      model.speciesKey,
-      true
+    const averageChars = await this.referential.getSpeciesCharacteristics(
+      model.speciesKey
     );
     Object.entries(averageChars).forEach(([key, char]) => {
       const positive = RandomUtil.getRandomBoolean();
@@ -345,7 +339,7 @@ export default class NpcGenerator {
   }
 
   private static async addMovement(model: NpcModel) {
-    model.move = await game.wfrp4e.utility.speciesMovement(model.speciesKey);
+    model.move = await this.referential.getSpeciesMovement(model.speciesKey);
   }
 
   private static async addAdvanceSkills(model: NpcModel) {

@@ -1,28 +1,8 @@
 import DialogUtil from './dialog-util.js';
 import RandomUtil from './random-util.js';
+import ReferentialUtil from './referential-util.js';
 
 export default class CareerChooser {
-  public static async getCareers(): Promise<Item[]> {
-    const careersPack = game.packs.get('wfrp4e-core.careers');
-    const careers: Item[] = await careersPack.getIndex();
-    const worldCareers = game.items?.entities?.filter(
-      (item) => item.type === 'career'
-    );
-    if (worldCareers != null && worldCareers.length > 0) {
-      careers.push(...worldCareers);
-    }
-    return Promise.resolve(careers);
-  }
-
-  public static getRandomSpeciesCareers(speciesKey: string): string[] {
-    if (speciesKey == null) {
-      return [];
-    }
-    return game.wfrp4e.tables.career.rows
-      .filter((row: any) => row?.range[speciesKey]?.length > 0)
-      .map((row: any) => row.name);
-  }
-
   public static async selectCareer(
     initCareer: string,
     speciesKey: string,
@@ -30,7 +10,10 @@ export default class CareerChooser {
     undo: () => void
   ) {
     const dialogId = new Date().getTime();
-    const careers = await this.getCareers();
+    const careers = await ReferentialUtil.getCareerIndexes();
+    const randomCareers = await ReferentialUtil.getRandomSpeciesCareers(
+      speciesKey
+    );
     new Dialog({
       title: game.i18n.localize('WFRP4NPCGEN.career.select.title'),
       content: `<form>
@@ -44,7 +27,7 @@ export default class CareerChooser {
                       ${DialogUtil.getButtonScript(
                         `${game.i18n.localize(
                           'WFRP4NPCGEN.common.button.Random'
-                        )} ${game.wfrp4e.config.species[speciesKey]}`,
+                        )} ${ReferentialUtil.getSpeciesMap()[speciesKey]}`,
                         'randomSpecies()'
                       )}
               </div>
@@ -75,9 +58,7 @@ export default class CareerChooser {
             }
             
             function randomSpecies() {
-              const careers = [${this.getRandomSpeciesCareers(speciesKey)
-                .map((c) => `"${c}"`)
-                .join(',')}];
+              const careers = [${randomCareers.map((c) => `"${c}"`).join(',')}];
                 performRandom(careers);  
               }
               

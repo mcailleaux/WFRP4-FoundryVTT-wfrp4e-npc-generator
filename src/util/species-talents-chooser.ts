@@ -1,15 +1,8 @@
 import DialogUtil from './dialog-util.js';
 import RandomUtil from './random-util.js';
+import ReferentialUtil from './referential-util.js';
 
 export default class SpeciesTalentsChooser {
-  public static getSpeciesTalentsMap(): { [key: string]: any[] } {
-    return game.wfrp4e.config.speciesTalents;
-  }
-
-  public static getRandomTalents(): string[] {
-    return game.wfrp4e.tables.talents.rows.map((row: any) => row.name);
-  }
-
   public static async selectSpeciesTalents(
     initTalents: string[],
     speciesKey: string,
@@ -17,7 +10,7 @@ export default class SpeciesTalentsChooser {
     undo: () => void
   ) {
     const dialogId = new Date().getTime();
-    const speciesTalentsMap = this.getSpeciesTalentsMap();
+    const speciesTalentsMap = ReferentialUtil.getSpeciesTalentsMap();
     const speciesTalent: string[] = speciesTalentsMap[speciesKey].filter(
       (talent: string, index) =>
         index !== speciesTalentsMap[speciesKey].length - 1 &&
@@ -25,7 +18,7 @@ export default class SpeciesTalentsChooser {
     );
     const randomTalentsNbr: number =
       speciesTalentsMap[speciesKey][speciesTalentsMap[speciesKey].length - 1];
-    const randomTalents: string[] = this.getRandomTalents();
+    const randomTalents: string[] = ReferentialUtil.getRandomTalents();
 
     let initChoiceTalents: string[];
     let initRandomTalents: string[] = [];
