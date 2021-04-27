@@ -140,8 +140,12 @@ export default class TrappingUtil {
         group = RandomUtil.getRandomValue(
           isMelee
             ? ReferentialUtil.getMeleeWeaponGroups()
-            : ReferentialUtil.getRangedWeaponGroups()
+            : ReferentialUtil.getRangedWeaponGroups(),
+          groups
         );
+        if (group == null) {
+          group = ReferentialUtil.getBasicWeaponGroups();
+        }
         console.warn(
           `Unknown weapon group from skill ${skill.name}, resolved by random ${group}`
         );
@@ -163,6 +167,8 @@ export default class TrappingUtil {
       if (!ignore && !groups.includes(group)) {
         groups.push(group);
         if (replaceSkill) {
+          console.dir(skill);
+          console.dir(group);
           await actor.updateOwnedItem({
             _id: skill._id,
             [this.UPDATE_SKILL_NAME_KEY]: `${
