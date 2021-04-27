@@ -142,7 +142,7 @@ export default class ReferentialUtil {
         StringUtil.equalsDeburrIgnoreCase(name, t.name)
       ) ??
       searchTrappings.find((t) =>
-        StringUtil.includesDeburrIgnoreCase(name, t.name)
+        StringUtil.includesDeburrIgnoreCase(t.name, name)
       );
     if (trapping == null) {
       console.warn(`Can't find trapping ${name}`);
