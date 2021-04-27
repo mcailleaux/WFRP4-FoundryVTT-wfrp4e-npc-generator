@@ -1,7 +1,7 @@
 import ReferentialUtil from './referential-util.js';
 
 export default class TrappingUtil {
-  public static async generateMoney(actor: Actor, tokenData: Actor.Data) {
+  public static async generateMoney(actor: Actor, tokenData: Actor) {
     if (actor == null || tokenData?.items == null) {
       return;
     }
@@ -42,45 +42,21 @@ export default class TrappingUtil {
       brass = new Roll(`${2 * tier}d10`).roll().total;
     }
 
-    const moneyItems = await ReferentialUtil.getAllMoneyItems();
     const coins = tokenData.items.filter((it) => it.type === 'money');
-    let gCoin = coins.find((c: any) => c.data?.coinValue?.value === 240);
-    let sCoin = coins.find((c: any) => c.data?.coinValue?.value === 12);
-    let bCoin = coins.find((c: any) => c.data?.coinValue?.value === 1);
-
-    const isGoldCreate = gCoin == null;
-    const isSilverCreate = sCoin == null;
-    const isBrassCreate = bCoin == null;
-
-    const createGCoin = moneyItems[0];
-    const createSCoin = moneyItems[1];
-    const createBCoin = moneyItems[2];
+    let gCoin = coins.find((c: any) => c.data?.data?.coinValue?.value === 240);
+    let sCoin = coins.find((c: any) => c.data?.data?.coinValue?.value === 12);
+    let bCoin = coins.find((c: any) => c.data?.data?.coinValue?.value === 1);
 
     if (gold > 0) {
-      if (isGoldCreate) {
-        (<any>createGCoin.data).quantity.value = gold;
-        tokenData.items.push(createGCoin);
-      } else {
-        (<any>gCoin?.data).quantity.value = gold;
-      }
+      (<any>gCoin?.data?.data).quantity.value = gold;
     }
 
     if (silver > 0) {
-      if (isSilverCreate) {
-        (<any>createSCoin.data).quantity.value = silver;
-        tokenData.items.push(createSCoin);
-      } else {
-        (<any>sCoin?.data).quantity.value = silver;
-      }
+      (<any>sCoin?.data?.data).quantity.value = silver;
     }
 
     if (brass > 0) {
-      if (isBrassCreate) {
-        (<any>createBCoin.data).quantity.value = brass;
-        tokenData.items.push(createBCoin);
-      } else {
-        (<any>bCoin?.data).quantity.value = brass;
-      }
+      (<any>bCoin?.data?.data).quantity.value = brass;
     }
   }
 }
