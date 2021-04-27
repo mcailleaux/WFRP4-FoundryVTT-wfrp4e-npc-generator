@@ -51,6 +51,34 @@ export default class ReferentialUtil {
     return Object.values(game.wfrp4e.config.weaponGroups);
   }
 
+  public static getMeleeWeaponGroups(): string[] {
+    const groups = game.wfrp4e.config.weaponGroups;
+    return [
+      groups.basic,
+      groups.brawling,
+      groups.cavalry,
+      groups.fencing,
+      groups.flail,
+      groups.parry,
+      groups.polearm,
+      groups.twohanded,
+    ];
+  }
+
+  public static getRangedWeaponGroups(): string[] {
+    const groups = game.wfrp4e.config.weaponGroups;
+    return [
+      groups.blackpowder,
+      groups.bow,
+      groups.crossbow,
+      groups.engineering,
+      groups.entangling,
+      groups.explosives,
+      groups.sling,
+      groups.throwing,
+    ];
+  }
+
   public static getBasicWeaponGroups(): string {
     return game.wfrp4e.config.weaponGroups.basic;
   }

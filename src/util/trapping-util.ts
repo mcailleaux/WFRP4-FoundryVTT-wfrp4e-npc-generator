@@ -1,5 +1,6 @@
 import ReferentialUtil from './referential-util.js';
 import StringUtil from './string-util.js';
+import RandomUtil from './random-util.js';
 
 export default class TrappingUtil {
   public static readonly UPDATE_QUANTITY_KEY = 'data.quantity.value';
@@ -121,6 +122,10 @@ export default class TrappingUtil {
           ))
     );
     for (let skill of weaponSkills) {
+      const isMelee = StringUtil.includesDeburrIgnoreCase(
+        skill.name,
+        ReferentialUtil.getWeaponTypes().melee
+      );
       let group = skill.name.substring(
         skill.name.indexOf('(') + 1,
         skill.name.indexOf(')')
@@ -131,10 +136,29 @@ export default class TrappingUtil {
           group
         )
       ) {
-        console.warn(`Unknown weapon group ${group} from skill ${skill.name}`);
-        group = ReferentialUtil.getBasicWeaponGroups();
+        group = RandomUtil.getRandomValue(
+          isMelee
+            ? ReferentialUtil.getMeleeWeaponGroups()
+            : ReferentialUtil.getRangedWeaponGroups()
+        );
+        console.warn(
+          `Unknown weapon group ${group} from skill ${skill.name}, resolved by random ${group}`
+        );
       }
-      if (!groups.includes(group)) {
+
+      const existingCount = (<any>actor.data).weapons.filter((w: any) =>
+        StringUtil.equalsDeburrIgnoreCase(w.weaponGroup, group)
+      ).length;
+
+      const ignore =
+        (StringUtil.equalsDeburrIgnoreCase(
+          group,
+          ReferentialUtil.getBasicWeaponGroups()
+        ) &&
+          existingCount > 1) ||
+        existingCount > 0;
+
+      if (!ignore && !groups.includes(group)) {
         groups.push(group);
       }
     }
