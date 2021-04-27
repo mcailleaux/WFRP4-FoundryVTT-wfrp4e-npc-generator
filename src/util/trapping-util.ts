@@ -163,5 +163,19 @@ export default class TrappingUtil {
       }
     }
     console.dir(groups);
+    if (groups.length > 0) {
+      const weapons = await ReferentialUtil.getTrappingEntities(true);
+      for (let group of groups) {
+        const randomWeapon = RandomUtil.getRandomValue(
+          weapons.filter((w) =>
+            StringUtil.equalsDeburrIgnoreCase(
+              (<any>w.data.data).weaponGroup.value,
+              group
+            )
+          )
+        );
+        console.dir(randomWeapon);
+      }
+    }
   }
 }
