@@ -296,7 +296,7 @@ export default class NpcGenerator {
         ))
     ) {
       try {
-        const skillToAdd = duplicate(await this.referential.findSkill(name));
+        const skillToAdd = await this.referential.findSkill(name);
         delete (<any>skillToAdd.data)._id;
         (<any>skillToAdd.data).name = name;
         model.skills.push(skillToAdd.data);
@@ -345,7 +345,7 @@ export default class NpcGenerator {
       )
     ) {
       try {
-        const talentToAdd = duplicate(await this.referential.findTalent(name));
+        const talentToAdd = await this.referential.findTalent(name);
         delete (<any>talentToAdd.data)._id;
         (<any>talentToAdd.data).name = name;
         model.talents.push(talentToAdd.data);
@@ -456,10 +456,9 @@ export default class NpcGenerator {
         trapping.type !== 'money'
       ) {
         trappingIds.push(trapping._id);
-        const newTrapping = duplicate(trapping);
-        delete (<any>newTrapping)._id;
-        newTrapping.name = tr;
-        model.trappings.push(newTrapping);
+        delete (<any>trapping)._id;
+        trapping.name = tr;
+        model.trappings.push(trapping);
       }
     }
   }
