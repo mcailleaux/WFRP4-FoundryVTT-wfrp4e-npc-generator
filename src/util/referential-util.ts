@@ -6,9 +6,11 @@ export default class ReferentialUtil {
     const voClassTraping: { [key: string]: string } =
       game.wfrp4e.config.classTrappings;
     const resolvedClassTrapping: { [key: string]: string } = {};
-    Object.entries(voClassTraping).forEach(([key, value]) => {
+    Object.entries(voClassTraping).forEach(([key]) => {
       const localKey = game.i18n.localize(key);
-      resolvedClassTrapping[localKey] = value;
+      resolvedClassTrapping[localKey] = game.i18n.localize(
+        `WFRP4NPCGEN.trappings.class.${key}`
+      );
     });
     return resolvedClassTrapping;
   }
@@ -152,9 +154,15 @@ export default class ReferentialUtil {
       searchTrappings.find((t) =>
         StringUtil.includesDeburrIgnoreCase(t.name, name)
       ) ??
-      searchTrappings.find((t) =>
-        StringUtil.includesDeburrIgnoreCase(name, t.name)
-      );
+      searchTrappings
+        .sort((t1, t2) => {
+          return StringUtil.localCompareDeburrIgnoreCase(
+            t1.name,
+            t2.name,
+            false
+          );
+        })
+        .find((t) => StringUtil.includesDeburrIgnoreCase(name, t.name));
     if (trapping == null) {
       console.warn(`Can't find trapping ${name}`);
     }

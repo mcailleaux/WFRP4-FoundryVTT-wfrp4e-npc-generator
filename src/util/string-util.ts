@@ -33,4 +33,18 @@ export default class StringUtil {
       .map((s) => deburr(s).toLowerCase())
       .includes(deburr(include).toLowerCase());
   }
+
+  public static localCompareDeburrIgnoreCase(
+    c1: string,
+    c2: string,
+    asc = true
+  ) {
+    const fc1 = deburr(c1 ?? '')
+      .toLowerCase()
+      .trim();
+    const fc2 = deburr(c2 ?? '')
+      .toLowerCase()
+      .trim();
+    return asc ? fc1.localeCompare(fc2) : fc2.localeCompare(fc1);
+  }
 }
