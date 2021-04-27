@@ -1,4 +1,5 @@
 import ReferentialUtil from './referential-util.js';
+import StringUtil from './string-util.js';
 
 export default class TrappingUtil {
   public static readonly UPDATE_QUANTITY_KEY = 'data.quantity.value';
@@ -97,5 +98,46 @@ export default class TrappingUtil {
     let money = duplicate((<any>actor.data)?.money?.coins);
     money = game.wfrp4e.market.consolidateMoney(money);
     await actor.updateOwnedItem(money);
+  }
+
+  public static async generateWeapons(actor: Actor) {
+    if (actor == null) {
+      return;
+    }
+
+    const groups: string[] = [];
+
+    const weaponSkills = actor.items.filter(
+      (i) =>
+        i.type === 'skill' &&
+        i.name.includes('(') &&
+        (StringUtil.includesDeburrIgnoreCase(
+          i.name,
+          ReferentialUtil.getWeaponTypes().melee
+        ) ||
+          StringUtil.includesDeburrIgnoreCase(
+            i.name,
+            ReferentialUtil.getWeaponTypes().ranged
+          ))
+    );
+    for (let skill of weaponSkills) {
+      let group = skill.name.substring(
+        skill.name.indexOf('(') + 1,
+        skill.name.indexOf(')')
+      );
+      if (
+        !StringUtil.arrayIncludesDeburrIgnoreCase(
+          ReferentialUtil.getWeaponGroups(),
+          group
+        )
+      ) {
+        console.warn(`Unknown weapon group ${group} from skill ${skill.name}`);
+        group = ReferentialUtil.getBasicWeaponGroups();
+      }
+      if (!groups.includes(group)) {
+        groups.push(group);
+      }
+    }
+    console.dir(groups);
   }
 }

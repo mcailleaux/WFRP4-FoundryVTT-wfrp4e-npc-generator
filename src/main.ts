@@ -45,9 +45,15 @@ Hooks.on('createToken', async (scene: any, token: any) => {
     (generateMoneyEffect != null && !generateMoneyEffect.data.disabled) ||
     (generateWeaponEffect != null && !generateWeaponEffect.data.disabled) ||
     (generateArmorEffect != null && !generateArmorEffect.data.disabled);
+
   if (generateMoneyEffect != null && !generateMoneyEffect.data.disabled) {
     await TrappingUtil.generateMoney(actor);
   }
+
+  if (generateWeaponEffect != null && !generateWeaponEffect.data.disabled) {
+    await TrappingUtil.generateWeapons(actor);
+  }
+
   if (updateScene) {
     await scene.updateEmbeddedEntity('Token', actor);
   }

@@ -43,6 +43,18 @@ export default class ReferentialUtil {
     return game.wfrp4e.tables.talents.rows.map((row: any) => row.name);
   }
 
+  public static getWeaponTypes(): { melee: string; ranged: string } {
+    return game.wfrp4e.config.weaponTypes;
+  }
+
+  public static getWeaponGroups(): string[] {
+    return Object.values(game.wfrp4e.config.weaponGroups);
+  }
+
+  public static getBasicWeaponGroups(): string {
+    return game.wfrp4e.config.weaponGroups.basic;
+  }
+
   public static async getCareerIndexes(): Promise<Item[]> {
     const careers: Item[] = await CompendiumUtil.getCompendiumCareerIndexes();
     const worldCareers = game.items?.entities?.filter(

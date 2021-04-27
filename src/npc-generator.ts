@@ -446,7 +446,11 @@ export default class NpcGenerator {
     const trappingIds: string[] = [];
     for (let tr of model.trappingsStr) {
       const trapping = await ReferentialUtil.findTrapping(tr, trappings);
-      if (trapping != null && !trappingIds.includes(trapping._id)) {
+      if (
+        trapping != null &&
+        !trappingIds.includes(trapping._id) &&
+        trapping.type !== 'money'
+      ) {
         trappingIds.push(trapping._id);
         model.trappings.push(trapping);
       }
