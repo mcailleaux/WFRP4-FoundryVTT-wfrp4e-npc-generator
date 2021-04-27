@@ -149,9 +149,9 @@ export default class TrappingUtil {
         replaceSkill = true;
       }
 
-      const existingCount = (<any>actor.data).weapons.filter((w: any) =>
+      const existingCount = (<any>actor.data)?.weapons?.filter((w: any) =>
         StringUtil.equalsDeburrIgnoreCase(w.weaponGroup, group)
-      ).length;
+      )?.length;
 
       const ignore =
         (StringUtil.equalsDeburrIgnoreCase(
@@ -182,7 +182,7 @@ export default class TrappingUtil {
         const randomWeapon = RandomUtil.getRandomValue(
           weapons.filter((w) =>
             StringUtil.equalsDeburrIgnoreCase(
-              (<any>w.data.data).weaponGroup.value,
+              (<any>w.data.data)?.weaponGroup?.value,
               group
             )
           )
