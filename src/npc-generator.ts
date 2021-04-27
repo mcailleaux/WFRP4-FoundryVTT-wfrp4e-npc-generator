@@ -431,7 +431,7 @@ export default class NpcGenerator {
 
   public static async prepareCareerTrappings(model: NpcModel) {
     for (let cp of model.careerPath) {
-      for (let tr of (<string[]>(<any>cp).trappings).map((t: string) =>
+      for (let tr of (<string[]>(<any>cp.data).trappings).map((t: string) =>
         t.toLowerCase().trim()
       )) {
         if (!model.trappingsStr.includes(tr)) {
