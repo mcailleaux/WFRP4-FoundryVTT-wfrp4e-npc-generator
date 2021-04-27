@@ -7,9 +7,12 @@ export default class RandomUtil {
     return Math.floor(this.random() * max);
   }
 
-  public static getRandomValue<T>(array: T[]): T {
+  public static getRandomValue<T>(array: T[], exclude?: T[]): T {
     if (array == null || array.length === 0) {
       return null as any;
+    }
+    if (exclude != null && exclude.length > 0) {
+      return this.getRandomValue(array.filter((elm) => !exclude.includes(elm)));
     }
     return array[Math.floor(this.random() * array.length)];
   }

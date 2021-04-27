@@ -4,6 +4,7 @@ import RandomUtil from './random-util.js';
 
 export default class TrappingUtil {
   public static readonly UPDATE_QUANTITY_KEY = 'data.quantity.value';
+  public static readonly UPDATE_SKILL_NAME_KEY = 'data.name';
 
   public static async generateMoney(actor: Actor) {
     if (actor == null) {
@@ -143,7 +144,7 @@ export default class TrappingUtil {
             : ReferentialUtil.getRangedWeaponGroups()
         );
         console.warn(
-          `Unknown weapon group ${group} from skill ${skill.name}, resolved by random ${group}`
+          `Unknown weapon group from skill ${skill.name}, resolved by random ${group}`
         );
         replaceSkill = true;
       }
@@ -163,9 +164,12 @@ export default class TrappingUtil {
       if (!ignore && !groups.includes(group)) {
         groups.push(group);
         if (replaceSkill) {
-          skill.data.name = `${
-            ReferentialUtil.getWeaponTypes().melee
-          } (${group})`;
+          await actor.updateOwnedItem({
+            _id: skill._id,
+            [this.UPDATE_SKILL_NAME_KEY]: `${
+              ReferentialUtil.getWeaponTypes().melee
+            } (${group})`,
+          });
         }
       }
     }
@@ -184,7 +188,7 @@ export default class TrappingUtil {
           )
         );
         console.dir(randomWeapon);
-        (<any>actor.data).weapons.push(randomWeapon.data);
+        await actor.createOwnedItem(randomWeapon.data);
       }
     }
   }
