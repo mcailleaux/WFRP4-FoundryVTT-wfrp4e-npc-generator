@@ -141,7 +141,7 @@ export default class ReferentialUtil {
     return await game.wfrp4e.utility.findTalent(name);
   }
 
-  public static async findTrappings(
+  public static async findTrapping(
     name: string,
     referentialTrappings?: Item[]
   ): Promise<Item.Data | null> {
@@ -163,7 +163,10 @@ export default class ReferentialUtil {
           );
         })
         .find((t) => StringUtil.includesDeburrIgnoreCase(name, t.name));
-    if (trapping == null) {
+    if (trapping == null && name.includes('(') && name.includes(')')) {
+      const simpleName = name.substring(0, name.indexOf('('));
+      return this.findTrapping(simpleName, referentialTrappings);
+    } else if (trapping == null) {
       console.warn(`Can't find trapping ${name}`);
     }
     return Promise.resolve(trapping?.data ?? null);
