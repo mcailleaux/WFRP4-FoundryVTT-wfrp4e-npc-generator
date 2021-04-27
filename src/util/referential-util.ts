@@ -51,6 +51,11 @@ export default class ReferentialUtil {
     return Object.values(game.wfrp4e.config.weaponGroups);
   }
 
+  public static getWeaponGroupsKey(group: string): string {
+    const index = this.getWeaponGroups().indexOf(group);
+    return index >= 0 ? game.wfrp4e.config.weaponGroups[index] : null;
+  }
+
   public static getMeleeWeaponGroups(): string[] {
     const groups = game.wfrp4e.config.weaponGroups;
     return [

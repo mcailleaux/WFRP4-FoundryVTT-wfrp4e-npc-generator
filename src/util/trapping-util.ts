@@ -190,7 +190,7 @@ export default class TrappingUtil {
           weapons.filter((w) =>
             StringUtil.equalsDeburrIgnoreCase(
               (<any>w.data.data)?.weaponGroup?.value,
-              group
+              ReferentialUtil.getWeaponGroupsKey(group)
             )
           )
         );
