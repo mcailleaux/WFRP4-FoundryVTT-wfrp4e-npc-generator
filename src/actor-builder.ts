@@ -37,7 +37,7 @@ export class ActorBuilder {
   }
 
   public static async createActor(model: NpcModel, data: any) {
-    const actor: Actor = <Actor>await Actor.create(data, { temporary: true });
+    const actor: Actor = <Actor>await Actor.create(data);
     for (let i = 0; i < model.skills.length; i++) {
       await actor.createOwnedItem(model.skills[i]);
     }
@@ -75,7 +75,7 @@ export class ActorBuilder {
       );
     }
 
-    return Promise.resolve(await Actor.create(actor.data));
+    return Promise.resolve(actor);
   }
 
   private static async addGenerateTokenEffect(
