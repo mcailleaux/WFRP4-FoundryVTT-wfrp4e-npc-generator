@@ -171,7 +171,9 @@ export default class TrappingUtil {
     }
     console.dir(groups);
     if (groups.length > 0) {
-      const weapons = await ReferentialUtil.getTrappingEntities(true);
+      const weapons = (await ReferentialUtil.getTrappingEntities(true)).filter(
+        (w) => w.type === 'weapon'
+      );
       for (let group of groups) {
         const randomWeapon = RandomUtil.getRandomValue(
           weapons.filter((w) =>
