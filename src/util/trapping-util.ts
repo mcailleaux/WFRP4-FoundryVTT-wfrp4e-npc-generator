@@ -4,7 +4,7 @@ import RandomUtil from './random-util.js';
 
 export default class TrappingUtil {
   public static readonly UPDATE_QUANTITY_KEY = 'data.quantity.value';
-  public static readonly UPDATE_SKILL_NAME_KEY = 'data.name';
+  public static readonly UPDATE_SKILL_NAME_KEY = 'name';
 
   public static async generateMoney(actor: Actor) {
     if (actor == null) {
@@ -109,9 +109,8 @@ export default class TrappingUtil {
 
     const groups: string[] = [];
 
-    const weaponSkills = actor.items.filter(
-      (i) =>
-        i.type === 'skill' &&
+    const weaponSkills: Item.Data[] = (<any>actor.data)?.skills?.filter(
+      (i: Item.Data) =>
         i.name.includes('(') &&
         (StringUtil.includesDeburrIgnoreCase(
           i.name,
