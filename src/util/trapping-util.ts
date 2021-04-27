@@ -1,7 +1,7 @@
 import ReferentialUtil from './referential-util.js';
 
 export default class TrappingUtil {
-  public static async generateMoney(actor: Actor, tokenData: Actor) {
+  public static async generateMoney(actor: Actor, tokenData: Actor.Data) {
     if (actor == null || tokenData?.items == null) {
       return;
     }
@@ -43,20 +43,20 @@ export default class TrappingUtil {
     }
 
     const coins = tokenData.items.filter((it) => it.type === 'money');
-    let gCoin = coins.find((c: any) => c.data?.data?.coinValue?.value === 240);
-    let sCoin = coins.find((c: any) => c.data?.data?.coinValue?.value === 12);
-    let bCoin = coins.find((c: any) => c.data?.data?.coinValue?.value === 1);
+    let gCoin = coins.find((c: any) => c.data?.coinValue?.value === 240);
+    let sCoin = coins.find((c: any) => c.data?.coinValue?.value === 12);
+    let bCoin = coins.find((c: any) => c.data?.coinValue?.value === 1);
 
     if (gold > 0) {
-      (<any>gCoin?.data?.data).quantity.value = gold;
+      (<any>gCoin?.data).quantity.value = gold;
     }
 
     if (silver > 0) {
-      (<any>sCoin?.data?.data).quantity.value = silver;
+      (<any>sCoin?.data).quantity.value = silver;
     }
 
     if (brass > 0) {
-      (<any>bCoin?.data?.data).quantity.value = brass;
+      (<any>bCoin?.data).quantity.value = brass;
     }
   }
 }

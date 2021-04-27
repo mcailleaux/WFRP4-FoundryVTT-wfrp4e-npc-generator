@@ -38,8 +38,8 @@ Hooks.on('createToken', async (scene: any, token: any) => {
       generateArmorEffect != null;
     if (updateScene) {
       token.actorData = {
-        effects: actor.effects,
-        items: actor.items,
+        effects: Object.values(actor.effects).map((eff) => eff.data),
+        items: Object.values(actor.items).map((i) => i.data),
       };
     }
     if (generateMoneyEffect != null) {
