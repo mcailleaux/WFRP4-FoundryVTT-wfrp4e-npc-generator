@@ -455,7 +455,6 @@ export default class NpcGenerator {
       ) {
         trappingIds.push(trapping._id);
         delete (<any>trapping)._id;
-        trapping.name = tr;
         model.trappings.push(trapping);
       }
     }
