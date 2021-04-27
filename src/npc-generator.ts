@@ -443,9 +443,11 @@ export default class NpcGenerator {
 
   public static async addTrappings(model: NpcModel) {
     const trappings = await ReferentialUtil.getTrappingEntities(true);
+    const trappingIds: string[] = [];
     for (let tr of model.trappingsStr) {
       const trapping = await ReferentialUtil.findTrapping(tr, trappings);
-      if (trapping != null) {
+      if (trapping != null && !trappingIds.includes(trapping._id)) {
+        trappingIds.push(trapping._id);
         model.trappings.push(trapping);
       }
     }

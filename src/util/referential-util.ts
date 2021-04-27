@@ -147,12 +147,22 @@ export default class ReferentialUtil {
   ): Promise<Item.Data | null> {
     const searchTrappings =
       referentialTrappings ?? (await this.getTrappingEntities(true));
+    const simpleName =
+      name.includes('(') && name.includes(')')
+        ? name.substring(0, name.indexOf('(')).trim()
+        : name;
     const trapping =
       searchTrappings.find((t) =>
         StringUtil.equalsDeburrIgnoreCase(name, t.name)
       ) ??
       searchTrappings.find((t) =>
+        StringUtil.equalsDeburrIgnoreCase(t.name, simpleName)
+      ) ??
+      searchTrappings.find((t) =>
         StringUtil.includesDeburrIgnoreCase(t.name, name)
+      ) ??
+      searchTrappings.find((t) =>
+        StringUtil.includesDeburrIgnoreCase(t.name, simpleName)
       ) ??
       searchTrappings
         .sort((t1, t2) => {
@@ -163,12 +173,14 @@ export default class ReferentialUtil {
           );
         })
         .find((t) => StringUtil.includesDeburrIgnoreCase(name, t.name));
-    if (trapping == null && name.includes('(') && name.includes(')')) {
-      const simpleName = name.substring(0, name.indexOf('('));
-      return this.findTrapping(simpleName, referentialTrappings);
-    } else if (trapping == null) {
-      console.warn(`Can't find trapping ${name}`);
+    if (trapping == null) {
+      console.warn(
+        `Can't find trapping ${name}${
+          simpleName !== name ? `or ${simpleName}` : ''
+        }`
+      );
     }
+
     return Promise.resolve(trapping?.data ?? null);
   }
 
