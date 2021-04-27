@@ -70,15 +70,13 @@ export default class OptionsChooser {
           const options = new Options();
           html
             .find(`#select-with-class-trappings-${dialogId}`)
-            .filter((_i, r: HTMLInputElement) => r.checked)
             .each((_i, r: HTMLInputElement) => {
               options.withClassTrappings = r.checked;
             });
           html
             .find(`#select-with-career-trappings-${dialogId}`)
-            .filter((_i, r: HTMLInputElement) => r.checked)
             .each((_i, r: HTMLInputElement) => {
-              options.withClassTrappings = r.checked;
+              options.withCareerTrappings = r.checked;
             });
           html
             .find(`#generate-effect-money-${dialogId}`)
