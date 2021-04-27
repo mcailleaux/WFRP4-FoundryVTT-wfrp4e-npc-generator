@@ -42,6 +42,7 @@ export class ActorBuilder {
     }
 
     const generateMoneyEffect: any = {
+      icon: 'modules/wfrp4e-core/art/other/gold.webp',
       label: 'Generate Money On Token Creation',
     };
     generateMoneyEffect['flags.wfrp4e.effectApplication'] = 'actor';

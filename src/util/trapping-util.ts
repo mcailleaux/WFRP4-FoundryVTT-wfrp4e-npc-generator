@@ -1,8 +1,8 @@
 import ReferentialUtil from './referential-util.js';
 
 export default class TrappingUtil {
-  public static async generateMoney(actor: Actor) {
-    if (actor == null) {
+  public static async generateMoney(actor: Actor, tokenData: Actor.Data) {
+    if (actor == null || tokenData?.items == null) {
       return;
     }
 
@@ -43,7 +43,7 @@ export default class TrappingUtil {
     }
 
     const moneyItems = await ReferentialUtil.getAllMoneyItems();
-    const coins = (<any>actor.data)?.money?.coins;
+    const coins = tokenData.items.filter((it) => it.type === 'money');
     let gCoin = coins.find((c: any) => c.data?.coinValue?.value === 240);
     let sCoin = coins.find((c: any) => c.data?.coinValue?.value === 12);
     let bCoin = coins.find((c: any) => c.data?.coinValue?.value === 1);
@@ -59,36 +59,27 @@ export default class TrappingUtil {
     if (gold > 0) {
       if (isGoldCreate) {
         (<any>createGCoin.data).quantity.value = gold;
-        await actor.createOwnedItem(createGCoin);
+        tokenData.items.push(createGCoin);
       } else {
-        await actor.updateOwnedItem({
-          _id: gCoin._id,
-          'data.quantity.value': gold,
-        });
+        (<any>gCoin?.data).quantity.value = gold;
       }
     }
 
     if (silver > 0) {
       if (isSilverCreate) {
         (<any>createSCoin.data).quantity.value = silver;
-        await actor.createOwnedItem(createSCoin);
+        tokenData.items.push(createSCoin);
       } else {
-        await actor.updateOwnedItem({
-          _id: sCoin._id,
-          'data.quantity.value': silver,
-        });
+        (<any>sCoin?.data).quantity.value = silver;
       }
     }
 
     if (brass > 0) {
       if (isBrassCreate) {
         (<any>createBCoin.data).quantity.value = brass;
-        await actor.createOwnedItem(createBCoin);
+        tokenData.items.push(createBCoin);
       } else {
-        await actor.updateOwnedItem({
-          _id: bCoin._id,
-          'data.quantity.value': brass,
-        });
+        (<any>bCoin?.data).quantity.value = brass;
       }
     }
   }
