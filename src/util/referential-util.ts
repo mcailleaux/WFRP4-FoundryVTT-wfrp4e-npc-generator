@@ -223,7 +223,7 @@ export default class ReferentialUtil {
           return StringUtil.localCompareDeburrIgnoreCase(
             t1.name,
             t2.name,
-            false
+            t1.name.length > t2.name.length
           );
         })
         .find((t) => StringUtil.includesDeburrIgnoreCase(name, t.name));

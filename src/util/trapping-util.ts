@@ -167,8 +167,6 @@ export default class TrappingUtil {
       if (!ignore && !groups.includes(group)) {
         groups.push(group);
         if (replaceSkill) {
-          console.dir(skill);
-          console.dir(group);
           await actor.updateOwnedItem({
             _id: skill._id,
             [this.UPDATE_SKILL_NAME_KEY]: `${
@@ -180,7 +178,6 @@ export default class TrappingUtil {
         }
       }
     }
-    console.dir(groups);
     if (groups.length > 0) {
       const weapons = (await ReferentialUtil.getTrappingEntities(true)).filter(
         (w) => w.type === 'weapon'
@@ -194,7 +191,6 @@ export default class TrappingUtil {
             )
           )
         );
-        console.dir(randomWeapon);
         await actor.createOwnedItem(randomWeapon.data);
       }
     }
