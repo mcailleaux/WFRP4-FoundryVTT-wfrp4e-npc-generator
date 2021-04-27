@@ -454,7 +454,6 @@ export default class NpcGenerator {
         trapping.type !== 'money'
       ) {
         trappingIds.push(trapping._id);
-        delete (<any>trapping)._id;
         model.trappings.push(trapping);
       }
     }
