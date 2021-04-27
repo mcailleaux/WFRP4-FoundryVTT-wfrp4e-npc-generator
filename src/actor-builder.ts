@@ -4,7 +4,12 @@ import { GenerateEffectOptionEnum } from './util/generate-effect-option.enum.js'
 
 export class ActorBuilder {
   public static async buildActorData(model: NpcModel, type: string) {
-    const moneyItems = await ReferentialUtil.getAllMoneyItems();
+    const moneyItems = duplicate(await ReferentialUtil.getAllMoneyItems()).map(
+      (mi) => {
+        delete (<any>mi)._id;
+        return mi;
+      }
+    );
     const actorData = {
       name: model.name,
       type: type,
