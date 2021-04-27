@@ -20,5 +20,6 @@
   "WFRP4NPCGEN.native.tongue.halfling": "Language (Mootish)",
   "WFRP4NPCGEN.native.tongue.dwarf": "Language (Khazalid)",
   "WFRP4NPCGEN.item.any": "any",
-  "WFRP4NPCGEN.notification.actor.created": "NPC {name} has been created"
+  "WFRP4NPCGEN.notification.actor.created": "NPC {name} has been created",
+  "WFRP4NPCGEN.trappings.money.label": "Generate money on token creation"
 }

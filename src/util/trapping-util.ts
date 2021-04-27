@@ -1,6 +1,8 @@
 import ReferentialUtil from './referential-util.js';
 
 export default class TrappingUtil {
+  public static readonly GENERATE_MONEY_KEY = 'GENERATE_MONEY_KEY';
+
   public static async generateMoney(actor: Actor) {
     if (actor == null) {
       return;
@@ -56,7 +58,7 @@ export default class TrappingUtil {
     const createSCoin = moneyItems[1];
     const createBCoin = moneyItems[2];
 
-    if (gold > 0) {
+    if (gold > 0 || isGoldCreate) {
       if (isGoldCreate) {
         (<any>createGCoin.data).quantity.value = gold;
         await actor.createOwnedItem(createGCoin);
@@ -68,7 +70,7 @@ export default class TrappingUtil {
       }
     }
 
-    if (silver > 0) {
+    if (silver > 0 || isSilverCreate) {
       if (isSilverCreate) {
         (<any>createSCoin.data).quantity.value = silver;
         await actor.createOwnedItem(createSCoin);
@@ -80,7 +82,7 @@ export default class TrappingUtil {
       }
     }
 
-    if (brass > 0) {
+    if (brass > 0 || isBrassCreate) {
       if (isBrassCreate) {
         (<any>createBCoin.data).quantity.value = brass;
         await actor.createOwnedItem(createBCoin);

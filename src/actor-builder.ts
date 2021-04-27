@@ -1,5 +1,6 @@
 import NpcModel from './npc-model.js';
 import ReferentialUtil from './util/referential-util.js';
+import TrappingUtil from './util/trapping-util.js';
 
 export class ActorBuilder {
   public static async buildActorData(model: NpcModel, type: string) {
@@ -44,6 +45,7 @@ export class ActorBuilder {
     const generateMoneyEffect: any = {
       icon: 'modules/wfrp4e-core/art/other/gold.webp',
       label: 'Generate Money On Token Creation',
+      _id: TrappingUtil.GENERATE_MONEY_KEY,
     };
     generateMoneyEffect['flags.wfrp4e.effectApplication'] = 'actor';
     await (<any>actor).createEmbeddedEntity(
