@@ -166,7 +166,9 @@ export default class TrappingUtil {
           await actor.updateOwnedItem({
             _id: skill._id,
             [this.UPDATE_SKILL_NAME_KEY]: `${
-              ReferentialUtil.getWeaponTypes().melee
+              isMelee
+                ? ReferentialUtil.getWeaponTypes().melee
+                : ReferentialUtil.getWeaponTypes().ranged
             } (${group})`,
           });
         }
