@@ -408,7 +408,7 @@ export default class NpcGenerator {
   public static async prepareClassTrappings(model: NpcModel) {
     const careerClasses: string[] = [];
     model.careerPath.forEach((cp) => {
-      const careerClass = (<any>cp.data)?.class?.value;
+      const careerClass = ReferentialUtil.getClassKeyFromCareer(cp);
       if (careerClass != null && !careerClasses.includes(careerClass)) {
         careerClasses.push(careerClass);
       }

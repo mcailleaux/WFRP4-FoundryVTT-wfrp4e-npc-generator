@@ -13,6 +13,14 @@ export default class ReferentialUtil {
     return resolvedClassTrapping;
   }
 
+  public static getClassKeyFromCareer(career: Item.Data) {
+    const careerClass = (<any>career.data)?.class?.value;
+    const keys = Object.keys(this.getClassTrappings());
+    return keys.find((k) =>
+      StringUtil.includesDeburrIgnoreCase(k.trim(), careerClass?.trim())
+    );
+  }
+
   public static getTrappingCategories(): string[] {
     return Object.keys(game.wfrp4e.config.trappingCategories);
   }
@@ -143,6 +151,9 @@ export default class ReferentialUtil {
       ) ??
       searchTrappings.find((t) =>
         StringUtil.includesDeburrIgnoreCase(t.name, name)
+      ) ??
+      searchTrappings.find((t) =>
+        StringUtil.includesDeburrIgnoreCase(name, t.name)
       );
     if (trapping == null) {
       console.warn(`Can't find trapping ${name}`);
