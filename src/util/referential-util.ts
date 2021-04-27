@@ -220,11 +220,7 @@ export default class ReferentialUtil {
       ) ??
       searchTrappings
         .sort((t1, t2) => {
-          return StringUtil.localCompareDeburrIgnoreCase(
-            t1.name,
-            t2.name,
-            t1.name.length > t2.name.length
-          );
+          return t2.name.length - t1.name.length;
         })
         .find((t) => StringUtil.includesDeburrIgnoreCase(name, t.name));
     if (trapping == null) {
