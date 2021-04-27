@@ -52,12 +52,17 @@ export default class ReferentialUtil {
   }
 
   public static getWeaponGroupsKey(group: string): string {
-    const index = this.getWeaponGroups().indexOf(group);
-    return index >= 0
-      ? game.wfrp4e.config.weaponGroups[
-          Object.keys(game.wfrp4e.config.weaponGroups)[index]
-        ]
-      : null;
+    for (let key of Object.keys(game.wfrp4e.config.weaponGroups)) {
+      if (
+        StringUtil.equalsDeburrIgnoreCase(
+          game.wfrp4e.config.weaponGroups[key],
+          group
+        )
+      ) {
+        return key;
+      }
+    }
+    return '';
   }
 
   public static getMeleeWeaponGroups(): string[] {
