@@ -31,16 +31,21 @@ export class ActorBuilder {
           },
         },
       },
-      items: [...model.careerPath, ...moneyItems, ...model.trappings],
+      items: [
+        ...model.skills,
+        ...model.careerPath,
+        ...moneyItems,
+        ...model.trappings,
+      ],
     };
     return Promise.resolve(actorData);
   }
 
   public static async createActor(model: NpcModel, data: any) {
     const actor: Actor = <Actor>await Actor.create(data);
-    for (let i = 0; i < model.skills.length; i++) {
-      await actor.createOwnedItem(model.skills[i]);
-    }
+    // for (let i = 0; i < model.skills.length; i++) {
+    //   await actor.createOwnedItem(model.skills[i]);
+    // }
     for (let i = 0; i < model.talents.length; i++) {
       await actor.createOwnedItem(model.talents[i]);
     }
