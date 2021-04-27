@@ -35,12 +35,12 @@ Hooks.on('createToken', async (scene: any, token: any) => {
     const generateArmorEffect = actor.effects.find(
       (eff) => eff.data.label === 'Generate Armors On Token Creation'
     );
-    let updateScene =
+    const updateScene =
       generateMoneyEffect != null ||
       generateWeaponEffect != null ||
       generateArmorEffect != null;
     if (generateMoneyEffect != null) {
-      await TrappingUtil.generateMoney(actor, token.actorData);
+      await TrappingUtil.generateMoney(actor);
     }
     if (updateScene) {
       await scene.updateEmbeddedEntity('Token', actor);
