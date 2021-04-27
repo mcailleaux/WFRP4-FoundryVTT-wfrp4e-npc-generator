@@ -18,9 +18,12 @@ Hooks.on('renderActorDirectory', (_app: ActorSheet, html: JQuery) => {
 });
 
 Hooks.on('createToken', async (scene: any, token: any) => {
+  if (token?.actorLink) {
+    return;
+  }
   console.dir(scene);
   console.dir(token);
-  const actor = game.actors.get(token.actorId);
+  const actor: Actor = game.actors.tokens[token._id];
   if (actor != null) {
     console.dir(actor);
     const generateMoneyEffect = actor.effects.find(
@@ -36,17 +39,11 @@ Hooks.on('createToken', async (scene: any, token: any) => {
       generateMoneyEffect != null ||
       generateWeaponEffect != null ||
       generateArmorEffect != null;
-    if (updateScene) {
-      token.actorData = {
-        effects: actor.effects.map((eff) => eff.data),
-        items: actor.items.map((i) => i.data),
-      };
-    }
     if (generateMoneyEffect != null) {
       await TrappingUtil.generateMoney(actor, token.actorData);
     }
     if (updateScene) {
-      await scene.updateEmbeddedEntity('Token', token);
+      await scene.updateEmbeddedEntity('Token', actor);
     }
   }
 });

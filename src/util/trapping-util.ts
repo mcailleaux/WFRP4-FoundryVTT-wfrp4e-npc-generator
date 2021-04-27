@@ -1,8 +1,8 @@
 import ReferentialUtil from './referential-util.js';
 
 export default class TrappingUtil {
-  public static async generateMoney(actor: Actor, tokenData: Actor.Data) {
-    if (actor == null || tokenData?.items == null) {
+  public static async generateMoney(actor: Actor) {
+    if (actor == null) {
       return;
     }
 
@@ -42,21 +42,54 @@ export default class TrappingUtil {
       brass = new Roll(`${2 * tier}d10`).roll().total;
     }
 
-    const coins = tokenData.items.filter((it) => it.type === 'money');
+    const moneyItems = await ReferentialUtil.getAllMoneyItems();
+    const coins = (<any>actor.data)?.money?.coins;
     let gCoin = coins.find((c: any) => c.data?.coinValue?.value === 240);
     let sCoin = coins.find((c: any) => c.data?.coinValue?.value === 12);
     let bCoin = coins.find((c: any) => c.data?.coinValue?.value === 1);
 
+    const isGoldCreate = gCoin == null;
+    const isSilverCreate = sCoin == null;
+    const isBrassCreate = bCoin == null;
+
+    const createGCoin = moneyItems[0];
+    const createSCoin = moneyItems[1];
+    const createBCoin = moneyItems[2];
+
     if (gold > 0) {
-      (<any>gCoin?.data).quantity.value = gold;
+      if (isGoldCreate) {
+        (<any>createGCoin.data).quantity.value = gold;
+        await actor.createOwnedItem(createGCoin);
+      } else {
+        await actor.updateOwnedItem({
+          _id: gCoin._id,
+          'data.quantity.value': gold,
+        });
+      }
     }
 
     if (silver > 0) {
-      (<any>sCoin?.data).quantity.value = silver;
+      if (isSilverCreate) {
+        (<any>createSCoin.data).quantity.value = silver;
+        await actor.createOwnedItem(createSCoin);
+      } else {
+        await actor.updateOwnedItem({
+          _id: sCoin._id,
+          'data.quantity.value': silver,
+        });
+      }
     }
 
     if (brass > 0) {
-      (<any>bCoin?.data).quantity.value = brass;
+      if (isBrassCreate) {
+        (<any>createBCoin.data).quantity.value = brass;
+        await actor.createOwnedItem(createBCoin);
+      } else {
+        await actor.updateOwnedItem({
+          _id: bCoin._id,
+          'data.quantity.value': brass,
+        });
+      }
     }
   }
 }
