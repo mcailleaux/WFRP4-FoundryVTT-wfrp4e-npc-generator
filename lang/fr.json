@@ -23,5 +23,11 @@
   "WFRP4NPCGEN.notification.actor.created": "Le PNJ {name} a été créé",
   "WFRP4NPCGEN.trappings.money.label": "Générer l'argent à la création du Token",
   "WFRP4NPCGEN.trappings.weapon.label": "Générer des armes à la création du Token",
-  "WFRP4NPCGEN.trappings.armor.label": "Générer des armures à la création du Token"
+  "WFRP4NPCGEN.trappings.armor.label": "Générer des armures à la création du Token",
+  "WFRP4NPCGEN.options.select.title": "Options de génération",
+  "WFRP4NPCGEN.options.select.withClassTrappings.label": "Inclure les possessions de classes",
+  "WFRP4NPCGEN.options.select.withCareerTrappings.label": "Inclure les possessions de carrière",
+  "WFRP4NPCGEN.options.effects.NONE": "Ne pas inclure l'effet",
+  "WFRP4NPCGEN.options.effects.DEFAULT_DISABLED": "L'effet est désactivé par défaut",
+  "WFRP4NPCGEN.options.effects.DEFAULT_ENABLED": "L'effet est activé par défaut"
 }

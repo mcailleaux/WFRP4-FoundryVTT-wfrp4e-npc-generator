@@ -1,3 +1,5 @@
+import Options from './util/options.js';
+
 export default class NpcModel {
   public speciesKey: string;
   public speciesValue: string;
@@ -17,4 +19,5 @@ export default class NpcModel {
   public chars: { [char: string]: { initial: number; advances: number } } = {};
   public move: string;
   public actor: Actor;
+  public options = new Options();
 }

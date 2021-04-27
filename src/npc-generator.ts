@@ -11,6 +11,8 @@ import StringUtil from './util/string-util.js';
 import TranslateErrorDetect from './util/translate-error-detect.js';
 import ReferentialUtil from './util/referential-util.js';
 import TrappingUtil from './util/trapping-util.js';
+import OptionsChooser from './util/options.chooser.js';
+import Options from './util/options.js';
 
 export default class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
@@ -18,6 +20,7 @@ export default class NpcGenerator {
   public static readonly speciesSkillsChooser = SpeciesSkillsChooser;
   public static readonly speciesTalentsChooser = SpeciesTalentsChooser;
   public static readonly nameChooser = NameChooser;
+  public static readonly optionsChooser = OptionsChooser;
   public static readonly actorBuilder = ActorBuilder;
   public static readonly referential = ReferentialUtil;
   public static readonly trapping = TrappingUtil;
@@ -130,10 +133,26 @@ export default class NpcGenerator {
       model.speciesKey,
       (name: string) => {
         model.name = name;
-        this.finalize(model, callback);
+        this.selectOptions(model, callback);
       },
       () => {
         this.selectSpeciesTalents(model, callback);
+      }
+    );
+  }
+
+  private static async selectOptions(
+    model: NpcModel,
+    callback: (model: NpcModel) => void
+  ) {
+    await this.optionsChooser.selectOptions(
+      model.options,
+      (options: Options) => {
+        model.options = options;
+        this.finalize(model, callback);
+      },
+      () => {
+        this.selectName(model, callback);
       }
     );
   }

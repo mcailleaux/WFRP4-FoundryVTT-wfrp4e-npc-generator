@@ -23,5 +23,11 @@
   "WFRP4NPCGEN.notification.actor.created": "NPC {name} has been created",
   "WFRP4NPCGEN.trappings.money.label": "Generate money on token creation",
   "WFRP4NPCGEN.trappings.weapon.label": "Generate weapons on token creation",
-  "WFRP4NPCGEN.trappings.armor.label": "Generate armors on token creation"
+  "WFRP4NPCGEN.trappings.armor.label": "Generate armors on token creation",
+  "WFRP4NPCGEN.options.select.title": "Generate options",
+  "WFRP4NPCGEN.options.select.withClassTrappings.label": "Include class trappings",
+  "WFRP4NPCGEN.options.select.withCareerTrappings.label": "Include career trappings",
+  "WFRP4NPCGEN.options.effects.NONE": "Don't include effect",
+  "WFRP4NPCGEN.options.effects.DEFAULT_DISABLED": "Effect is default disabled",
+  "WFRP4NPCGEN.options.effects.DEFAULT_ENABLED": "Effect is default enabled"
 }

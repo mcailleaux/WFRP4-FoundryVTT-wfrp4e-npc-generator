@@ -1,6 +1,8 @@
 import ReferentialUtil from './referential-util.js';
 
 export default class TrappingUtil {
+  public static readonly UPDATE_QUANTITY_KEY = 'data.quantity.value';
+
   public static async generateMoney(actor: Actor) {
     if (actor == null) {
       return;
@@ -63,7 +65,7 @@ export default class TrappingUtil {
       } else {
         await actor.updateOwnedItem({
           _id: gCoin._id,
-          'data.quantity.value': gold,
+          [this.UPDATE_QUANTITY_KEY]: gold,
         });
       }
     }
@@ -75,7 +77,7 @@ export default class TrappingUtil {
       } else {
         await actor.updateOwnedItem({
           _id: sCoin._id,
-          'data.quantity.value': silver,
+          [this.UPDATE_QUANTITY_KEY]: silver,
         });
       }
     }
@@ -87,7 +89,7 @@ export default class TrappingUtil {
       } else {
         await actor.updateOwnedItem({
           _id: bCoin._id,
-          'data.quantity.value': brass,
+          [this.UPDATE_QUANTITY_KEY]: brass,
         });
       }
     }

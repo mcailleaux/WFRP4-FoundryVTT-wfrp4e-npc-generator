@@ -1,0 +1,5 @@
+export enum GenerateEffectOptionEnum {
+  NONE = 'NONE',
+  DEFAULT_DISABLED = 'DEFAULT_DISABLED',
+  DEFAULT_ENABLED = 'DEFAULT_ENABLED',
+}

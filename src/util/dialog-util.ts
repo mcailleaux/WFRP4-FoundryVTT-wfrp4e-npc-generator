@@ -1,3 +1,5 @@
+import { GenerateEffectOptionEnum } from './generate-effect-option.enum.js';
+
 export default class DialogUtil {
   public static getDialogButtons(
     id: number,
@@ -65,7 +67,9 @@ export default class DialogUtil {
             ${Object.entries(options).map(([key, value]) => {
               const selected =
                 finalInitValue === key ? ' selected="selected"' : '';
-              return `<option${selected} id="${id}-${key}" value="${key}">${value}</option>`;
+              return `<option${selected} id="${id}-${key}" value="${key}">${game.i18n.localize(
+                value
+              )}</option>`;
             })}
         </select>
         `;
@@ -137,5 +141,21 @@ export default class DialogUtil {
             return nameGen.generateName({ species: speciesKey });
         }
     `;
+  }
+
+  public static getEffectSelectScript(
+    dialogId: number,
+    id: string,
+    initValue: GenerateEffectOptionEnum
+  ): string {
+    return this.getSelectScript(
+      `${id}-${dialogId}`,
+      {
+        [GenerateEffectOptionEnum.NONE]: `WFRP4NPCGEN.options.effects.${GenerateEffectOptionEnum.NONE}`,
+        [GenerateEffectOptionEnum.DEFAULT_DISABLED]: `WFRP4NPCGEN.options.effects.${GenerateEffectOptionEnum.DEFAULT_DISABLED}`,
+        [GenerateEffectOptionEnum.DEFAULT_ENABLED]: `WFRP4NPCGEN.options.effects.${GenerateEffectOptionEnum.DEFAULT_ENABLED}`,
+      },
+      initValue
+    );
   }
 }
