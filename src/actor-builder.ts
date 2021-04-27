@@ -1,5 +1,6 @@
 import NpcModel from './npc-model.js';
 import ReferentialUtil from './util/referential-util.js';
+import { GenerateEffectOptionEnum } from './util/generate-effect-option.enum.js';
 
 export class ActorBuilder {
   public static async buildActorData(model: NpcModel, type: string) {
@@ -41,23 +42,35 @@ export class ActorBuilder {
       await actor.createOwnedItem(model.talents[i]);
     }
 
-    await this.addGenerateTokenEffect(
-      actor,
-      'WFRP4NPCGEN.trappings.money.label',
-      'modules/wfrp4e-core/art/other/gold.webp'
-    );
+    if (GenerateEffectOptionEnum.NONE !== model.options.generateMoneyEffect) {
+      await this.addGenerateTokenEffect(
+        actor,
+        'WFRP4NPCGEN.trappings.money.label',
+        GenerateEffectOptionEnum.DEFAULT_DISABLED ===
+          model.options.generateMoneyEffect,
+        'modules/wfrp4e-core/art/other/gold.webp'
+      );
+    }
 
-    await this.addGenerateTokenEffect(
-      actor,
-      'WFRP4NPCGEN.trappings.weapon.label',
-      'modules/wfrp4e-core/art/other/weapons.webp'
-    );
+    if (GenerateEffectOptionEnum.NONE !== model.options.generateWeaponEffect) {
+      await this.addGenerateTokenEffect(
+        actor,
+        'WFRP4NPCGEN.trappings.weapon.label',
+        GenerateEffectOptionEnum.DEFAULT_DISABLED ===
+          model.options.generateWeaponEffect,
+        'modules/wfrp4e-core/art/other/weapons.webp'
+      );
+    }
 
-    await this.addGenerateTokenEffect(
-      actor,
-      'WFRP4NPCGEN.trappings.armor.label',
-      'modules/wfrp4e-core/art/other/anvil.webp'
-    );
+    if (GenerateEffectOptionEnum.NONE !== model.options.generateArmorEffect) {
+      await this.addGenerateTokenEffect(
+        actor,
+        'WFRP4NPCGEN.trappings.armor.label',
+        GenerateEffectOptionEnum.DEFAULT_DISABLED ===
+          model.options.generateArmorEffect,
+        'modules/wfrp4e-core/art/other/anvil.webp'
+      );
+    }
 
     return Promise.resolve(actor);
   }
@@ -65,11 +78,13 @@ export class ActorBuilder {
   private static async addGenerateTokenEffect(
     actor: Actor,
     label: string,
+    disabled: boolean,
     icon?: string
   ) {
     const generateEffect: any = {
       icon: icon,
       label: game.i18n.localize(label),
+      disabled: disabled,
     };
     generateEffect['flags.wfrp4e.effectApplication'] = 'actor';
     await (<any>actor).createEmbeddedEntity('ActiveEffect', generateEffect);

@@ -173,7 +173,15 @@ export default class NpcGenerator {
     await this.addMovement(model);
     await this.addAdvanceSkills(model);
     await this.addAdvanceChars(model);
-    await this.addEffects(model);
+    if (model.options.withClassTrappings) {
+      await this.prepareClassTrappings(model);
+    }
+    if (model.options.withCareerTrappings) {
+      await this.prepareCareerTrappings(model);
+    }
+    if (model.trappingsStr.length > 0) {
+      await this.addTrappings(model);
+    }
     callback(model);
   }
 
@@ -397,14 +405,49 @@ export default class NpcGenerator {
     });
   }
 
-  private static async addEffects(model: NpcModel) {
-    model.talents.forEach((talent) => {
-      model.effects.push(
-        ...(<any>talent).effects.map((eff: any) => {
-          eff.sourcename = talent.name;
-          return eff;
-        })
-      );
+  public static async prepareClassTrappings(model: NpcModel) {
+    const careerClasses: string[] = [];
+    model.careerPath.forEach((cp) => {
+      const careerClass = (<any>cp.data)?.class?.value;
+      if (careerClass != null && !careerClasses.includes(careerClass)) {
+        careerClasses.push(careerClass);
+      }
     });
+    const classTrappings = ReferentialUtil.getClassTrappings();
+    careerClasses.forEach((cc) => {
+      const tps = classTrappings[cc];
+      if (tps != null) {
+        tps
+          .split(',')
+          .map((t) => t.toLowerCase().trim())
+          .forEach((t) => {
+            if (!model.trappingsStr.includes(t)) {
+              model.trappingsStr.push(t);
+            }
+          });
+      }
+    });
+  }
+
+  public static async prepareCareerTrappings(model: NpcModel) {
+    for (let cp of model.careerPath) {
+      for (let tr of (<string[]>(<any>cp).trappings).map((t: string) =>
+        t.toLowerCase().trim()
+      )) {
+        if (!model.trappingsStr.includes(tr)) {
+          model.trappingsStr.push(tr);
+        }
+      }
+    }
+  }
+
+  public static async addTrappings(model: NpcModel) {
+    const trappings = await ReferentialUtil.getTrappingEntities(true);
+    for (let tr of model.trappingsStr) {
+      const trapping = await ReferentialUtil.findTrappings(tr, trappings);
+      if (trapping != null) {
+        model.trappings.push(trapping);
+      }
+    }
   }
 }

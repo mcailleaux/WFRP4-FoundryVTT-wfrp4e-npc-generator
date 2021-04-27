@@ -1,6 +1,18 @@
 import StringUtil from './string-util.js';
+import CompendiumUtil from './compendium-util.js';
 
 export default class ReferentialUtil {
+  public static getClassTrappings(): { [key: string]: string } {
+    const voClassTraping: { [key: string]: string } =
+      game.wfrp4e.config.classTrappings;
+    const resolvedClassTrapping: { [key: string]: string } = {};
+    Object.entries(voClassTraping).forEach(([key, value]) => {
+      const localKey = game.i18n.localize(key);
+      resolvedClassTrapping[localKey] = value;
+    });
+    return resolvedClassTrapping;
+  }
+
   public static getTrappingCategories(): string[] {
     return Object.keys(game.wfrp4e.config.trappingCategories);
   }
@@ -22,8 +34,7 @@ export default class ReferentialUtil {
   }
 
   public static async getCareerIndexes(): Promise<Item[]> {
-    const careersPack = game.packs.get('wfrp4e-core.careers');
-    const careers: Item[] = await careersPack.getIndex();
+    const careers: Item[] = await CompendiumUtil.getCompendiumCareerIndexes();
     const worldCareers = game.items?.entities?.filter(
       (item) => item.type === 'career'
     );
@@ -34,8 +45,7 @@ export default class ReferentialUtil {
   }
 
   public static async getCareerEntities(withWorld = true): Promise<Item[]> {
-    const careersPack = game.packs.get('wfrp4e-core.careers');
-    const careers: Item[] = await careersPack.getContent();
+    const careers: Item[] = await CompendiumUtil.getCompendiumCareers();
     if (withWorld) {
       const worldCareers = game.items?.entities?.filter(
         (item) => item.type === 'career'
@@ -48,8 +58,7 @@ export default class ReferentialUtil {
   }
 
   public static async getTrappingEntities(withWorld = true): Promise<Item[]> {
-    const trappingsPack = game.packs.get('wfrp4e-core.trappings');
-    const trappings: Item[] = await trappingsPack.getContent();
+    const trappings: Item[] = await CompendiumUtil.getCompendiumTrappings();
     if (withWorld) {
       const trappingCategories = this.getTrappingCategories();
       const worldTrappings = game.items?.entities?.filter((item) =>
@@ -120,6 +129,25 @@ export default class ReferentialUtil {
 
   public static async findTalent(name: string) {
     return await game.wfrp4e.utility.findTalent(name);
+  }
+
+  public static async findTrappings(
+    name: string,
+    referentialTrappings?: Item[]
+  ): Promise<Item.Data | null> {
+    const searchTrappings =
+      referentialTrappings ?? (await this.getTrappingEntities(true));
+    const trapping =
+      searchTrappings.find((t) =>
+        StringUtil.equalsDeburrIgnoreCase(name, t.name)
+      ) ??
+      searchTrappings.find((t) =>
+        StringUtil.includesDeburrIgnoreCase(name, t.name)
+      );
+    if (trapping == null) {
+      console.warn(`Can't find trapping ${name}`);
+    }
+    return Promise.resolve(trapping?.data ?? null);
   }
 
   public static async getSpeciesCharacteristics(speciesKey: string) {
