@@ -18,32 +18,31 @@ Hooks.on('renderActorDirectory', (_app: ActorSheet, html: JQuery) => {
 });
 
 Hooks.on('createToken', async (scene: any, token: any) => {
-  if (token?.actorLink) {
+  const actor: Actor = game.actors?.tokens[token._id];
+  if (token?.actorLink || actor == null) {
     return;
   }
-  console.dir(scene);
-  console.dir(token);
-  const actor: Actor = game.actors.tokens[token._id];
-  if (actor != null) {
-    console.dir(actor);
-    const generateMoneyEffect = actor.effects.find(
-      (eff) => eff.data.label === 'Generate Money On Token Creation'
-    );
-    const generateWeaponEffect = actor.effects.find(
-      (eff) => eff.data.label === 'Generate Weapons On Token Creation'
-    );
-    const generateArmorEffect = actor.effects.find(
-      (eff) => eff.data.label === 'Generate Armors On Token Creation'
-    );
-    const updateScene =
-      generateMoneyEffect != null ||
-      generateWeaponEffect != null ||
-      generateArmorEffect != null;
-    if (generateMoneyEffect != null) {
-      await TrappingUtil.generateMoney(actor);
-    }
-    if (updateScene) {
-      await scene.updateEmbeddedEntity('Token', actor);
-    }
+  const generateMoneyEffect = actor.effects.find(
+    (eff) =>
+      eff.data.label === game.i18n.localize('WFRP4NPCGEN.trappings.money.label')
+  );
+  const generateWeaponEffect = actor.effects.find(
+    (eff) =>
+      eff.data.label ===
+      game.i18n.localize('WFRP4NPCGEN.trappings.weapon.label')
+  );
+  const generateArmorEffect = actor.effects.find(
+    (eff) =>
+      eff.data.label === game.i18n.localize('WFRP4NPCGEN.trappings.armor.label')
+  );
+  const updateScene =
+    (generateMoneyEffect != null && !generateMoneyEffect.data.disabled) ||
+    (generateWeaponEffect != null && !generateWeaponEffect.data.disabled) ||
+    (generateArmorEffect != null && !generateArmorEffect.data.disabled);
+  if (generateMoneyEffect != null && !generateMoneyEffect.data.disabled) {
+    await TrappingUtil.generateMoney(actor);
+  }
+  if (updateScene) {
+    await scene.updateEmbeddedEntity('Token', actor);
   }
 });

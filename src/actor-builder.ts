@@ -1,6 +1,5 @@
 import NpcModel from './npc-model.js';
 import ReferentialUtil from './util/referential-util.js';
-import TrappingUtil from './util/trapping-util.js';
 
 export class ActorBuilder {
   public static async buildActorData(model: NpcModel, type: string) {
@@ -42,17 +41,37 @@ export class ActorBuilder {
       await actor.createOwnedItem(model.talents[i]);
     }
 
-    const generateMoneyEffect: any = {
-      icon: 'modules/wfrp4e-core/art/other/gold.webp',
-      label: 'Generate Money On Token Creation',
-      _id: TrappingUtil.GENERATE_MONEY_KEY,
-    };
-    generateMoneyEffect['flags.wfrp4e.effectApplication'] = 'actor';
-    await (<any>actor).createEmbeddedEntity(
-      'ActiveEffect',
-      generateMoneyEffect
+    await this.addGenerateTokenEffect(
+      actor,
+      'WFRP4NPCGEN.trappings.money.label',
+      'modules/wfrp4e-core/art/other/gold.webp'
+    );
+
+    await this.addGenerateTokenEffect(
+      actor,
+      'WFRP4NPCGEN.trappings.weapon.label',
+      'modules/wfrp4e-core/art/other/weapons.webp'
+    );
+
+    await this.addGenerateTokenEffect(
+      actor,
+      'WFRP4NPCGEN.trappings.armor.label',
+      'modules/wfrp4e-core/art/other/anvil.webp'
     );
 
     return Promise.resolve(actor);
+  }
+
+  private static async addGenerateTokenEffect(
+    actor: Actor,
+    label: string,
+    icon?: string
+  ) {
+    const generateEffect: any = {
+      icon: icon,
+      label: game.i18n.localize(label),
+    };
+    generateEffect['flags.wfrp4e.effectApplication'] = 'actor';
+    await (<any>actor).createEmbeddedEntity('ActiveEffect', generateEffect);
   }
 }

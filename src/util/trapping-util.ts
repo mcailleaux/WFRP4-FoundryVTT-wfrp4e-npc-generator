@@ -1,8 +1,6 @@
 import ReferentialUtil from './referential-util.js';
 
 export default class TrappingUtil {
-  public static readonly GENERATE_MONEY_KEY = 'GENERATE_MONEY_KEY';
-
   public static async generateMoney(actor: Actor) {
     if (actor == null) {
       return;
@@ -45,7 +43,7 @@ export default class TrappingUtil {
     }
 
     const moneyItems = await ReferentialUtil.getAllMoneyItems();
-    const coins = (<any>actor.data)?.money?.coins;
+    let coins = (<any>actor.data)?.money?.coins;
     let gCoin = coins.find((c: any) => c.data?.coinValue?.value === 240);
     let sCoin = coins.find((c: any) => c.data?.coinValue?.value === 12);
     let bCoin = coins.find((c: any) => c.data?.coinValue?.value === 1);
@@ -93,5 +91,9 @@ export default class TrappingUtil {
         });
       }
     }
+
+    let money = duplicate((<any>actor.data)?.money?.coins);
+    money = game.wfrp4e.market.consolidateMoney(money);
+    await actor.updateOwnedItem(money);
   }
 }
