@@ -1,8 +1,14 @@
 import NpcGenerator from './npc-generator.js';
 import TrappingUtil from './util/trapping-util.js';
+import CompendiumUtil from './util/compendium-util.js';
 
 Hooks.once('init', () => {
   game.wfrp4e.npcGen = NpcGenerator;
+});
+
+Hooks.on('ready', () => {
+  console.log('init cache compendium');
+  CompendiumUtil.initCompendium().then();
 });
 
 Hooks.on('renderActorDirectory', (_app: ActorSheet, html: JQuery) => {
