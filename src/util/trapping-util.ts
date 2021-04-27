@@ -130,6 +130,7 @@ export default class TrappingUtil {
         skill.name.indexOf('(') + 1,
         skill.name.indexOf(')')
       );
+      let replaceSkill = false;
       if (
         !StringUtil.arrayIncludesDeburrIgnoreCase(
           ReferentialUtil.getWeaponGroups(),
@@ -144,6 +145,7 @@ export default class TrappingUtil {
         console.warn(
           `Unknown weapon group ${group} from skill ${skill.name}, resolved by random ${group}`
         );
+        replaceSkill = true;
       }
 
       const existingCount = (<any>actor.data).weapons.filter((w: any) =>
@@ -160,6 +162,11 @@ export default class TrappingUtil {
 
       if (!ignore && !groups.includes(group)) {
         groups.push(group);
+        if (replaceSkill) {
+          skill.data.name = `${
+            ReferentialUtil.getWeaponTypes().melee
+          } (${group})`;
+        }
       }
     }
     console.dir(groups);
@@ -175,6 +182,7 @@ export default class TrappingUtil {
           )
         );
         console.dir(randomWeapon);
+        (<any>actor.data).weapons.push(randomWeapon.data);
       }
     }
   }
