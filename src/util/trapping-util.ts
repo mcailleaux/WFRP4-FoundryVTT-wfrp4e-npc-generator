@@ -109,18 +109,37 @@ export default class TrappingUtil {
 
     const groups: string[] = [];
 
-    const weaponSkills: Item.Data[] = (<any>actor.data)?.skills?.filter(
-      (i: Item.Data) =>
-        i.name.includes('(') &&
-        (StringUtil.includesDeburrIgnoreCase(
-          i.name,
-          ReferentialUtil.getWeaponTypes().melee
-        ) ||
-          StringUtil.includesDeburrIgnoreCase(
+    const weaponSkills: Item.Data[] = (<any>actor.data)?.skills
+      ?.filter(
+        (i: Item.Data) =>
+          i.name.includes('(') &&
+          (StringUtil.includesDeburrIgnoreCase(
             i.name,
-            ReferentialUtil.getWeaponTypes().ranged
-          ))
-    );
+            ReferentialUtil.getWeaponTypes().melee
+          ) ||
+            StringUtil.includesDeburrIgnoreCase(
+              i.name,
+              ReferentialUtil.getWeaponTypes().ranged
+            ))
+      )
+      .sort((s1: Item.Data, s2: Item.Data) => {
+        const s1HaveAny = StringUtil.includesDeburrIgnoreCase(
+          s1.name,
+          game.i18n.localize('WFRP4NPCGEN.item.any')
+        );
+        const s2HaveAny = StringUtil.includesDeburrIgnoreCase(
+          s2.name,
+          game.i18n.localize('WFRP4NPCGEN.item.any')
+        );
+        if (s1HaveAny && s2HaveAny) {
+          return 0;
+        } else if (s1HaveAny) {
+          return 1;
+        } else if (s2HaveAny) {
+          return -1;
+        }
+        return 0;
+      });
     for (let skill of weaponSkills) {
       const isMelee = StringUtil.includesDeburrIgnoreCase(
         skill.name,
