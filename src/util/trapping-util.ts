@@ -228,6 +228,10 @@ export default class TrappingUtil {
             )
           );
           if (randomAmmunition != null) {
+            const quantity = (<any>randomAmmunition.data.data)?.quantity?.value;
+            if (quantity != null && quantity < 10) {
+              (<any>randomAmmunition.data.data).quantity.value = 10;
+            }
             await actor.createOwnedItem(randomAmmunition.data);
           }
         }

@@ -65,16 +65,6 @@ export class ActorBuilder {
       );
     }
 
-    if (GenerateEffectOptionEnum.NONE !== model.options.generateArmorEffect) {
-      await this.addGenerateTokenEffect(
-        actor,
-        'WFRP4NPCGEN.trappings.armor.label',
-        GenerateEffectOptionEnum.DEFAULT_DISABLED ===
-          model.options.generateArmorEffect,
-        'modules/wfrp4e-core/art/other/anvil.webp'
-      );
-    }
-
     return Promise.resolve(actor);
   }
 

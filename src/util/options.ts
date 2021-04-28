@@ -7,6 +7,4 @@ export default class Options {
     GenerateEffectOptionEnum.DEFAULT_ENABLED;
   public generateWeaponEffect: GenerateEffectOptionEnum =
     GenerateEffectOptionEnum.DEFAULT_ENABLED;
-  public generateArmorEffect: GenerateEffectOptionEnum =
-    GenerateEffectOptionEnum.DEFAULT_ENABLED;
 }

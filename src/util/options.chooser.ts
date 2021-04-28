@@ -51,15 +51,7 @@ export default class OptionsChooser {
               ${DialogUtil.getEffectSelectScript(
                 dialogId,
                 'generate-effect-weapon',
-                initOptions?.generateMoneyEffect
-              )}
-              </div>
-              <div class="form-group">
-              ${DialogUtil.getLabelScript('WFRP4NPCGEN.trappings.armor.label')}
-              ${DialogUtil.getEffectSelectScript(
-                dialogId,
-                'generate-effect-armor',
-                initOptions?.generateMoneyEffect
+                initOptions?.generateWeaponEffect
               )}
               </div>
               </form>            
@@ -89,13 +81,6 @@ export default class OptionsChooser {
             .find(`#generate-effect-weapon-${dialogId}`)
             .each((_i, r: HTMLInputElement) => {
               options.generateWeaponEffect = this.getGenerateEffectOptionEnum(
-                r.value
-              );
-            });
-          html
-            .find(`#generate-effect-armor-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              options.generateArmorEffect = this.getGenerateEffectOptionEnum(
                 r.value
               );
             });

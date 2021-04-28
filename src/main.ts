@@ -37,14 +37,9 @@ Hooks.on('createToken', async (scene: any, token: any) => {
       eff.data.label ===
       game.i18n.localize('WFRP4NPCGEN.trappings.weapon.label')
   );
-  const generateArmorEffect = actor.effects.find(
-    (eff) =>
-      eff.data.label === game.i18n.localize('WFRP4NPCGEN.trappings.armor.label')
-  );
   const updateScene =
     (generateMoneyEffect != null && !generateMoneyEffect.data.disabled) ||
-    (generateWeaponEffect != null && !generateWeaponEffect.data.disabled) ||
-    (generateArmorEffect != null && !generateArmorEffect.data.disabled);
+    (generateWeaponEffect != null && !generateWeaponEffect.data.disabled);
 
   if (generateMoneyEffect != null && !generateMoneyEffect.data.disabled) {
     await TrappingUtil.generateMoney(actor);
