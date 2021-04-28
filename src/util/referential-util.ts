@@ -7,7 +7,14 @@ export default class ReferentialUtil {
       game.wfrp4e.config.classTrappings;
     const resolvedClassTrapping: { [key: string]: string } = {};
     Object.entries(voClassTraping).forEach(([key]) => {
-      const localKey = game.i18n.localize(key);
+      let useKey = key;
+      if (
+        (<any>game.i18n.translations)[useKey] == null &&
+        useKey.endsWith('s')
+      ) {
+        useKey = useKey.substring(0, useKey.length - 1);
+      }
+      const localKey = game.i18n.localize(useKey);
       resolvedClassTrapping[localKey] = game.i18n.localize(
         `WFRP4NPCGEN.trappings.class.${key}`
       );
