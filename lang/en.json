@@ -39,12 +39,12 @@
   "WFRP4NPCGEN.options.effects.NONE": "Don't include effect",
   "WFRP4NPCGEN.options.effects.DEFAULT_DISABLED": "Effect is default disabled",
   "WFRP4NPCGEN.options.effects.DEFAULT_ENABLED": "Effect is default enabled",
-  "WFRP4NPCGEN.settings.defaultWithClassTrappings.name": "Default 'include class trappings' option",
-  "WFRP4NPCGEN.settings.defaultWithClassTrappings.hint": "Default select value for the option 'include class trappings' on the options generation chooser when you generate a NPC",
-  "WFRP4NPCGEN.settings.defaultWithCareerTrappings.name": "Default 'include career trappings' option",
-  "WFRP4NPCGEN.settings.defaultWithCareerTrappings.hint": "Default select value for the option 'include career trappings' on the options generation chooser when you generate a NPC",
-  "WFRP4NPCGEN.settings.defaultGenerateMoneyEffect.name": "Default 'generate money on token creation' option",
-  "WFRP4NPCGEN.settings.defaultGenerateMoneyEffect.hint": "Default select value for the option 'generate money on token creation' on the options generation chooser when you generate a NPC",
-  "WFRP4NPCGEN.settings.defaultGenerateWeaponEffect.name": "Default 'generate weapons on token creation' option",
-  "WFRP4NPCGEN.settings.defaultGenerateWeaponEffect.hint": "Default select value for the option 'generate weapons on token creation' on the options generation chooser when you generate a NPC"
+  "WFRP4NPCGEN.settings.defaultWithClassTrappings.name": "Include class trappings",
+  "WFRP4NPCGEN.settings.defaultWithClassTrappings.hint": "Default selected value for the option 'include class trappings' on the options generation chooser when you generate a NPC",
+  "WFRP4NPCGEN.settings.defaultWithCareerTrappings.name": "Iinclude career trappings",
+  "WFRP4NPCGEN.settings.defaultWithCareerTrappings.hint": "Default selected value for the option 'include career trappings' on the options generation chooser when you generate a NPC",
+  "WFRP4NPCGEN.settings.defaultGenerateMoneyEffect.name": "Generate money on token creation",
+  "WFRP4NPCGEN.settings.defaultGenerateMoneyEffect.hint": "Default selected value for the option 'generate money on token creation' on the options generation chooser when you generate a NPC",
+  "WFRP4NPCGEN.settings.defaultGenerateWeaponEffect.name": "Generate weapons on token creation",
+  "WFRP4NPCGEN.settings.defaultGenerateWeaponEffect.hint": "Default selected value for the option 'generate weapons on token creation' on the options generation chooser when you generate a NPC"
 }
