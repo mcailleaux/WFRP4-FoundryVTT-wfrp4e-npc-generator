@@ -1,9 +1,12 @@
 import NpcGenerator from './npc-generator.js';
 import TrappingUtil from './util/trapping-util.js';
 import CompendiumUtil from './util/compendium-util.js';
+import RegisterSettings from './util/register-settings.js';
 
 Hooks.once('init', () => {
   game.wfrp4e.npcGen = NpcGenerator;
+
+  RegisterSettings.initSettings();
 });
 
 Hooks.on('ready', () => {

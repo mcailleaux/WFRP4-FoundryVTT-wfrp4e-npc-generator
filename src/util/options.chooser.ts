@@ -1,6 +1,6 @@
 import DialogUtil from './dialog-util.js';
 import Options from './options.js';
-import { GenerateEffectOptionEnum } from './generate-effect-option.enum.js';
+import { getGenerateEffectOptionEnum } from './generate-effect-option.enum.js';
 
 export default class OptionsChooser {
   public static async selectOptions(
@@ -73,14 +73,14 @@ export default class OptionsChooser {
           html
             .find(`#generate-effect-money-${dialogId}`)
             .each((_i, r: HTMLInputElement) => {
-              options.generateMoneyEffect = this.getGenerateEffectOptionEnum(
+              options.generateMoneyEffect = getGenerateEffectOptionEnum(
                 r.value
               );
             });
           html
             .find(`#generate-effect-weapon-${dialogId}`)
             .each((_i, r: HTMLInputElement) => {
-              options.generateWeaponEffect = this.getGenerateEffectOptionEnum(
+              options.generateWeaponEffect = getGenerateEffectOptionEnum(
                 r.value
               );
             });
@@ -91,18 +91,5 @@ export default class OptionsChooser {
       ),
       default: 'yes',
     }).render(true);
-  }
-
-  private static getGenerateEffectOptionEnum(
-    value: string
-  ): GenerateEffectOptionEnum {
-    switch (value) {
-      case GenerateEffectOptionEnum.DEFAULT_DISABLED:
-        return GenerateEffectOptionEnum.DEFAULT_DISABLED;
-      case GenerateEffectOptionEnum.DEFAULT_ENABLED:
-        return GenerateEffectOptionEnum.DEFAULT_ENABLED;
-      default:
-        return GenerateEffectOptionEnum.NONE;
-    }
   }
 }

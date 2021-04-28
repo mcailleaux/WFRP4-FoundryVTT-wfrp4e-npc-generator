@@ -38,5 +38,13 @@
   "WFRP4NPCGEN.options.select.withCareerTrappings.label": "Inclure les possessions de carrière",
   "WFRP4NPCGEN.options.effects.NONE": "Ne pas inclure l'effet",
   "WFRP4NPCGEN.options.effects.DEFAULT_DISABLED": "L'effet est désactivé par défaut",
-  "WFRP4NPCGEN.options.effects.DEFAULT_ENABLED": "L'effet est activé par défaut"
+  "WFRP4NPCGEN.options.effects.DEFAULT_ENABLED": "L'effet est activé par défaut",
+  "WFRP4NPCGEN.settings.defaultWithClassTrappings.name": "Valeur par défaut de l'option 'inclure les possessions de classes'",
+  "WFRP4NPCGEN.settings.defaultWithClassTrappings.hint": "Valeur sélectionné par défaut pour l'option 'inclure les possessions de classes' lors de l'étape de choix des otpions à la génération d'un PNJ",
+  "WFRP4NPCGEN.settings.defaultWithCareerTrappings.name": "Valeur par défaut de l'option 'inclure les possessions de carrières'",
+  "WFRP4NPCGEN.settings.defaultWithCareerTrappings.hint": "Valeur sélectionné par défaut pour l'option 'inclure les possessions de carrières' lors de l'étape de choix des otpions à la génération d'un PNJ",
+  "WFRP4NPCGEN.settings.defaultGenerateMoneyEffect.name": "Valeur par défaut de l'option 'générer l'argent à la création du Token'",
+  "WFRP4NPCGEN.settings.defaultGenerateMoneyEffect.hint": "Valeur sélectionné par défaut pour l'option 'générer l'argent à la création du Token' lors de l'étape de choix des otpions à la génération d'un PNJ",
+  "WFRP4NPCGEN.settings.defaultGenerateWeaponEffect.name": "Valeur par défaut de l'option 'générer des armes à la création du Token'",
+  "WFRP4NPCGEN.settings.defaultGenerateWeaponEffect.hint": "Valeur sélectionné par défaut pour l'option 'générer des armes à la création du Token' lors de l'étape de choix des otpions à la génération d'un PNJ"
 }
