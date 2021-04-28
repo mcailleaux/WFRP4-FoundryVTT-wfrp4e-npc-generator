@@ -201,6 +201,9 @@ export default class TrappingUtil {
       const weapons = (await ReferentialUtil.getTrappingEntities(true)).filter(
         (w) => w.type === 'weapon'
       );
+      const ammunitions = (
+        await ReferentialUtil.getTrappingEntities(true)
+      ).filter((w) => w.type === 'ammunition');
       for (let group of groups) {
         const randomWeapon = RandomUtil.getRandomValue(
           weapons.filter((w) =>
@@ -210,7 +213,24 @@ export default class TrappingUtil {
             )
           )
         );
+
         await actor.createOwnedItem(randomWeapon.data);
+
+        const ammunitionGroup = (<any>randomWeapon.data.data)?.ammunitionGroup
+          ?.value;
+        if (ammunitionGroup != null) {
+          const randomAmmunition = RandomUtil.getRandomValue(
+            ammunitions.filter((w) =>
+              StringUtil.equalsDeburrIgnoreCase(
+                (<any>w.data.data)?.ammunitionType?.value,
+                ammunitionGroup
+              )
+            )
+          );
+          if (randomAmmunition != null) {
+            await actor.createOwnedItem(randomAmmunition.data);
+          }
+        }
       }
     }
   }
