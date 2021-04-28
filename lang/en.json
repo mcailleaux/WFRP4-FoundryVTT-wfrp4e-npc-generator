@@ -23,6 +23,8 @@
   "WFRP4NPCGEN.notification.actor.created": "NPC {name} has been created",
   "WFRP4NPCGEN.trappings.money.label": "Generate money on token creation",
   "WFRP4NPCGEN.trappings.weapon.label": "Generate weapons on token creation",
+  "WFRP4NPCGEN.trappings.weapon.skill.melee": "Melee",
+  "WFRP4NPCGEN.trappings.weapon.skill.ranged": "Ranged",
   "WFRP4NPCGEN.trappings.armor.label": "Generate armors on token creation",
   "WFRP4NPCGEN.trappings.class.human": "",
   "WFRP4NPCGEN.trappings.class.Academics": "Clothing, Dagger, Pouch, Sling Bag, Writing Kit, Parchment",

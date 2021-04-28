@@ -100,8 +100,8 @@ export default class TranslateErrorDetect {
       }
     });
 
-    for (let i = 0; i < skills.length; i++) {
-      const s = skills[i];
+    for (let skill of skills) {
+      const s = skill;
       try {
         await ReferentialUtil.findSkill(s);
       } catch (e) {
@@ -110,8 +110,8 @@ export default class TranslateErrorDetect {
       }
     }
 
-    for (let i = 0; i < talents.length; i++) {
-      const t = talents[i];
+    for (let talent of talents) {
+      const t = talent;
       try {
         await ReferentialUtil.findTalent(t);
       } catch (e) {

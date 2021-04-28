@@ -274,9 +274,8 @@ export default class NpcGenerator {
     if (names == null || names.length === 0) {
       return;
     }
-    for (let i = 0; i < names.length; i++) {
-      const skill = names[i];
-      await this.addSkill(model, skill);
+    for (let name of names) {
+      await this.addSkill(model, name);
     }
   }
 
@@ -305,8 +304,8 @@ export default class NpcGenerator {
   }
 
   private static async addCareerTalents(model: NpcModel) {
-    for (let i = 0; i < model.careerPath.length; i++) {
-      const data: any = model.careerPath[i]?.data;
+    for (let career of model.careerPath) {
+      const data: any = career?.data;
       await this.addTalents(model, data?.talents);
     }
   }
@@ -326,9 +325,8 @@ export default class NpcGenerator {
     if (names == null || names.length === 0) {
       return;
     }
-    for (let i = 0; i < names.length; i++) {
-      const talent = names[i];
-      await this.addTalent(model, talent);
+    for (let name of names) {
+      await this.addTalent(model, name);
     }
   }
 

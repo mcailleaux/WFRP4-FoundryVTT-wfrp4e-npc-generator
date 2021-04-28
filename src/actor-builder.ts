@@ -38,11 +38,11 @@ export class ActorBuilder {
 
   public static async createActor(model: NpcModel, data: any) {
     const actor: Actor = <Actor>await Actor.create(data);
-    for (let i = 0; i < model.skills.length; i++) {
-      await actor.createOwnedItem(model.skills[i]);
+    for (let skill of model.skills) {
+      await actor.createOwnedItem(skill);
     }
-    for (let i = 0; i < model.talents.length; i++) {
-      await actor.createOwnedItem(model.talents[i]);
+    for (let talent of model.talents) {
+      await actor.createOwnedItem(talent);
     }
 
     if (GenerateEffectOptionEnum.NONE !== model.options.generateMoneyEffect) {

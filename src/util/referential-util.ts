@@ -44,7 +44,10 @@ export default class ReferentialUtil {
   }
 
   public static getWeaponTypes(): { melee: string; ranged: string } {
-    return game.wfrp4e.config.weaponTypes;
+    return {
+      melee: game.i18n.localize('WFRP4NPCGEN.trappings.weapon.skill.melee'),
+      ranged: game.i18n.localize('WFRP4NPCGEN.trappings.weapon.skill.ranged'),
+    };
   }
 
   public static getWeaponGroups(): string[] {
