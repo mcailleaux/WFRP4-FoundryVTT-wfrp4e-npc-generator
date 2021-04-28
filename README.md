@@ -47,6 +47,17 @@ you have to install the translate module of wfrp4e-core and have the system lang
 
 ![Name Chooser](./media/wfrp4e-name-chooser.png)
 
+#### 6 you choose generation options
+
+![Options Chooser](./media/wfre4e-npc-gen-options-chooser.png)
+
+- Include class trappings : check it if you want to include class trapping on generated NPC
+- Include career trappings : check it if you want to include career trapping (if founded) on generated NPC
+- Generate money/weapons on token creation (see token generation rules below for detail) :
+  - Don't include effect : NPC don't include the passive effect used to generate money/weapons on token creation
+  - Effect is default disabled : NPC include the passive effect used to generate money/weapons on token creation, the effect is disabled
+  - Effect is default enabled : NPC include the passive effect used to generate money/weapons on token creation, the effect is active
+
 ### From Macro
 
 ```
@@ -116,6 +127,12 @@ game.wfrp4e.npcGen.nameChooser.selectName(
 })
 ```
 
+## Settings
+
+![Settings](./media/wfre4e-npc-gen-settings.png)
+
+- Settings allow you to define the default selected option of options chooser, the last step of NPC generation
+
 ## Generation rules
 
 - Actor is created with npc template (creature template comming soon)
@@ -129,6 +146,44 @@ game.wfrp4e.npcGen.nameChooser.selectName(
 - Actor have adverage characteristic
   - Each characteristics have +/- 0-5
   - All career characteristics have 5 x career level advance
+- If active, actor have all his class trappings
+- If active and if items are found by equal or partial match, actor have all his career trappings
+- If active, actor have an effect to indicate if you want to generate random money on token creation
+- If active, actor have an effect to indicate if you want to generate random weapons, corresponding to you Melee or Ranged Skill, on token creation
+
+## Token Generation rules
+
+![Effects](./media/wfre4e-npc-gen-effects.png)
+
+- All function fired during token generation work only if token is not link with actor data
+- Those effect can be manualy created on existing NPC to activate this function, not only by the NPC generator
+
+### Random money generation
+
+If this effect is present and active on passive effect :
+
+- en : "Generate money on token creation"
+- fr : "Générer l'argent à la création du Token"
+
+Money is added to token data during creation with this rules :
+
+- Gold standing : tier x GC + 5D10 SS + 10D10 BP
+- Silver standing : tier x 1D10 SS + 10D10 BP
+- Brass standing : tier x 2D10 BP
+- Money is finaly consolidate to have the fewest coins
+
+### Random weapons generation
+
+If this effect is present and active on passive effect :
+
+- en : "Generate weapons on token creation"
+- fr : "Générer des armes à la création du Token"
+
+Weapons are added to token data during creation with this rules :
+
+- One random weapon per each Melee or Ranged Skills, Two weapons for Melee (Basic), existing actor weapons are counting to determinate if a new weapon is generate
+- Melee (any) and Ranged (any) are replaced by a random other group and a weapon is generate
+- For Ranged, a random ammunition for this weapon is added with a minimum quantity of 10 (apply for existing weapon, not only the generated ones)
 
 ## Comming soon
 
