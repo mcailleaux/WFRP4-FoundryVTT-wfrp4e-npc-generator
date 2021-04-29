@@ -12,6 +12,12 @@
 - create a chat command
 - Manage other language
 
+## 1.2.1
+
+### Bugfix
+
+- Init compendium on first usage of generate function
+
 ## 1.2.0
 
 ### New features
