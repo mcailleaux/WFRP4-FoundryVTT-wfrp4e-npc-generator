@@ -47,4 +47,8 @@ export default class StringUtil {
       .trim();
     return asc ? fc1.localeCompare(fc2) : fc2.localeCompare(fc1);
   }
+
+  public static toDeburrLowerCase(value: string): string {
+    return deburr(value).toLowerCase();
+  }
 }

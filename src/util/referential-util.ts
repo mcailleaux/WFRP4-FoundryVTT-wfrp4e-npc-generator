@@ -209,13 +209,17 @@ export default class ReferentialUtil {
     name: string,
     referentialTrappings?: Item[]
   ): Promise<Item.Data[]> {
-    let searchName = name;
+    let searchName = StringUtil.toDeburrLowerCase(name);
     const trappings: Item.Data[] = [];
     let trapping = await this.findTrapping(searchName, referentialTrappings);
     while (trapping != null) {
       trappings.push(trapping);
-      searchName = searchName.replace(trapping.name, '');
-      if (searchName.length > 0) {
+      const lastSearch = searchName;
+      searchName = searchName.replace(
+        StringUtil.toDeburrLowerCase(trapping.name),
+        ''
+      );
+      if (searchName.length > 0 && lastSearch !== searchName) {
         trapping = await this.findTrapping(searchName, referentialTrappings);
       } else {
         trapping = null;
