@@ -13,6 +13,7 @@ import ReferentialUtil from './util/referential-util.js';
 import TrappingUtil from './util/trapping-util.js';
 import OptionsChooser from './util/options.chooser.js';
 import Options from './util/options.js';
+import CompendiumUtil from './util/compendium-util.js';
 
 export default class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
@@ -29,6 +30,7 @@ export default class NpcGenerator {
   public static async generateNpc(
     callback?: (model: NpcModel, actorData: any, actor: any) => void
   ) {
+    await CompendiumUtil.initCompendium();
     await this.generateNpcModel(async (model) => {
       const actorData = await ActorBuilder.buildActorData(model, 'npc');
       const actor = await ActorBuilder.createActor(model, actorData);

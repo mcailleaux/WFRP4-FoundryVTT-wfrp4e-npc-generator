@@ -8,14 +8,13 @@ export default class CompendiumUtil {
   private static compendiumTalents: Item[];
 
   public static async initCompendium() {
-    this.getCompendiumCareerIndexes().then();
-    this.getCompendiumCareers().then();
-    this.getCompendiumTrappings().then();
-    this.getCompendiumSkillIndexes().then();
-    this.getCompendiumSkills().then();
-    this.getCompendiumTalentIndexes().then();
-    this.getCompendiumTalents().then();
-    return Promise.resolve();
+    await this.getCompendiumCareerIndexes();
+    await this.getCompendiumCareers();
+    await this.getCompendiumTrappings();
+    await this.getCompendiumSkillIndexes();
+    await this.getCompendiumSkills();
+    await this.getCompendiumTalentIndexes();
+    await this.getCompendiumTalents();
   }
 
   public static async getCompendiumCareerIndexes() {
