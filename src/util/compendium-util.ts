@@ -22,6 +22,7 @@ export default class CompendiumUtil {
               </div>
           </form>
             `,
+        buttons: {},
       });
       loadDialog.render(true);
     }
