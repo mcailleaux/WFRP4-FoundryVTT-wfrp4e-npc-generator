@@ -205,6 +205,25 @@ export default class ReferentialUtil {
     return await game.wfrp4e.utility.findTalent(name);
   }
 
+  public static async findTrappings(
+    name: string,
+    referentialTrappings?: Item[]
+  ): Promise<Item.Data[]> {
+    let searchName = name;
+    const trappings: Item.Data[] = [];
+    let trapping = await this.findTrapping(searchName, referentialTrappings);
+    while (trapping != null) {
+      trappings.push(trapping);
+      searchName = searchName.replace(trapping.name, '');
+      if (searchName.length > 0) {
+        trapping = await this.findTrapping(searchName, referentialTrappings);
+      } else {
+        trapping = null;
+      }
+    }
+    return Promise.resolve(trappings);
+  }
+
   public static async findTrapping(
     name: string,
     referentialTrappings?: Item[]

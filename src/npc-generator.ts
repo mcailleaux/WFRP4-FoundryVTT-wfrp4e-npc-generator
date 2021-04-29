@@ -442,17 +442,22 @@ export default class NpcGenerator {
   }
 
   public static async addTrappings(model: NpcModel) {
-    const trappings = await ReferentialUtil.getTrappingEntities(true);
+    const trappingCompendiums = await ReferentialUtil.getTrappingEntities(true);
     const trappingIds: string[] = [];
     for (let tr of model.trappingsStr) {
-      const trapping = await ReferentialUtil.findTrapping(tr, trappings);
-      if (
-        trapping != null &&
-        !trappingIds.includes(trapping._id) &&
-        trapping.type !== 'money'
-      ) {
-        trappingIds.push(trapping._id);
-        model.trappings.push(trapping);
+      const trappings = await ReferentialUtil.findTrappings(
+        tr,
+        trappingCompendiums
+      );
+      for (let trapping of trappings) {
+        if (
+          trapping != null &&
+          !trappingIds.includes(trapping._id) &&
+          trapping.type !== 'money'
+        ) {
+          trappingIds.push(trapping._id);
+          model.trappings.push(trapping);
+        }
       }
     }
   }
