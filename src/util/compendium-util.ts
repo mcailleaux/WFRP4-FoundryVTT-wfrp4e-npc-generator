@@ -1,3 +1,5 @@
+import DialogUtil from './dialog-util.js';
+
 export default class CompendiumUtil {
   private static compendiumCareerIndexes: Item[];
   private static compendiumCareers: Item[];
@@ -7,7 +9,22 @@ export default class CompendiumUtil {
   private static compendiumTalentIndexes: Item[];
   private static compendiumTalents: Item[];
 
+  public static loadDialog = new Dialog({
+    title: game.i18n.localize('WFRP4NPCGEN.compendium.load.title'),
+    content: `<form> 
+              <div class="form-group">
+              ${DialogUtil.getLabelScript('WFRP4NPCGEN.compendium.load.hint')}}
+              </div>
+          </form>
+            `,
+  });
+
+  public static compendiumloaded = false;
+
   public static async initCompendium() {
+    if (!this.compendiumloaded) {
+      this.loadDialog.render(true);
+    }
     await this.getCompendiumCareerIndexes();
     await this.getCompendiumCareers();
     await this.getCompendiumTrappings();
@@ -15,6 +32,10 @@ export default class CompendiumUtil {
     await this.getCompendiumSkills();
     await this.getCompendiumTalentIndexes();
     await this.getCompendiumTalents();
+    if (!this.compendiumloaded) {
+      await this.loadDialog.close();
+    }
+    this.compendiumloaded = true;
   }
 
   public static async getCompendiumCareerIndexes() {

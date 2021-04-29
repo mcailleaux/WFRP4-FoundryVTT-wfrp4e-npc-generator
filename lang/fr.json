@@ -1,5 +1,7 @@
 {
   "WFRP4NPCGEN.actor.directory.button": "Générer un PNJ",
+  "WFRP4NPCGEN.compendium.load.title": "Chargement des données",
+  "WFRP4NPCGEN.compendium.load.hint": "Merci d'attendre la fin du chargement des données compendium",
   "WFRP4NPCGEN.common.button.OK": "OK",
   "WFRP4NPCGEN.common.button.Cancel": "Annuler",
   "WFRP4NPCGEN.common.button.Undo": "Précédent",

@@ -1,5 +1,7 @@
 {
   "WFRP4NPCGEN.actor.directory.button": "Generate NPC",
+  "WFRP4NPCGEN.compendium.load.title": "Data loading",
+  "WFRP4NPCGEN.compendium.load.hint": "Please wait for compendium data loading",
   "WFRP4NPCGEN.common.button.OK": "OK",
   "WFRP4NPCGEN.common.button.Cancel": "Cancel",
   "WFRP4NPCGEN.common.button.Undo": "Undo",
