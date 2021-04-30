@@ -251,9 +251,11 @@ export default class ReferentialUtil {
         trapping = null;
       }
     }
-    trappings.push(
-      ...(await this.findTrappingsByWords(searchName, referentialTrappings))
-    );
+    if (searchName.trim().includes(' ')) {
+      trappings.push(
+        ...(await this.findTrappingsByWords(searchName, referentialTrappings))
+      );
+    }
     return Promise.resolve(trappings);
   }
 
