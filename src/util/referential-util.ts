@@ -215,19 +215,17 @@ export default class ReferentialUtil {
     while (trapping != null) {
       trappings.push(trapping);
       const lastSearch = searchName;
-      searchName = searchName.replace(
-        StringUtil.toDeburrLowerCase(trapping.name),
-        ''
-      );
+      searchName = searchName
+        .replace(StringUtil.toDeburrLowerCase(trapping.name), '')
+        .trim();
       if (searchName === lastSearch) {
         const simpleName =
           name.includes('(') && name.includes(')')
             ? name.substring(0, name.indexOf('(')).trim()
             : name;
-        searchName = searchName.replace(
-          StringUtil.toDeburrLowerCase(simpleName),
-          ''
-        );
+        searchName = searchName
+          .replace(StringUtil.toDeburrLowerCase(simpleName), '')
+          .trim();
       }
       if (searchName === lastSearch) {
         const words = trapping.name
@@ -235,10 +233,9 @@ export default class ReferentialUtil {
           .map((word) => word.trim())
           .filter((word) => word.length > 2);
         for (let word of words) {
-          searchName = searchName.replace(
-            StringUtil.toDeburrLowerCase(word),
-            ''
-          );
+          searchName = searchName
+            .replace(StringUtil.toDeburrLowerCase(word), '')
+            .trim();
         }
       }
       if (searchName.length > 0 && lastSearch !== searchName) {
