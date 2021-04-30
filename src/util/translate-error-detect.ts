@@ -15,6 +15,8 @@ export default class TranslateErrorDetect {
       resolved: [],
     };
     for (let c of careers) {
+      const careerData: any = c?.data?.data;
+      const careerGroup = careerData?.careergroup?.value;
       const cData: any = c.data?.data;
       for (let t of cData?.trappings) {
         const results = await ReferentialUtil.findTrappings(t, trappings);
@@ -24,12 +26,14 @@ export default class TranslateErrorDetect {
           (results.length === 1 && results[0].name !== t)
         ) {
           if (results.length === 0) {
-            errors.notFounds.push(`[NOT_FOUND] : ${t} from career ${c.name}`);
+            errors.notFounds.push(
+              `[NOT_FOUND] : ${t} from career ${c.name} (${careerGroup})`
+            );
           } else {
             errors.resolved.push(
               `[RESOLVED BY] : ${t} -> ${results
                 .map((t) => t.name)
-                .join(' && ')} from career ${c.name}`
+                .join(' && ')} from career ${c.name} (${careerGroup})`
             );
           }
         }
