@@ -3,7 +3,7 @@ export default class FolderUtil {
     name: string,
     parent?: Folder | null
   ): Promise<Folder | null> {
-    if (name == null) {
+    if (name == null || name.length === 0) {
       return null;
     }
     let folder: Folder | null = null;

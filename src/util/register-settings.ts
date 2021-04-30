@@ -99,6 +99,7 @@ export default class RegisterSettings {
       scope: 'world',
       config: true,
       type: String,
+      default: '',
     });
   }
 }
