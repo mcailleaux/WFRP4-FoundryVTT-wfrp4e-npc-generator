@@ -216,7 +216,7 @@ export default class ReferentialUtil {
       trappings.push(trapping);
       const lastSearch = searchName;
       searchName = searchName
-        .replace(StringUtil.toDeburrLowerCase(trapping.name), '')
+        .replace(StringUtil.toDeburrLowerCase(trapping.name.trim()), '')
         .replace('(', '')
         .replace(')', '')
         .trim();
@@ -235,6 +235,7 @@ export default class ReferentialUtil {
       }
       if (searchName === lastSearch) {
         const words = trapping.name
+          .trim()
           .split(' ')
           .map((word) => word.trim())
           .filter((word) => word.length > 3);
