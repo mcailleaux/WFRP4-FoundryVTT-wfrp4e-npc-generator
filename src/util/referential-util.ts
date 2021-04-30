@@ -235,7 +235,7 @@ export default class ReferentialUtil {
         const words = trapping.name
           .split(' ')
           .map((word) => word.trim())
-          .filter((word) => word.length > 2);
+          .filter((word) => word.length > 3);
         for (let word of words) {
           searchName = searchName
             .replace(StringUtil.toDeburrLowerCase(word), '')
@@ -264,7 +264,7 @@ export default class ReferentialUtil {
         .split(' ')
         .map((word) => word.trim())
         .map((word) => word.replace('(', '').replace(')', ''))
-        .filter((word) => word.length > 2);
+        .filter((word) => word.length > 3);
       for (let word of words) {
         const trapping = await this.findTrapping(
           word,
