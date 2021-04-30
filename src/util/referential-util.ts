@@ -244,7 +244,7 @@ export default class ReferentialUtil {
             .trim();
         }
       }
-      if (searchName.length > 0 && lastSearch !== searchName) {
+      if (searchName.length > 3 && lastSearch !== searchName) {
         trapping = await this.findTrapping(searchName, referentialTrappings);
       } else {
         trapping = null;
