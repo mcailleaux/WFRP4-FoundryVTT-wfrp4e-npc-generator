@@ -6,18 +6,27 @@ export default class TranslateErrorDetect {
     callback: (errors: string[]) => void
   ) {
     const careers = await ReferentialUtil.getCareerEntities(false);
-    const trappings = (await ReferentialUtil.getTrappingEntities(false)).map(
-      (t) => t.name
-    );
+    const trappings = await ReferentialUtil.getTrappingEntities(false);
     const errors: string[] = [];
-    careers.forEach((c) => {
+    for (let c of careers) {
       const cData: any = c.data?.data;
-      cData?.trappings?.forEach((t: string) => {
-        if (!trappings.includes(t)) {
-          errors.push(t);
+      for (let t of cData?.trappings) {
+        const results = await ReferentialUtil.findTrappings(t, trappings);
+        if (
+          results.length === 0 ||
+          results.length > 1 ||
+          (results.length === 1 && results[0].name !== t)
+        ) {
+          if (results.length === 0) {
+            errors.push(`[NOT_FOUND] : ${t}`);
+          } else {
+            errors.push(
+              `[RESOLVED BY] : ${results.map((t) => t.name).join(' && ')}`
+            );
+          }
         }
-      });
-    });
+      }
+    }
     callback(errors);
   }
 
