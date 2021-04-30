@@ -23,7 +23,8 @@ export default class TranslateErrorDetect {
         if (
           results.length === 0 ||
           results.length > 1 ||
-          (results.length === 1 && results[0].name !== t)
+          (results.length === 1 &&
+            !StringUtil.equalsDeburrIgnoreCase(results[0].name, t))
         ) {
           if (results.length === 0) {
             errors.notFounds.push(

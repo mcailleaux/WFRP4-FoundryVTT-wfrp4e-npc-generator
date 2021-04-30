@@ -248,20 +248,35 @@ export default class ReferentialUtil {
         trapping = null;
       }
     }
-    if (searchName.length > 0) {
-      const words = searchName
+    trappings.push(
+      ...(await this.findTrappingsByWords(searchName, referentialTrappings))
+    );
+    return Promise.resolve(trappings);
+  }
+
+  public static async findTrappingsByWords(
+    name: string,
+    referentialTrappings?: Item[]
+  ) {
+    const trappings = [];
+    if (name != null && name.length > 0) {
+      const words = name
         .split(' ')
         .map((word) => word.trim())
         .map((word) => word.replace('(', '').replace(')', ''))
         .filter((word) => word.length > 2);
       for (let word of words) {
-        trapping = await this.findTrapping(word, referentialTrappings, true);
+        const trapping = await this.findTrapping(
+          word,
+          referentialTrappings,
+          true
+        );
         if (trapping != null) {
           trappings.push(trapping);
         }
       }
     }
-    return Promise.resolve(trappings);
+    return trappings;
   }
 
   public static async findTrapping(
