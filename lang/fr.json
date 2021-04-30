@@ -48,5 +48,8 @@
   "WFRP4NPCGEN.settings.defaultGenerateMoneyEffect.name": "Générer l'argent à la création du Token",
   "WFRP4NPCGEN.settings.defaultGenerateMoneyEffect.hint": "Valeur sélectionné par défaut pour l'option 'générer l'argent à la création du Token' lors de l'étape de choix des otpions à la génération d'un PNJ",
   "WFRP4NPCGEN.settings.defaultGenerateWeaponEffect.name": "Générer des armes à la création du Token",
-  "WFRP4NPCGEN.settings.defaultGenerateWeaponEffect.hint": "Valeur sélectionné par défaut pour l'option 'générer des armes à la création du Token' lors de l'étape de choix des otpions à la génération d'un PNJ"
+  "WFRP4NPCGEN.settings.defaultGenerateWeaponEffect.hint": "Valeur sélectionné par défaut pour l'option 'générer des armes à la création du Token' lors de l'étape de choix des otpions à la génération d'un PNJ",
+  "WFRP4NPCGEN.settings.defaultGenPath.name": "Répertoire de génération par défaut",
+  "WFRP4NPCGEN.settings.defaultGenPath.hint": "Répertoire qui sera utiliser par défaut lors de la génération de PNJs",
+  "WFRP4NPCGEN.settings.defaultGenPath.value": "PNJs Générés"
 }

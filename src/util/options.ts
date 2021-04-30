@@ -22,4 +22,19 @@ export default class Options {
       'defaultGenerateWeaponEffect'
     )
   );
+
+  public defaultGenPath: string = game.settings.get(
+    RegisterSettings.moduleName,
+    'defaultGenPath'
+  );
+
+  public profiles: {
+    [species: string]: {
+      [name: string]: {
+        genPath?: string;
+        imagePath?: string;
+        tokenPath?: string;
+      };
+    };
+  };
 }

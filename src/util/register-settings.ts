@@ -92,5 +92,14 @@ export default class RegisterSettings {
       },
       default: GenerateEffectOptionEnum.DEFAULT_ENABLED,
     });
+
+    game.settings.register(moduleName, 'defaultGenPath', {
+      name: game.i18n.localize('WFRP4NPCGEN.settings.defaultGenPath.name'),
+      hint: game.i18n.localize('WFRP4NPCGEN.settings.defaultGenPath.hint'),
+      scope: 'world',
+      config: true,
+      type: String,
+      default: game.i18n.localize('WFRP4NPCGEN.settings.defaultGenPath.value'),
+    });
   }
 }

@@ -1,6 +1,7 @@
 import NpcModel from './npc-model.js';
 import ReferentialUtil from './util/referential-util.js';
 import { GenerateEffectOptionEnum } from './util/generate-effect-option.enum.js';
+import FolderUtil from './util/folder-util.js';
 
 export class ActorBuilder {
   public static async buildActorData(model: NpcModel, type: string) {
@@ -37,6 +38,11 @@ export class ActorBuilder {
   }
 
   public static async createActor(model: NpcModel, data: any) {
+    const folder = await FolderUtil.createNamedFolder(
+      model?.options?.defaultGenPath
+    );
+    data.folder = folder?._id;
+
     const actor: Actor = <Actor>await Actor.create(data);
     for (let skill of model.skills) {
       await actor.createOwnedItem(skill);

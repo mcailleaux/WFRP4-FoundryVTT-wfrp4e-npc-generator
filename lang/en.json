@@ -48,5 +48,8 @@
   "WFRP4NPCGEN.settings.defaultGenerateMoneyEffect.name": "Generate money on token creation",
   "WFRP4NPCGEN.settings.defaultGenerateMoneyEffect.hint": "Default selected value for the option 'generate money on token creation' on the options generation chooser when you generate a NPC",
   "WFRP4NPCGEN.settings.defaultGenerateWeaponEffect.name": "Generate weapons on token creation",
-  "WFRP4NPCGEN.settings.defaultGenerateWeaponEffect.hint": "Default selected value for the option 'generate weapons on token creation' on the options generation chooser when you generate a NPC"
+  "WFRP4NPCGEN.settings.defaultGenerateWeaponEffect.hint": "Default selected value for the option 'generate weapons on token creation' on the options generation chooser when you generate a NPC",
+  "WFRP4NPCGEN.settings.defaultGenPath.name": "Default generation path",
+  "WFRP4NPCGEN.settings.defaultGenPath.hint": "Define the default generation path on actor directories",
+  "WFRP4NPCGEN.settings.defaultGenPath.value": "Generated NPCs"
 }

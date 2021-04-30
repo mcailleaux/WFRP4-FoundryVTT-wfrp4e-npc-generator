@@ -11,6 +11,8 @@
 - Allow to select many careers to create a career path instead of de automatic career path
 - create a chat command
 - Manage other language
+- Allow linked pnj
+- Allow money and weapons generation at creation
 
 ## 1.2.1
 
