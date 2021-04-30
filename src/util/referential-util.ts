@@ -219,6 +219,28 @@ export default class ReferentialUtil {
         StringUtil.toDeburrLowerCase(trapping.name),
         ''
       );
+      if (searchName === lastSearch) {
+        const simpleName =
+          name.includes('(') && name.includes(')')
+            ? name.substring(0, name.indexOf('(')).trim()
+            : name;
+        searchName = searchName.replace(
+          StringUtil.toDeburrLowerCase(simpleName),
+          ''
+        );
+      }
+      if (searchName === lastSearch) {
+        const words = trapping.name
+          .split(' ')
+          .map((word) => word.trim())
+          .filter((word) => word.length > 2);
+        for (let word of words) {
+          searchName = searchName.replace(
+            StringUtil.toDeburrLowerCase(word),
+            ''
+          );
+        }
+      }
       if (searchName.length > 0 && lastSearch !== searchName) {
         trapping = await this.findTrapping(searchName, referentialTrappings);
       } else {
