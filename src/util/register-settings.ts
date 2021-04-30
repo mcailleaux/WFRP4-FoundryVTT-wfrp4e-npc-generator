@@ -99,7 +99,6 @@ export default class RegisterSettings {
       scope: 'world',
       config: true,
       type: String,
-      default: game.i18n.localize('WFRP4NPCGEN.settings.defaultGenPath.value'),
     });
   }
 }
