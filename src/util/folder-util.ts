@@ -12,13 +12,17 @@ export default class FolderUtil {
         folder = await FolderUtil.createNamedFolder(path, folder);
       }
     } else {
-      folder =
-        game.folders.find((f) => f.name === name) ??
-        <Folder>await Folder.create({
+      folder = game.folders.find((f) => f.name === name);
+      if (folder == null) {
+        const folderData: any = {
           name: name,
           type: 'Actor',
-          parent: parent?._id,
-        });
+        };
+        if (parent != null) {
+          folderData.parent = parent._id;
+        }
+        folder = <Folder>await Folder.create(folderData);
+      }
     }
     return folder;
   }
