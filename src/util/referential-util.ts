@@ -226,7 +226,11 @@ export default class ReferentialUtil {
       }
     }
     if (searchName.length > 0) {
-      const words = searchName.split(' ').filter((word) => word.length > 2);
+      const words = searchName
+        .split(' ')
+        .map((word) => word.trim())
+        .map((word) => word.replace('(', '').replace(')', ''))
+        .filter((word) => word.length > 2);
       for (let word of words) {
         trapping = await this.findTrapping(word, referentialTrappings);
         if (trapping != null) {
@@ -239,7 +243,8 @@ export default class ReferentialUtil {
 
   public static async findTrapping(
     name: string,
-    referentialTrappings?: Item[]
+    referentialTrappings?: Item[],
+    fromWord = false
   ): Promise<Item.Data | null> {
     const searchTrappings =
       referentialTrappings ?? (await this.getTrappingEntities(true));
@@ -247,7 +252,7 @@ export default class ReferentialUtil {
       name.includes('(') && name.includes(')')
         ? name.substring(0, name.indexOf('(')).trim()
         : name;
-    const trapping =
+    let trapping =
       searchTrappings.find((t) =>
         StringUtil.equalsDeburrIgnoreCase(name, t.name)
       ) ??
@@ -259,12 +264,16 @@ export default class ReferentialUtil {
       ) ??
       searchTrappings.find((t) =>
         StringUtil.includesDeburrIgnoreCase(t.name, simpleName)
-      ) ??
-      searchTrappings
+      );
+
+    if (trapping == null && !fromWord) {
+      trapping = searchTrappings
         .sort((t1, t2) => {
           return t2.name.length - t1.name.length;
         })
         .find((t) => StringUtil.includesDeburrIgnoreCase(name, t.name));
+    }
+
     if (trapping == null) {
       console.warn(
         `Can't find trapping ${name}${
