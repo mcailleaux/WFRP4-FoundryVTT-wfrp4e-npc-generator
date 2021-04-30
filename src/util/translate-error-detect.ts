@@ -3,11 +3,17 @@ import StringUtil from './string-util.js';
 
 export default class TranslateErrorDetect {
   public static async detectTrappingsTranslateError(
-    callback: (errors: string[]) => void
+    callback: (errors: { notFounds: string[]; resolved: string[] }) => void
   ) {
     const careers = await ReferentialUtil.getCareerEntities(false);
     const trappings = await ReferentialUtil.getTrappingEntities(false);
-    const errors: string[] = [];
+    const errors: {
+      notFounds: string[];
+      resolved: string[];
+    } = {
+      notFounds: [],
+      resolved: [],
+    };
     for (let c of careers) {
       const cData: any = c.data?.data;
       for (let t of cData?.trappings) {
@@ -18,10 +24,12 @@ export default class TranslateErrorDetect {
           (results.length === 1 && results[0].name !== t)
         ) {
           if (results.length === 0) {
-            errors.push(`[NOT_FOUND] : ${t}`);
+            errors.notFounds.push(`[NOT_FOUND] : ${t} from career ${c.name}`);
           } else {
-            errors.push(
-              `[RESOLVED BY] : ${results.map((t) => t.name).join(' && ')}`
+            errors.resolved.push(
+              `[RESOLVED BY] : ${t} -> ${results
+                .map((t) => t.name)
+                .join(' && ')} from career ${c.name}`
             );
           }
         }
