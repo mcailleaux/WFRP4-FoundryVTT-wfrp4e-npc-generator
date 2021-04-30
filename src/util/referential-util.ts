@@ -220,12 +220,16 @@ export default class ReferentialUtil {
         .trim();
       if (searchName === lastSearch) {
         const simpleName =
-          name.includes('(') && name.includes(')')
-            ? name.substring(0, name.indexOf('(')).trim()
-            : name;
-        searchName = searchName
-          .replace(StringUtil.toDeburrLowerCase(simpleName), '')
-          .trim();
+          searchName.includes('(') && searchName.includes(')')
+            ? searchName.substring(0, searchName.indexOf('(')).trim()
+            : searchName;
+        if (simpleName !== searchName) {
+          searchName = searchName
+            .replace(StringUtil.toDeburrLowerCase(simpleName), '')
+            .replace('(', '')
+            .replace(')', '')
+            .trim();
+        }
       }
       if (searchName === lastSearch) {
         const words = trapping.name
@@ -251,7 +255,7 @@ export default class ReferentialUtil {
         .map((word) => word.replace('(', '').replace(')', ''))
         .filter((word) => word.length > 2);
       for (let word of words) {
-        trapping = await this.findTrapping(word, referentialTrappings);
+        trapping = await this.findTrapping(word, referentialTrappings, true);
         if (trapping != null) {
           trappings.push(trapping);
         }
