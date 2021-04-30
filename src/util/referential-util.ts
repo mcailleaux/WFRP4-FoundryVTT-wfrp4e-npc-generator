@@ -217,6 +217,8 @@ export default class ReferentialUtil {
       const lastSearch = searchName;
       searchName = searchName
         .replace(StringUtil.toDeburrLowerCase(trapping.name), '')
+        .replace('(', '')
+        .replace(')', '')
         .trim();
       if (searchName === lastSearch) {
         const simpleName =
