@@ -14,10 +14,12 @@ build:
     - npm ci
     - npm run build
     - mkdir -p dist/lang
+    - mkdir -p dist/templates
     - cp lang/* dist/lang/
+    - cp src/templates/* dist/templates/
     - cp module.json dist
     - cd dist
-    - zip wfrp4e-npc-generator.zip -r *.* src lang util -x ".*"
+    - zip wfrp4e-npc-generator.zip -r *.* src lang util templates -x ".*"
   artifacts:
     name: wfrp4e-npc-generator
     when: on_success
@@ -33,10 +35,12 @@ build_beta:
     - npm ci
     - npm run build
     - mkdir -p dist/lang
+    - mkdir -p dist/templates
     - cp lang/* dist/lang/
+    - cp src/templates/* dist/templates/
     - cp module-beta.json dist/module.json
     - cd dist
-    - zip wfrp4e-npc-generator.zip -r *.* src lang util -x ".*"
+    - zip wfrp4e-npc-generator.zip -r *.* src lang util templates -x ".*"
   artifacts:
     name: wfrp4e-npc-generator
     when: on_success
