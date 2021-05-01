@@ -84,6 +84,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
         default: 'yes',
       }).render(true);
     });
+    super.activateListeners(html);
   }
 
   protected _onSubmit(
