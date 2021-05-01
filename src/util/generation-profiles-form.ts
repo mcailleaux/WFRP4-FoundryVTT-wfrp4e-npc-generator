@@ -38,6 +38,10 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
     };
   }
 
+  public activateListeners(html: any) {
+    console.dir(html);
+  }
+
   public async _updateObject(_event: Event, formData: any) {
     console.dir(formData);
   }

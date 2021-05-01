@@ -37,3 +37,14 @@
 .generation-profiles-input label {
   flex: 5% !important;
 }
+
+.generation-profiles-add-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: stretch;
+}
+
+.generation-profiles-add-buttons button {
+  max-width: 32px;
+}
