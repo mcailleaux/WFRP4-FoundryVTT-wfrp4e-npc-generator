@@ -38,9 +38,12 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
     };
   }
 
-  public activateListeners(html: any) {
+  public activateListeners(html: JQuery) {
     console.dir(html);
     console.dir(typeof html);
+    html.find('.generation-profiles-add-button').on('click', (event) => {
+      console.log((<HTMLButtonElement>event?.target)?.value);
+    });
   }
 
   public async _updateObject(_event: Event, formData: any) {
