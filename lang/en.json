@@ -53,5 +53,8 @@
   "WFRP4NPCGEN.settings.defaultGenPath.hint": "Define the default generation path on actor directories",
   "WFRP4NPCGEN.settings.generationProfiles.name": "Generations species profiles",
   "WFRP4NPCGEN.settings.generationProfiles.label": "Configure profiles",
-  "WFRP4NPCGEN.settings.generationProfiles.hint": "Generation species profile allow you to specify for a species one or more generation profile wich contain generation path, image path, token image path and career name suffix otpion"
+  "WFRP4NPCGEN.settings.generationProfiles.hint": "Generation species profile allow you to specify for a species one or more generation profile wich contain generation path, image path, token image path and career name suffix otpion",
+  "WFRP4NPCGEN.settings.generationProfiles.genPath.label": "Generation path",
+  "WFRP4NPCGEN.settings.generationProfiles.imagePath.label": "Image path",
+  "WFRP4NPCGEN.settings.generationProfiles.tokenPath.label": "Token path"
 }

@@ -11,8 +11,10 @@ export default class GenerationProfiles {
   human: GenerationProfile = {
     profiles: [
       {
-        name: 'test',
-        genPath: 'test',
+        name: 'Citoyen',
+        genPath: 'PNJs/Citoyen',
+        imagePath: 'modules/wfrp4e-core/art/careers/witch-hunter.webp',
+        tokenPath: 'token/uploads/Pnjs/Humans/City/human-*.png',
       },
     ],
   };

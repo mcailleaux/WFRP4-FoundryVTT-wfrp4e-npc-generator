@@ -1,9 +1,79 @@
 <form autocomplete="off" onsubmit="event.preventDefault()">
-  {{#each species}}
-  <h1>{{species}}</h1>
-  {{#each profiles}}
-  <h2>{{name}}</h2>
-  {{/each}} {{/each}}
+  <div
+    style="
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+    "
+  >
+    {{#each species}}
+    <h1>{{species}}</h1>
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: stretch;
+      "
+    >
+      {{#each profiles}}
+      <h2>{{name}}</h2>
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: stretch;
+        "
+      >
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: stretch;
+          "
+        >
+          <label
+            >{{localize
+            'WFRP4NPCGEN.settings.generationProfiles.genPath.label'}}</label
+          >
+          <input name="genPath" type="text" value="{{genPath}}" />
+        </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: stretch;
+          "
+        >
+          <label
+            >{{localize
+            'WFRP4NPCGEN.settings.generationProfiles.imagePath.label'}}</label
+          >
+          <input name="genPath" type="text" value="{{imagePath}}" />
+        </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: stretch;
+          "
+        >
+          <label
+            >{{localize
+            'WFRP4NPCGEN.settings.generationProfiles.tokenPath.label'}}</label
+          >
+          <input name="genPath" type="text" value="{{tokenPath}}" />
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{/each}}
+  </div>
   <footer>
     <button type="submit" name="submit" value="1">
       <i class="far fa-save"></i> {{localize 'WFRP4NPCGEN.common.button.OK'}}

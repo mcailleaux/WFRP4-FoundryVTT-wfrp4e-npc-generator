@@ -53,5 +53,8 @@
   "WFRP4NPCGEN.settings.defaultGenPath.hint": "Répertoire qui sera utiliser par défaut lors de la génération de PNJs",
   "WFRP4NPCGEN.settings.generationProfiles.name": "Génération des profiles par races",
   "WFRP4NPCGEN.settings.generationProfiles.label": "Configurer les profiles",
-  "WFRP4NPCGEN.settings.generationProfiles.hint": "La génération des profiles par races vous permet de définir pour une race un ou plusieurs profiles qui contiennent le répertoire de génération, le path de l'image, le path de l'image du token et l'option de suffix du répertoire de génération par le nom de carrière"
+  "WFRP4NPCGEN.settings.generationProfiles.hint": "La génération des profiles par races vous permet de définir pour une race un ou plusieurs profiles qui contiennent le répertoire de génération, le path de l'image, le path de l'image du token et l'option de suffix du répertoire de génération par le nom de carrière",
+  "WFRP4NPCGEN.settings.generationProfiles.genPath.label": "Répertoire de génération",
+  "WFRP4NPCGEN.settings.generationProfiles.imagePath.label": "Path de l'image",
+  "WFRP4NPCGEN.settings.generationProfiles.tokenPath.label": "Path du token"
 }
