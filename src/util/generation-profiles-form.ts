@@ -89,17 +89,13 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
 
   protected _onSubmit(
     event: Event | JQuery.Event,
-    {
-      updateData,
-      preventClose,
-      preventRender,
-    }: { updateData?: object; preventClose?: boolean; preventRender?: boolean }
+    submit?: {
+      updateData?: object;
+      preventClose?: boolean;
+      preventRender?: boolean;
+    }
   ): Promise<any> {
-    return super._onSubmit(event, {
-      updateData,
-      preventClose,
-      preventRender,
-    });
+    return super._onSubmit(event, submit);
   }
 
   protected _getSubmitData(updateData?: object): any {
