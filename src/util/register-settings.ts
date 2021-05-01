@@ -1,4 +1,5 @@
 import { GenerateEffectOptionEnum } from './generate-effect-option.enum.js';
+import GenerationProfilesForm from './generation-profiles-form.js';
 
 export default class RegisterSettings {
   public static moduleName: string;
@@ -100,6 +101,15 @@ export default class RegisterSettings {
       config: true,
       type: String,
       default: '',
+    });
+
+    game.settings.registerMenu(moduleName, 'generationProfiles', {
+      name: game.i18n.localize('WFRP4NPCGEN.settings.defaultGenPath.name'),
+      label: game.i18n.localize('WFRP4NPCGEN.settings.defaultGenPath.name'),
+      hint: game.i18n.localize('WFRP4NPCGEN.settings.defaultGenPath.name'),
+      icon: 'fas fa-id-card',
+      type: GenerationProfilesForm,
+      restricted: true,
     });
   }
 }

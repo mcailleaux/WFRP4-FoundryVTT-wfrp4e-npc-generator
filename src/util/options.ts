@@ -3,6 +3,7 @@ import {
   getGenerateEffectOptionEnum,
 } from './generate-effect-option.enum.js';
 import RegisterSettings from './register-settings.js';
+import GenerationProfiles from './generation-profiles.js';
 
 export default class Options {
   public withClassTrappings: boolean = game.settings.get(
@@ -28,13 +29,5 @@ export default class Options {
     'defaultGenPath'
   );
 
-  public profiles: {
-    [species: string]: {
-      [name: string]: {
-        genPath?: string;
-        imagePath?: string;
-        tokenPath?: string;
-      };
-    };
-  };
+  public profiles: GenerationProfiles;
 }
