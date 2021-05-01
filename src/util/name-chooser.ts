@@ -4,19 +4,25 @@ export default class NameChooser {
   public static async selectName(
     initName: string,
     speciesKey: string,
+    withRandom: boolean,
     callback: (name: string) => void,
-    undo: () => void
+    undo?: () => void
   ) {
     const dialogId = new Date().getTime();
+    const randomButton = withRandom
+      ? `
+        <div class="form-group">
+          ${DialogUtil.getButtonScript(
+            'WFRP4NPCGEN.common.button.Random',
+            'random()'
+          )}
+        </div>     
+        `
+      : '';
     new Dialog({
       title: game.i18n.localize('WFRP4NPCGEN.name.select.title'),
       content: `<form>
-              <div class="form-group">
-                                  ${DialogUtil.getButtonScript(
-                                    'WFRP4NPCGEN.common.button.Random',
-                                    'random()'
-                                  )}
-              </div>              
+              ${randomButton}            
               <div class="form-group">
               ${DialogUtil.getLabelScript('WFRP4NPCGEN.name.select.label')}
               ${DialogUtil.getInputScript({
@@ -38,6 +44,7 @@ export default class NameChooser {
                   document.getElementById('select-name-${dialogId}').value = generateName('${speciesKey}');
                   check();
               }
+              check();
               
               ${DialogUtil.getNameRandomScript()};
             </script>

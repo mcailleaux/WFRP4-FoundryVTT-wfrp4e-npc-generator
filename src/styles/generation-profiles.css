@@ -37,8 +37,8 @@
 .generation-profiles-profile-control-delete {
   height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
 }
 

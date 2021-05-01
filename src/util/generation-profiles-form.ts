@@ -1,7 +1,7 @@
 import GenerationProfiles from './generation-profiles.js';
 import RegisterSettings from './register-settings.js';
 import ReferentialUtil from './referential-util.js';
-import DialogUtil from './dialog-util.js';
+import NameChooser from './name-chooser.js';
 
 export default class GenerationProfilesForm extends FormApplication<GenerationProfiles> {
   private data: any;
@@ -51,50 +51,42 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
 
   public activateListeners(html: JQuery) {
     html.find('.generation-profiles-add-button').on('click', (event) => {
-      const dialogId = new Date().getTime();
       const species = (<HTMLButtonElement>event?.currentTarget)?.value;
-      new Dialog({
-        title: game.i18n.localize('WFRP4NPCGEN.name.select.title'),
-        content: `<form>            
-              <div class="form-group">
-              ${DialogUtil.getLabelScript('WFRP4NPCGEN.name.select.label')}
-              ${DialogUtil.getInputScript({
-                id: `select-name-${dialogId}`,
-                type: 'text',
-                onInput: 'check()',
-                name: 'select-name',
-              })}
-              </div>
-          </form>
-          <script>  
-              function check() {
-                const name = document.getElementById('select-name-${dialogId}').value;
-                const yesButton = document.getElementById('yes-icon-${dialogId}').parentElement;
-                yesButton.disabled = name == null || name.length <= 0;    
-              }
-              check();
-            </script>
-            `,
-        buttons: DialogUtil.getDialogButtons(dialogId, (html: JQuery) => {
-          const name = <string>html.find(`#select-name-${dialogId}`).val();
+      NameChooser.selectName('', species, false, (name) => {
+        const existingName = this.data[species].profiles.find(
+          (p: any) => p.id === `${species}-${name}`
+        );
 
+        if (existingName == null) {
+          this.data[species].profiles.push({
+            id: `${species}-${name}`,
+            name: name,
+            genPath: '',
+            imagePath: '',
+            tokenPath: '',
+          });
+          this.render();
+        }
+      });
+    });
+
+    html.find('.generation-profiles-edit-button').on('click', (event) => {
+      const id = (<HTMLButtonElement>event?.currentTarget)?.value;
+      if (id != null && id.includes('-')) {
+        const species = id.substring(0, id.indexOf('-'));
+        const name = id.substring(id.indexOf('-') + 1, id.length);
+        NameChooser.selectName(name, species, false, (name) => {
           const existingName = this.data[species].profiles.find(
             (p: any) => p.id === `${species}-${name}`
           );
 
-          if (existingName == null) {
-            this.data[species].profiles.push({
-              id: `${species}-${name}`,
-              name: name,
-              genPath: '',
-              imagePath: '',
-              tokenPath: '',
-            });
+          if (existingName != null) {
+            existingName.name = name;
+            existingName.id = `${species}-${name}`;
             this.render();
           }
-        }),
-        default: 'yes',
-      }).render(true);
+        });
+      }
     });
 
     html.find('.generation-profiles-delete-button').on('click', (event) => {
