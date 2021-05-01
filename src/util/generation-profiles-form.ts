@@ -43,7 +43,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
     console.dir(typeof html);
     html.find('.generation-profiles-add-button').on('click', (event) => {
       console.dir(event);
-      console.log((<HTMLButtonElement>event?.target)?.value);
+      console.log((<HTMLButtonElement>event?.currentTarget)?.value);
     });
   }
 
