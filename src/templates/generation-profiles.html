@@ -1,7 +1,7 @@
 <form autocomplete="off" onsubmit="event.preventDefault()">
   {{#each profiles}}
   <h1>{{species}}</h1>
-  {{#eacch this}}
+  {{#each this}}
   <h2>{{@key}}</h2>
   {{/each}} {{/each}}
   <footer>
