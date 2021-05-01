@@ -3,6 +3,7 @@ import DialogUtil from './dialog-util.js';
 export default class CompendiumUtil {
   private static compendiumCareerIndexes: Item[];
   private static compendiumCareers: Item[];
+  private static compendiumCareerGroups: string[];
   private static compendiumTrappings: Item[];
   private static compendiumSkillIndexes: Item[];
   private static compendiumSkills: Item[];
@@ -28,6 +29,7 @@ export default class CompendiumUtil {
     }
     await this.getCompendiumCareerIndexes();
     await this.getCompendiumCareers();
+    await this.getCompendiumCareersGroups();
     await this.getCompendiumTrappings();
     await this.getCompendiumSkillIndexes();
     await this.getCompendiumSkills();
@@ -63,6 +65,20 @@ export default class CompendiumUtil {
       }
     }
     return Promise.resolve(this.compendiumCareers);
+  }
+
+  public static async getCompendiumCareersGroups() {
+    if (this.compendiumCareerGroups == null) {
+      this.compendiumCareerGroups = [];
+      const careers = await this.getCompendiumCareers();
+      for (let career of careers) {
+        const group = (<any>career?.data?.data)?.careergroup?.value;
+        if (group != null && !this.compendiumCareerGroups.includes(group)) {
+          this.compendiumCareerGroups.push(group);
+        }
+      }
+    }
+    return Promise.resolve(this.compendiumCareerGroups);
   }
 
   public static async getCompendiumTrappings() {

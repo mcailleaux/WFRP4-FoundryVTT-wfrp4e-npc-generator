@@ -107,13 +107,13 @@ export default class ReferentialUtil {
     return game.wfrp4e.config.weaponGroups.basic;
   }
 
-  public static async getCareerIndexes(): Promise<Item[]> {
+  public static async getCareerIndexes(withWorld = true): Promise<Item[]> {
     const careers: Item[] = await CompendiumUtil.getCompendiumCareerIndexes();
-    const worldCareers = game.items?.entities?.filter(
-      (item) => item.type === 'career'
-    );
-    if (worldCareers != null && worldCareers.length > 0) {
-      careers.push(...worldCareers);
+    if (withWorld) {
+      const worldCareers = await this.getWorldCareers();
+      if (worldCareers != null && worldCareers.length > 0) {
+        careers.push(...worldCareers);
+      }
     }
     return Promise.resolve(careers);
   }
@@ -121,14 +121,21 @@ export default class ReferentialUtil {
   public static async getCareerEntities(withWorld = true): Promise<Item[]> {
     const careers: Item[] = await CompendiumUtil.getCompendiumCareers();
     if (withWorld) {
-      const worldCareers = game.items?.entities?.filter(
-        (item) => item.type === 'career'
-      );
+      const worldCareers = await this.getWorldCareers();
       if (worldCareers != null && worldCareers.length > 0) {
         careers.push(...worldCareers);
       }
     }
     return Promise.resolve(careers);
+  }
+
+  public static async getWorldCareers(): Promise<Item[]> {
+    const careersGroups = await CompendiumUtil.getCompendiumCareersGroups();
+    const worldCareers = game.items?.entities?.filter((item) => {
+      const group = (<any>item?.data?.data)?.careergroup?.value;
+      return item.type === 'career' && !careersGroups.includes(group);
+    });
+    return Promise.resolve(worldCareers);
   }
 
   public static async getTrappingEntities(withWorld = true): Promise<Item[]> {
