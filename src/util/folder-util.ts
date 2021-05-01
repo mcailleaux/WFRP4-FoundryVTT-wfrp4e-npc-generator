@@ -16,7 +16,7 @@ export default class FolderUtil {
         game.folders.find(
           (f) =>
             (<any>f.data).name === name &&
-            (<any>f.data).parent === ((<any>parent?.data)?.parent ?? null)
+            (<any>f.data).parent === ((<any>parent?.data)?._id ?? null)
         ) ?? <Folder>await Folder.create({
           name: name,
           type: 'Actor',
