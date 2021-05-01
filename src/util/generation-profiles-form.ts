@@ -39,6 +39,8 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
       Object.entries(profiles).forEach(([key, value]) => {
         value.profiles.forEach((profile: any) => {
           profile.id = `${key}-${profile.name}`;
+          profile.idImagePath = `${key}-${profile.name}-imagePath`;
+          profile.idTokenPath = `${key}-${profile.name}-tokenPath`;
         });
       });
       this.data = profiles;
@@ -60,6 +62,8 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
         if (existingName == null) {
           this.data[species].profiles.push({
             id: `${species}-${name}`,
+            idImagePath: `${species}-${name}-imagePath`,
+            idTokenPath: `${species}-${name}-tokenPath`,
             name: name,
             genPath: '',
             imagePath: '',
@@ -86,6 +90,8 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
           if (existingName == null && editedName != null) {
             editedName.name = newName;
             editedName.id = `${species}-${newName}`;
+            editedName.idImagePath = `${species}-${newName}-imagePath`;
+            editedName.idTokenPath = `${species}-${newName}-tokenPath`;
             this.render();
           }
         });
