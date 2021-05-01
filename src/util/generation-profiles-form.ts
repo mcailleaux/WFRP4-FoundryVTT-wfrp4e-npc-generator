@@ -38,7 +38,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
       });
       Object.entries(profiles).forEach(([key, value]) => {
         value.profiles.forEach((profile: any) => {
-          profile.id = `${key}-${name}`;
+          profile.id = `${key}-${profile.name}`;
         });
       });
       this.data = profiles;
@@ -120,17 +120,25 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
     super.activateListeners(html);
   }
 
-  protected _onChangeInput(event: Event | JQuery.Event) {
-    console.dir(event);
-    super._onChangeInput(event);
-  }
-
   protected _getSubmitData(_updateData?: object): any {
     return this.data;
   }
 
   public async _updateObject(_event: Event, formData: any) {
-    console.dir(formData);
+    const generationProfiles: { [key: string]: any } = duplicate(formData);
+    Object.entries(generationProfiles).forEach(([key, value]) => {
+      delete generationProfiles[key].species;
+      value.profiles.forEach((profile: any) => {
+        delete profile.id;
+      });
+    });
+
+    await game.settings.set(
+      RegisterSettings.moduleName,
+      'generationProfiles',
+      generationProfiles
+    );
+    console.dir(generationProfiles);
   }
 
   public close(options?: object): Promise<void> {
