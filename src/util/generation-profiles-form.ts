@@ -68,6 +68,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
                 const yesButton = document.getElementById('yes-icon-${dialogId}').parentElement;
                 yesButton.disabled = name == null || name.length <= 0;    
               }
+              check();
             </script>
             `,
         buttons: DialogUtil.getDialogButtons(dialogId, (html: JQuery) => {
