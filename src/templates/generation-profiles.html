@@ -4,28 +4,30 @@
     <h1>{{species}}</h1>
     <div class="generation-profiles-profiles">
       {{#each profiles}}
-      <h2>{{name}}</h2>
-      <div class="generation-profiles-inputs">
-        <div class="generation-profiles-input form-group">
-          <label
-            >{{localize
-            'WFRP4NPCGEN.settings.generationProfiles.genPath.label'}}</label
-          >
-          <input name="genPath" type="text" value="{{genPath}}" />
-        </div>
-        <div class="generation-profiles-input form-group">
-          <label
-            >{{localize
-            'WFRP4NPCGEN.settings.generationProfiles.imagePath.label'}}</label
-          >
-          <input name="genPath" type="text" value="{{imagePath}}" />
-        </div>
-        <div class="generation-profiles-input form-group">
-          <label
-            >{{localize
-            'WFRP4NPCGEN.settings.generationProfiles.tokenPath.label'}}</label
-          >
-          <input name="genPath" type="text" value="{{tokenPath}}" />
+      <div class="generation-profiles-profile">
+        <h2>{{name}}</h2>
+        <div class="generation-profiles-inputs">
+          <div class="generation-profiles-input form-group">
+            <label
+              >{{localize
+              'WFRP4NPCGEN.settings.generationProfiles.genPath.label'}}</label
+            >
+            <input name="genPath" type="text" value="{{genPath}}" />
+          </div>
+          <div class="generation-profiles-input form-group">
+            <label
+              >{{localize
+              'WFRP4NPCGEN.settings.generationProfiles.imagePath.label'}}</label
+            >
+            <input name="genPath" type="text" value="{{imagePath}}" />
+          </div>
+          <div class="generation-profiles-input form-group">
+            <label
+              >{{localize
+              'WFRP4NPCGEN.settings.generationProfiles.tokenPath.label'}}</label
+            >
+            <input name="genPath" type="text" value="{{tokenPath}}" />
+          </div>
         </div>
       </div>
       {{/each}}

@@ -90,4 +90,9 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
   public async _updateObject(_event: Event, formData: any) {
     console.dir(formData);
   }
+
+  public close(options?: object): Promise<void> {
+    this.data = null;
+    return super.close(options);
+  }
 }

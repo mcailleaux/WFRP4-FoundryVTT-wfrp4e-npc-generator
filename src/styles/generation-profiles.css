@@ -6,9 +6,8 @@
 }
 
 .generation-profiles-profiles {
-  padding: 10px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: start;
   align-items: stretch;
 }
@@ -16,6 +15,14 @@
 .generation-profiles-profiles h2 {
   border-bottom: none;
   margin-right: 20px;
+}
+
+.generation-profiles-profile {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: stretch;
 }
 
 .generation-profiles-inputs {
