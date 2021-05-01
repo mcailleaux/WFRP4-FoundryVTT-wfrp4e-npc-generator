@@ -35,5 +35,5 @@
 }
 
 .generation-profiles-input label {
-  flex: 30%;
+  flex: 5% !important;
 }
