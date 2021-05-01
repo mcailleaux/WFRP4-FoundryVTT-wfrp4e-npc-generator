@@ -75,14 +75,17 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
       if (id != null && id.includes('-')) {
         const species = id.substring(0, id.indexOf('-'));
         const name = id.substring(id.indexOf('-') + 1, id.length);
-        NameChooser.selectName(name, species, false, (name) => {
+        const editedName = this.data[species].profiles.find(
+          (p: any) => p.id === `${species}-${name}`
+        );
+        NameChooser.selectName(name, species, false, (newName) => {
           const existingName = this.data[species].profiles.find(
-            (p: any) => p.id === `${species}-${name}`
+            (p: any) => p.id === `${species}-${newName}`
           );
 
-          if (existingName != null) {
-            existingName.name = name;
-            existingName.id = `${species}-${name}`;
+          if (existingName == null && editedName != null) {
+            editedName.name = newName;
+            editedName.id = `${species}-${newName}`;
             this.render();
           }
         });
