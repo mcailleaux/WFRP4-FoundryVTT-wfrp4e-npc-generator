@@ -26,4 +26,8 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
       ),
     };
   }
+
+  public async _updateObject(_event: Event, formData: any) {
+    console.dir(formData);
+  }
 }
