@@ -15,6 +15,8 @@
 .generation-profiles-profiles h2 {
   border-bottom: none;
   margin-right: 20px;
+  min-width: 100px;
+  max-width: 100px;
 }
 
 .generation-profiles-profile {
