@@ -1,7 +1,6 @@
 import DialogUtil from './dialog-util.js';
 
 export default class CompendiumUtil {
-  private static compendiumCareerIndexes: Item[];
   private static compendiumCareers: Item[];
   private static compendiumCareerGroups: string[];
   private static compendiumTrappings: Item[];
