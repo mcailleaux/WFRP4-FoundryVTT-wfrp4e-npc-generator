@@ -87,19 +87,19 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
     super.activateListeners(html);
   }
 
-  protected _onSubmit(
-    event: Event | JQuery.Event,
-    submit?: {
-      updateData?: object;
-      preventClose?: boolean;
-      preventRender?: boolean;
-    }
-  ): Promise<any> {
-    return super._onSubmit(event, submit);
-  }
+  // protected _onSubmit(
+  //   event: Event | JQuery.Event,
+  //   submit?: {
+  //     updateData?: object;
+  //     preventClose?: boolean;
+  //     preventRender?: boolean;
+  //   }
+  // ): Promise<any> {
+  //   return super._onSubmit(event, submit);
+  // }
 
-  protected _getSubmitData(updateData?: object): any {
-    return super._getSubmitData(updateData);
+  protected _getSubmitData(_updateData?: object): any {
+    return this.data;
   }
 
   public submit(options?: object): Promise<FormApplication> {
