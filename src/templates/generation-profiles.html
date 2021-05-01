@@ -38,33 +38,37 @@
               value="{{genPath}}"
             />
           </div>
-          <div class="generation-profiles-input form-group">
-            <label
-              >{{localize
-              'WFRP4NPCGEN.settings.generationProfiles.imagePath.label'}}</label
-            >
-            <input
-              class="generation-profiles-input-imagePath"
-              id="{{id}}-imagePath"
-              name="{{id}}-imagePath"
-              type="text"
-              value="{{imagePath}}"
-            />
-            {{filePicker target=idImagePath type="image"}}
+          <div class="generation-profiles-input">
+            <div class="generation-profiles-input form-group">
+              <label
+                >{{localize
+                'WFRP4NPCGEN.settings.generationProfiles.imagePath.label'}}</label
+              >
+              <input
+                class="generation-profiles-input-imagePath"
+                id="{{id}}-imagePath"
+                name="{{id}}-imagePath"
+                type="text"
+                value="{{imagePath}}"
+              />
+              {{filePicker target=idImagePath type="image"}}
+            </div>
           </div>
-          <div class="generation-profiles-input form-group">
-            <label
-              >{{localize
-              'WFRP4NPCGEN.settings.generationProfiles.tokenPath.label'}}</label
-            >
-            <input
-              class="generation-profiles-input-tokenPath"
-              id="{{id}}-tokenPath"
-              name="{{id}}-tokenPath"
-              type="text"
-              value="{{tokenPath}}"
-            />
-            {{filePicker target=idTokenPath type="image"}}
+          <div class="generation-profiles-input">
+            <div class="generation-profiles-input form-group">
+              <label
+                >{{localize
+                'WFRP4NPCGEN.settings.generationProfiles.tokenPath.label'}}</label
+              >
+              <input
+                class="generation-profiles-input-tokenPath"
+                id="{{id}}-tokenPath"
+                name="{{id}}-tokenPath"
+                type="text"
+                value="{{tokenPath}}"
+              />
+              {{filePicker target=idTokenPath type="image"}}
+            </div>
           </div>
         </div>
       </div>
