@@ -29,6 +29,7 @@
       "path": "lang/fr.json"
     }
   ],
+  "styles": ["./styles/generation-profiles.css"],
   "url": "https://github.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator",
   "download": "https://github.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/blob/dist/dist/wfrp4e-npc-generator.zip?raw=true",
   "manifest": "https://raw.githubusercontent.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/dist/module.json",

@@ -1,69 +1,26 @@
 <form autocomplete="off" onsubmit="event.preventDefault()">
-  <div
-    style="
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: stretch;
-    "
-  >
+  <div class="generation-profiles-species">
     {{#each species}}
     <h1>{{species}}</h1>
-    <div
-      style="
-        display: flex;
-        flex-direction: row;
-        justify-content: start;
-        align-items: stretch;
-      "
-    >
+    <div class="generation-profiles-profiles">
       {{#each profiles}}
-      <h2 style="border-bottom: none">{{name}}</h2>
-      <div
-        style="
-          flex: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-          align-items: stretch;
-        "
-      >
-        <div
-          style="
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: stretch;
-          "
-        >
+      <h2>{{name}}</h2>
+      <div class="generation-profiles-inputs">
+        <div class="generation-profiles-input">
           <label
             >{{localize
             'WFRP4NPCGEN.settings.generationProfiles.genPath.label'}}</label
           >
           <input name="genPath" type="text" value="{{genPath}}" />
         </div>
-        <div
-          style="
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: stretch;
-          "
-        >
+        <div class="generation-profiles-inputs">
           <label
             >{{localize
             'WFRP4NPCGEN.settings.generationProfiles.imagePath.label'}}</label
           >
           <input name="genPath" type="text" value="{{imagePath}}" />
         </div>
-        <div
-          style="
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: stretch;
-          "
-        >
+        <div class="generation-profiles-inputs">
           <label
             >{{localize
             'WFRP4NPCGEN.settings.generationProfiles.tokenPath.label'}}</label
