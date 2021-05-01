@@ -101,6 +101,14 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
     });
   }
 
+  protected _getSubmitData(updateData?: object): any {
+    return super._getSubmitData(updateData);
+  }
+
+  public submit(options?: object): Promise<FormApplication> {
+    return super.submit(options);
+  }
+
   public async _updateObject(_event: Event, formData: any) {
     console.dir(formData);
   }
