@@ -5,7 +5,18 @@
     <div class="generation-profiles-profiles">
       {{#each profiles}}
       <div class="generation-profiles-profile">
-        <h2>{{name}}</h2>
+        <div class="generation-profiles-profile-control">
+          <h2>{{name}}</h2>
+          <div class="generation-profiles-profile-control-delete">
+            <button
+              value="{{id}}"
+              class="generation-profiles-delete-button"
+              type="button"
+            >
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </div>
+        </div>
         <div class="generation-profiles-inputs">
           <div class="generation-profiles-input form-group">
             <label

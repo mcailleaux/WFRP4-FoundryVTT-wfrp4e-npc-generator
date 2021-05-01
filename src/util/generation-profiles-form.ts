@@ -27,7 +27,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
 
   public getData(): any {
     if (this.data == null) {
-      const profiles = duplicate(
+      const profiles: { [key: string]: any } = duplicate(
         game.settings.get(RegisterSettings.moduleName, 'generationProfiles')
       );
       const speciesMap = ReferentialUtil.getSpeciesMap();
@@ -35,6 +35,11 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
         if (profiles[key] != null) {
           profiles[key].species = label;
         }
+      });
+      Object.entries(profiles).forEach(([key, value]) => {
+        value.profiles.forEach((profile: any) => {
+          profile.id = `${key}-${name}`;
+        });
       });
       this.data = profiles;
     }
@@ -73,37 +78,49 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
         buttons: DialogUtil.getDialogButtons(dialogId, (html: JQuery) => {
           const name = <string>html.find(`#select-name-${dialogId}`).val();
 
-          this.data[species].profiles.push({
-            name: name,
-            genPath: '',
-            imagePath: '',
-            tokenPath: '',
-          });
-          this.render();
+          const existingName = this.data[species].profiles.find(
+            (p: any) => p.id === `${species}-${name}`
+          );
+
+          if (existingName == null) {
+            this.data[species].profiles.push({
+              name: name,
+              genPath: '',
+              imagePath: '',
+              tokenPath: '',
+            });
+            this.render();
+          }
         }),
         default: 'yes',
       }).render(true);
     });
+
+    html.find('.generation-profiles-delete-button').on('click', (event) => {
+      const id = (<HTMLButtonElement>event?.currentTarget)?.value;
+      if (id != null && id.includes('-')) {
+        const species = id.substring(0, id.indexOf('-'));
+        if (this.data[species] != null) {
+          const indexToRemove = this.data[species].profiles.findIndex(
+            (p: any) => p.id === id
+          );
+          if (indexToRemove >= 0) {
+            this.data[species].profiles.splice(indexToRemove, 1);
+            this.render();
+          }
+        }
+      }
+    });
     super.activateListeners(html);
   }
 
-  // protected _onSubmit(
-  //   event: Event | JQuery.Event,
-  //   submit?: {
-  //     updateData?: object;
-  //     preventClose?: boolean;
-  //     preventRender?: boolean;
-  //   }
-  // ): Promise<any> {
-  //   return super._onSubmit(event, submit);
-  // }
+  protected _onChangeInput(event: Event | JQuery.Event) {
+    console.dir(event);
+    super._onChangeInput(event);
+  }
 
   protected _getSubmitData(_updateData?: object): any {
     return this.data;
-  }
-
-  public submit(options?: object): Promise<FormApplication> {
-    return super.submit(options);
   }
 
   public async _updateObject(_event: Event, formData: any) {
