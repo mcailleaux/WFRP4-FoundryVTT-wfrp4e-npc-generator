@@ -40,6 +40,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
 
   public activateListeners(html: any) {
     console.dir(html);
+    console.dir(typeof html);
   }
 
   public async _updateObject(_event: Event, formData: any) {
