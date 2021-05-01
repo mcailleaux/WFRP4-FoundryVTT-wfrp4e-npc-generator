@@ -18,7 +18,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
       id: 'generation-profiles',
       title: game.i18n.localize('WFRP4NPCGEN.settings.generationProfiles.name'),
       template: `modules/${RegisterSettings.moduleName}/templates/generation-profiles.html`,
-      width: 700,
+      width: 800,
       height: 'auto',
       resizable: true,
       closeOnSubmit: true,
