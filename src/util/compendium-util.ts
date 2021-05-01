@@ -23,7 +23,6 @@ export default class CompendiumUtil {
       });
       loadDialog.render(true);
     }
-    await this.getCompendiumCareerIndexes();
     await this.getCompendiumCareers();
     await this.getCompendiumCareersGroups();
     await this.getCompendiumTrappings();
@@ -31,22 +30,6 @@ export default class CompendiumUtil {
       await loadDialog.close();
     }
     this.compendiumLoaded = true;
-  }
-
-  public static async getCompendiumCareerIndexes() {
-    if (this.compendiumCareerIndexes == null) {
-      this.compendiumCareerIndexes = [];
-      const careersPacks = game.packs.filter(
-        (p) => p.metadata.tags && p.metadata.tags.includes('career')
-      );
-      for (let pack of careersPacks) {
-        const career: Item[] = await pack.getIndex();
-        this.compendiumCareerIndexes.push(
-          ...career.filter((c) => c.type === 'career')
-        );
-      }
-    }
-    return Promise.resolve(this.compendiumCareerIndexes);
   }
 
   public static async getCompendiumCareers() {

@@ -107,17 +107,6 @@ export default class ReferentialUtil {
     return game.wfrp4e.config.weaponGroups.basic;
   }
 
-  public static async getCareerIndexes(withWorld = true): Promise<Item[]> {
-    const careers: Item[] = await CompendiumUtil.getCompendiumCareerIndexes();
-    if (withWorld) {
-      const worldCareers = await this.getWorldCareers();
-      if (worldCareers != null && worldCareers.length > 0) {
-        careers.push(...worldCareers);
-      }
-    }
-    return Promise.resolve(careers);
-  }
-
   public static async getCareerEntities(withWorld = true): Promise<Item[]> {
     const careers: Item[] = await CompendiumUtil.getCompendiumCareers();
     if (withWorld) {

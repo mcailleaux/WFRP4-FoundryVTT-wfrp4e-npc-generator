@@ -10,7 +10,7 @@ export default class CareerChooser {
     undo: () => void
   ) {
     const dialogId = new Date().getTime();
-    const careers = await ReferentialUtil.getCareerIndexes();
+    const careers = await ReferentialUtil.getCareerEntities();
     const randomCareers = await ReferentialUtil.getRandomSpeciesCareers(
       speciesKey
     );

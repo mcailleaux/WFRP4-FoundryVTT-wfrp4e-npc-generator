@@ -27,7 +27,7 @@
 
 ### Bugfix
 
-- ignore world carreer with same carreer group from compendium
+- ignore world career with same career group from compendium
 - add item type filter for items career reading by tag from compendium
 
 ## 1.2.1
