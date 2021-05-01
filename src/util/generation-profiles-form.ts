@@ -84,6 +84,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
 
           if (existingName == null) {
             this.data[species].profiles.push({
+              id: `${species}-${name}`,
               name: name,
               genPath: '',
               imagePath: '',

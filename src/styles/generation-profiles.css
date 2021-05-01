@@ -42,6 +42,10 @@
   align-items: center;
 }
 
+.generation-profiles-profile-control-delete button {
+  max-width: 32px;
+}
+
 .generation-profiles-inputs {
   flex: 100%;
   display: flex;
