@@ -1,7 +1,7 @@
 export default class FolderUtil {
   public static async createNamedFolder(
     name: string,
-    parent?: Folder | null
+    parent: Folder | null = null
   ): Promise<Folder | null> {
     if (name == null || name.length === 0) {
       return null;
@@ -13,8 +13,11 @@ export default class FolderUtil {
       }
     } else {
       folder =
-        game.folders.find((f) => f.name === name) ??
-        <Folder>await Folder.create({
+        game.folders.find(
+          (f) =>
+            f.name === name &&
+            (<any>f.data).parent === (<any>parent?.data)?.parent
+        ) ?? <Folder>await Folder.create({
           name: name,
           type: 'Actor',
           parent: parent?._id ?? null,
