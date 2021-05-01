@@ -1,8 +1,8 @@
 <form autocomplete="off" onsubmit="event.preventDefault()">
-  {{#each profiles}}
+  {{#each species}}
   <h1>{{species}}</h1>
-  {{#each this}}
-  <h2>{{@key}}</h2>
+  {{#each profiles}}
+  <h2>{{name}}</h2>
   {{/each}} {{/each}}
   <footer>
     <button type="submit" name="submit" value="1">

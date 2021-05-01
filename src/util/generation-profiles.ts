@@ -1,19 +1,31 @@
 export declare type GenerationProfile = {
-  [name: string]: {
+  profiles: {
+    name: string;
     genPath?: string;
     imagePath?: string;
     tokenPath?: string;
-  };
+  }[];
 };
 
 export default class GenerationProfiles {
   human: GenerationProfile = {
-    test: {
-      genPath: 'test',
-    },
+    profiles: [
+      {
+        name: 'test',
+        genPath: 'test',
+      },
+    ],
   };
-  halfling: GenerationProfile = {};
-  dwarf: GenerationProfile = {};
-  welf: GenerationProfile = {};
-  helf: GenerationProfile = {};
+  halfling: GenerationProfile = {
+    profiles: [],
+  };
+  dwarf: GenerationProfile = {
+    profiles: [],
+  };
+  welf: GenerationProfile = {
+    profiles: [],
+  };
+  helf: GenerationProfile = {
+    profiles: [],
+  };
 }

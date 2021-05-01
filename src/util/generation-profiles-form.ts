@@ -34,7 +34,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
       }
     });
     return {
-      profiles: profiles,
+      species: profiles,
     };
   }
 
