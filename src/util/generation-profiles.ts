@@ -7,9 +7,13 @@ export declare type GenerationProfile = {
 };
 
 export default class GenerationProfiles {
-  human: GenerationProfile;
-  halfling: GenerationProfile;
-  dwarf: GenerationProfile;
-  welf: GenerationProfile;
-  helf: GenerationProfile;
+  human: GenerationProfile = {
+    test: {
+      genPath: 'test',
+    },
+  };
+  halfling: GenerationProfile = {};
+  dwarf: GenerationProfile = {};
+  welf: GenerationProfile = {};
+  helf: GenerationProfile = {};
 }

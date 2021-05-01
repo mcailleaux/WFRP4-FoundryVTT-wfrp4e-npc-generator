@@ -1,5 +1,6 @@
 import { GenerateEffectOptionEnum } from './generate-effect-option.enum.js';
 import GenerationProfilesForm from './generation-profiles-form.js';
+import GenerationProfiles from './generation-profiles.js';
 
 export default class RegisterSettings {
   public static moduleName: string;
@@ -103,7 +104,7 @@ export default class RegisterSettings {
       default: '',
     });
 
-    game.settings.registerMenu(moduleName, 'generationProfiles', {
+    game.settings.registerMenu(moduleName, 'generationProfilesForm', {
       name: game.i18n.localize('WFRP4NPCGEN.settings.generationProfiles.name'),
       label: game.i18n.localize(
         'WFRP4NPCGEN.settings.generationProfiles.label'
@@ -112,6 +113,15 @@ export default class RegisterSettings {
       icon: 'fas fa-id-card',
       type: GenerationProfilesForm,
       restricted: true,
+    });
+
+    game.settings.register(moduleName, 'generationProfiles', {
+      name: game.i18n.localize('WFRP4NPCGEN.settings.generationProfiles.name'),
+      hint: game.i18n.localize('WFRP4NPCGEN.settings.generationProfiles.hint'),
+      default: new GenerationProfiles(),
+      scope: 'world',
+      type: Object,
+      onChange: (_s: any) => {},
     });
   }
 }

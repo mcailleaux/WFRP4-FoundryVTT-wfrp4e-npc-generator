@@ -11,12 +11,19 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
       id: 'generation-profiles',
       title: game.i18n.localize('WFRP4NPCGEN.settings.generationProfiles.name'),
       template: `modules/${RegisterSettings.moduleName}/templates/generation-profiles.html`,
-      width: 750,
+      width: '50%',
       height: 'auto',
-      top: 200,
-      left: 400,
       resizable: true,
       closeOnSubmit: false,
     });
+  }
+
+  public getData(): any {
+    return {
+      profiles: game.settings.get(
+        RegisterSettings.moduleName,
+        'generationProfiles'
+      ),
+    };
   }
 }
