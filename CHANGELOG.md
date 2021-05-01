@@ -14,6 +14,22 @@
 - Allow linked pnj
 - Allow money and weapons generation at creation
 
+## 1.3.0
+
+### New features
+
+- Settings to configure generation species profiles contain directory path, image path and token image path
+- Default setting to configure directory path
+- Setting to enable suffix directory path by current career name
+- Add selection off species profile on option chooser step
+- Optimize the trappings search
+- Manage trapping to be equiped/wearing by default
+
+### Bugfix
+
+- ignore world carreer with same carreer group from compendium
+- add item type filter for items career reading by tag from compendium
+
 ## 1.2.1
 
 ### Bugfix

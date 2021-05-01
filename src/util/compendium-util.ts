@@ -5,16 +5,12 @@ export default class CompendiumUtil {
   private static compendiumCareers: Item[];
   private static compendiumCareerGroups: string[];
   private static compendiumTrappings: Item[];
-  private static compendiumSkillIndexes: Item[];
-  private static compendiumSkills: Item[];
-  private static compendiumTalentIndexes: Item[];
-  private static compendiumTalents: Item[];
 
-  public static compendiumloaded = false;
+  private static compendiumLoaded = false;
 
   public static async initCompendium() {
     let loadDialog;
-    if (!this.compendiumloaded) {
+    if (!this.compendiumLoaded) {
       loadDialog = new Dialog({
         title: game.i18n.localize('WFRP4NPCGEN.compendium.load.title'),
         content: `<form> 
@@ -31,14 +27,10 @@ export default class CompendiumUtil {
     await this.getCompendiumCareers();
     await this.getCompendiumCareersGroups();
     await this.getCompendiumTrappings();
-    await this.getCompendiumSkillIndexes();
-    await this.getCompendiumSkills();
-    await this.getCompendiumTalentIndexes();
-    await this.getCompendiumTalents();
-    if (!this.compendiumloaded && loadDialog != null) {
+    if (!this.compendiumLoaded && loadDialog != null) {
       await loadDialog.close();
     }
-    this.compendiumloaded = true;
+    this.compendiumLoaded = true;
   }
 
   public static async getCompendiumCareerIndexes() {
@@ -48,7 +40,10 @@ export default class CompendiumUtil {
         (p) => p.metadata.tags && p.metadata.tags.includes('career')
       );
       for (let pack of careersPacks) {
-        this.compendiumCareerIndexes.push(...(await pack.getIndex()));
+        const career: Item[] = await pack.getIndex();
+        this.compendiumCareerIndexes.push(
+          ...career.filter((c) => c.type === 'career')
+        );
       }
     }
     return Promise.resolve(this.compendiumCareerIndexes);
@@ -61,7 +56,10 @@ export default class CompendiumUtil {
         (p) => p.metadata.tags && p.metadata.tags.includes('career')
       );
       for (let pack of careersPacks) {
-        this.compendiumCareers.push(...(await pack.getContent()));
+        const career: Item[] = await pack.getContent();
+        this.compendiumCareers.push(
+          ...career.filter((c) => c.type === 'career')
+        );
       }
     }
     return Promise.resolve(this.compendiumCareers);
@@ -92,57 +90,5 @@ export default class CompendiumUtil {
       }
     }
     return Promise.resolve(this.compendiumTrappings);
-  }
-
-  public static async getCompendiumSkillIndexes() {
-    if (this.compendiumSkillIndexes == null) {
-      this.compendiumSkillIndexes = [];
-      const skillPacks = game.packs.filter(
-        (p) => p.metadata.tags && p.metadata.tags.includes('skill')
-      );
-      for (let pack of skillPacks) {
-        this.compendiumSkillIndexes.push(...(await pack.getIndex()));
-      }
-    }
-    return Promise.resolve(this.compendiumSkillIndexes);
-  }
-
-  public static async getCompendiumSkills() {
-    if (this.compendiumSkills == null) {
-      this.compendiumSkills = [];
-      const skillPacks = game.packs.filter(
-        (p) => p.metadata.tags && p.metadata.tags.includes('skill')
-      );
-      for (let pack of skillPacks) {
-        this.compendiumSkills.push(...(await pack.getContent()));
-      }
-    }
-    return Promise.resolve(this.compendiumSkills);
-  }
-
-  public static async getCompendiumTalentIndexes() {
-    if (this.compendiumTalentIndexes == null) {
-      this.compendiumTalentIndexes = [];
-      const skillPacks = game.packs.filter(
-        (p) => p.metadata.tags && p.metadata.tags.includes('talent')
-      );
-      for (let pack of skillPacks) {
-        this.compendiumTalentIndexes.push(...(await pack.getIndex()));
-      }
-    }
-    return Promise.resolve(this.compendiumTalentIndexes);
-  }
-
-  public static async getCompendiumTalents() {
-    if (this.compendiumTalents == null) {
-      this.compendiumTalents = [];
-      const skillPacks = game.packs.filter(
-        (p) => p.metadata.tags && p.metadata.tags.includes('talent')
-      );
-      for (let pack of skillPacks) {
-        this.compendiumTalents.push(...(await pack.getContent()));
-      }
-    }
-    return Promise.resolve(this.compendiumTalents);
   }
 }
