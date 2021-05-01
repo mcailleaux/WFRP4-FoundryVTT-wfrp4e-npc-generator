@@ -63,7 +63,8 @@
 }
 
 .generation-profiles-input label {
-  flex: 5% !important;
+  min-width: 12em;
+  max-width: 12em;
 }
 
 .generation-profiles-add-buttons {
