@@ -107,6 +107,22 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
         }
       }
     });
+
+    html.find('.generation-profiles-input-genPath').on('input', (event) => {
+      const id = (<HTMLButtonElement>event?.currentTarget)?.id;
+      const value = (<HTMLButtonElement>event?.currentTarget)?.value;
+      if (id != null && id.includes('-')) {
+        const species = id.substring(0, id.indexOf('-'));
+        const startName = id.indexOf('-') + 1;
+        const name = id.substring(startName, id.indexOf('-', startName));
+        const existing = this.data[species].profiles.find(
+          (p: any) => p.id === `${species}-${name}`
+        );
+        if (existing != null) {
+          existing.genPath = value;
+        }
+      }
+    });
     super.activateListeners(html);
   }
 
