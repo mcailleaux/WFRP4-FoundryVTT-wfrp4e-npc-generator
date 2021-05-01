@@ -23,12 +23,18 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
   }
 
   public getData(): any {
+    const profiles = game.settings.get(
+      RegisterSettings.moduleName,
+      'generationProfiles'
+    );
+    const speciesMap = ReferentialUtil.getSpeciesMap();
+    Object.entries(speciesMap).forEach(([key, label]) => {
+      if (profiles[key] != null) {
+        profiles[key].species = label;
+      }
+    });
     return {
-      profiles: game.settings.get(
-        RegisterSettings.moduleName,
-        'generationProfiles'
-      ),
-      species: ReferentialUtil.getSpeciesMap(),
+      profiles: profiles,
     };
   }
 
