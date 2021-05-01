@@ -13,14 +13,15 @@
       style="
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: start;
         align-items: stretch;
       "
     >
       {{#each profiles}}
-      <h2>{{name}}</h2>
+      <h2 style="border-bottom: none">{{name}}</h2>
       <div
         style="
+          flex: 100%;
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
