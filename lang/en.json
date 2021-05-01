@@ -51,5 +51,7 @@
   "WFRP4NPCGEN.settings.defaultGenerateWeaponEffect.hint": "Default selected value for the option 'generate weapons on token creation' on the options generation chooser when you generate a NPC",
   "WFRP4NPCGEN.settings.defaultGenPath.name": "Default generation path",
   "WFRP4NPCGEN.settings.defaultGenPath.hint": "Define the default generation path on actor directories",
-  "WFRP4NPCGEN.settings.defaultGenPath.value": "Generated NPCs"
+  "WFRP4NPCGEN.settings.generationProfiles.name": "Generations species profiles",
+  "WFRP4NPCGEN.settings.generationProfiles.label": "Configure profiles",
+  "WFRP4NPCGEN.settings.generationProfiles.hint": "Generation species profile allow you to specify for a species one or more generation profile wich contain generation path, image path, token image path and career name suffix otpion"
 }

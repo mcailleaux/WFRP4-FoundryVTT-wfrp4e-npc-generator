@@ -104,9 +104,11 @@ export default class RegisterSettings {
     });
 
     game.settings.registerMenu(moduleName, 'generationProfiles', {
-      name: game.i18n.localize('WFRP4NPCGEN.settings.defaultGenPath.name'),
-      label: game.i18n.localize('WFRP4NPCGEN.settings.defaultGenPath.name'),
-      hint: game.i18n.localize('WFRP4NPCGEN.settings.defaultGenPath.name'),
+      name: game.i18n.localize('WFRP4NPCGEN.settings.generationProfiles.name'),
+      label: game.i18n.localize(
+        'WFRP4NPCGEN.settings.generationProfiles.label'
+      ),
+      hint: game.i18n.localize('WFRP4NPCGEN.settings.generationProfiles.hint'),
       icon: 'fas fa-id-card',
       type: GenerationProfilesForm,
       restricted: true,
