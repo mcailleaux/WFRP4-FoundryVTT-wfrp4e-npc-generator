@@ -21,7 +21,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
       width: 700,
       height: 'auto',
       resizable: true,
-      closeOnSubmit: false,
+      closeOnSubmit: true,
     });
   }
 
@@ -138,7 +138,6 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
       'generationProfiles',
       generationProfiles
     );
-    console.dir(generationProfiles);
   }
 
   public close(options?: object): Promise<void> {
