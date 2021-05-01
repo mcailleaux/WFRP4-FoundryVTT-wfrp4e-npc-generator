@@ -24,6 +24,7 @@
 - Add selection off species profile on option chooser step
 - Optimize the trappings search
 - Manage trapping to be equiped/wearing by default
+- add deutsch compatibility
 
 ### Bugfix
 

@@ -2,7 +2,10 @@ import GenerationProfiles from './generation-profiles.js';
 import RegisterSettings from './register-settings.js';
 
 export default class GenerationProfilesForm extends FormApplication<GenerationProfiles> {
-  constructor(object: GenerationProfiles, options: FormApplication.Options) {
+  constructor(
+    object: GenerationProfiles,
+    options: FormApplication.Options = {}
+  ) {
     super(object, options);
   }
 
