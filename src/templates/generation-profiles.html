@@ -1,6 +1,6 @@
 <form autocomplete="off" onsubmit="event.preventDefault()">
   {{#each profiles}}
-  <h1>{{species.human}}</h1>
+  <h1>{{@root.species[@key]}}</h1>
   {{/each}}
   <footer>
     <button type="submit" name="submit" value="1">
