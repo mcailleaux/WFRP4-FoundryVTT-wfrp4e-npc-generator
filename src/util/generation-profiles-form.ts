@@ -27,8 +27,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
 
   public getData(): any {
     if (this.data == null) {
-      const profiles = mergeObject(
-        {},
+      const profiles = duplicate(
         game.settings.get(RegisterSettings.moduleName, 'generationProfiles')
       );
       const speciesMap = ReferentialUtil.getSpeciesMap();
