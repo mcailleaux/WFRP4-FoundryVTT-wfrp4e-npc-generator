@@ -1,5 +1,6 @@
 import GenerationProfiles from './generation-profiles.js';
 import RegisterSettings from './register-settings.js';
+import ReferentialUtil from './referential-util.js';
 
 export default class GenerationProfilesForm extends FormApplication<GenerationProfiles> {
   constructor(
@@ -27,6 +28,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
         RegisterSettings.moduleName,
         'generationProfiles'
       ),
+      species: ReferentialUtil.getSpeciesMap(),
     };
   }
 

@@ -1,5 +1,7 @@
 <form autocomplete="off" onsubmit="event.preventDefault()">
-  <div>{{profiles.human.test.genPath}}</div>
+  {{#each profiles}}
+  <h1>{{species[@key]}}</h1>
+  {{/each}}
   <footer>
     <button type="submit" name="submit" value="1">
       <i class="far fa-save"></i> {{localize 'WFRP4NPCGEN.common.button.OK'}}
