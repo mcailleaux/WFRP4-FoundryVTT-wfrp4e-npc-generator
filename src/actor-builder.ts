@@ -79,16 +79,16 @@ export class ActorBuilder {
       );
     }
 
-    // const token = actor.data?.token;
-    // if (
-    //   token != null &&
-    //   model.options?.tokenPath != null &&
-    //   model.options.tokenPath.length > 0
-    // ) {
-    //   token.img = model.options.tokenPath;
-    //   token.actorLink = token.img.includes('*');
-    //   await actor.update(actor?.data);
-    // }
+    const token = actor.data?.token;
+    if (
+      token != null &&
+      model.options?.tokenPath != null &&
+      model.options.tokenPath.length > 0
+    ) {
+      token.img = model.options.tokenPath;
+      token.randomImg = token.img.includes('*');
+      await actor.update(actor?.data);
+    }
 
     return Promise.resolve(actor);
   }
