@@ -32,7 +32,7 @@ export class ActorBuilder {
           },
         },
       },
-      items: [...model.careerPath, ...moneyItems, ...model.trappings],
+      items: [...model.careerPath, ...moneyItems],
     };
     if (
       model.options?.imagePath != null &&
@@ -58,16 +58,8 @@ export class ActorBuilder {
     for (let talent of model.talents) {
       await actor.createOwnedItem(talent);
     }
-
-    const token = actor.data?.token;
-    if (
-      token != null &&
-      model.options?.tokenPath != null &&
-      model.options.tokenPath.length > 0
-    ) {
-      token.img = model.options.tokenPath;
-      token.actorLink = token.img.includes('*');
-      await actor.updateOwnedItem(token);
+    for (let trapping of model.trappings) {
+      await actor.createOwnedItem(trapping);
     }
 
     if (GenerateEffectOptionEnum.NONE !== model.options.generateMoneyEffect) {
@@ -88,6 +80,17 @@ export class ActorBuilder {
           model.options.generateWeaponEffect,
         'modules/wfrp4e-core/art/other/weapons.webp'
       );
+    }
+
+    const token = actor.data?.token;
+    if (
+      token != null &&
+      model.options?.tokenPath != null &&
+      model.options.tokenPath.length > 0
+    ) {
+      token.img = model.options.tokenPath;
+      token.actorLink = token.img.includes('*');
+      await actor.update(actor?.data);
     }
 
     return Promise.resolve(actor);
