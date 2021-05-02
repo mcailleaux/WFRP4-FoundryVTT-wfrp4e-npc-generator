@@ -34,15 +34,22 @@ export class ActorBuilder {
       },
       items: [...model.careerPath, ...moneyItems, ...model.trappings],
     };
-    if (model.options.imagePath != null && model.options.imagePath.length > 0) {
+    if (
+      model.options?.imagePath != null &&
+      model.options.imagePath.length > 0
+    ) {
       actorData.img = model.options.imagePath;
     }
     return Promise.resolve(actorData);
   }
 
   public static async createActor(model: NpcModel, data: any) {
-    const folder = await FolderUtil.createNamedFolder(model?.options?.genPath);
-    data.folder = folder?._id;
+    if (model?.options?.genPath?.length > 0) {
+      const folder = await FolderUtil.createNamedFolder(
+        model?.options?.genPath
+      );
+      data.folder = folder?._id;
+    }
 
     const actor: Actor = <Actor>await Actor.create(data);
     for (let skill of model.skills) {
@@ -55,7 +62,7 @@ export class ActorBuilder {
     const token = actor.data?.token;
     if (
       token != null &&
-      model.options.tokenPath != null &&
+      model.options?.tokenPath != null &&
       model.options.tokenPath.length > 0
     ) {
       token.img = model.options.tokenPath;
