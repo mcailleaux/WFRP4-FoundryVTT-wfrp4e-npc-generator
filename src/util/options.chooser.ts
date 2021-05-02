@@ -99,7 +99,10 @@ export default class OptionsChooser {
               )}          
               </div>
               
-              </form>            
+              </form>      
+              <script>
+              ${DialogUtil.browseFileScript()}
+              </script>      
             `,
       buttons: DialogUtil.getDialogButtons(
         dialogId,
