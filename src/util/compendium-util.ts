@@ -14,7 +14,7 @@ export default class CompendiumUtil {
         title: game.i18n.localize('WFRP4NPCGEN.compendium.load.title'),
         content: `<form> 
               <div class="form-group">
-              ${DialogUtil.getLabelScript('WFRP4NPCGEN.compendium.load.hint')}}
+              ${DialogUtil.getLabelScript('WFRP4NPCGEN.compendium.load.hint')}
               </div>
           </form>
             `,

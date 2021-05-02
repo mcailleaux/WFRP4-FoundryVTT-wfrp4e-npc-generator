@@ -161,9 +161,20 @@ export default class DialogUtil {
 
   public static getFilePickerButton(target: string, type: string): string {
     return `
-        <button onclick="FilePicker.fromButton(this).browse()" type="button" class="file-picker" data-type="${type}" data-target="${target}" id="file-picker-${target}" tabindex="-1">
+        <button onclick="browse(event)" type="button" class="file-picker" data-type="${type}" data-target="${target}" id="file-picker-${target}" tabindex="-1">
           <i class="fas fa-file-import fa-fw"></i>
         </button>
     `;
   }
+
+  public static browseFileScript(): string {
+    return `
+        function browse(event) {
+          console.dir(event);
+        }
+    `;
+  }
+
+  // event.preventDefault();
+  // FilePicker.fromButton(button).browse();
 }
