@@ -1,14 +1,47 @@
 import DialogUtil from './dialog-util.js';
 import Options from './options.js';
 import { getGenerateEffectOptionEnum } from './generate-effect-option.enum.js';
+import RegisterSettings from './register-settings.js';
+import { GenerationProfile } from './generation-profiles.js';
 
 export default class OptionsChooser {
   public static async selectOptions(
     initOptions: Options,
+    speciesKey: string,
     callback: (options: Options) => void,
     undo: () => void
   ) {
     const dialogId = new Date().getTime();
+    const speciesProfiles: { [key: string]: any } = duplicate(
+      game.settings.get(RegisterSettings.moduleName, 'generationProfiles')
+    );
+    let profilesChooser = '';
+    let profileNames: any[] = [];
+    if (speciesProfiles != null && speciesProfiles[speciesKey] != null) {
+      const profiles: GenerationProfile = speciesProfiles[speciesKey];
+      profileNames = profiles?.profiles ?? [];
+      const options: { [key: string]: string } = {
+        ['']: '',
+      };
+      profiles.profiles.forEach((p) => {
+        options[p.name] = p.name;
+      });
+      if (profiles?.profiles?.length > 0) {
+        profilesChooser = `
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.options.select.profiles.label'
+              )}
+              ${DialogUtil.getSelectScript(
+                `select-profile-${dialogId}`,
+                options,
+                '',
+                'profileChange()'
+              )}
+              </div>
+    `;
+      }
+    }
     new Dialog({
       title: game.i18n.localize('WFRP4NPCGEN.options.select.title'),
       content: `<form>
@@ -54,6 +87,8 @@ export default class OptionsChooser {
                 initOptions?.generateWeaponEffect
               )}
               </div>
+              
+              ${profilesChooser}
               
               <div class="form-group">
               ${DialogUtil.getLabelScript(
@@ -101,6 +136,31 @@ export default class OptionsChooser {
               
               </form>      
               <script>
+              
+              function profileChange() {
+                  const profiles = [
+                      ${profileNames
+                        .map((p) => {
+                          return `{
+                            name: "${p.name}",
+                            genPath: "${p.genPath}",
+                            imagePath: "${p.imagePath}",
+                            tokenPath: "${p.tokenPath}",
+                        }`;
+                        })
+                        .join(',')}
+                  ]
+                  const selectedProfile = document.getElementById('select-profile-${dialogId}')?.value;
+                  if (selectedProfile != null && selectedProfile.length > 0) {
+                      const prof = profiles.find((p) => p.name === selectedProfile);
+                      if (prof != null) {
+                          document.getElementById('select-genPath-${dialogId}').value = prof.genPath;
+                          document.getElementById('select-imagePath-${dialogId}').value = prof.imagePath;
+                          document.getElementById('select-tokenPath-${dialogId}').value = prof.tokenPath;
+                      }
+                  }
+              }
+              
               ${DialogUtil.browseFileScript()}
               </script>      
             `,

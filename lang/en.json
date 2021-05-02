@@ -38,6 +38,7 @@
   "WFRP4NPCGEN.options.select.title": "Generate options",
   "WFRP4NPCGEN.options.select.withClassTrappings.label": "Include class trappings",
   "WFRP4NPCGEN.options.select.withCareerTrappings.label": "Include career trappings",
+  "WFRP4NPCGEN.options.select.profiles.label": "Profile",
   "WFRP4NPCGEN.options.select.genPath.label": "Folder",
   "WFRP4NPCGEN.options.select.imagePath.label": "Image",
   "WFRP4NPCGEN.options.select.tokenPath.label": "Token",

@@ -56,14 +56,16 @@ export default class DialogUtil {
   public static getSelectScript(
     id: string,
     options: { [key: string]: string },
-    initValue?: string
+    initValue?: string,
+    onChange?: string
   ): string {
     const finalInitValue =
       initValue != null && Object.keys(options).includes(initValue)
         ? initValue
         : '';
+    const onChangeStr = onChange != null ? ` onchange="${onChange}"` : '';
     return `
-        <select id="${id}" value="${finalInitValue}">
+        <select id="${id}" value="${finalInitValue}"${onChangeStr}>
             ${Object.entries(options).map(([key, value]) => {
               const selected =
                 finalInitValue === key ? ' selected="selected"' : '';
