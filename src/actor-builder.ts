@@ -85,9 +85,12 @@ export class ActorBuilder {
       model.options?.tokenPath != null &&
       model.options.tokenPath.length > 0
     ) {
-      token.img = model.options.tokenPath;
-      token.randomImg = token.img.includes('*');
-      await actor.update(actor?.data);
+      await actor.update({
+        token: {
+          img: model.options.tokenPath,
+          randomImg: token.img.includes('*'),
+        },
+      });
     }
 
     return Promise.resolve(actor);
