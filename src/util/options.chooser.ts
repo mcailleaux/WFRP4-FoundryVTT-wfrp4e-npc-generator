@@ -66,6 +66,9 @@ export default class OptionsChooser {
                 name: 'select-genPath',
                 required: true,
               })}
+              <button type="button" class="file-picker" data-type="image" data-target="select-genPath-${dialogId}" tabindex="-1">
+                <i class="fas fa-file-import fa-fw"></i>
+              </button>
               </div>
               
               </form>            
