@@ -8,7 +8,7 @@ export default class CompendiumUtil {
   private static compendiumLoaded = false;
 
   public static async initCompendium() {
-    let loadDialog;
+    let loadDialog: Dialog | null = null;
     if (!this.compendiumLoaded) {
       loadDialog = new Dialog({
         title: game.i18n.localize('WFRP4NPCGEN.compendium.load.title'),
@@ -26,7 +26,9 @@ export default class CompendiumUtil {
     await this.getCompendiumCareersGroups();
     await this.getCompendiumTrappings();
     if (!this.compendiumLoaded && loadDialog != null) {
-      await loadDialog.close();
+      setTimeout(async () => {
+        await loadDialog?.close();
+      });
     }
     this.compendiumLoaded = true;
   }
