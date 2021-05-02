@@ -170,12 +170,9 @@ export default class DialogUtil {
   public static browseFileScript(): string {
     return `
         function browse(event, button) {
-          console.dir(event);
-          console.dir(button);
+          event.preventDefault();
+          FilePicker.fromButton(button).browse();
         }
     `;
   }
-
-  // event.preventDefault();
-  // FilePicker.fromButton(button).browse();
 }
