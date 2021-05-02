@@ -86,10 +86,8 @@ export class ActorBuilder {
       model.options.tokenPath.length > 0
     ) {
       await actor.update({
-        token: {
-          img: model.options.tokenPath,
-          randomImg: token.img.includes('*'),
-        },
+        ['data.token.img']: model.options.tokenPath,
+        ['data.token.randomImg']: token.img.includes('*'),
       });
     }
 
