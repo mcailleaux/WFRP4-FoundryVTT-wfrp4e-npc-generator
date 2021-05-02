@@ -6,7 +6,7 @@ import FolderUtil from './util/folder-util.js';
 export class ActorBuilder {
   public static async buildActorData(model: NpcModel, type: string) {
     const moneyItems = await ReferentialUtil.getAllMoneyItems();
-    const actorData = {
+    const actorData: any = {
       name: model.name,
       type: type,
       flags: {
@@ -34,6 +34,14 @@ export class ActorBuilder {
       },
       items: [...model.careerPath, ...moneyItems, ...model.trappings],
     };
+    if (model.options.imagePath != null && model.options.imagePath.length > 0) {
+      actorData.img = model.options.imagePath;
+    }
+    if (model.options.tokenPath != null && model.options.tokenPath.length > 0) {
+      actorData.token = {
+        img: model.options.tokenPath,
+      };
+    }
     return Promise.resolve(actorData);
   }
 
