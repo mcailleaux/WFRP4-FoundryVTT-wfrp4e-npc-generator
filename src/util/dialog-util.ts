@@ -161,7 +161,7 @@ export default class DialogUtil {
 
   public static getFilePickerButton(target: string, type: string): string {
     return `
-        <button type="button" class="file-picker" data-type="${type}" data-target="${target}" tabindex="-1">
+        <button type="button" class="file-picker" data-type="${type}" data-target="${target}" id="file-picker-${target}" tabindex="-1">
           <i class="fas fa-file-import fa-fw"></i>
         </button>
     `;
