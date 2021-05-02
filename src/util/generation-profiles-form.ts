@@ -39,6 +39,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
       Object.entries(profiles).forEach(([key, value]) => {
         value.profiles.forEach((profile: any) => {
           profile.id = `${key}-${profile.name}`;
+          profile.idGenPath = `${key}-${profile.name}-genPath`;
           profile.idImagePath = `${key}-${profile.name}-imagePath`;
           profile.idTokenPath = `${key}-${profile.name}-tokenPath`;
         });
@@ -62,6 +63,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
         if (existingName == null) {
           this.data[species].profiles.push({
             id: `${species}-${name}`,
+            idGenPath: `${species}-${name}-genPath`,
             idImagePath: `${species}-${name}-imagePath`,
             idTokenPath: `${species}-${name}-tokenPath`,
             name: name,
@@ -90,6 +92,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
           if (existingName == null && editedName != null) {
             editedName.name = newName;
             editedName.id = `${species}-${newName}`;
+            editedName.idGenPath = `${species}-${newName}-genPath`;
             editedName.idImagePath = `${species}-${newName}-imagePath`;
             editedName.idTokenPath = `${species}-${newName}-tokenPath`;
             this.render();
@@ -136,6 +139,9 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
       delete generationProfiles[key].species;
       value.profiles.forEach((profile: any) => {
         delete profile.id;
+        delete profile.idGenPath;
+        delete profile.idImagePath;
+        delete profile.idTokenPath;
       });
     });
 

@@ -38,9 +38,7 @@ export class ActorBuilder {
   }
 
   public static async createActor(model: NpcModel, data: any) {
-    const folder = await FolderUtil.createNamedFolder(
-      model?.options?.defaultGenPath
-    );
+    const folder = await FolderUtil.createNamedFolder(model?.options?.genPath);
     data.folder = folder?._id;
 
     const actor: Actor = <Actor>await Actor.create(data);

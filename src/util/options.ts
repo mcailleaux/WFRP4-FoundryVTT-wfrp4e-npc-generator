@@ -3,7 +3,6 @@ import {
   getGenerateEffectOptionEnum,
 } from './generate-effect-option.enum.js';
 import RegisterSettings from './register-settings.js';
-import GenerationProfiles from './generation-profiles.js';
 
 export default class Options {
   public withClassTrappings: boolean = game.settings.get(
@@ -24,10 +23,12 @@ export default class Options {
     )
   );
 
-  public defaultGenPath: string = game.settings.get(
+  public genPath: string = game.settings.get(
     RegisterSettings.moduleName,
     'defaultGenPath'
   );
 
-  public profiles: GenerationProfiles;
+  public imagePath: string | null = null;
+
+  public tokenPath: string | null = null;
 }

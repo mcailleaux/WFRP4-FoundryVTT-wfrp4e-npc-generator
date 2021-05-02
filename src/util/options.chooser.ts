@@ -54,6 +54,20 @@ export default class OptionsChooser {
                 initOptions?.generateWeaponEffect
               )}
               </div>
+              
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.options.select.genPath.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `select-genPath-${dialogId}`,
+                type: 'text',
+                initValue: initOptions?.genPath,
+                name: 'select-genPath',
+                required: true,
+              })}
+              </div>
+              
               </form>            
             `,
       buttons: DialogUtil.getDialogButtons(

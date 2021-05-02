@@ -87,6 +87,7 @@ export default class DialogUtil {
     classes?: string;
     style?: string;
     checked?: boolean;
+    required?: boolean;
   }): string {
     const hasDataList =
       options?.dataListId != null &&
@@ -103,8 +104,9 @@ export default class DialogUtil {
     const classesStr =
       options?.classes != null ? ` class="${options.classes}"` : '';
     const checkedStr = options?.checked ? ' checked' : '';
+    const requiredStr = options?.checked ? ' required' : '';
     const input = `
-        <input${onInputStr}${onClickStr}${inputListId}${styleStr}${classesStr}${checkedStr}${initValueStr} type="${options?.type}" id="${options?.id}" name="${options?.name}" />
+        <input${onInputStr}${onClickStr}${inputListId}${styleStr}${classesStr}${checkedStr}${requiredStr}${initValueStr} type="${options?.type}" id="${options?.id}" name="${options?.name}" />
       `;
     const dataList = hasDataList
       ? `
