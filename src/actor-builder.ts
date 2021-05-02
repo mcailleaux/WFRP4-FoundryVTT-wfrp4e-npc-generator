@@ -93,7 +93,7 @@ export class ActorBuilder {
           token,
           {
             img: model.options.tokenPath,
-            randomImg: token.img.includes('*'),
+            randomImg: model.options.tokenPath.includes('*'),
           },
           { inplace: false }
         ),
