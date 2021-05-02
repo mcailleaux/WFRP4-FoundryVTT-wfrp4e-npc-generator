@@ -64,7 +64,6 @@ export default class OptionsChooser {
                 type: 'text',
                 initValue: initOptions?.genPath,
                 name: 'select-genPath',
-                required: true,
               })}          
               </div>
               
@@ -77,7 +76,6 @@ export default class OptionsChooser {
                 type: 'text',
                 initValue: initOptions?.imagePath ?? '',
                 name: 'select-imagePath',
-                required: true,
               })}          
               ${DialogUtil.getFilePickerButton(
                 `select-imagePath-${dialogId}`,
@@ -94,7 +92,6 @@ export default class OptionsChooser {
                 type: 'text',
                 initValue: initOptions?.tokenPath ?? '',
                 name: 'select-tokenPath',
-                required: true,
               })}
               ${DialogUtil.getFilePickerButton(
                 `select-tokenPath-${dialogId}`,
