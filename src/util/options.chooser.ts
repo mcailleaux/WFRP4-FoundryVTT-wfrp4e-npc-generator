@@ -65,10 +65,41 @@ export default class OptionsChooser {
                 initValue: initOptions?.genPath,
                 name: 'select-genPath',
                 required: true,
+              })}          
+              </div>
+              
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.options.select.imagePath.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `select-imagePath-${dialogId}`,
+                type: 'text',
+                initValue: initOptions?.imagePath ?? '',
+                name: 'select-imagePath',
+                required: true,
+              })}          
+              ${DialogUtil.getFilePickerButton(
+                `select-imagePath-${dialogId}`,
+                'image'
+              )}
+              </div>
+              
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.options.select.tokenPath.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `select-tokenPath-${dialogId}`,
+                type: 'text',
+                initValue: initOptions?.tokenPath ?? '',
+                name: 'select-tokenPath',
+                required: true,
               })}
-              <button type="button" class="file-picker" data-type="image" data-target="select-genPath-${dialogId}" tabindex="-1">
-                <i class="fas fa-file-import fa-fw"></i>
-              </button>
+              ${DialogUtil.getFilePickerButton(
+                `select-tokenPath-${dialogId}`,
+                'image'
+              )}          
               </div>
               
               </form>            
@@ -100,6 +131,21 @@ export default class OptionsChooser {
               options.generateWeaponEffect = getGenerateEffectOptionEnum(
                 r.value
               );
+            });
+          html
+            .find(`#select-genPath-${dialogId}`)
+            .each((_i, r: HTMLInputElement) => {
+              options.genPath = r.value ?? '';
+            });
+          html
+            .find(`#select-imagePath-${dialogId}`)
+            .each((_i, r: HTMLInputElement) => {
+              options.imagePath = r.value ?? '';
+            });
+          html
+            .find(`#select-tokenPath-${dialogId}`)
+            .each((_i, r: HTMLInputElement) => {
+              options.tokenPath = r.value ?? '';
             });
 
           callback(options);
