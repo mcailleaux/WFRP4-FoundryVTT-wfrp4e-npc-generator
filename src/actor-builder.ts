@@ -32,7 +32,7 @@ export class ActorBuilder {
           },
         },
       },
-      items: [...model.careerPath, ...moneyItems, ...model.trappings],
+      items: [...model.careerPath, ...moneyItems],
     };
     if (
       model.options?.imagePath != null &&
@@ -57,6 +57,9 @@ export class ActorBuilder {
     }
     for (let talent of model.talents) {
       await actor.createOwnedItem(talent);
+    }
+    for (let trapping of model.trappings) {
+      await actor.createOwnedItem(trapping);
     }
 
     if (GenerateEffectOptionEnum.NONE !== model.options.generateMoneyEffect) {
