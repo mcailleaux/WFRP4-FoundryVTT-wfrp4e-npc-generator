@@ -165,25 +165,52 @@ export default class NpcGenerator {
     model: NpcModel,
     callback: (model: NpcModel) => void
   ) {
+    console.log('Prepare Career Path');
     await this.addCareerPath(model);
+
+    console.log('Prepare Status');
     await this.addStatus(model);
+
+    console.log('Prepare Basic skills');
     await this.addBasicSkill(model);
+
+    console.log('Prepare Native Tongue');
     await this.addNativeTongueSkill(model);
+
+    console.log('Prepare Career Skills');
     await this.addCareerSkill(model);
+
+    console.log('Prepare Species Skills');
     await this.addSpeciesSkill(model);
+
+    console.log('Prepare Species Talents');
     await this.addSpeciesTalents(model);
+
+    console.log('Prepare Career Talents');
     await this.addCareerTalents(model);
+
+    console.log('Prepare Basic Chars');
     await this.addBasicChars(model);
+
+    console.log('Prepare Movement');
     await this.addMovement(model);
+
+    console.log('Prepare Skills Advances');
     await this.addAdvanceSkills(model);
+
+    console.log('Prepare Chars Advances');
     await this.addAdvanceChars(model);
+
     if (model.options.withClassTrappings) {
+      console.log('Prepare Class Trappings');
       await this.prepareClassTrappings(model);
     }
     if (model.options.withCareerTrappings) {
+      console.log('Prepare Career Trappings');
       await this.prepareCareerTrappings(model);
     }
     if (model.trappingsStr.length > 0) {
+      console.log('Prepare Trappings');
       await this.addTrappings(model);
     }
     callback(model);
