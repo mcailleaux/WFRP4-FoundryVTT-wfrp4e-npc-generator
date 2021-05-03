@@ -50,7 +50,8 @@ export class ActorBuilder {
         .split('/')
         .filter((p) => p != null && p.length > 0);
       if (model?.options?.withGenPathCareerName) {
-        genPaths.push(model.career.name);
+        const careerData: any = model.career?.data;
+        genPaths.push(careerData?.careergroup?.value);
       }
       const folder = await FolderUtil.createNamedFolder(genPaths.join('/'));
       data.folder = folder?._id;

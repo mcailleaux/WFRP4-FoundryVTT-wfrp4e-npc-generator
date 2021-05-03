@@ -9,7 +9,7 @@ export default class FolderUtil {
     let folder: Folder | null = null;
     if (name.includes('/')) {
       let splitedName = name.split('/');
-      if (splitedName.length > 2) {
+      if (splitedName.length > 3) {
         splitedName = splitedName.filter((_n, index) => index <= 2);
         console.warn(
           `Folder's name trunked to keep only 2 sub-folders maximum : ${splitedName.join(
