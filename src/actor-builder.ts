@@ -58,15 +58,18 @@ export class ActorBuilder {
     }
 
     let actor: Actor = <Actor>await Actor.create(data);
-    for (let skill of model.skills) {
-      await actor.createOwnedItem(skill);
-    }
-    for (let talent of model.talents) {
-      await actor.createOwnedItem(talent);
-    }
-    for (let trapping of model.trappings) {
-      await actor.createOwnedItem(trapping);
-    }
+    // for (let skill of model.skills) {
+    //   await actor.createOwnedItem(skill);
+    // }
+    // for (let talent of model.talents) {
+    //   await actor.createOwnedItem(talent);
+    // }
+    // for (let trapping of model.trappings) {
+    //   await actor.createOwnedItem(trapping);
+    // }
+    await actor.createOwnedItem(model.skills);
+    await actor.createOwnedItem(model.talents);
+    await actor.createOwnedItem(model.trappings);
 
     if (model?.options?.withInitialMoney) {
       await TrappingUtil.generateMoney(actor);
