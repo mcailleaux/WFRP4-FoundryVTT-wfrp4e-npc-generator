@@ -42,6 +42,10 @@
   "WFRP4NPCGEN.options.select.genPath.label": "Folder",
   "WFRP4NPCGEN.options.select.imagePath.label": "Image",
   "WFRP4NPCGEN.options.select.tokenPath.label": "Token",
+  "WFRP4NPCGEN.options.select.withGenPathCareerName.label": "Generate career name sub-folder",
+  "WFRP4NPCGEN.options.select.withLinkedToken.label": "Link token with actor",
+  "WFRP4NPCGEN.options.select.withInitialMoney.label": "Generate with money",
+  "WFRP4NPCGEN.options.select.withInitialWeapons.label": "Generate with weapons",
   "WFRP4NPCGEN.options.effects.NONE": "Don't include effect",
   "WFRP4NPCGEN.options.effects.DEFAULT_DISABLED": "Effect is default disabled",
   "WFRP4NPCGEN.options.effects.DEFAULT_ENABLED": "Effect is default enabled",
@@ -60,5 +64,13 @@
   "WFRP4NPCGEN.settings.generationProfiles.hint": "Species generations profiles allow you to specify for a species one or more generation profile wich contain generation path, image path, token image path and career name suffix otpion",
   "WFRP4NPCGEN.settings.generationProfiles.genPath.label": "Generation path",
   "WFRP4NPCGEN.settings.generationProfiles.imagePath.label": "Image path",
-  "WFRP4NPCGEN.settings.generationProfiles.tokenPath.label": "Token path"
+  "WFRP4NPCGEN.settings.generationProfiles.tokenPath.label": "Token path",
+  "WFRP4NPCGEN.settings.defaultWithGenPathCareerName.name": "Generate career name sub-folder",
+  "WFRP4NPCGEN.settings.defaultWithGenPathCareerName.hint": "Default selected value for the option 'generate career name sub-folder' on the options generation chooser when you generate a NPC",
+  "WFRP4NPCGEN.settings.defaultWithLinkedToken.name": "Link token with actor",
+  "WFRP4NPCGEN.settings.defaultWithLinkedToken.hint": "Default selected value for the option 'link token with actor' on the options generation chooser when you generate a NPC",
+  "WFRP4NPCGEN.settings.defaultWithInitialMoney.name": "Generate with money",
+  "WFRP4NPCGEN.settings.defaultWithInitialMoney.hint": "Default selected value for the option 'generate with money' on the options generation chooser when you generate a NPC",
+  "WFRP4NPCGEN.settings.defaultWithInitialWeapons.name": "Generate with weapons",
+  "WFRP4NPCGEN.settings.defaultWithInitialWeapons.hint": "Default selected value for the option 'generate with weapons' on the options generation chooser when you generate a NPC"
 }

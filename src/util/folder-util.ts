@@ -10,12 +10,12 @@ export default class FolderUtil {
     if (name.includes('/')) {
       let splitedName = name.split('/');
       if (splitedName.length > 2) {
+        splitedName = splitedName.filter((_n, index) => index <= 2);
         console.warn(
           `Folder's name trunked to keep only 2 sub-folders maximum : ${splitedName.join(
             '/'
           )}`
         );
-        splitedName = splitedName.filter((_n, index) => index <= 2);
       }
       for (let path of splitedName) {
         folder = await FolderUtil.createNamedFolder(path, folder);

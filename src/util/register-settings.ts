@@ -123,5 +123,57 @@ export default class RegisterSettings {
       type: Object,
       onChange: (_s: any) => {},
     });
+
+    game.settings.register(moduleName, 'defaultWithGenPathCareerName', {
+      name: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultWithGenPathCareerName.name'
+      ),
+      hint: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultWithGenPathCareerName.hint'
+      ),
+      scope: 'world',
+      config: true,
+      type: Boolean,
+      default: false,
+    });
+
+    game.settings.register(moduleName, 'defaultWithLinkedToken', {
+      name: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultWithLinkedToken.name'
+      ),
+      hint: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultWithLinkedToken.hint'
+      ),
+      scope: 'world',
+      config: true,
+      type: Boolean,
+      default: false,
+    });
+
+    game.settings.register(moduleName, 'defaultWithInitialMoney', {
+      name: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultWithInitialMoney.name'
+      ),
+      hint: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultWithInitialMoney.hint'
+      ),
+      scope: 'world',
+      config: true,
+      type: Boolean,
+      default: false,
+    });
+
+    game.settings.register(moduleName, 'defaultWithInitialWeapons', {
+      name: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultWithInitialWeapons.name'
+      ),
+      hint: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultWithInitialWeapons.hint'
+      ),
+      scope: 'world',
+      config: true,
+      type: Boolean,
+      default: false,
+    });
   }
 }

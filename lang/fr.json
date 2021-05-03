@@ -42,6 +42,10 @@
   "WFRP4NPCGEN.options.select.genPath.label": "Répertoires",
   "WFRP4NPCGEN.options.select.imagePath.label": "Image",
   "WFRP4NPCGEN.options.select.tokenPath.label": "Token",
+  "WFRP4NPCGEN.options.select.withGenPathCareerName.label": "Générer dans un répertoire nom de carrière",
+  "WFRP4NPCGEN.options.select.withLinkedToken.label": "Lier le token au personnage",
+  "WFRP4NPCGEN.options.select.withInitialMoney.label": "Générer avec de l'argent",
+  "WFRP4NPCGEN.options.select.withInitialWeapons.label": "Générer avec des armes",
   "WFRP4NPCGEN.options.effects.NONE": "Ne pas inclure l'effet",
   "WFRP4NPCGEN.options.effects.DEFAULT_DISABLED": "L'effet est désactivé par défaut",
   "WFRP4NPCGEN.options.effects.DEFAULT_ENABLED": "L'effet est activé par défaut",
@@ -60,5 +64,13 @@
   "WFRP4NPCGEN.settings.generationProfiles.hint": "Les Profiles de génération par races vous permettent de définir pour une race un ou plusieurs profiles contenant le répertoire de génération, le path de l'image, le path de l'image du token et l'option de suffix du répertoire de génération par le nom de carrière",
   "WFRP4NPCGEN.settings.generationProfiles.genPath.label": "Répertoire de génération",
   "WFRP4NPCGEN.settings.generationProfiles.imagePath.label": "Path de l'image",
-  "WFRP4NPCGEN.settings.generationProfiles.tokenPath.label": "Path du token"
+  "WFRP4NPCGEN.settings.generationProfiles.tokenPath.label": "Path du token",
+  "WFRP4NPCGEN.settings.defaultWithGenPathCareerName.name": "Générer dans un répertoire nom de carrière",
+  "WFRP4NPCGEN.settings.defaultWithGenPathCareerName.hint": "Valeur sélectionné par défaut pour l'option 'générer dans un répertoire nom de carrière' lors de l'étape de choix des otpions à la génération d'un PNJ",
+  "WFRP4NPCGEN.settings.defaultWithLinkedToken.name": "Lier le token au personnage",
+  "WFRP4NPCGEN.settings.defaultWithLinkedToken.hint": "Valeur sélectionné par défaut pour l'option 'Lier le token au personnage' lors de l'étape de choix des otpions à la génération d'un PNJ",
+  "WFRP4NPCGEN.settings.defaultWithInitialMoney.name": "Générer avec de l'argent",
+  "WFRP4NPCGEN.settings.defaultWithInitialMoney.hint": "Valeur sélectionné par défaut pour l'option 'générer avec de l'argent' lors de l'étape de choix des otpions à la génération d'un PNJ",
+  "WFRP4NPCGEN.settings.defaultWithInitialWeapons.name": "Générer avec des armes",
+  "WFRP4NPCGEN.settings.defaultWithInitialWeapons.hint": "Valeur sélectionné par défaut pour l'option 'générer avec des armes' lors de l'étape de choix des otpions à la génération d'un PNJ"
 }

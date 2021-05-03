@@ -88,6 +88,61 @@ export default class OptionsChooser {
               )}
               </div>
               
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.options.select.withGenPathCareerName.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `select-with-genPath-career-name-${dialogId}`,
+                type: 'checkbox',
+                name: 'select-with-genPath-career-name',
+                initValue:
+                  initOptions != null && initOptions.withGenPathCareerName,
+                checked:
+                  initOptions != null && initOptions.withGenPathCareerName,
+              })}
+              </div>
+              
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.options.select.withLinkedToken.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `select-with-linked-token-${dialogId}`,
+                type: 'checkbox',
+                name: 'select-with-linked-token',
+                initValue: initOptions != null && initOptions.withLinkedToken,
+                checked: initOptions != null && initOptions.withLinkedToken,
+              })}
+              </div>
+              
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.options.select.withInitialMoney.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `select-with-init-money-${dialogId}`,
+                type: 'checkbox',
+                name: 'select-with-init-money',
+                initValue: initOptions != null && initOptions.withInitialMoney,
+                checked: initOptions != null && initOptions.withInitialMoney,
+              })}
+              </div>
+              
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.options.select.withInitialWeapons.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `select-with-init-weapons-${dialogId}`,
+                type: 'checkbox',
+                name: 'select-with-init-weapons',
+                initValue:
+                  initOptions != null && initOptions.withInitialWeapons,
+                checked: initOptions != null && initOptions.withInitialWeapons,
+              })}
+              </div>
+              
               ${profilesChooser}
               
               <div class="form-group">
@@ -191,6 +246,26 @@ export default class OptionsChooser {
               options.generateWeaponEffect = getGenerateEffectOptionEnum(
                 r.value
               );
+            });
+          html
+            .find(`#select-with-genPath-career-name-${dialogId}`)
+            .each((_i, r: HTMLInputElement) => {
+              options.withGenPathCareerName = r.checked;
+            });
+          html
+            .find(`#select-with-linked-token-${dialogId}`)
+            .each((_i, r: HTMLInputElement) => {
+              options.withLinkedToken = r.checked;
+            });
+          html
+            .find(`#select-with-init-money-${dialogId}`)
+            .each((_i, r: HTMLInputElement) => {
+              options.withInitialMoney = r.checked;
+            });
+          html
+            .find(`#select-with-init-weapons-${dialogId}`)
+            .each((_i, r: HTMLInputElement) => {
+              options.withInitialWeapons = r.checked;
             });
           html
             .find(`#select-genPath-${dialogId}`)

@@ -67,7 +67,10 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
             idImagePath: `${species}-${name}-imagePath`,
             idTokenPath: `${species}-${name}-tokenPath`,
             name: name,
-            genPath: '',
+            genPath: game.settings.get(
+              RegisterSettings.moduleName,
+              'defaultGenPath'
+            ),
             imagePath: '',
             tokenPath: '',
           });

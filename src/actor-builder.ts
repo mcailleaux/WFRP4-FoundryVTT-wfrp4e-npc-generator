@@ -2,6 +2,7 @@ import NpcModel from './npc-model.js';
 import ReferentialUtil from './util/referential-util.js';
 import { GenerateEffectOptionEnum } from './util/generate-effect-option.enum.js';
 import FolderUtil from './util/folder-util.js';
+import TrappingUtil from './util/trapping-util.js';
 
 export class ActorBuilder {
   public static async buildActorData(model: NpcModel, type: string) {
@@ -45,13 +46,17 @@ export class ActorBuilder {
 
   public static async createActor(model: NpcModel, data: any) {
     if (model?.options?.genPath?.length > 0) {
-      const folder = await FolderUtil.createNamedFolder(
-        model?.options?.genPath
-      );
+      const genPaths = model?.options?.genPath
+        .split('/')
+        .filter((p) => p != null && p.length > 0);
+      if (model?.options?.withGenPathCareerName) {
+        genPaths.push(model.career.name);
+      }
+      const folder = await FolderUtil.createNamedFolder(genPaths.join('/'));
       data.folder = folder?._id;
     }
 
-    const actor: Actor = <Actor>await Actor.create(data);
+    let actor: Actor = <Actor>await Actor.create(data);
     for (let skill of model.skills) {
       await actor.createOwnedItem(skill);
     }
@@ -62,7 +67,19 @@ export class ActorBuilder {
       await actor.createOwnedItem(trapping);
     }
 
-    if (GenerateEffectOptionEnum.NONE !== model.options.generateMoneyEffect) {
+    if (model?.options?.withInitialMoney) {
+      await TrappingUtil.generateMoney(actor);
+    }
+
+    if (model?.options?.withInitialWeapons) {
+      await TrappingUtil.generateWeapons(actor);
+    }
+
+    if (
+      !model?.options?.withLinkedToken &&
+      !model?.options?.withInitialMoney &&
+      GenerateEffectOptionEnum.NONE !== model.options.generateMoneyEffect
+    ) {
       await this.addGenerateTokenEffect(
         actor,
         'WFRP4NPCGEN.trappings.money.label',
@@ -72,7 +89,11 @@ export class ActorBuilder {
       );
     }
 
-    if (GenerateEffectOptionEnum.NONE !== model.options.generateWeaponEffect) {
+    if (
+      !model?.options?.withLinkedToken &&
+      !model?.options?.withInitialWeapons &&
+      GenerateEffectOptionEnum.NONE !== model.options.generateWeaponEffect
+    ) {
       await this.addGenerateTokenEffect(
         actor,
         'WFRP4NPCGEN.trappings.weapon.label',
@@ -83,20 +104,27 @@ export class ActorBuilder {
     }
 
     const token = actor.data?.token;
+    const update: any = {};
+    let performUpdate = false;
+
     if (
       token != null &&
       model.options?.tokenPath != null &&
       model.options.tokenPath.length > 0
     ) {
-      await actor.update({
-        token: mergeObject(
-          token,
-          {
-            img: model.options.tokenPath,
-            randomImg: model.options.tokenPath.includes('*'),
-          },
-          { inplace: false }
-        ),
+      performUpdate = true;
+      update.img = model.options.tokenPath;
+      update.randomImg = model.options.tokenPath.includes('*');
+    }
+
+    if (token != null && model.options?.withLinkedToken) {
+      performUpdate = true;
+      update.actorLink = model.options?.withLinkedToken;
+    }
+
+    if (performUpdate) {
+      actor = <Actor>await actor.update({
+        token: mergeObject(token, update, { inplace: false }),
       });
     }
 

@@ -20,17 +20,21 @@
 
 - Settings to configure generation species profiles contain directory path, image path and token image path
 - Default setting to configure directory path
-- Setting to enable suffix directory path by current career name
+- \*Setting to enable suffix directory path by current career name
+- \*Setting to enable linked npc generation
+- \*Setting to enable money at generation
+- \*Setting to enable weapons at generation
 - Add selection off species profile on option chooser step
 - Optimize the trappings search
-- Manage trapping to be equiped/wearing by default
-- add deutsch compatibility
-- Limit generation button fore those who can create actor
+- \*Manage trapping to be equiped/wearing by default
+- \*add deutsch compatibility
+- \*Limit generation button fore those who can create actor
 
 ### Bugfix
 
 - ignore world career with same career group from compendium
 - add item type filter for items career reading by tag from compendium
+- infinite delete ecumbrance effect loop
 
 ## 1.2.1
 

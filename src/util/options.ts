@@ -23,6 +23,26 @@ export default class Options {
     )
   );
 
+  public withGenPathCareerName = game.settings.get(
+    RegisterSettings.moduleName,
+    'defaultWithGenPathCareerName'
+  );
+
+  public withLinkedToken = game.settings.get(
+    RegisterSettings.moduleName,
+    'defaultWithLinkedToken'
+  );
+
+  public withInitialMoney = game.settings.get(
+    RegisterSettings.moduleName,
+    'defaultWithInitialMoney'
+  );
+
+  public withInitialWeapons = game.settings.get(
+    RegisterSettings.moduleName,
+    'defaultWithInitialWeapons'
+  );
+
   public genPath: string = game.settings.get(
     RegisterSettings.moduleName,
     'defaultGenPath'
