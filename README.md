@@ -57,6 +57,13 @@ you have to install the translate module of wfrp4e-core and have the system lang
   - Don't include effect : NPC don't include the passive effect used to generate money/weapons on token creation
   - Effect is default disabled : NPC include the passive effect used to generate money/weapons on token creation, the effect is disabled
   - Effect is default enabled : NPC include the passive effect used to generate money/weapons on token creation, the effect is active
+- Generate career name sub-folder : Check if you want to add to generation path the career group name as a sub-folder
+- Link token with actor : Check if you want the generated NPC linked to his token (Passive generation effects are ignored in this case)
+- Generate with money/weapon : Check if you want to include random money/weapons to the generated NPC (Passive generation effects are ignored in this case)
+- Profile : Choose a species profile to pre-fill the following options :
+  - Folder : The generation folders with '/' separator (ex : 'Generated NPC/Common'). All folders after the third are ignored
+  - Image : The path for the generated NPC image
+  - Token : The path for the generated NPC token image (random is set to true if a wilcard is present)
 
 ### From Macro
 
@@ -133,6 +140,16 @@ game.wfrp4e.npcGen.nameChooser.selectName(
 
 - Settings allow you to define the default selected option of options chooser, the last step of NPC generation
 
+### Create species profiles
+
+![Profiles](./media/wfrp4e-npc-gen-profiles.png)
+
+- You can create profiles for each species to define :
+  - Generation path : The generation folders with '/' separator (ex : 'Generated NPC/Common')
+  - Image path : The path for the generated NPC image
+  - Token path : The path for the generated NPC token image
+- Profiles can be selected during the option chooser to pre-fill those fields
+
 ## Generation rules
 
 - Actor is created with npc template (creature template comming soon)
@@ -187,18 +204,11 @@ Weapons are added to token data during creation with this rules :
 
 ## Comming soon
 
-- Create a function to Prompt option to generate trappings or not
-- Generate actor with trapping
-- Create a function to Prompt a generation mode (simple or advanced)
-  - Simple generator Prompt only Species, Career and Name select and une random for species and talent skill
 - Add Gnome if rnhd module is present
-- Creates Settings (defaut trapping option on simple mode, manage token images path):
-  - A boolean askForTrapping to enable/disable Prompt option to ask if you want to generate trapping
-  - A boolean withTrapping to generate trapping on simpliest mode or if askForTrapping=false
-  - A String defaultGenDirectory to specify a path where generate new NPC
-  - A Object { [type: string]: {genDirectory: string, tokenIconPath: string}} to allow user create type of npc generation with specific path and icon
-- Create a function to Prompt select an npc type (used with settings to set a spcific generation path and a token icon path)
 - Create a simpliest generator with creature template
+- Allow to select many careers to create a career path instead of de automatic career path
+- create a chat command
+- Manage other language
 
 ## Module link
 

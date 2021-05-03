@@ -1,18 +1,10 @@
 ## In development
 
-- Create a function to Prompt a generation mode (simple or advanced)
-  - Simple generator Prompt only Species, Career and Name select and une random for species and talent skill
 - Add Gnome if rnhd module is present
-- Update Settings (defaut trapping option on simple mode, manage token images path):
-  - A String defaultGenDirectory to specify a path where generate new NPC
-  - A Object { [type: string]: {genDirectory: string, tokenIconPath: string}} to allow user create type of npc generation with specific path and icon
-- Create a function to Prompt select an npc type (used with settings to set a spcific generation path and a token icon path)
 - Create a simpliest generator with creature template
 - Allow to select many careers to create a career path instead of de automatic career path
 - create a chat command
 - Manage other language
-- Allow linked pnj
-- Allow money and weapons generation at creation
 
 ## 1.3.0
 
