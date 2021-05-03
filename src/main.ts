@@ -9,15 +9,17 @@ Hooks.once('init', () => {
 });
 
 Hooks.on('renderActorDirectory', (_app: ActorSheet, html: JQuery) => {
-  const npcGenButton = document.createElement('button');
-  npcGenButton.style.width = '95%';
-  npcGenButton.innerHTML = game.i18n.localize(
-    'WFRP4NPCGEN.actor.directory.button'
-  );
-  npcGenButton.addEventListener('click', () => {
-    NpcGenerator.generateNpc();
-  });
-  html.find('.header-actions').after(npcGenButton);
+  if ((<any>game.user).can(CONST.USER_PERMISSIONS.ACTOR_CREATE)) {
+    const npcGenButton = document.createElement('button');
+    npcGenButton.style.width = '95%';
+    npcGenButton.innerHTML = game.i18n.localize(
+      'WFRP4NPCGEN.actor.directory.button'
+    );
+    npcGenButton.addEventListener('click', () => {
+      NpcGenerator.generateNpc();
+    });
+    html.find('.header-actions').after(npcGenButton);
+  }
 });
 
 Hooks.on('createToken', async (scene: any, token: any) => {
