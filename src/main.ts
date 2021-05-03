@@ -9,7 +9,7 @@ Hooks.once('init', () => {
 });
 
 Hooks.on('renderActorDirectory', (_app: ActorSheet, html: JQuery) => {
-  if ((<any>game.user).can(CONST.USER_PERMISSIONS.ACTOR_CREATE)) {
+  if ((<any>game.user).can('ACTOR_CREATE')) {
     const npcGenButton = document.createElement('button');
     npcGenButton.style.width = '95%';
     npcGenButton.innerHTML = game.i18n.localize(
