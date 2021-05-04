@@ -2,6 +2,12 @@
 
 This module allow to generate npcs.
 
+# Authors
+
+Skeroujvapluvit
+
+Deutsch : ivan-hr
+
 ## Supported language
 
 - EN
