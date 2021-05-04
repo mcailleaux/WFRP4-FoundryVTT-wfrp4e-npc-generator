@@ -137,6 +137,7 @@ game.wfrp4e.npcGen.nameChooser.selectName(
 ## Settings
 
 ![Settings](./media/wfre4e-npc-gen-settings.png)
+![Settings](./media/wfre4e-npc-gen-settings2.png)
 
 - Settings allow you to define the default selected option of options chooser, the last step of NPC generation
 

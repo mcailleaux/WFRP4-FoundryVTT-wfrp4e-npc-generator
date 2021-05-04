@@ -51,7 +51,7 @@
   "WFRP4NPCGEN.options.effects.DEFAULT_ENABLED": "Effect is default enabled",
   "WFRP4NPCGEN.settings.defaultWithClassTrappings.name": "Include class trappings",
   "WFRP4NPCGEN.settings.defaultWithClassTrappings.hint": "Default selected value for the option 'include class trappings' on the options generation chooser when you generate a NPC",
-  "WFRP4NPCGEN.settings.defaultWithCareerTrappings.name": "Iinclude career trappings",
+  "WFRP4NPCGEN.settings.defaultWithCareerTrappings.name": "Include career trappings",
   "WFRP4NPCGEN.settings.defaultWithCareerTrappings.hint": "Default selected value for the option 'include career trappings' on the options generation chooser when you generate a NPC",
   "WFRP4NPCGEN.settings.defaultGenerateMoneyEffect.name": "Generate money on token creation",
   "WFRP4NPCGEN.settings.defaultGenerateMoneyEffect.hint": "Default selected value for the option 'generate money on token creation' on the options generation chooser when you generate a NPC",
