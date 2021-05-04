@@ -19,7 +19,7 @@
 - Add selection off species profile on option chooser step
 - Optimize the trappings search
 - Manage trapping to be equiped/wearing by default
-- \*add deutsch compatibility
+- add deutsch compatibility
 - Limit generation button fore those who can create actor
 
 ### Bugfix

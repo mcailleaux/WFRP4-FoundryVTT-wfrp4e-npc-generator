@@ -6,6 +6,7 @@ This module allow to generate npcs.
 
 - EN
 - FR
+- DE (Not tested)
 
 ## System and dependencies
 
@@ -20,6 +21,7 @@ For other language than English, if you want the generate NPC have his Native To
 you have to install the translate module of wfrp4e-core and have the system language same as your translate module
 
 - FR : https://gitlab.com/LeRatierBretonnien/foundryvtt-wh4-lang-fr-fr
+- DE : https://github.com/StefanMasz/WFRP4e-de
 
 ## Usage
 
