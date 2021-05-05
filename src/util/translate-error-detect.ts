@@ -23,12 +23,24 @@ export default class TranslateErrorDetect {
       const data: any = career?.data?.data;
       result[career.name] = {};
       for (let tr of data?.trappings) {
+        const resolved = await ReferentialUtil.findTrappings(tr, trappings);
         result[career.name].name = tr;
-        result[career.name].resolvedBy =
-          (await ReferentialUtil.findTrappings(tr, trappings))
-            ?.map((t) => t.name)
-            ?.join(',') ?? '';
         result[career.name].results = [];
+        if (resolved?.length > 0) {
+          result[career.name].results.push(
+            ...resolved.map((r) => {
+              return {
+                name: r.name,
+                rename: tr !== r.name ? tr : '',
+              };
+            })
+          );
+        } else {
+          result[career.name].results.push({
+            name: '',
+            rename: '',
+          });
+        }
       }
     }
 
