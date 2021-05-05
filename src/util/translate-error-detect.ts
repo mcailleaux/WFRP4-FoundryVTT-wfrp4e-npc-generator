@@ -2,6 +2,29 @@ import ReferentialUtil from './referential-util.js';
 import StringUtil from './string-util.js';
 
 export default class TranslateErrorDetect {
+  public static async generateTrappingsReferential(
+    callback: (result: any) => void
+  ) {
+    const result: any = {};
+    const careers = (await ReferentialUtil.getCareerEntities(false)).sort(
+      (a, b) => {
+        const aData: any = a?.data;
+        const bData: any = b?.data;
+        const aLevelStr = aData?.level?.value;
+        const bLevelStr = bData?.level?.value;
+        const aLevel = aLevelStr != null ? Number(aLevelStr) : 0;
+        const bLevel = bLevelStr != null ? Number(bLevelStr) : 0;
+        return aLevel - bLevel;
+      }
+    );
+    for (let career of careers) {
+      const data: any = career?.data?.data;
+      result[career.name] = data?.trappings;
+    }
+
+    callback(result);
+  }
+
   public static async detectTrappingsTranslateError(
     callback: (errors: { notFounds: string[]; resolved: string[] }) => void
   ) {
