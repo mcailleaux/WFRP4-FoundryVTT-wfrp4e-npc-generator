@@ -129,8 +129,11 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
     html.find('.generation-profiles-input-tokenPath').on('input', (event) => {
       this.performInputChange(event, 'tokenPath');
     });
-    html.find('.generation-profiles-input-imagePath').on('change', (_event) => {
-      console.log('input change');
+    html.find('.generation-profiles-input-imagePath').on('change', (event) => {
+      this.performInputChange(event, 'imagePath');
+    });
+    html.find('.generation-profiles-input-tokenPath').on('change', (event) => {
+      this.performInputChange(event, 'tokenPath');
     });
     super.activateListeners(html);
   }
