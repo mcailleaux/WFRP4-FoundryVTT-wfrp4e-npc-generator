@@ -32,17 +32,9 @@ export default class TranslateErrorDetect {
       if (resolveds?.length > 0) {
         result[career.name].results.push(
           ...resolveds.map((r) => {
-            return {
-              name: r.name,
-              rename: '',
-            };
+            return r.name;
           })
         );
-      } else {
-        result[career.name].results.push({
-          name: '',
-          rename: '',
-        });
       }
     }
 

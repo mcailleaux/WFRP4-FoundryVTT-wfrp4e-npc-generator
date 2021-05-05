@@ -1,28 +1,44 @@
 export const CAREERS_TRAPPINGS = {
   Abbess: {
-    name: 'Library (Theology)',
-    results: [
-      {
-        name: '',
-        rename: '',
-      },
-    ],
+    name: 'Abbey,Library (Theology)',
+    results: [],
   },
   Advisor: {
     name: 'Livery',
     results: [
       {
-        name: '',
+        name: 'Costume',
         rename: '',
       },
     ],
   },
   Agent: {
-    name: 'Quill and Ink',
+    name:
+      'Book (Cryptography),Ring of Spies and Informers,Loft of Homing Pigeons,Quill and Ink',
     results: [
       {
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Engineering Marvel',
+        rename: '',
+      },
+      {
+        name: 'Homing Pigeon',
+        rename: '',
+      },
+      {
         name: 'Quill Pen',
-        rename: 'Quill and Ink',
+        rename: '',
       },
     ],
   },
@@ -45,55 +61,87 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Ambassador: {
-    name: 'Herald',
+    name: 'Aide,Best Quality Courtly Clothes,Sta? of Diplomats,Herald',
     results: [
       {
-        name: '',
+        name: 'Courtly Garb ',
         rename: '',
       },
     ],
   },
   Apothecary: {
-    name: 'Trade Tools',
+    name: 'Guild License,Trade Tools',
     results: [
       {
+        name: 'Guild License',
+        rename: '',
+      },
+      {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools',
+        rename: '',
       },
     ],
   },
   'Apothecary-General': {
-    name: 'Large Workshop',
+    name: 'Commission Papers,Large Workshop',
     results: [
       {
         name: 'Shield (Large)',
-        rename: 'Large Workshop',
+        rename: '',
       },
       {
         name: 'Workshop (Type)',
-        rename: 'Large Workshop',
+        rename: '',
       },
     ],
   },
   "Apothecary's Apprentice": {
-    name: 'Pestle and Mortar',
+    name: 'Book (Blank),Healing Draught,Leather Jerkin,Pestle and Mortar',
     results: [
       {
-        name: 'Pestle & Mortar',
-        rename: 'Pestle and Mortar',
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Blanket',
+        rename: '',
+      },
+      {
+        name: 'Healing Draught',
+        rename: '',
+      },
+      {
+        name: 'Leather Jerkin',
+        rename: '',
       },
       {
         name: 'Pestle & Mortar',
-        rename: 'Pestle and Mortar',
+        rename: '',
+      },
+      {
+        name: 'Pestle & Mortar',
+        rename: '',
       },
     ],
   },
   'Apprentice Artisan': {
-    name: 'd10 rags',
+    name: 'Chalk,Leather Jerkin,d10 rags',
     results: [
       {
+        name: 'Chalk',
+        rename: '',
+      },
+      {
+        name: 'Leather Jerkin',
+        rename: '',
+      },
+      {
         name: 'Rags',
-        rename: 'd10 rags',
+        rename: '',
       },
     ],
   },
@@ -102,24 +150,28 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Quill Pen',
-        rename: 'Brush or Chisel or Quill Pen',
+        rename: '',
       },
       {
         name: 'Chisel',
-        rename: 'Brush or Chisel or Quill Pen',
+        rename: '',
       },
       {
         name: 'Floor Brush',
-        rename: 'Brush or Chisel or Quill Pen',
+        rename: '',
       },
     ],
   },
   Artisan: {
-    name: 'Trade Tools',
+    name: 'Guild License,Trade Tools',
     results: [
       {
+        name: 'Guild License',
+        rename: '',
+      },
+      {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools',
+        rename: '',
       },
     ],
   },
@@ -128,21 +180,29 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Sling Bag',
-        rename: 'Sling Bag containing Trade Tools (Artist)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Sling Bag containing Trade Tools (Artist)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Sling Bag containing Trade Tools (Artist)',
+        rename: '',
       },
     ],
   },
   Assassin: {
-    name: 'Disguise Kit',
+    name: 'Crossbow with 10 shots,Disguise Kit',
     results: [
+      {
+        name: 'Crossbow',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
       {
         name: 'Disguise Kit',
         rename: '',
@@ -150,8 +210,16 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Attendant: {
-    name: 'Lamp Oil',
+    name: 'Quality Livery,Storm Lantern,Tinderbox,Lamp Oil',
     results: [
+      {
+        name: 'Storm Lantern',
+        rename: '',
+      },
+      {
+        name: 'Tinderbox',
+        rename: '',
+      },
       {
         name: 'Lamp Oil',
         rename: '',
@@ -159,16 +227,16 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Bailiff: {
-    name: '3 Tax Collectors',
+    name: 'Leather Jack,3 Tax Collectors',
     results: [
       {
-        name: '',
+        name: 'Leather Jack',
         rename: '',
       },
     ],
   },
   'Bandit King': {
-    name: 'Lair',
+    name: "'Fiefdom' of Outlaw Chiefs,Lair",
     results: [
       {
         name: '',
@@ -177,33 +245,37 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Barge Master': {
-    name: 'Riverboat and Crew',
+    name: 'Hat,Riverboat and Crew',
     results: [
       {
-        name: '',
+        name: 'Hat',
         rename: '',
       },
     ],
   },
   Bargeswain: {
-    name: 'Trade Tools (Carpenter)',
+    name: 'Backpack,Trade Tools (Carpenter)',
     results: [
       {
-        name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Carpenter)',
+        name: 'Backpack',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Carpenter)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Carpenter)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
       },
     ],
   },
   Barrister: {
-    name: 'Assistant (Student or Servant)',
+    name: 'Office,Assistant (Student or Servant)',
     results: [
       {
         name: '',
@@ -212,17 +284,25 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Bawd: {
-    name: 'Quality Clothing',
+    name: 'Dose of Weirdroot,Quality Clothing',
     results: [
       {
+        name: 'Weirdroot',
+        rename: '',
+      },
+      {
         name: 'Clothing',
-        rename: 'Quality Clothing',
+        rename: '',
       },
     ],
   },
   Beggar: {
-    name: 'Bowl',
+    name: 'Crutch,Bowl',
     results: [
+      {
+        name: 'Crutch',
+        rename: '',
+      },
       {
         name: 'Bowl',
         rename: '',
@@ -230,16 +310,16 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Beggar King': {
-    name: 'Large Group of Beggar Followers',
+    name: 'Lair,Large Group of Beggar Followers',
     results: [
       {
         name: 'Shield (Large)',
-        rename: 'Large Group of Beggar Followers',
+        rename: '',
       },
     ],
   },
   'Black Marketeer': {
-    name: 'Warehouse',
+    name: 'Hired Muscle,Network of Informants,Warehouse',
     results: [
       {
         name: '',
@@ -248,19 +328,31 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Boat-hand': {
-    name: 'Pole',
+    name: 'Hand Weapon (Boat Hook),Leather Jack,Pole',
     results: [
       {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Boat Hook',
+        rename: '',
+      },
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
+      {
         name: 'Pole (3 yards)',
-        rename: 'Pole',
+        rename: '',
       },
     ],
   },
   Boatman: {
-    name: 'Rowboat',
+    name: 'Rope,Rowboat',
     results: [
       {
-        name: '',
+        name: 'Rope, 10 yards',
         rename: '',
       },
     ],
@@ -270,48 +362,104 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Carpenter)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Carpenter)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Carpenter)',
+        rename: '',
       },
     ],
   },
   'Body Snatcher': {
-    name: 'Tarpaulin',
+    name: 'Crowbar,Handcart,Hooded Cloak,Tarpaulin',
     results: [
       {
-        name: '',
+        name: 'Crowbar',
+        rename: '',
+      },
+      {
+        name: 'Cart',
+        rename: '',
+      },
+      {
+        name: 'Repeater Handgun',
+        rename: '',
+      },
+      {
+        name: 'Cloak',
+        rename: '',
+      },
+      {
+        name: 'Hood',
         rename: '',
       },
     ],
   },
   'Bounty Hunter': {
-    name: 'Warrant Papers',
+    name: 'Crossbow and 10 bolts,Leather Skullcap,Manacles,Net,Warrant Papers',
     results: [
       {
-        name: '',
+        name: 'Crossbow',
+        rename: '',
+      },
+      {
+        name: 'Bolt',
+        rename: '',
+      },
+      {
+        name: 'Leather Skullcap',
+        rename: '',
+      },
+      {
+        name: 'Manacles',
+        rename: '',
+      },
+      {
+        name: 'The Nineteenth Palm of Volans',
         rename: '',
       },
     ],
   },
   'Bounty Hunter General': {
-    name: '4 Pairs of Manacles',
+    name: 'Draught Horse and Cart,Mail Shirt,4 Pairs of Manacles',
     results: [
       {
+        name: 'Draught Horse',
+        rename: '',
+      },
+      {
+        name: 'Cart',
+        rename: '',
+      },
+      {
+        name: 'Mail Shirt',
+        rename: '',
+      },
+      {
         name: 'Manacles',
-        rename: '4 Pairs of Manacles',
+        rename: '',
       },
     ],
   },
   Braggart: {
-    name: 'Leather Jack',
+    name: 'Hood or Mask,Knuckledusters,Leather Jack',
     results: [
+      {
+        name: 'Hood',
+        rename: '',
+      },
+      {
+        name: 'Mask',
+        rename: '',
+      },
+      {
+        name: 'Knuckledusters',
+        rename: '',
+      },
       {
         name: 'Leather Jack',
         rename: '',
@@ -319,8 +467,20 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Brigand: {
-    name: 'Tinderbox',
+    name: 'Bedroll,Hand Weapon,Leather Jerkin,Tinderbox',
     results: [
+      {
+        name: 'Bedroll ',
+        rename: '',
+      },
+      {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Leather Jerkin',
+        rename: '',
+      },
       {
         name: 'Tinderbox',
         rename: '',
@@ -328,30 +488,43 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Broker: {
-    name: 'Stolen Goods worth 3d10 Shillings',
+    name: 'Hand Weapon,Stolen Goods worth 3d10 Shillings',
     results: [
       {
-        name: '',
+        name: 'Hand Weapon',
         rename: '',
       },
     ],
   },
   Burgomeister: {
-    name: 'Large Townhouse with Gardens and Servants',
+    name:
+      'Chains of Office,Coach and Footman,Quality Clothing,Large Townhouse with Gardens and Servants',
     results: [
       {
+        name: 'Coach',
+        rename: '',
+      },
+      {
+        name: 'Clothing',
+        rename: '',
+      },
+      {
         name: 'Shield (Large)',
-        rename: 'Large Townhouse with Gardens and Servants',
+        rename: '',
       },
       {
         name: 'Suffused with Ulgu',
-        rename: 'Large Townhouse with Gardens and Servants',
+        rename: '',
       },
     ],
   },
   Busker: {
-    name: 'Instrument',
+    name: 'Bowl,Instrument',
     results: [
+      {
+        name: 'Bowl',
+        rename: '',
+      },
       {
         name: 'Instrument',
         rename: '',
@@ -359,30 +532,75 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Cargo Scavenger': {
-    name: 'Leather Gloves',
+    name: 'Crowbar,Large Sack,Leather Gloves',
     results: [
       {
+        name: 'Crowbar',
+        rename: '',
+      },
+      {
+        name: 'Sack',
+        rename: '',
+      },
+      {
+        name: 'Shield (Large)',
+        rename: '',
+      },
+      {
         name: 'Gloves',
-        rename: 'Leather Gloves',
+        rename: '',
       },
       {
         name: 'Boiled Leather Breastplate',
-        rename: 'Leather Gloves',
+        rename: '',
       },
     ],
   },
   'Cat Burglar': {
-    name: 'Mask or Scarves',
+    name: 'Dark Clothing,Grappling Hook,Mask or Scarves',
     results: [
       {
+        name: 'Clothing',
+        rename: '',
+      },
+      {
+        name: 'Grappling Hook',
+        rename: '',
+      },
+      {
         name: 'Mask',
-        rename: 'Mask or Scarves',
+        rename: '',
       },
     ],
   },
   Cavalryman: {
-    name: 'Shield',
+    name:
+      'Breastplate,Helmet,Light Warhorse with Saddle and Tack,Pistol with 10 Shots,Shield',
     results: [
+      {
+        name: 'Boiled Leather Breastplate',
+        rename: '',
+      },
+      {
+        name: 'Light Warhorse',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: '',
+      },
+      {
+        name: 'Pistol',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
       {
         name: 'Shield',
         rename: '',
@@ -390,61 +608,132 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Chancellor: {
-    name: 'Sta? of Advisors and Aides',
+    name:
+      'Riding Horse with Saddle and Harness,Quality Courtly Garb,Sta? of Advisors and Aides',
     results: [
       {
-        name: '',
+        name: 'Saddle and Harness',
+        rename: '',
+      },
+      {
+        name: 'Riding Horse',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Courtly Garb ',
+        rename: '',
+      },
+      {
+        name: 'Courtly Garb ',
         rename: '',
       },
     ],
   },
   Charlatan: {
-    name: 'Selection of Trinkets and Charms',
+    name:
+      '1 Forged Document,2 Sets of Quality Clothing,Selection of Colored Powders and  Water,Selection of Trinkets and Charms',
     results: [
       {
-        name: '',
+        name: 'Legal Document',
+        rename: '',
+      },
+      {
+        name: 'Clothing',
+        rename: '',
+      },
+      {
+        name: 'Waterskin',
         rename: '',
       },
     ],
   },
   'Chartered Engineer': {
-    name: 'Large Workshop (Engineer)',
+    name:
+      'Guild License,Library (Engineer),Quality Trade Tools (Engineer),Large Workshop (Engineer)',
     results: [
       {
-        name: 'Shield (Large)',
-        rename: 'Large Workshop (Engineer)',
-      },
-      {
-        name: 'Workshop (Type)',
-        rename: 'Large Workshop (Engineer)',
+        name: 'Guild License',
+        rename: '',
       },
       {
         name: 'Engineering Marvel',
-        rename: 'Large Workshop (Engineer)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
+      },
+      {
+        name: 'Engineering Marvel',
+        rename: '',
+      },
+      {
+        name: 'Shield (Large)',
+        rename: '',
+      },
+      {
+        name: 'Workshop (Type)',
+        rename: '',
+      },
+      {
+        name: 'Engineering Marvel',
+        rename: '',
       },
     ],
   },
   Clerk: {
-    name: 'Sturdy Boots',
+    name: 'Lodgings,Sturdy Boots',
     results: [
       {
         name: 'Boots',
-        rename: 'Sturdy Boots',
+        rename: '',
       },
     ],
   },
   'Coach Master': {
-    name: 'Quality Cloak',
+    name: 'Mail Shirt,Pistol,Quality Cloak',
     results: [
       {
+        name: 'Mail Shirt',
+        rename: '',
+      },
+      {
+        name: 'Pistol',
+        rename: '',
+      },
+      {
         name: 'Cloak',
-        rename: 'Quality Cloak',
+        rename: '',
       },
     ],
   },
   Coachman: {
-    name: 'Hat',
+    name: 'Blunderbuss with 10 Shots,Coach Horn,Leather Jack,Hat',
     results: [
+      {
+        name: 'Blunderbuss',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Coach',
+        rename: '',
+      },
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
       {
         name: 'Hat',
         rename: '',
@@ -452,35 +741,55 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Con Artist': {
-    name: 'Multiple Forged Documents',
+    name: 'Disguise Kit,Lock Picks,Multiple Forged Documents',
     results: [
       {
-        name: '',
+        name: 'Disguise Kit',
+        rename: '',
+      },
+      {
+        name: 'Lock Picks',
         rename: '',
       },
     ],
   },
   Councilor: {
-    name: 'Village Home and Workshop',
+    name: 'Mule and Cart,Village Home and Workshop',
     results: [
       {
+        name: 'Cart',
+        rename: '',
+      },
+      {
+        name: 'Mule',
+        rename: '',
+      },
+      {
         name: 'Workshop (Type)',
-        rename: 'Village Home and Workshop',
+        rename: '',
       },
     ],
   },
   Counsellor: {
-    name: 'Aide',
+    name: 'Quality Clothing,Aide',
     results: [
       {
-        name: '',
+        name: 'Clothing',
         rename: '',
       },
     ],
   },
   Courier: {
-    name: 'Shield',
+    name: 'Backpack,Saddlebags,Shield',
     results: [
+      {
+        name: 'Backpack',
+        rename: '',
+      },
+      {
+        name: 'Saddlebags',
+        rename: '',
+      },
       {
         name: 'Shield',
         rename: '',
@@ -488,8 +797,12 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Courier-Captain': {
-    name: 'Writing Kit',
+    name: 'Couriers,Mail Shirt,Writing Kit',
     results: [
+      {
+        name: 'Mail Shirt',
+        rename: '',
+      },
       {
         name: 'Writing Kit',
         rename: '',
@@ -497,28 +810,45 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Court Physician': {
-    name: 'Letter of Appointment',
+    name: 'Courtly Attire,Letter of Appointment',
     results: [
       {
-        name: '',
+        name: 'Courtly Garb ',
         rename: '',
       },
     ],
   },
   'Crime Lord': {
-    name: 'Subordinate Gang Bosses',
+    name:
+      'Network of Informers,Quality Clothing and Hat,Subordinate Gang Bosses',
     results: [
       {
+        name: 'Clothing',
+        rename: '',
+      },
+      {
+        name: 'Hat',
+        rename: '',
+      },
+      {
         name: 'Doppelganger',
-        rename: 'Subordinate Gang Bosses',
+        rename: '',
       },
     ],
   },
   Custodian: {
-    name: 'Livery',
+    name: 'Keys,Lantern,Lamp Oil,Livery',
     results: [
       {
-        name: '',
+        name: 'Key',
+        rename: '',
+      },
+      {
+        name: 'Lantern',
+        rename: '',
+      },
+      {
+        name: 'Lamp Oil',
         rename: '',
       },
     ],
@@ -533,16 +863,16 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Demagogue: {
-    name: 'Impressive Hat',
+    name: '3 Pamphleteers,Patron,Printing Press,Impressive Hat',
     results: [
       {
         name: 'Hat',
-        rename: 'Impressive Hat',
+        rename: '',
       },
     ],
   },
   Detective: {
-    name: 'Spyglass',
+    name: 'Network of Informants,Spyglass',
     results: [
       {
         name: '',
@@ -551,7 +881,7 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Diplomat: {
-    name: 'Map',
+    name: 'Aide,Quality Clothes,Map',
     results: [
       {
         name: 'Map',
@@ -560,7 +890,7 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Dock Master': {
-    name: 'Writing Kit',
+    name: 'Office and Sta?,Writing Kit',
     results: [
       {
         name: 'Writing Kit',
@@ -569,129 +899,183 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Dockhand: {
-    name: 'Leather Gloves',
+    name: 'Hand Weapon (Boat Hook),Leather Gloves',
     results: [
       {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Boat Hook',
+        rename: '',
+      },
+      {
         name: 'Gloves',
-        rename: 'Leather Gloves',
+        rename: '',
       },
       {
         name: 'Boiled Leather Breastplate',
-        rename: 'Leather Gloves',
+        rename: '',
       },
     ],
   },
   Doktor: {
-    name: 'Workshop (Medicine)',
+    name: 'Apprentice,Workshop (Medicine)',
     results: [
       {
         name: 'Workshop (Type)',
-        rename: 'Workshop (Medicine)',
+        rename: '',
       },
       {
         name: 'Workshop (Type)',
-        rename: 'Workshop (Medicine)',
+        rename: '',
       },
       {
         name: 'Book, Medicine',
-        rename: 'Workshop (Medicine)',
+        rename: '',
       },
     ],
   },
   'Dragon Slayer': {
-    name: 'Throwing Axes',
+    name: "Giant's Head,Throwing Axes",
     results: [
       {
         name: 'Throwing Axe',
-        rename: 'Throwing Axes',
+        rename: '',
       },
     ],
   },
   Duellist: {
-    name: 'Pistol with Gunpowder and Ammunition',
+    name: 'Main Gauche or Sword-breaker,Pistol with Gunpowder and Ammunition',
     results: [
       {
+        name: 'Main Gauche',
+        rename: '',
+      },
+      {
         name: 'Pistol',
-        rename: 'Pistol with Gunpowder and Ammunition',
+        rename: '',
       },
       {
         name: 'Suffused with Ulgu',
-        rename: 'Pistol with Gunpowder and Ammunition',
+        rename: '',
       },
     ],
   },
   Duelmaster: {
-    name: '2 Wooden Training Swords',
+    name: 'Quality Rapier,Hand Weapon,Trusty Second,2 Wooden Training Swords',
     results: [
       {
+        name: 'Rapier',
+        rename: '',
+      },
+      {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
         name: 'Wooden Teeth',
-        rename: '2 Wooden Training Swords',
+        rename: '',
       },
     ],
   },
   Engineer: {
-    name: 'Trade Tools',
+    name: 'Guild License,Trade Tools',
     results: [
       {
+        name: 'Guild License',
+        rename: '',
+      },
+      {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools',
+        rename: '',
       },
     ],
   },
   Entertainer: {
-    name: 'Throwing Weapons',
+    name:
+      "Costume,Instrument,Selection of Scripts (that you can't yet read),Throwing Weapons",
     results: [
       {
+        name: 'Costume',
+        rename: '',
+      },
+      {
+        name: 'Instrument',
+        rename: '',
+      },
+      {
+        name: 'Hat',
+        rename: '',
+      },
+      {
+        name: 'Reading Lens',
+        rename: '',
+      },
+      {
         name: 'Throwing Knife',
-        rename: 'Throwing Weapons',
+        rename: '',
       },
     ],
   },
   Envoy: {
-    name: '10 sheets of parchment',
+    name: 'Quill and Ink,10 sheets of parchment',
     results: [
       {
+        name: 'Quill Pen',
+        rename: '',
+      },
+      {
         name: 'Parchment/sheet',
-        rename: '10 sheets of parchment',
+        rename: '',
       },
     ],
   },
   Explorer: {
-    name: 'Trade Tools (Cartographer)',
+    name: 'Selection of Maps,Trade Tools (Cartographer)',
     results: [
       {
+        name: 'Map',
+        rename: '',
+      },
+      {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Cartographer)',
+        rename: '',
       },
       {
         name: 'Cart',
-        rename: 'Trade Tools (Cartographer)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Cartographer)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Cartographer)',
+        rename: '',
       },
     ],
   },
   Exterminator: {
-    name: 'Sack of Poisoned Bait (10 doses of Heartkill)',
+    name:
+      'Assistant,Large and Vicious Dog,Sack of Poisoned Bait (10 doses of Heartkill)',
     results: [
       {
+        name: 'Shield (Large)',
+        rename: '',
+      },
+      {
         name: 'Heartkill',
-        rename: 'Sack of Poisoned Bait (10 doses of Heartkill)',
+        rename: '',
       },
       {
         name: 'Sack',
-        rename: 'Sack of Poisoned Bait (10 doses of Heartkill)',
+        rename: '',
       },
     ],
   },
   Fellow: {
-    name: 'Robes',
+    name: 'Mortarboard,Robes',
     results: [
       {
         name: 'Robes',
@@ -700,8 +1084,20 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Fence: {
-    name: 'Writing Kit',
+    name: 'Eye-glass,Trade Tools (Engraver),Writing Kit',
     results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
+      },
       {
         name: 'Writing Kit',
         rename: '',
@@ -709,34 +1105,51 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Fencer: {
-    name: 'Sling Bag containing Clothing and 1d10 Bandages',
+    name:
+      'Hand Weapon or Rapier,Sling Bag containing Clothing and 1d10 Bandages',
     results: [
       {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Rapier',
+        rename: '',
+      },
+      {
         name: 'Sling Bag',
-        rename: 'Sling Bag containing Clothing and 1d10 Bandages',
+        rename: '',
       },
       {
         name: 'Clothing',
-        rename: 'Sling Bag containing Clothing and 1d10 Bandages',
+        rename: '',
       },
       {
         name: 'Bandage',
-        rename: 'Sling Bag containing Clothing and 1d10 Bandages',
+        rename: '',
       },
     ],
   },
   'First Knight': {
-    name: 'Small Unit of Knights',
+    name: 'Barding,Small Unit of Knights',
     results: [
       {
         name: 'Small shot and Powder',
-        rename: 'Small Unit of Knights',
+        rename: '',
       },
     ],
   },
   Flagellant: {
-    name: 'Sling',
+    name: 'Placard,Religious Symbol,Sling',
     results: [
+      {
+        name: 'Placard',
+        rename: '',
+      },
+      {
+        name: 'Religious Symbol',
+        rename: '',
+      },
       {
         name: 'Sling',
         rename: '',
@@ -744,43 +1157,59 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Foreman: {
-    name: 'Whistle',
+    name: 'Gang of Stevedores,Whistle',
     results: [
       {
-        name: '',
+        name: 'Doppelganger',
         rename: '',
       },
     ],
   },
   'Fortune Teller': {
-    name: 'Cheap Jewelry',
+    name: 'Deck of Cards or Dice,Cheap Jewelry',
     results: [
       {
-        name: '',
+        name: 'Deck of Cards',
+        rename: '',
+      },
+      {
+        name: 'Dice',
         rename: '',
       },
     ],
   },
   'Gang Boss': {
-    name: 'Lair',
+    name: 'Crossbow Pistol with 10 Bolts,Gang of Thugs and Racketeers,Lair',
     results: [
       {
-        name: '',
+        name: 'Crossbow Pistol',
+        rename: '',
+      },
+      {
+        name: 'Bolt',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Doppelganger',
         rename: '',
       },
     ],
   },
   'Giant Slayer': {
-    name: "Troll's Head",
+    name: "Great Axe,Jewelry,Troll's Head",
     results: [
       {
-        name: '',
+        name: 'Great Axe',
         rename: '',
       },
     ],
   },
   Governor: {
-    name: 'Servant',
+    name: "Aide,Governor's Residence,Servant",
     results: [
       {
         name: '',
@@ -789,17 +1218,33 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Grave Robber': {
-    name: 'Storm Lantern and Oil',
+    name: 'Backpack,Hand Weapon,Spade,Storm Lantern and Oil',
     results: [
       {
+        name: 'Backpack',
+        rename: '',
+      },
+      {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Spade',
+        rename: '',
+      },
+      {
         name: 'Storm Lantern',
-        rename: 'Storm Lantern and Oil',
+        rename: '',
       },
     ],
   },
   Greenfish: {
-    name: 'Leather Leggings',
+    name: 'Bucket,Fishing Rod and Bait,Leather Leggings',
     results: [
+      {
+        name: 'Bucket',
+        rename: '',
+      },
       {
         name: 'Leather Leggings',
         rename: '',
@@ -807,8 +1252,28 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Guard: {
-    name: 'Spear',
+    name: 'Bow with 10 Arrows,Sleeved Mail Shirt,Shield,Spear',
     results: [
+      {
+        name: 'Arrow',
+        rename: '',
+      },
+      {
+        name: 'Bow',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Mail Shirt',
+        rename: '',
+      },
+      {
+        name: 'Shield',
+        rename: '',
+      },
       {
         name: 'Spear',
         rename: '',
@@ -820,30 +1285,50 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Boiled Leather Breastplate',
-        rename: 'Breastplate',
+        rename: '',
       },
     ],
   },
   Guide: {
-    name: 'Rope',
+    name: 'Hand Weapon,Leather Jack,Sturdy Boots and Cloak,Rope',
     results: [
       {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
+      {
+        name: 'Boots',
+        rename: '',
+      },
+      {
+        name: 'Cloak',
+        rename: '',
+      },
+      {
         name: 'Rope, 10 yards',
-        rename: 'Rope',
+        rename: '',
       },
     ],
   },
   Guildmaster: {
-    name: 'Quality Clothing',
+    name: 'Guild,Quality Clothing',
     results: [
       {
+        name: 'Guild License',
+        rename: '',
+      },
+      {
         name: 'Clothing',
-        rename: 'Quality Clothing',
+        rename: '',
       },
     ],
   },
   'Hedge Apprentice': {
-    name: 'Backpack',
+    name: '1d10 Lucky Charms,Quartersta?,Backpack',
     results: [
       {
         name: 'Backpack',
@@ -852,7 +1337,7 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Hedge Master': {
-    name: 'Apprentice',
+    name: 'Isolated Hut,Apprentice',
     results: [
       {
         name: '',
@@ -861,34 +1346,50 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Hedge Witch': {
-    name: 'Trade Tools (Herbalist)',
+    name: 'Antitoxin Kit,Healing Poultice,Trade Tools (Herbalist)',
     results: [
       {
-        name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Herbalist)',
+        name: 'Antitoxin Kit',
+        rename: '',
+      },
+      {
+        name: 'Healing Poultice',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Herbalist)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Herbalist)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
       },
     ],
   },
   Hedgewise: {
-    name: 'Ceremonial Cloak and Garland',
+    name: 'Assortment of Animal Skulls,Ceremonial Cloak and Garland',
     results: [
       {
+        name: 'Animal Trap',
+        rename: '',
+      },
+      {
         name: 'Cloak',
-        rename: 'Ceremonial Cloak and Garland',
+        rename: '',
       },
     ],
   },
   Herald: {
-    name: 'Scroll Case',
+    name: 'Leather Jack,Livery,Scroll Case',
     results: [
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
       {
         name: 'Scroll Case',
         rename: '',
@@ -896,41 +1397,70 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Herb Gatherer': {
-    name: 'Sling Bag containing Assortment of Herbs',
+    name: 'Boots,Cloak,Sling Bag containing Assortment of Herbs',
     results: [
       {
+        name: 'Boots',
+        rename: '',
+      },
+      {
+        name: 'Cloak',
+        rename: '',
+      },
+      {
         name: 'Sling Bag',
-        rename: 'Sling Bag containing Assortment of Herbs',
+        rename: '',
       },
     ],
   },
   'Herb Master': {
-    name: 'Workshop (Herbalist)',
+    name:
+      'Herb Gatherer,3 Healing Poultices,Healing Draught,Workshop (Herbalist)',
     results: [
       {
-        name: 'Workshop (Type)',
-        rename: 'Workshop (Herbalist)',
+        name: 'Healing Poultice',
+        rename: '',
+      },
+      {
+        name: 'Healing Draught',
+        rename: '',
       },
       {
         name: 'Workshop (Type)',
-        rename: 'Workshop (Herbalist)',
+        rename: '',
+      },
+      {
+        name: 'Workshop (Type)',
+        rename: '',
       },
     ],
   },
   Herbalist: {
-    name: 'Trade Tools (Herbalist)',
+    name: 'Hand Weapon (Sickle),Healing Poultice,Trade Tools (Herbalist)',
     results: [
       {
-        name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Herbalist)',
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Sickle',
+        rename: '',
+      },
+      {
+        name: 'Healing Poultice',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Herbalist)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Herbalist)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
       },
     ],
   },
@@ -939,17 +1469,29 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Cart',
-        rename: 'Pony and Cart',
+        rename: '',
       },
       {
         name: 'Pony',
-        rename: 'Pony and Cart',
+        rename: '',
       },
     ],
   },
   Hexer: {
-    name: 'Pins',
+    name: 'Candles,Chalk,Doll,Pins',
     results: [
+      {
+        name: 'Candle',
+        rename: '',
+      },
+      {
+        name: 'Chalk',
+        rename: '',
+      },
+      {
+        name: 'Doll',
+        rename: '',
+      },
       {
         name: 'Pins',
         rename: '',
@@ -957,26 +1499,46 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'High Priest': {
-    name: 'Temple',
+    name: 'Quality Robes,Religious Relic,Subordinate Priests,Temple',
     results: [
       {
-        name: '',
+        name: 'Robes',
+        rename: '',
+      },
+      {
+        name: 'Religious Symbol',
         rename: '',
       },
     ],
   },
   Hitman: {
-    name: 'Throwing Knives',
+    name: 'Cloak,Garotte,Poison,Throwing Knives',
     results: [
       {
+        name: 'Cloak',
+        rename: '',
+      },
+      {
         name: 'Throwing Knife',
-        rename: 'Throwing Knives',
+        rename: '',
       },
     ],
   },
   'Honor Guard': {
-    name: 'Uniform',
+    name: 'Great Weapon or Halberd,Helmet,Uniform',
     results: [
+      {
+        name: 'Halberd',
+        rename: '',
+      },
+      {
+        name: 'Great Axe',
+        rename: '',
+      },
+      {
+        name: 'Improvised Weapon',
+        rename: '',
+      },
       {
         name: 'Uniform',
         rename: '',
@@ -984,25 +1546,37 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Horseman: {
-    name: 'Riding Horse with Saddle and Tack',
+    name: 'Leather Jack,Riding Horse with Saddle and Tack',
     results: [
       {
+        name: 'Leather Jack',
+        rename: '',
+      },
+      {
         name: 'Riding Horse',
-        rename: 'Riding Horse with Saddle and Tack',
+        rename: '',
       },
       {
         name: 'Suffused with Ulgu',
-        rename: 'Riding Horse with Saddle and Tack',
+        rename: '',
       },
       {
         name: 'Saddle and Harness',
-        rename: 'Riding Horse with Saddle and Tack',
+        rename: '',
       },
     ],
   },
   Huffer: {
-    name: 'Row Boat',
+    name: 'Leather Jerkin,Rope,Row Boat',
     results: [
+      {
+        name: 'Leather Jerkin',
+        rename: '',
+      },
+      {
+        name: 'Rope, 10 yards',
+        rename: '',
+      },
       {
         name: 'Row Boat',
         rename: '',
@@ -1014,24 +1588,36 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Arrow',
-        rename: 'Bow with 10 arrows',
+        rename: '',
       },
       {
         name: 'Bow',
-        rename: 'Bow with 10 arrows',
+        rename: '',
       },
       {
         name: 'Suffused with Ulgu',
-        rename: 'Bow with 10 arrows',
+        rename: '',
       },
     ],
   },
   Huntsmaster: {
-    name: 'Kennel of Hunting Dogs',
+    name: 'Riding Horse with Saddle and Tack,Kennel of Hunting Dogs',
     results: [
       {
+        name: 'Riding Horse',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: '',
+      },
+      {
         name: 'Hunting Dog',
-        rename: 'Kennel of Hunting Dogs',
+        rename: '',
       },
     ],
   },
@@ -1045,33 +1631,38 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Informer: {
-    name: 'Sling Bag containing 2 different sets of clothing and Hooded Cloak',
+    name:
+      'Charcoal stick,Sling Bag containing 2 different sets of clothing and Hooded Cloak',
     results: [
       {
+        name: 'Charcoal stick',
+        rename: '',
+      },
+      {
         name: 'Sling Bag',
-        rename:
-          'Sling Bag containing 2 different sets of clothing and Hooded Cloak',
+        rename: '',
       },
       {
         name: 'Clothing',
-        rename:
-          'Sling Bag containing 2 different sets of clothing and Hooded Cloak',
+        rename: '',
       },
       {
         name: 'Cloak',
-        rename:
-          'Sling Bag containing 2 different sets of clothing and Hooded Cloak',
+        rename: '',
       },
       {
         name: 'Hood',
-        rename:
-          'Sling Bag containing 2 different sets of clothing and Hooded Cloak',
+        rename: '',
       },
     ],
   },
   Initiate: {
-    name: 'Robes',
+    name: 'Religious Symbol,Robes',
     results: [
+      {
+        name: 'Religious Symbol',
+        rename: '',
+      },
       {
         name: 'Robes',
         rename: '',
@@ -1079,42 +1670,58 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Inquisitor: {
-    name: 'Subordinate Interrogators',
+    name: 'Quality Clothing,Subordinate Interrogators',
     results: [
       {
-        name: '',
+        name: 'Clothing',
         rename: '',
       },
     ],
   },
   Interrogator: {
-    name: 'Instruments of Torture',
+    name: 'Hand Weapon,Instruments of Torture',
     results: [
       {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
         name: 'Instrument',
-        rename: 'Instruments of Torture',
+        rename: '',
       },
     ],
   },
   Investigator: {
-    name: 'Lockpick',
+    name: 'Leather Jack,Hand Weapon,Magnifying Glass,Lockpick',
     results: [
       {
+        name: 'Leather Jack',
+        rename: '',
+      },
+      {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
         name: 'Pick',
-        rename: 'Lockpick',
+        rename: '',
       },
       {
         name: 'Lock Picks',
-        rename: 'Lockpick',
+        rename: '',
       },
     ],
   },
   Judge: {
-    name: 'Ostentatious Wig',
+    name: 'Gavel,Ostentatious Wig',
     results: [
       {
+        name: 'Gavel',
+        rename: '',
+      },
+      {
         name: 'Tent',
-        rename: 'Ostentatious Wig',
+        rename: '',
       },
     ],
   },
@@ -1128,34 +1735,72 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Knight: {
-    name: 'Plate Armor and Helm',
+    name:
+      'Destrier with Saddle and Tack,Melee Weapon (Any),Lance,Plate Armor and Helm',
     results: [
       {
+        name: 'Destrier',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: '',
+      },
+      {
+        name: 'Improvised Weapon',
+        rename: '',
+      },
+      {
+        name: 'Lance',
+        rename: '',
+      },
+      {
         name: 'Plate',
-        rename: 'Plate Armor and Helm',
+        rename: '',
       },
       {
         name: 'Plate Open Helm',
-        rename: 'Plate Armor and Helm',
+        rename: '',
       },
     ],
   },
   'Knight of the Inner Circle': {
-    name: 'Large Unit of Knights or Several Small Units of Knights',
+    name:
+      'Plumed Great Helm,Squire,Large Unit of Knights or Several Small Units of Knights',
     results: [
       {
+        name: 'Great Axe',
+        rename: '',
+      },
+      {
+        name: 'Plate Open Helm',
+        rename: '',
+      },
+      {
         name: 'Shield (Large)',
-        rename: 'Large Unit of Knights or Several Small Units of Knights',
+        rename: '',
       },
       {
         name: 'Small shot and Powder',
-        rename: 'Large Unit of Knights or Several Small Units of Knights',
+        rename: '',
       },
     ],
   },
   Landsman: {
-    name: 'Mop',
+    name: 'Bucket,Brush,Mop',
     results: [
+      {
+        name: 'Bucket',
+        rename: '',
+      },
+      {
+        name: 'Floor Brush',
+        rename: '',
+      },
       {
         name: 'Mop',
         rename: '',
@@ -1163,8 +1808,20 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Lawyer: {
-    name: 'Writing Kit',
+    name: 'Court Robes,Guild License,Writing Kit',
     results: [
+      {
+        name: 'Robes',
+        rename: '',
+      },
+      {
+        name: 'Courtly Garb ',
+        rename: '',
+      },
+      {
+        name: 'Guild License',
+        rename: '',
+      },
       {
         name: 'Writing Kit',
         rename: '',
@@ -1172,7 +1829,7 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Lector: {
-    name: 'Subordinate High Priests',
+    name: 'Library (Theology),Subordinate High Priests',
     results: [
       {
         name: '',
@@ -1181,11 +1838,15 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Light Cavalry Officer': {
-    name: 'Quality Clothing',
+    name: 'Deck of Cards,Quality Clothing',
     results: [
       {
+        name: 'Deck of Cards',
+        rename: '',
+      },
+      {
         name: 'Clothing',
-        rename: 'Quality Clothing',
+        rename: '',
       },
     ],
   },
@@ -1199,26 +1860,39 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Maestro: {
-    name: '3 Apprentices',
+    name: 'Large Workshop (Artist),Library (Art),3 Apprentices',
     results: [
       {
-        name: '',
+        name: 'Shield (Large)',
+        rename: '',
+      },
+      {
+        name: 'Workshop (Type)',
         rename: '',
       },
     ],
   },
   Magistrate: {
-    name: 'Seal of Office',
+    name: 'Library (Law),Quality Robes,Seal of Office',
     results: [
       {
-        name: '',
+        name: 'Robes',
         rename: '',
       },
     ],
   },
   Magnate: {
-    name: 'Signet Ring',
+    name:
+      '2 sets of Quality Courtly Garb,200 GC,Fiefdom,Jewelry worth 200 GC,Signet Ring',
     results: [
+      {
+        name: 'Courtly Garb ',
+        rename: '',
+      },
+      {
+        name: 'Courtly Garb ',
+        rename: '',
+      },
       {
         name: 'Signet Ring',
         rename: '',
@@ -1226,55 +1900,71 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Master Apothecary': {
-    name: 'Workshop',
+    name: 'Book (Apothecary),Apprentice,Workshop',
     results: [
       {
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Book, Apothecary',
+        rename: '',
+      },
+      {
         name: 'Workshop (Type)',
-        rename: 'Workshop',
+        rename: '',
       },
     ],
   },
   'Master Artisan': {
-    name: 'Workshop',
+    name: 'Apprentice,Workshop',
     results: [
       {
         name: 'Workshop (Type)',
-        rename: 'Workshop',
+        rename: '',
       },
     ],
   },
   'Master Artist': {
-    name: 'Workshop (Artist)',
+    name: 'Apprentice,Patron,Workshop (Artist)',
     results: [
       {
         name: 'Workshop (Type)',
-        rename: 'Workshop (Artist)',
+        rename: '',
       },
       {
         name: 'Workshop (Type)',
-        rename: 'Workshop (Artist)',
+        rename: '',
       },
     ],
   },
   'Master Beggar': {
-    name: 'Pauper Follower',
+    name: 'Disguise Kit,Hiding Place,Pauper Follower',
     results: [
       {
-        name: '',
+        name: 'Disguise Kit',
         rename: '',
       },
     ],
   },
   'Master Bounty Hunter': {
-    name: 'Riding Horse and Saddle',
+    name: 'Mail Shirt,Riding Horse and Saddle',
     results: [
       {
+        name: 'Mail Shirt',
+        rename: '',
+      },
+      {
         name: 'Riding Horse',
-        rename: 'Riding Horse and Saddle',
+        rename: '',
       },
       {
         name: 'Saddle and Harness',
-        rename: 'Riding Horse and Saddle',
+        rename: '',
       },
     ],
   },
@@ -1283,7 +1973,7 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Workshop (Type)',
-        rename: 'Workshop',
+        rename: '',
       },
     ],
   },
@@ -1292,12 +1982,12 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Workshop (Type)',
-        rename: "Pawnbroker's Shop",
+        rename: '',
       },
     ],
   },
   'Master Investigator': {
-    name: 'Office',
+    name: 'Assistant,Office',
     results: [
       {
         name: '',
@@ -1306,58 +1996,74 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Master Merchant': {
-    name: '100 GC',
+    name: 'Town House with Servants,Warehouse,100 GC',
     results: [
       {
-        name: '',
+        name: 'Suffused with Ulgu',
         rename: '',
       },
     ],
   },
   'Master Miner': {
-    name: 'Trade Tools (Engineer)',
+    name: 'Great Weapon (Two-handed Pick),Helmet,Trade Tools (Engineer)',
     results: [
       {
-        name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Engineer)',
+        name: 'Pick',
+        rename: '',
+      },
+      {
+        name: 'Great Axe',
+        rename: '',
+      },
+      {
+        name: 'Improvised Weapon',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Engineer)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Engineer)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
       },
       {
         name: 'Engineering Marvel',
-        rename: 'Trade Tools (Engineer)',
+        rename: '',
       },
     ],
   },
   'Master Pedlar': {
-    name: 'Goods worth at least 2d10 Gold',
+    name: 'Cart,Goods worth at least 2d10 Gold',
     results: [
       {
+        name: 'Cart',
+        rename: '',
+      },
+      {
         name: 'Gold Crown',
-        rename: 'Goods worth at least 2d10 Gold',
+        rename: '',
       },
     ],
   },
   'Master Pilot': {
-    name: 'Small Riverboat',
+    name: 'Boathand,Small Riverboat',
     results: [
       {
         name: 'Small shot and Powder',
-        rename: 'Small Riverboat',
+        rename: '',
       },
     ],
   },
   'Master Smuggler': {
-    name: 'Speedy Riverboat',
+    name: 'River Runner,Speedy Riverboat',
     results: [
       {
-        name: '',
+        name: 'River Barge',
         rename: '',
       },
     ],
@@ -1367,23 +2073,23 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Crossbow Pistol',
-        rename: 'Crossbow Pistol with 10 Bolts',
+        rename: '',
       },
       {
         name: 'Bolt',
-        rename: 'Crossbow Pistol with 10 Bolts',
+        rename: '',
       },
       {
         name: 'Suffused with Ulgu',
-        rename: 'Crossbow Pistol with 10 Bolts',
+        rename: '',
       },
     ],
   },
   'Master Wizard': {
-    name: 'Magical Item',
+    name: 'Apprentice,Light Warhorse,Magical Item',
     results: [
       {
-        name: '',
+        name: 'Light Warhorse',
         rename: '',
       },
     ],
@@ -1398,42 +2104,63 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Merchant: {
-    name: '20 GC',
+    name: 'Riverboat or 2 Wagons,Guild License,20 GC',
     results: [
       {
-        name: '',
+        name: 'Wagon',
+        rename: '',
+      },
+      {
+        name: 'Guild License',
         rename: '',
       },
     ],
   },
   'Merchant Prince': {
-    name: 'Quality Clothing',
+    name:
+      '2 Riverboats or 4 Wagons,Large Town Estate,2 Warehouses,1000 GC,Quality Clothing',
     results: [
       {
+        name: 'Wagon',
+        rename: '',
+      },
+      {
+        name: 'Shield (Large)',
+        rename: '',
+      },
+      {
         name: 'Clothing',
-        rename: 'Quality Clothing',
+        rename: '',
       },
     ],
   },
   Messenger: {
-    name: 'Riding Horse with Saddle and Tack',
+    name: 'Hand Weapon,Leather Jack,Riding Horse with Saddle and Tack',
     results: [
       {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
+      {
         name: 'Riding Horse',
-        rename: 'Riding Horse with Saddle and Tack',
+        rename: '',
       },
       {
         name: 'Suffused with Ulgu',
-        rename: 'Riding Horse with Saddle and Tack',
+        rename: '',
       },
       {
         name: 'Saddle and Harness',
-        rename: 'Riding Horse with Saddle and Tack',
+        rename: '',
       },
     ],
   },
   'Mine Foreman': {
-    name: 'Writing Kit',
+    name: 'Crew of Miners,Writing Kit',
     results: [
       {
         name: 'Writing Kit',
@@ -1442,8 +2169,24 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Miner: {
-    name: 'Leather Jack',
+    name: 'Davrich Lamp,Hand Weapon (Pick),Lamp Oil,Leather Jack',
     results: [
+      {
+        name: 'Davrich Lamp',
+        rename: '',
+      },
+      {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Pick',
+        rename: '',
+      },
+      {
+        name: 'Lamp Oil',
+        rename: '',
+      },
       {
         name: 'Leather Jack',
         rename: '',
@@ -1455,31 +2198,85 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Amulet',
-        rename: 'Selection of Amulets',
+        rename: '',
       },
     ],
   },
   Noble: {
-    name: 'Jewelry worth 50 GC',
+    name:
+      '4 Household Servants,Quality Courtly Garb,Courtly Garb,Riding Horse with Saddle and  Harness or Coach,Main Gauche or Quality Cloak,Jewelry worth 50 GC',
     results: [
       {
-        name: '',
+        name: 'Courtly Garb ',
+        rename: '',
+      },
+      {
+        name: 'Courtly Garb ',
+        rename: '',
+      },
+      {
+        name: 'Courtly Garb ',
+        rename: '',
+      },
+      {
+        name: 'Riding Horse',
+        rename: '',
+      },
+      {
+        name: 'Coach',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: '',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: '',
+      },
+      {
+        name: 'Main Gauche',
+        rename: '',
+      },
+      {
+        name: 'Cloak',
         rename: '',
       },
     ],
   },
   'Noble Lord': {
-    name: 'Province',
+    name:
+      '4 sets of Best Quality Courtly Garb,Quality Foil or Hand Mirror,500 GC,Jewelry worth 500 GC,Province',
     results: [
       {
-        name: '',
+        name: 'Courtly Garb ',
+        rename: '',
+      },
+      {
+        name: 'Courtly Garb ',
+        rename: '',
+      },
+      {
+        name: 'Hand Mirror',
+        rename: '',
+      },
+      {
+        name: 'Foil',
         rename: '',
       },
     ],
   },
   'Novitiate (Nun)': {
-    name: 'Robes',
+    name: 'Religious Symbol,Robes',
     results: [
+      {
+        name: 'Religious Symbol',
+        rename: '',
+      },
       {
         name: 'Robes',
         rename: '',
@@ -1487,47 +2284,125 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Novitiate (Warrior Priest)': {
-    name: 'Weapon (Any Melee)',
+    name:
+      'Book (Religion),Leather Jerkin,Religious Symbol,Robes,Weapon (Any Melee)',
     results: [
       {
-        name: 'Improvised Weapon',
-        rename: 'Weapon (Any Melee)',
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Book, Religion',
+        rename: '',
+      },
+      {
+        name: 'Leather Jerkin',
+        rename: '',
+      },
+      {
+        name: 'Religious Symbol',
+        rename: '',
+      },
+      {
+        name: 'Robes',
+        rename: '',
       },
       {
         name: 'Improvised Weapon',
-        rename: 'Weapon (Any Melee)',
+        rename: '',
+      },
+      {
+        name: 'Improvised Weapon',
+        rename: '',
       },
     ],
   },
   Nun: {
-    name: 'Trade Tools (Any)',
+    name: 'Book (Religion),Religious Relic,Trade Tools (Any)',
     results: [
       {
-        name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Any)',
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Book, Religion',
+        rename: '',
+      },
+      {
+        name: 'Religious Symbol',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Any)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Any)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
       },
     ],
   },
   Officer: {
-    name: 'Symbol of Rank',
+    name:
+      'Letter of Commission,Light Warhorse with Saddle and Tack,Map,Orders,Unit of  Soldiers,Quality Uniform,Symbol of Rank',
     results: [
       {
+        name: 'Light Warhorse',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: '',
+      },
+      {
+        name: 'Map',
+        rename: '',
+      },
+      {
+        name: 'Uniform',
+        rename: '',
+      },
+      {
         name: 'Religious Symbol',
-        rename: 'Symbol of Rank',
+        rename: '',
       },
     ],
   },
   Outlaw: {
-    name: 'Tent',
+    name: 'Bow with 10 Arrows,Shield,Tent',
     results: [
+      {
+        name: 'Arrow',
+        rename: '',
+      },
+      {
+        name: 'Bow',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Shield',
+        rename: '',
+      },
       {
         name: 'Tent',
         rename: '',
@@ -1535,26 +2410,84 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Outlaw Chief': {
-    name: 'Band of Outlaws',
+    name:
+      'Helmet,Riding Horse with Saddle and Tack,Sleeved Mail Shirt,Band of Outlaws',
     results: [
       {
+        name: 'Riding Horse',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: '',
+      },
+      {
+        name: 'Mail Shirt',
+        rename: '',
+      },
+      {
         name: 'Bandage',
-        rename: 'Band of Outlaws',
+        rename: '',
       },
     ],
   },
   Pamphleteer: {
-    name: 'Pile of Leaflets',
+    name: 'Writing Kit,Hammer and Nails,Pile of Leaflets',
     results: [
       {
+        name: 'Writing Kit',
+        rename: '',
+      },
+      {
+        name: 'Hammer',
+        rename: '',
+      },
+      {
+        name: 'Nails',
+        rename: '',
+      },
+      {
         name: 'Leaflet',
-        rename: 'Pile of Leaflets',
+        rename: '',
       },
     ],
   },
   Pathfinder: {
-    name: 'Tent',
+    name:
+      "Map,Riding Horse with Saddle and Tack,Saddlebags with 2 weeks' Rations,Tent",
     results: [
+      {
+        name: 'Map',
+        rename: '',
+      },
+      {
+        name: 'Riding Horse',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: '',
+      },
+      {
+        name: 'Saddlebags',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Rations, 1 day',
+        rename: '',
+      },
       {
         name: 'Tent',
         rename: '',
@@ -1562,8 +2495,12 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Pauper: {
-    name: 'Cup',
+    name: 'Poor Quality Blanket,Cup',
     results: [
+      {
+        name: 'Blanket',
+        rename: '',
+      },
       {
         name: 'Cup',
         rename: '',
@@ -1580,19 +2517,36 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Pedlar: {
-    name: 'Trade Tools (Tinker)',
+    name:
+      'Mule and Saddlebags,Goods worth 2d10 Silver,Selection of Pots and Pans,Trade Tools (Tinker)',
     results: [
       {
-        name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Tinker)',
+        name: 'Saddlebags',
+        rename: '',
+      },
+      {
+        name: 'Mule',
+        rename: '',
+      },
+      {
+        name: 'Silver Shilling',
+        rename: '',
+      },
+      {
+        name: 'Pan',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Tinker)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Tinker)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
       },
     ],
   },
@@ -1601,34 +2555,54 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Religious Symbol',
-        rename: 'Religious Relic',
+        rename: '',
       },
     ],
   },
   Physician: {
-    name: 'Trade Tools (Medicine)',
+    name: 'Book (Medicine),Guild License,Trade Tools (Medicine)',
     results: [
       {
-        name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Medicine)',
+        name: 'Book, Cryptography',
+        rename: '',
       },
       {
-        name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Medicine)',
-      },
-      {
-        name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Medicine)',
+        name: 'Book, Cryptography',
+        rename: '',
       },
       {
         name: 'Book, Medicine',
-        rename: 'Trade Tools (Medicine)',
+        rename: '',
+      },
+      {
+        name: 'Guild License',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
+      },
+      {
+        name: 'Book, Medicine',
+        rename: '',
       },
     ],
   },
   "Physician's Apprentice": {
-    name: 'Healing Draught',
+    name: 'Bandages,Healing Draught',
     results: [
+      {
+        name: 'Bandage',
+        rename: '',
+      },
       {
         name: 'Healing Draught',
         rename: '',
@@ -1636,33 +2610,61 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Pilot: {
-    name: 'Storm Lantern and Oil',
+    name: 'Pole,Storm Lantern and Oil',
     results: [
       {
+        name: 'Pole (3 yards)',
+        rename: '',
+      },
+      {
         name: 'Storm Lantern',
-        rename: 'Storm Lantern and Oil',
+        rename: '',
       },
     ],
   },
   'Pit Champion': {
-    name: 'Helmet',
+    name: 'Breast Plate,Helmet',
     results: [
       {
-        name: '',
+        name: 'Plate',
+        rename: '',
+      },
+      {
+        name: 'Boiled Leather Breastplate',
         rename: '',
       },
     ],
   },
   'Pit Fighter': {
-    name: 'Shield or Buckler',
+    name: 'Flail or Great Weapon,Hand Weapon,Net or Whip,Shield or Buckler',
     results: [
       {
+        name: 'Flail',
+        rename: '',
+      },
+      {
+        name: 'Great Axe',
+        rename: '',
+      },
+      {
+        name: 'Improvised Weapon',
+        rename: '',
+      },
+      {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Whip',
+        rename: '',
+      },
+      {
         name: 'Shield',
-        rename: 'Shield or Buckler',
+        rename: '',
       },
       {
         name: 'Shield (Buckler)',
-        rename: 'Shield or Buckler',
+        rename: '',
       },
     ],
   },
@@ -1676,8 +2678,16 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Postilion: {
-    name: 'Whip',
+    name: 'Warm Coat and Gloves,Whip',
     results: [
+      {
+        name: 'Gloves',
+        rename: '',
+      },
+      {
+        name: 'Coat',
+        rename: '',
+      },
       {
         name: 'Whip',
         rename: '',
@@ -1685,11 +2695,23 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Priest: {
-    name: 'Ceremonial Robes',
+    name: 'Book (Religion),Ceremonial Robes',
     results: [
       {
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Book, Religion',
+        rename: '',
+      },
+      {
         name: 'Robes',
-        rename: 'Ceremonial Robes',
+        rename: '',
       },
     ],
   },
@@ -1698,7 +2720,7 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Religious Symbol',
-        rename: 'Religious Relic',
+        rename: '',
       },
     ],
   },
@@ -1707,15 +2729,15 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Light Warhorse',
-        rename: 'Light Warhorse with Saddle and Tack',
+        rename: '',
       },
       {
         name: 'Suffused with Ulgu',
-        rename: 'Light Warhorse with Saddle and Tack',
+        rename: '',
       },
       {
         name: 'Saddle and Harness',
-        rename: 'Light Warhorse with Saddle and Tack',
+        rename: '',
       },
     ],
   },
@@ -1724,7 +2746,7 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Religious Symbol',
-        rename: 'Religious Order',
+        rename: '',
       },
     ],
   },
@@ -1733,7 +2755,7 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Engineering Marvel',
-        rename: 'A Ring of Hustlers',
+        rename: '',
       },
     ],
   },
@@ -1747,17 +2769,42 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Prophet of Doom': {
-    name: 'and Zealots)',
+    name:
+      'Book (Religion),Followers (including Penitents,Flagellants,and Zealots)',
     results: [
       {
-        name: '',
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Book, Religion',
+        rename: '',
+      },
+      {
+        name: 'Tent',
         rename: '',
       },
     ],
   },
   Prospector: {
-    name: 'Spade',
+    name: 'Charcoal Stick,Crude Map,Pan,Spade',
     results: [
+      {
+        name: 'Charcoal stick',
+        rename: '',
+      },
+      {
+        name: 'Map',
+        rename: '',
+      },
+      {
+        name: 'Pan',
+        rename: '',
+      },
       {
         name: 'Spade',
         rename: '',
@@ -1765,8 +2812,28 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Protagonist: {
-    name: 'Shield',
+    name: 'Hand Weapon,Mail Shirt,Riding Horse with Saddle and Tack,Shield',
     results: [
+      {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Mail Shirt',
+        rename: '',
+      },
+      {
+        name: 'Riding Horse',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: '',
+      },
       {
         name: 'Shield',
         rename: '',
@@ -1774,8 +2841,16 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Prowler: {
-    name: 'Sack',
+    name: 'Crowbar,Leather Jerkin,Sack',
     results: [
+      {
+        name: 'Crowbar',
+        rename: '',
+      },
+      {
+        name: 'Leather Jerkin',
+        rename: '',
+      },
       {
         name: 'Sack',
         rename: '',
@@ -1783,8 +2858,16 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Pugilist: {
-    name: 'Leather Jack',
+    name: 'Bandages,Knuckledusters,Leather Jack',
     results: [
+      {
+        name: 'Bandage',
+        rename: '',
+      },
+      {
+        name: 'Knuckledusters',
+        rename: '',
+      },
       {
         name: 'Leather Jack',
         rename: '',
@@ -1792,17 +2875,25 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Rabble Rouser': {
-    name: 'Pamphleteer',
+    name: 'Hand Weapon,Pamphleteer',
     results: [
       {
-        name: '',
+        name: 'Hand Weapon',
         rename: '',
       },
     ],
   },
   Racketeer: {
-    name: 'Mail Shirt',
+    name: 'Hand Weapon,Hat,Mail Shirt',
     results: [
+      {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Hat',
+        rename: '',
+      },
       {
         name: 'Mail Shirt',
         rename: '',
@@ -1810,26 +2901,50 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Rat Catcher': {
-    name: 'Pole for Dead Rats',
+    name: 'Animal Traps,Pole for Dead Rats',
     results: [
       {
+        name: 'Animal Trap',
+        rename: '',
+      },
+      {
         name: 'Pole (3 yards)',
-        rename: 'Pole for Dead Rats',
+        rename: '',
       },
     ],
   },
   'Rat Hunter': {
-    name: 'Small but Vicious Dog',
+    name: 'Sling with Ammunition,Sack,Small but Vicious Dog',
     results: [
       {
+        name: 'Sling',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Sack',
+        rename: '',
+      },
+      {
         name: 'Small shot and Powder',
-        rename: 'Small but Vicious Dog',
+        rename: '',
       },
     ],
   },
   Recruit: {
-    name: 'Uniform',
+    name: 'Dagger,Leather Breastplate,Uniform',
     results: [
+      {
+        name: 'Dagger',
+        rename: '',
+      },
+      {
+        name: 'Boiled Leather Breastplate',
+        rename: '',
+      },
       {
         name: 'Uniform',
         rename: '',
@@ -1837,20 +2952,40 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Reeve: {
-    name: 'Baili?',
+    name: 'Horse with Saddle and Tack,Breastplate,Baili?',
     results: [
       {
-        name: '',
+        name: 'Light Warhorse',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: '',
+      },
+      {
+        name: 'Boiled Leather Breastplate',
         rename: '',
       },
     ],
   },
   Ringleader: {
-    name: 'a Ring of Bawds',
+    name: 'Townhouse with Discreet Back Entrance,a Ring of Bawds',
     results: [
       {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Backpack',
+        rename: '',
+      },
+      {
         name: 'Engineering Marvel',
-        rename: 'a Ring of Bawds',
+        rename: '',
       },
     ],
   },
@@ -1864,17 +2999,45 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'River Pirate': {
-    name: 'Riverboat',
+    name: 'Crossbow with 10 Bolts,Grappling Hook and Rope,Riverboat',
     results: [
       {
-        name: '',
+        name: 'Crossbow',
+        rename: '',
+      },
+      {
+        name: 'Bolt',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Grappling Hook',
+        rename: '',
+      },
+      {
+        name: 'Rope, 10 yards',
         rename: '',
       },
     ],
   },
   'River Recruit': {
-    name: 'Uniform',
+    name: 'Hand Weapon (Sword),Leather Jack,Uniform',
     results: [
+      {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Bastard Sword',
+        rename: '',
+      },
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
       {
         name: 'Uniform',
         rename: '',
@@ -1882,26 +3045,66 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'River Runner': {
-    name: 'Storm Lantern and Oil',
+    name: 'Large Sack,Mask or Scarves,Tinderbox,Storm Lantern and Oil',
     results: [
       {
+        name: 'Sack',
+        rename: '',
+      },
+      {
+        name: 'Shield (Large)',
+        rename: '',
+      },
+      {
+        name: 'Mask',
+        rename: '',
+      },
+      {
+        name: 'Tinderbox',
+        rename: '',
+      },
+      {
         name: 'Storm Lantern',
-        rename: 'Storm Lantern and Oil',
+        rename: '',
       },
     ],
   },
   Riverguide: {
-    name: 'Storm Lantern and Oil',
+    name: 'Hand Weapon (Boat Hook),Storm Lantern and Oil',
     results: [
       {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Boat Hook',
+        rename: '',
+      },
+      {
         name: 'Storm Lantern',
-        rename: 'Storm Lantern and Oil',
+        rename: '',
       },
     ],
   },
   Riverwarden: {
-    name: 'Shield',
+    name: 'Lantern and Oil,Pistol with 10 shot,Shield',
     results: [
+      {
+        name: 'Lantern',
+        rename: '',
+      },
+      {
+        name: 'Pistol',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Improvised Shot and Powder',
+        rename: '',
+      },
       {
         name: 'Shield',
         rename: '',
@@ -1909,17 +3112,33 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Riverwise: {
-    name: 'Storm Lantern and Oil',
+    name: 'Row Boat,Storm Lantern and Oil',
     results: [
       {
+        name: 'Row Boat',
+        rename: '',
+      },
+      {
         name: 'Storm Lantern',
-        rename: 'Storm Lantern and Oil',
+        rename: '',
       },
     ],
   },
   Riverwoman: {
-    name: 'Spear',
+    name: 'Eel Trap,Leather Jerkin,Net,Spear',
     results: [
+      {
+        name: 'Animal Trap',
+        rename: '',
+      },
+      {
+        name: 'Leather Jerkin',
+        rename: '',
+      },
+      {
+        name: 'The Nineteenth Palm of Volans',
+        rename: '',
+      },
       {
         name: 'Spear',
         rename: '',
@@ -1927,38 +3146,91 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Road Captain': {
-    name: 'Unit of Road Wardens',
+    name:
+      'Light Warhorse,Pistol with 10 Shots,Quality Hat and Cloak,Unit of Road Wardens',
     results: [
       {
-        name: '',
+        name: 'Light Warhorse',
+        rename: '',
+      },
+      {
+        name: 'Pistol',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Cloak',
+        rename: '',
+      },
+      {
+        name: 'Hat',
         rename: '',
       },
     ],
   },
   'Road Sergeant': {
-    name: 'Symbol of Rank',
+    name: 'Squad of Road Wardens,Pistol with 10 Shots,Shield,Symbol of Rank',
     results: [
       {
+        name: 'Pistol',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Shield',
+        rename: '',
+      },
+      {
         name: 'Religious Symbol',
-        rename: 'Symbol of Rank',
+        rename: '',
       },
     ],
   },
   'Road Warden': {
-    name: 'Rope',
+    name: 'Hand Weapon,Mail Shirt,Riding Horse with Saddle and Harness,Rope',
     results: [
       {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Mail Shirt',
+        rename: '',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: '',
+      },
+      {
+        name: 'Riding Horse',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
         name: 'Rope, 10 yards',
-        rename: 'Rope',
+        rename: '',
       },
     ],
   },
   'Route Master': {
-    name: 'Maps',
+    name: 'Fleet of Coaches and Horses,Maps',
     results: [
       {
+        name: 'Coach',
+        rename: '',
+      },
+      {
         name: 'Map',
-        rename: 'Maps',
+        rename: '',
       },
     ],
   },
@@ -1976,24 +3248,24 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Writing)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Writing)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Writing)',
+        rename: '',
       },
       {
         name: 'Writing Kit',
-        rename: 'Trade Tools (Writing)',
+        rename: '',
       },
     ],
   },
   Scholar: {
-    name: 'Degree',
+    name: 'Access to a Library,Degree',
     results: [
       {
         name: '',
@@ -2002,16 +3274,25 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Scion: {
-    name: 'Personal Servant',
+    name:
+      'Courtly Garb,Foil or Hand Mirror,Jewelry worth 3d10 GC,Personal Servant',
     results: [
       {
-        name: '',
+        name: 'Courtly Garb ',
+        rename: '',
+      },
+      {
+        name: 'Hand Mirror',
+        rename: '',
+      },
+      {
+        name: 'Foil',
         rename: '',
       },
     ],
   },
   Scoundrel: {
-    name: 'Writing Kit',
+    name: 'Forged Seal,Writing Kit',
     results: [
       {
         name: 'Writing Kit',
@@ -2020,8 +3301,16 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Scout: {
-    name: 'Mail Shirt',
+    name: 'Bow and 10 Arrows,Mail Shirt',
     results: [
+      {
+        name: 'Arrow',
+        rename: '',
+      },
+      {
+        name: 'Bow',
+        rename: '',
+      },
       {
         name: 'Mail Shirt',
         rename: '',
@@ -2029,8 +3318,16 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Seaman: {
-    name: 'Leather Jerkin',
+    name: 'Hand Weapon (Boat Hook),Leather Jerkin',
     results: [
+      {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Boat Hook',
+        rename: '',
+      },
       {
         name: 'Leather Jerkin',
         rename: '',
@@ -2042,45 +3339,62 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Astrology)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Astrology)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Astrology)',
+        rename: '',
       },
     ],
   },
   Seneschal: {
-    name: 'Staff of Wardens and Custodians',
+    name:
+      'Breastplate,Ceremonial Staff of Office,Staff of Wardens and Custodians',
     results: [
       {
+        name: 'Boiled Leather Breastplate',
+        rename: '',
+      },
+      {
         name: 'Quarterstaff',
-        rename: 'Staff of Wardens and Custodians',
+        rename: '',
+      },
+      {
+        name: 'Quarterstaff',
+        rename: '',
       },
     ],
   },
   Sentry: {
-    name: 'Storm Lantern with Oil',
+    name: 'Buckler,Leather Jerkin,Storm Lantern with Oil',
     results: [
       {
+        name: 'Shield (Buckler)',
+        rename: '',
+      },
+      {
+        name: 'Leather Jerkin',
+        rename: '',
+      },
+      {
         name: 'Storm Lantern',
-        rename: 'Storm Lantern with Oil',
+        rename: '',
       },
       {
         name: 'Suffused with Ulgu',
-        rename: 'Storm Lantern with Oil',
+        rename: '',
       },
     ],
   },
   Sergeant: {
-    name: 'Unit of Troops',
+    name: 'Symbol of Rank,Unit of Troops',
     results: [
       {
-        name: '',
+        name: 'Religious Symbol',
         rename: '',
       },
     ],
@@ -2095,8 +3409,20 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Sewer Jack': {
-    name: 'Leather Jack',
+    name: 'Davrich Lantern,Hand Weapon,Leather Jack',
     results: [
+      {
+        name: 'Lantern',
+        rename: '',
+      },
+      {
+        name: 'Davrich Lamp',
+        rename: '',
+      },
+      {
+        name: 'Hand Weapon',
+        rename: '',
+      },
       {
         name: 'Leather Jack',
         rename: '',
@@ -2104,7 +3430,7 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   "Ship's Master": {
-    name: 'Spyglass',
+    name: 'Shipping Charts,Sailing Ship and Crew,Sextant,Spyglass',
     results: [
       {
         name: '',
@@ -2113,8 +3439,12 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Shipsword: {
-    name: 'Mail Shirt',
+    name: 'Grappling Hook,Helmet,Mail Shirt',
     results: [
+      {
+        name: 'Grappling Hook',
+        rename: '',
+      },
       {
         name: 'Mail Shirt',
         rename: '',
@@ -2122,26 +3452,46 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Shipsword Master': {
-    name: 'Symbol of Rank',
+    name: 'Patrol Boats and Crew,Symbol of Rank',
     results: [
       {
         name: 'Religious Symbol',
-        rename: 'Symbol of Rank',
+        rename: '',
       },
     ],
   },
   Sleuth: {
-    name: 'Quill and Ink',
+    name: 'Lantern,Lamp Oil,Journal,Quill and Ink',
     results: [
       {
+        name: 'Lantern',
+        rename: '',
+      },
+      {
+        name: 'Lamp Oil',
+        rename: '',
+      },
+      {
         name: 'Quill Pen',
-        rename: 'Quill and Ink',
+        rename: '',
       },
     ],
   },
   Smuggler: {
-    name: 'Row Boat',
+    name: '2 Barrels,Hand Weapon,Leather Jack,Row Boat',
     results: [
+      {
+        name: 'Barrel',
+        rename: '',
+      },
+      {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
       {
         name: 'Row Boat',
         rename: '',
@@ -2149,30 +3499,50 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Smuggler King': {
-    name: 'Small Fleet of Riverboats',
+    name: 'Disguise Kit,Small Fleet of Riverboats',
     results: [
       {
+        name: 'Disguise Kit',
+        rename: '',
+      },
+      {
         name: 'Small shot and Powder',
-        rename: 'Small Fleet of Riverboats',
+        rename: '',
       },
     ],
   },
   Soldier: {
-    name: 'Weapon (Any)',
+    name: 'Breastplate,Helmet,Weapon (Any)',
     results: [
       {
-        name: 'Improvised Weapon',
-        rename: 'Weapon (Any)',
+        name: 'Boiled Leather Breastplate',
+        rename: '',
       },
       {
         name: 'Improvised Weapon',
-        rename: 'Weapon (Any)',
+        rename: '',
+      },
+      {
+        name: 'Improvised Weapon',
+        rename: '',
       },
     ],
   },
   Spy: {
-    name: 'Telescope',
+    name: 'Informer,Hand Weapon,Disguise Kit,Ring of Informers,Telescope',
     results: [
+      {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Disguise Kit',
+        rename: '',
+      },
+      {
+        name: 'Engineering Marvel',
+        rename: '',
+      },
       {
         name: 'Telescope',
         rename: '',
@@ -2180,52 +3550,97 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Spymaster: {
-    name: 'and Informers',
+    name: 'Office and Staff,Large Spy Ring of Agents,Spies,and Informers',
     results: [
       {
-        name: '',
+        name: 'Quarterstaff',
+        rename: '',
+      },
+      {
+        name: 'Shield (Large)',
+        rename: '',
+      },
+      {
+        name: 'Engineering Marvel',
         rename: '',
       },
     ],
   },
   Squire: {
-    name: 'Trade Tools (Farrier)',
+    name:
+      'Leather Jack,Mail Shirt,Riding Horse with Saddle and Tack,Shield,Trade Tools (Farrier)',
     results: [
       {
-        name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Farrier)',
+        name: 'Leather Jack',
+        rename: '',
+      },
+      {
+        name: 'Mail Shirt',
+        rename: '',
+      },
+      {
+        name: 'Riding Horse',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: '',
+      },
+      {
+        name: 'Shield',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Farrier)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Farrier)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
       },
     ],
   },
   Stevedore: {
-    name: 'Porter Cap',
+    name: 'Guild License,Leather Jerkin,Pipe and Tobacco,Porter Cap',
     results: [
       {
-        name: '',
+        name: 'Guild License',
+        rename: '',
+      },
+      {
+        name: 'Leather Jerkin',
+        rename: '',
+      },
+      {
+        name: 'Pipe and Tobacco',
         rename: '',
       },
     ],
   },
   Steward: {
-    name: 'Servant',
+    name: 'Hand Weapon,Fine Clothes,Servant',
     results: [
       {
-        name: '',
+        name: 'Hand Weapon',
         rename: '',
       },
     ],
   },
   Student: {
-    name: 'Writing Kit',
+    name: 'Alcohol,Book,Opinions,Writing Kit',
     results: [
+      {
+        name: 'Book, Cryptography',
+        rename: '',
+      },
       {
         name: 'Writing Kit',
         rename: '',
@@ -2233,30 +3648,58 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Student Engineer': {
-    name: 'Hammer and Spikes',
+    name: 'Book (Engineer),Hammer and Spikes',
     results: [
       {
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Engineering Marvel',
+        rename: '',
+      },
+      {
         name: 'Hammer',
-        rename: 'Hammer and Spikes',
+        rename: '',
       },
       {
         name: 'Spike',
-        rename: 'Hammer and Spikes',
+        rename: '',
       },
     ],
   },
   'Student Lawyer': {
-    name: 'Magnifying Glass',
+    name: 'Book (Law),Magnifying Glass',
     results: [
       {
-        name: '',
+        name: 'Book, Cryptography',
+        rename: '',
+      },
+      {
+        name: 'Book, Cryptography',
         rename: '',
       },
     ],
   },
   Swindler: {
-    name: 'Dice',
+    name: 'Backpack,2 Sets of Clothing,Deck of Cards,Dice',
     results: [
+      {
+        name: 'Backpack',
+        rename: '',
+      },
+      {
+        name: 'Clothing',
+        rename: '',
+      },
+      {
+        name: 'Deck of Cards',
+        rename: '',
+      },
       {
         name: 'Dice',
         rename: '',
@@ -2264,39 +3707,67 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Tax Collector': {
-    name: 'small lock box',
+    name: 'Hand weapon,small lock box',
     results: [
       {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
         name: 'Small shot and Powder',
-        rename: 'small lock box',
+        rename: '',
       },
       {
         name: 'Lock Picks',
-        rename: 'small lock box',
+        rename: '',
       },
     ],
   },
   Thief: {
-    name: 'Rope',
+    name: 'Trade Tools (Thief),Rope',
     results: [
       {
+        name: 'Trade Tools (Type)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
+      },
+      {
         name: 'Rope, 10 yards',
-        rename: 'Rope',
+        rename: '',
       },
     ],
   },
   'Thief-taker': {
-    name: 'Rope',
+    name: 'Hand Weapon,Leather Jerkin,Rope',
     results: [
       {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Leather Jerkin',
+        rename: '',
+      },
+      {
         name: 'Rope, 10 yards',
-        rename: 'Rope',
+        rename: '',
       },
     ],
   },
   Thug: {
-    name: 'Leather Jack',
+    name: 'Knuckledusters,Leather Jack',
     results: [
+      {
+        name: 'Knuckledusters',
+        rename: '',
+      },
       {
         name: 'Leather Jack',
         rename: '',
@@ -2304,8 +3775,20 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Toll Keeper': {
-    name: 'Leather Jack',
+    name: 'Crossbow with 10 Bolts,Leather Jack',
     results: [
+      {
+        name: 'Crossbow',
+        rename: '',
+      },
+      {
+        name: 'Bolt',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
       {
         name: 'Leather Jack',
         rename: '',
@@ -2313,78 +3796,172 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Tomb Robber': {
-    name: 'Trade Tools (Thief)',
+    name:
+      'Hand Weapon (Pick),Horse and Cart,Leather Jack,Rope,Trade Tools (Thief)',
     results: [
       {
-        name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Thief)',
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Pick',
+        rename: '',
+      },
+      {
+        name: 'Cart',
+        rename: '',
+      },
+      {
+        name: 'Light Warhorse',
+        rename: '',
+      },
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
+      {
+        name: 'Rope, 10 yards',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Thief)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Thief)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
       },
     ],
   },
   'Town Councilor': {
-    name: 'Townhouse',
+    name: 'Coach and Driver,Townhouse',
     results: [
       {
-        name: '',
+        name: 'Coach',
         rename: '',
       },
     ],
   },
   Townsman: {
-    name: 'Quill and Ink',
+    name: 'Modest Townhouse,Servant,Quill and Ink',
     results: [
       {
         name: 'Quill Pen',
-        rename: 'Quill and Ink',
+        rename: '',
       },
     ],
   },
   Tracker: {
-    name: 'Ten',
+    name: 'Backpack,Bedroll,Ten',
     results: [
       {
+        name: 'Backpack',
+        rename: '',
+      },
+      {
+        name: 'Bedroll ',
+        rename: '',
+      },
+      {
         name: 'Tent',
-        rename: 'Ten',
+        rename: '',
       },
     ],
   },
   Trader: {
-    name: '3d10 Silver Shillings',
+    name: 'Abacus,Mule and Cart,Canvas Tarpaulin,3d10 Silver Shillings',
     results: [
       {
+        name: 'Abacus',
+        rename: '',
+      },
+      {
+        name: 'Cart',
+        rename: '',
+      },
+      {
+        name: 'Mule',
+        rename: '',
+      },
+      {
+        name: 'Canvas Tarp',
+        rename: '',
+      },
+      {
         name: 'Silver Shilling',
-        rename: '3d10 Silver Shillings',
+        rename: '',
       },
     ],
   },
   Trapper: {
-    name: 'Sling with (10 Stone Bullets)',
+    name:
+      'Selection of Animal Traps,Hand Weapon,Sturdy Boots and Cloak ,Sling with (10 Stone Bullets)',
     results: [
       {
+        name: 'Animal Trap',
+        rename: '',
+      },
+      {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Boots',
+        rename: '',
+      },
+      {
+        name: 'Cloak',
+        rename: '',
+      },
+      {
         name: 'Stone Bullet',
-        rename: 'Sling with (10 Stone Bullets)',
+        rename: '',
       },
       {
         name: 'Sling',
-        rename: 'Sling with (10 Stone Bullets)',
+        rename: '',
       },
       {
         name: 'Suffused with Ulgu',
-        rename: 'Sling with (10 Stone Bullets)',
+        rename: '',
       },
     ],
   },
   'Treasure Hunter': {
-    name: 'Writing Kit',
+    name: 'Bedroll,Maps,Tent,Trade Tools (Engineer),Writing Kit',
     results: [
+      {
+        name: 'Bedroll ',
+        rename: '',
+      },
+      {
+        name: 'Map',
+        rename: '',
+      },
+      {
+        name: 'Tent',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
+      },
+      {
+        name: 'Engineering Marvel',
+        rename: '',
+      },
       {
         name: 'Writing Kit',
         rename: '',
@@ -2392,17 +3969,29 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Troll Slayer': {
-    name: 'Tattoos',
+    name: 'Axe,Flask of Spirits,Shame,Tattoos',
     results: [
       {
+        name: 'Throwing Axe',
+        rename: '',
+      },
+      {
+        name: 'Flask of Spirits',
+        rename: '',
+      },
+      {
         name: 'Tattoo',
-        rename: 'Tattoos',
+        rename: '',
       },
     ],
   },
   Troubadour: {
-    name: 'Writing Kit',
+    name: 'Trained Animal,Writing Kit',
     results: [
+      {
+        name: 'Animal Trap',
+        rename: '',
+      },
       {
         name: 'Writing Kit',
         rename: '',
@@ -2410,17 +3999,38 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Troupe Leader': {
-    name: 'Troupe of Entertainers',
+    name:
+      'Draught Horses and Wagon (Stage),Wardrobe of Costumes and Props,Troupe of Entertainers',
     results: [
       {
-        name: '',
+        name: 'Draught Horse',
+        rename: '',
+      },
+      {
+        name: 'Wagon',
+        rename: '',
+      },
+      {
+        name: 'Costume',
         rename: '',
       },
     ],
   },
   Vagabond: {
-    name: 'Tent',
+    name: 'Backpack,Bedroll,Goods worth 2d10 Brass,Tent',
     results: [
+      {
+        name: 'Backpack',
+        rename: '',
+      },
+      {
+        name: 'Bedroll ',
+        rename: '',
+      },
+      {
+        name: 'Brass Penny',
+        rename: '',
+      },
       {
         name: 'Tent',
         rename: '',
@@ -2437,38 +4047,88 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Villager: {
-    name: 'Trade Tools (as Trade)',
+    name: 'Leather Jerkin,Hand Weapon (Axe),Trade Tools (as Trade)',
     results: [
       {
-        name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (as Trade)',
+        name: 'Leather Jerkin',
+        rename: '',
+      },
+      {
+        name: 'Hand Weapon',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (as Trade)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (as Trade)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (as Trade)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
       },
     ],
   },
   'Wandering Trader': {
-    name: '50 Silver in Coin',
+    name:
+      'Draught Horse and Wagon,Goods worth at least 5d10 Gold,50 Silver in Coin',
     results: [
       {
+        name: 'Draught Horse',
+        rename: '',
+      },
+      {
+        name: 'Wagon',
+        rename: '',
+      },
+      {
+        name: 'Gold Crown',
+        rename: '',
+      },
+      {
         name: 'Silver Shilling',
-        rename: '50 Silver in Coin',
+        rename: '',
       },
     ],
   },
   Warden: {
-    name: 'Leather Jack',
+    name:
+      'Hand Weapon or Bow with 10 arrows,Riding Horse with Saddle and Harness,Leather Jack',
     results: [
+      {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Arrow',
+        rename: '',
+      },
+      {
+        name: 'Bow',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: '',
+      },
+      {
+        name: 'Riding Horse',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
       {
         name: 'Leather Jack',
         rename: '',
@@ -2476,39 +4136,76 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Warlock: {
-    name: 'Skull',
+    name: 'Robes,Skull',
     results: [
       {
+        name: 'Robes',
+        rename: '',
+      },
+      {
         name: 'Leather Skullcap',
-        rename: 'Skull',
+        rename: '',
       },
     ],
   },
   'Warrior Priest': {
-    name: 'Weapon (Any)',
+    name: 'Breastplate,Weapon (Any)',
     results: [
       {
-        name: 'Improvised Weapon',
-        rename: 'Weapon (Any)',
+        name: 'Boiled Leather Breastplate',
+        rename: '',
       },
       {
         name: 'Improvised Weapon',
-        rename: 'Weapon (Any)',
+        rename: '',
+      },
+      {
+        name: 'Improvised Weapon',
+        rename: '',
       },
     ],
   },
   'Watch Captain': {
-    name: 'Quality Symbol of Rank',
+    name:
+      'Riding Horse with Saddle and Tack,Quality Hat,Quality Hand weapon,Quality Symbol of Rank',
     results: [
       {
+        name: 'Riding Horse',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: '',
+      },
+      {
+        name: 'Hat',
+        rename: '',
+      },
+      {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
         name: 'Religious Symbol',
-        rename: 'Quality Symbol of Rank',
+        rename: '',
       },
     ],
   },
   'Watch Recruit': {
-    name: 'Uniform',
+    name: 'Hand Weapon,Leather Jack,Uniform',
     results: [
+      {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
       {
         name: 'Uniform',
         rename: '',
@@ -2516,54 +4213,111 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   'Watch Sergeant': {
-    name: 'Symbol of Rank',
+    name: 'Breastplate,Helm,Symbol of Rank',
     results: [
       {
+        name: 'Boiled Leather Breastplate',
+        rename: '',
+      },
+      {
+        name: 'Plate Open Helm',
+        rename: '',
+      },
+      {
         name: 'Religious Symbol',
-        rename: 'Symbol of Rank',
+        rename: '',
       },
     ],
   },
   Watchman: {
-    name: 'Copper Badge',
+    name: 'Lantern and Pole,Lamp Oil,Copper Badge',
     results: [
       {
-        name: '',
+        name: 'Lantern',
+        rename: '',
+      },
+      {
+        name: 'Pole (3 yards)',
+        rename: '',
+      },
+      {
+        name: 'Lamp Oil',
         rename: '',
       },
     ],
   },
   Witch: {
-    name: 'Trade Tools (Herbalist)',
+    name: 'Quartersta?,Sack,Selection of Herbs,Trade Tools (Herbalist)',
     results: [
       {
-        name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Herbalist)',
+        name: 'Sack',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Herbalist)',
+        rename: '',
       },
       {
         name: 'Trade Tools (Type)',
-        rename: 'Trade Tools (Herbalist)',
+        rename: '',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: '',
       },
     ],
   },
   'Witch Hunter': {
-    name: 'Silvered Sword',
+    name:
+      'Crossbow Pistol or Pistol,Hat (Henin),Leather Jack,Riding Horse with Saddle and Tack,Rope,Silvered Sword',
     results: [
       {
+        name: 'Crossbow Pistol',
+        rename: '',
+      },
+      {
+        name: 'Pistol',
+        rename: '',
+      },
+      {
+        name: 'Hat',
+        rename: '',
+      },
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
+      {
+        name: 'Riding Horse',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: '',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: '',
+      },
+      {
+        name: 'Rope, 10 yards',
+        rename: '',
+      },
+      {
         name: 'Bastard Sword',
-        rename: 'Silvered Sword',
+        rename: '',
       },
     ],
   },
   'Witchfinder General': {
-    name: 'Subordinate Witch Hunters',
+    name: 'Best Quality Courtly Garb,Subordinate Witch Hunters',
     results: [
       {
-        name: '',
+        name: 'Courtly Garb ',
+        rename: '',
+      },
+      {
+        name: 'Courtly Garb ',
         rename: '',
       },
     ],
@@ -2573,47 +4327,63 @@ export const CAREERS_TRAPPINGS = {
     results: [
       {
         name: 'Guild License',
-        rename: 'Magical License',
+        rename: '',
       },
     ],
   },
   'Wizard Lord': {
-    name: 'Workshop (Magic)',
+    name: 'Apprentice,Library (Magic),Workshop (Magic)',
     results: [
       {
-        name: 'Workshop (Type)',
-        rename: 'Workshop (Magic)',
+        name: 'Book, Magic',
+        rename: '',
       },
       {
         name: 'Workshop (Type)',
-        rename: 'Workshop (Magic)',
+        rename: '',
+      },
+      {
+        name: 'Workshop (Type)',
+        rename: '',
       },
       {
         name: 'Book, Magic',
-        rename: 'Workshop (Magic)',
+        rename: '',
       },
     ],
   },
   "Wizard's Apprentice": {
-    name: 'Staff',
+    name: 'Grimoire,Staff',
     results: [
       {
         name: 'Quarterstaff',
-        rename: 'Staff',
+        rename: '',
       },
     ],
   },
   Wrecker: {
-    name: 'Storm Lantern and Oil',
+    name: 'Hand Weapon (Boat Hook),Leather Jack,Storm Lantern and Oil',
     results: [
       {
+        name: 'Hand Weapon',
+        rename: '',
+      },
+      {
+        name: 'Boat Hook',
+        rename: '',
+      },
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
+      {
         name: 'Storm Lantern',
-        rename: 'Storm Lantern and Oil',
+        rename: '',
       },
     ],
   },
   'Wrecker Captain': {
-    name: 'Manacles',
+    name: 'Fleet of Riverboats and Wrecker Crew,Keg of Ale,Manacles',
     results: [
       {
         name: 'Manacles',
@@ -2622,20 +4392,32 @@ export const CAREERS_TRAPPINGS = {
     ],
   },
   Wyrd: {
-    name: 'Lucky Charm',
+    name: 'Backpack,Cloak with Several Pockets,Lucky Charm',
     results: [
       {
-        name: '',
+        name: 'Backpack',
+        rename: '',
+      },
+      {
+        name: 'Cloak',
+        rename: '',
+      },
+      {
+        name: 'Suffused with Ulgu',
         rename: '',
       },
     ],
   },
   Zealot: {
-    name: 'Tattered Robes',
+    name: 'Flail,Tattered Robes',
     results: [
       {
+        name: 'Flail',
+        rename: '',
+      },
+      {
         name: 'Robes',
-        rename: 'Tattered Robes',
+        rename: '',
       },
     ],
   },
