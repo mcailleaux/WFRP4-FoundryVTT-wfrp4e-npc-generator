@@ -28,7 +28,7 @@ export default class TranslateErrorDetect {
           (await ReferentialUtil.findTrappings(tr, trappings))
             ?.map((t) => t.name)
             ?.join(',') ?? '';
-        result[career.name].rename = '';
+        result[career.name].results = [];
       }
     }
 
