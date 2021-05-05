@@ -1,1286 +1,2642 @@
 export const CAREERS_TRAPPINGS = {
   Abbess: {
     name: 'Library (Theology)',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Advisor: {
     name: 'Livery',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Agent: {
     name: 'Quill and Ink',
-    resolvedBy: 'Quill Pen',
-    rename: '',
+    results: [
+      {
+        name: 'Quill Pen',
+        rename: 'Quill and Ink',
+      },
+    ],
   },
   Agitator: {
     name: 'Leather Jack',
-    resolvedBy: 'Leather Jack',
-    rename: '',
+    results: [
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
+    ],
   },
   Aide: {
     name: 'Writing Kit',
-    resolvedBy: 'Writing Kit',
-    rename: '',
+    results: [
+      {
+        name: 'Writing Kit',
+        rename: '',
+      },
+    ],
   },
   Ambassador: {
     name: 'Herald',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Apothecary: {
     name: 'Trade Tools',
-    resolvedBy: 'Trade Tools (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools',
+      },
+    ],
   },
   'Apothecary-General': {
     name: 'Large Workshop',
-    resolvedBy: 'Shield (Large),Workshop (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Shield (Large)',
+        rename: 'Large Workshop',
+      },
+      {
+        name: 'Workshop (Type)',
+        rename: 'Large Workshop',
+      },
+    ],
   },
   "Apothecary's Apprentice": {
     name: 'Pestle and Mortar',
-    resolvedBy: 'Pestle & Mortar,Pestle & Mortar',
-    rename: '',
+    results: [
+      {
+        name: 'Pestle & Mortar',
+        rename: 'Pestle and Mortar',
+      },
+      {
+        name: 'Pestle & Mortar',
+        rename: 'Pestle and Mortar',
+      },
+    ],
   },
   'Apprentice Artisan': {
     name: 'd10 rags',
-    resolvedBy: 'Rags',
-    rename: '',
+    results: [
+      {
+        name: 'Rags',
+        rename: 'd10 rags',
+      },
+    ],
   },
   'Apprentice Artist': {
     name: 'Brush or Chisel or Quill Pen',
-    resolvedBy: 'Quill Pen,Chisel,Floor Brush',
-    rename: '',
+    results: [
+      {
+        name: 'Quill Pen',
+        rename: 'Brush or Chisel or Quill Pen',
+      },
+      {
+        name: 'Chisel',
+        rename: 'Brush or Chisel or Quill Pen',
+      },
+      {
+        name: 'Floor Brush',
+        rename: 'Brush or Chisel or Quill Pen',
+      },
+    ],
   },
   Artisan: {
     name: 'Trade Tools',
-    resolvedBy: 'Trade Tools (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools',
+      },
+    ],
   },
   Artist: {
     name: 'Sling Bag containing Trade Tools (Artist)',
-    resolvedBy: 'Sling Bag,Trade Tools (Type),Trade Tools (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Sling Bag',
+        rename: 'Sling Bag containing Trade Tools (Artist)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Sling Bag containing Trade Tools (Artist)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Sling Bag containing Trade Tools (Artist)',
+      },
+    ],
   },
   Assassin: {
     name: 'Disguise Kit',
-    resolvedBy: 'Disguise Kit',
-    rename: '',
+    results: [
+      {
+        name: 'Disguise Kit',
+        rename: '',
+      },
+    ],
   },
   Attendant: {
     name: 'Lamp Oil',
-    resolvedBy: 'Lamp Oil',
-    rename: '',
+    results: [
+      {
+        name: 'Lamp Oil',
+        rename: '',
+      },
+    ],
   },
   Bailiff: {
     name: '3 Tax Collectors',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Bandit King': {
     name: 'Lair',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Barge Master': {
     name: 'Riverboat and Crew',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Bargeswain: {
     name: 'Trade Tools (Carpenter)',
-    resolvedBy: 'Trade Tools (Type),Trade Tools (Type),Trade Tools (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Carpenter)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Carpenter)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Carpenter)',
+      },
+    ],
   },
   Barrister: {
     name: 'Assistant (Student or Servant)',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Bawd: {
     name: 'Quality Clothing',
-    resolvedBy: 'Clothing',
-    rename: '',
+    results: [
+      {
+        name: 'Clothing',
+        rename: 'Quality Clothing',
+      },
+    ],
   },
   Beggar: {
     name: 'Bowl',
-    resolvedBy: 'Bowl',
-    rename: '',
+    results: [
+      {
+        name: 'Bowl',
+        rename: '',
+      },
+    ],
   },
   'Beggar King': {
     name: 'Large Group of Beggar Followers',
-    resolvedBy: 'Shield (Large)',
-    rename: '',
+    results: [
+      {
+        name: 'Shield (Large)',
+        rename: 'Large Group of Beggar Followers',
+      },
+    ],
   },
   'Black Marketeer': {
     name: 'Warehouse',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Boat-hand': {
     name: 'Pole',
-    resolvedBy: 'Pole (3 yards)',
-    rename: '',
+    results: [
+      {
+        name: 'Pole (3 yards)',
+        rename: 'Pole',
+      },
+    ],
   },
   Boatman: {
     name: 'Rowboat',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Boatswain: {
     name: 'Trade Tools (Carpenter)',
-    resolvedBy: 'Trade Tools (Type),Trade Tools (Type),Trade Tools (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Carpenter)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Carpenter)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Carpenter)',
+      },
+    ],
   },
   'Body Snatcher': {
     name: 'Tarpaulin',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Bounty Hunter': {
     name: 'Warrant Papers',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Bounty Hunter General': {
     name: '4 Pairs of Manacles',
-    resolvedBy: 'Manacles',
-    rename: '',
+    results: [
+      {
+        name: 'Manacles',
+        rename: '4 Pairs of Manacles',
+      },
+    ],
   },
   Braggart: {
     name: 'Leather Jack',
-    resolvedBy: 'Leather Jack',
-    rename: '',
+    results: [
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
+    ],
   },
   Brigand: {
     name: 'Tinderbox',
-    resolvedBy: 'Tinderbox',
-    rename: '',
+    results: [
+      {
+        name: 'Tinderbox',
+        rename: '',
+      },
+    ],
   },
   Broker: {
     name: 'Stolen Goods worth 3d10 Shillings',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Burgomeister: {
     name: 'Large Townhouse with Gardens and Servants',
-    resolvedBy: 'Shield (Large)',
-    rename: '',
+    results: [
+      {
+        name: 'Shield (Large)',
+        rename: 'Large Townhouse with Gardens and Servants',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: 'Large Townhouse with Gardens and Servants',
+      },
+    ],
   },
   Busker: {
     name: 'Instrument',
-    resolvedBy: 'Instrument',
-    rename: '',
+    results: [
+      {
+        name: 'Instrument',
+        rename: '',
+      },
+    ],
   },
   'Cargo Scavenger': {
     name: 'Leather Gloves',
-    resolvedBy: 'Gloves,Boiled Leather Breastplate',
-    rename: '',
+    results: [
+      {
+        name: 'Gloves',
+        rename: 'Leather Gloves',
+      },
+      {
+        name: 'Boiled Leather Breastplate',
+        rename: 'Leather Gloves',
+      },
+    ],
   },
   'Cat Burglar': {
     name: 'Mask or Scarves',
-    resolvedBy: 'Mask',
-    rename: '',
+    results: [
+      {
+        name: 'Mask',
+        rename: 'Mask or Scarves',
+      },
+    ],
   },
   Cavalryman: {
     name: 'Shield',
-    resolvedBy: 'Shield',
-    rename: '',
+    results: [
+      {
+        name: 'Shield',
+        rename: '',
+      },
+    ],
   },
   Chancellor: {
     name: 'Sta? of Advisors and Aides',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Charlatan: {
     name: 'Selection of Trinkets and Charms',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Chartered Engineer': {
     name: 'Large Workshop (Engineer)',
-    resolvedBy: 'Shield (Large),Workshop (Type),Engineering Marvel',
-    rename: '',
+    results: [
+      {
+        name: 'Shield (Large)',
+        rename: 'Large Workshop (Engineer)',
+      },
+      {
+        name: 'Workshop (Type)',
+        rename: 'Large Workshop (Engineer)',
+      },
+      {
+        name: 'Engineering Marvel',
+        rename: 'Large Workshop (Engineer)',
+      },
+    ],
   },
   Clerk: {
     name: 'Sturdy Boots',
-    resolvedBy: 'Boots',
-    rename: '',
+    results: [
+      {
+        name: 'Boots',
+        rename: 'Sturdy Boots',
+      },
+    ],
   },
   'Coach Master': {
     name: 'Quality Cloak',
-    resolvedBy: 'Cloak',
-    rename: '',
+    results: [
+      {
+        name: 'Cloak',
+        rename: 'Quality Cloak',
+      },
+    ],
   },
   Coachman: {
     name: 'Hat',
-    resolvedBy: 'Hat',
-    rename: '',
+    results: [
+      {
+        name: 'Hat',
+        rename: '',
+      },
+    ],
   },
   'Con Artist': {
     name: 'Multiple Forged Documents',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Councilor: {
     name: 'Village Home and Workshop',
-    resolvedBy: 'Workshop (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Workshop (Type)',
+        rename: 'Village Home and Workshop',
+      },
+    ],
   },
   Counsellor: {
     name: 'Aide',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Courier: {
     name: 'Shield',
-    resolvedBy: 'Shield',
-    rename: '',
+    results: [
+      {
+        name: 'Shield',
+        rename: '',
+      },
+    ],
   },
   'Courier-Captain': {
     name: 'Writing Kit',
-    resolvedBy: 'Writing Kit',
-    rename: '',
+    results: [
+      {
+        name: 'Writing Kit',
+        rename: '',
+      },
+    ],
   },
   'Court Physician': {
     name: 'Letter of Appointment',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Crime Lord': {
     name: 'Subordinate Gang Bosses',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: 'Doppelganger',
+        rename: 'Subordinate Gang Bosses',
+      },
+    ],
   },
   Custodian: {
     name: 'Livery',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Daemon Slayer': {
     name: "Dragon's Head",
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Demagogue: {
     name: 'Impressive Hat',
-    resolvedBy: 'Hat',
-    rename: '',
+    results: [
+      {
+        name: 'Hat',
+        rename: 'Impressive Hat',
+      },
+    ],
   },
   Detective: {
     name: 'Spyglass',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Diplomat: {
     name: 'Map',
-    resolvedBy: 'Map',
-    rename: '',
+    results: [
+      {
+        name: 'Map',
+        rename: '',
+      },
+    ],
   },
   'Dock Master': {
     name: 'Writing Kit',
-    resolvedBy: 'Writing Kit',
-    rename: '',
+    results: [
+      {
+        name: 'Writing Kit',
+        rename: '',
+      },
+    ],
   },
   Dockhand: {
     name: 'Leather Gloves',
-    resolvedBy: 'Gloves,Boiled Leather Breastplate',
-    rename: '',
+    results: [
+      {
+        name: 'Gloves',
+        rename: 'Leather Gloves',
+      },
+      {
+        name: 'Boiled Leather Breastplate',
+        rename: 'Leather Gloves',
+      },
+    ],
   },
   Doktor: {
     name: 'Workshop (Medicine)',
-    resolvedBy: 'Workshop (Type),Workshop (Type),Book, Medicine',
-    rename: '',
+    results: [
+      {
+        name: 'Workshop (Type)',
+        rename: 'Workshop (Medicine)',
+      },
+      {
+        name: 'Workshop (Type)',
+        rename: 'Workshop (Medicine)',
+      },
+      {
+        name: 'Book, Medicine',
+        rename: 'Workshop (Medicine)',
+      },
+    ],
   },
   'Dragon Slayer': {
     name: 'Throwing Axes',
-    resolvedBy: 'Throwing Axe',
-    rename: '',
+    results: [
+      {
+        name: 'Throwing Axe',
+        rename: 'Throwing Axes',
+      },
+    ],
   },
   Duellist: {
     name: 'Pistol with Gunpowder and Ammunition',
-    resolvedBy: 'Pistol',
-    rename: '',
+    results: [
+      {
+        name: 'Pistol',
+        rename: 'Pistol with Gunpowder and Ammunition',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: 'Pistol with Gunpowder and Ammunition',
+      },
+    ],
   },
   Duelmaster: {
     name: '2 Wooden Training Swords',
-    resolvedBy: 'Wooden Teeth',
-    rename: '',
+    results: [
+      {
+        name: 'Wooden Teeth',
+        rename: '2 Wooden Training Swords',
+      },
+    ],
   },
   Engineer: {
     name: 'Trade Tools',
-    resolvedBy: 'Trade Tools (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools',
+      },
+    ],
   },
   Entertainer: {
     name: 'Throwing Weapons',
-    resolvedBy: 'Throwing Knife',
-    rename: '',
+    results: [
+      {
+        name: 'Throwing Knife',
+        rename: 'Throwing Weapons',
+      },
+    ],
   },
   Envoy: {
     name: '10 sheets of parchment',
-    resolvedBy: 'Parchment/sheet',
-    rename: '',
+    results: [
+      {
+        name: 'Parchment/sheet',
+        rename: '10 sheets of parchment',
+      },
+    ],
   },
   Explorer: {
     name: 'Trade Tools (Cartographer)',
-    resolvedBy: 'Trade Tools (Type),Cart,Trade Tools (Type),Trade Tools (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Cartographer)',
+      },
+      {
+        name: 'Cart',
+        rename: 'Trade Tools (Cartographer)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Cartographer)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Cartographer)',
+      },
+    ],
   },
   Exterminator: {
     name: 'Sack of Poisoned Bait (10 doses of Heartkill)',
-    resolvedBy: 'Heartkill,Sack',
-    rename: '',
+    results: [
+      {
+        name: 'Heartkill',
+        rename: 'Sack of Poisoned Bait (10 doses of Heartkill)',
+      },
+      {
+        name: 'Sack',
+        rename: 'Sack of Poisoned Bait (10 doses of Heartkill)',
+      },
+    ],
   },
   Fellow: {
     name: 'Robes',
-    resolvedBy: 'Robes',
-    rename: '',
+    results: [
+      {
+        name: 'Robes',
+        rename: '',
+      },
+    ],
   },
   Fence: {
     name: 'Writing Kit',
-    resolvedBy: 'Writing Kit',
-    rename: '',
+    results: [
+      {
+        name: 'Writing Kit',
+        rename: '',
+      },
+    ],
   },
   Fencer: {
     name: 'Sling Bag containing Clothing and 1d10 Bandages',
-    resolvedBy: 'Sling Bag,Clothing,Bandage',
-    rename: '',
+    results: [
+      {
+        name: 'Sling Bag',
+        rename: 'Sling Bag containing Clothing and 1d10 Bandages',
+      },
+      {
+        name: 'Clothing',
+        rename: 'Sling Bag containing Clothing and 1d10 Bandages',
+      },
+      {
+        name: 'Bandage',
+        rename: 'Sling Bag containing Clothing and 1d10 Bandages',
+      },
+    ],
   },
   'First Knight': {
     name: 'Small Unit of Knights',
-    resolvedBy: 'Small shot and Powder',
-    rename: '',
+    results: [
+      {
+        name: 'Small shot and Powder',
+        rename: 'Small Unit of Knights',
+      },
+    ],
   },
   Flagellant: {
     name: 'Sling',
-    resolvedBy: 'Sling',
-    rename: '',
+    results: [
+      {
+        name: 'Sling',
+        rename: '',
+      },
+    ],
   },
   Foreman: {
     name: 'Whistle',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Fortune Teller': {
     name: 'Cheap Jewelry',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Gang Boss': {
     name: 'Lair',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Giant Slayer': {
     name: "Troll's Head",
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Governor: {
     name: 'Servant',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Grave Robber': {
     name: 'Storm Lantern and Oil',
-    resolvedBy: 'Storm Lantern',
-    rename: '',
+    results: [
+      {
+        name: 'Storm Lantern',
+        rename: 'Storm Lantern and Oil',
+      },
+    ],
   },
   Greenfish: {
     name: 'Leather Leggings',
-    resolvedBy: 'Leather Leggings',
-    rename: '',
+    results: [
+      {
+        name: 'Leather Leggings',
+        rename: '',
+      },
+    ],
   },
   Guard: {
     name: 'Spear',
-    resolvedBy: 'Spear',
-    rename: '',
+    results: [
+      {
+        name: 'Spear',
+        rename: '',
+      },
+    ],
   },
   'Guard Officer': {
     name: 'Breastplate',
-    resolvedBy: 'Boiled Leather Breastplate',
-    rename: '',
+    results: [
+      {
+        name: 'Boiled Leather Breastplate',
+        rename: 'Breastplate',
+      },
+    ],
   },
   Guide: {
     name: 'Rope',
-    resolvedBy: 'Rope, 10 yards',
-    rename: '',
+    results: [
+      {
+        name: 'Rope, 10 yards',
+        rename: 'Rope',
+      },
+    ],
   },
   Guildmaster: {
     name: 'Quality Clothing',
-    resolvedBy: 'Clothing',
-    rename: '',
+    results: [
+      {
+        name: 'Clothing',
+        rename: 'Quality Clothing',
+      },
+    ],
   },
   'Hedge Apprentice': {
     name: 'Backpack',
-    resolvedBy: 'Backpack',
-    rename: '',
+    results: [
+      {
+        name: 'Backpack',
+        rename: '',
+      },
+    ],
   },
   'Hedge Master': {
     name: 'Apprentice',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Hedge Witch': {
     name: 'Trade Tools (Herbalist)',
-    resolvedBy: 'Trade Tools (Type),Trade Tools (Type),Trade Tools (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Herbalist)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Herbalist)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Herbalist)',
+      },
+    ],
   },
   Hedgewise: {
     name: 'Ceremonial Cloak and Garland',
-    resolvedBy: 'Cloak',
-    rename: '',
+    results: [
+      {
+        name: 'Cloak',
+        rename: 'Ceremonial Cloak and Garland',
+      },
+    ],
   },
   Herald: {
     name: 'Scroll Case',
-    resolvedBy: 'Scroll Case',
-    rename: '',
+    results: [
+      {
+        name: 'Scroll Case',
+        rename: '',
+      },
+    ],
   },
   'Herb Gatherer': {
     name: 'Sling Bag containing Assortment of Herbs',
-    resolvedBy: 'Sling Bag',
-    rename: '',
+    results: [
+      {
+        name: 'Sling Bag',
+        rename: 'Sling Bag containing Assortment of Herbs',
+      },
+    ],
   },
   'Herb Master': {
     name: 'Workshop (Herbalist)',
-    resolvedBy: 'Workshop (Type),Workshop (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Workshop (Type)',
+        rename: 'Workshop (Herbalist)',
+      },
+      {
+        name: 'Workshop (Type)',
+        rename: 'Workshop (Herbalist)',
+      },
+    ],
   },
   Herbalist: {
     name: 'Trade Tools (Herbalist)',
-    resolvedBy: 'Trade Tools (Type),Trade Tools (Type),Trade Tools (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Herbalist)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Herbalist)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Herbalist)',
+      },
+    ],
   },
   Herbwise: {
     name: 'Pony and Cart',
-    resolvedBy: 'Cart,Pony',
-    rename: '',
+    results: [
+      {
+        name: 'Cart',
+        rename: 'Pony and Cart',
+      },
+      {
+        name: 'Pony',
+        rename: 'Pony and Cart',
+      },
+    ],
   },
   Hexer: {
     name: 'Pins',
-    resolvedBy: 'Pins',
-    rename: '',
+    results: [
+      {
+        name: 'Pins',
+        rename: '',
+      },
+    ],
   },
   'High Priest': {
     name: 'Temple',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Hitman: {
     name: 'Throwing Knives',
-    resolvedBy: 'Throwing Knife',
-    rename: '',
+    results: [
+      {
+        name: 'Throwing Knife',
+        rename: 'Throwing Knives',
+      },
+    ],
   },
   'Honor Guard': {
     name: 'Uniform',
-    resolvedBy: 'Uniform',
-    rename: '',
+    results: [
+      {
+        name: 'Uniform',
+        rename: '',
+      },
+    ],
   },
   Horseman: {
     name: 'Riding Horse with Saddle and Tack',
-    resolvedBy: 'Riding Horse,Saddle and Harness',
-    rename: '',
+    results: [
+      {
+        name: 'Riding Horse',
+        rename: 'Riding Horse with Saddle and Tack',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: 'Riding Horse with Saddle and Tack',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: 'Riding Horse with Saddle and Tack',
+      },
+    ],
   },
   Huffer: {
     name: 'Row Boat',
-    resolvedBy: 'Row Boat',
-    rename: '',
+    results: [
+      {
+        name: 'Row Boat',
+        rename: '',
+      },
+    ],
   },
   Hunter: {
     name: 'Bow with 10 arrows',
-    resolvedBy: 'Arrow,Bow',
-    rename: '',
+    results: [
+      {
+        name: 'Arrow',
+        rename: 'Bow with 10 arrows',
+      },
+      {
+        name: 'Bow',
+        rename: 'Bow with 10 arrows',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: 'Bow with 10 arrows',
+      },
+    ],
   },
   Huntsmaster: {
     name: 'Kennel of Hunting Dogs',
-    resolvedBy: 'Hunting Dog',
-    rename: '',
+    results: [
+      {
+        name: 'Hunting Dog',
+        rename: 'Kennel of Hunting Dogs',
+      },
+    ],
   },
   Hustler: {
     name: 'Flask of Spirits',
-    resolvedBy: 'Flask of Spirits',
-    rename: '',
+    results: [
+      {
+        name: 'Flask of Spirits',
+        rename: '',
+      },
+    ],
   },
   Informer: {
     name: 'Sling Bag containing 2 different sets of clothing and Hooded Cloak',
-    resolvedBy: 'Sling Bag,Clothing,Cloak,Hood',
-    rename: '',
+    results: [
+      {
+        name: 'Sling Bag',
+        rename:
+          'Sling Bag containing 2 different sets of clothing and Hooded Cloak',
+      },
+      {
+        name: 'Clothing',
+        rename:
+          'Sling Bag containing 2 different sets of clothing and Hooded Cloak',
+      },
+      {
+        name: 'Cloak',
+        rename:
+          'Sling Bag containing 2 different sets of clothing and Hooded Cloak',
+      },
+      {
+        name: 'Hood',
+        rename:
+          'Sling Bag containing 2 different sets of clothing and Hooded Cloak',
+      },
+    ],
   },
   Initiate: {
     name: 'Robes',
-    resolvedBy: 'Robes',
-    rename: '',
+    results: [
+      {
+        name: 'Robes',
+        rename: '',
+      },
+    ],
   },
   Inquisitor: {
     name: 'Subordinate Interrogators',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Interrogator: {
     name: 'Instruments of Torture',
-    resolvedBy: 'Instrument',
-    rename: '',
+    results: [
+      {
+        name: 'Instrument',
+        rename: 'Instruments of Torture',
+      },
+    ],
   },
   Investigator: {
     name: 'Lockpick',
-    resolvedBy: 'Pick,Lock Picks',
-    rename: '',
+    results: [
+      {
+        name: 'Pick',
+        rename: 'Lockpick',
+      },
+      {
+        name: 'Lock Picks',
+        rename: 'Lockpick',
+      },
+    ],
   },
   Judge: {
     name: 'Ostentatious Wig',
-    resolvedBy: 'Tent',
-    rename: '',
+    results: [
+      {
+        name: 'Tent',
+        rename: 'Ostentatious Wig',
+      },
+    ],
   },
   'Judicial Champion': {
     name: '2 Quality Weapons',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Knight: {
     name: 'Plate Armor and Helm',
-    resolvedBy: 'Plate,Plate Open Helm',
-    rename: '',
+    results: [
+      {
+        name: 'Plate',
+        rename: 'Plate Armor and Helm',
+      },
+      {
+        name: 'Plate Open Helm',
+        rename: 'Plate Armor and Helm',
+      },
+    ],
   },
   'Knight of the Inner Circle': {
     name: 'Large Unit of Knights or Several Small Units of Knights',
-    resolvedBy: 'Shield (Large),Small shot and Powder',
-    rename: '',
+    results: [
+      {
+        name: 'Shield (Large)',
+        rename: 'Large Unit of Knights or Several Small Units of Knights',
+      },
+      {
+        name: 'Small shot and Powder',
+        rename: 'Large Unit of Knights or Several Small Units of Knights',
+      },
+    ],
   },
   Landsman: {
     name: 'Mop',
-    resolvedBy: 'Mop',
-    rename: '',
+    results: [
+      {
+        name: 'Mop',
+        rename: '',
+      },
+    ],
   },
   Lawyer: {
     name: 'Writing Kit',
-    resolvedBy: 'Writing Kit',
-    rename: '',
+    results: [
+      {
+        name: 'Writing Kit',
+        rename: '',
+      },
+    ],
   },
   Lector: {
     name: 'Subordinate High Priests',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Light Cavalry Officer': {
     name: 'Quality Clothing',
-    resolvedBy: 'Clothing',
-    rename: '',
+    results: [
+      {
+        name: 'Clothing',
+        rename: 'Quality Clothing',
+      },
+    ],
   },
   'Light Cavalry Sergeant': {
     name: 'Sash',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Maestro: {
     name: '3 Apprentices',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Magistrate: {
     name: 'Seal of Office',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Magnate: {
     name: 'Signet Ring',
-    resolvedBy: 'Signet Ring',
-    rename: '',
+    results: [
+      {
+        name: 'Signet Ring',
+        rename: '',
+      },
+    ],
   },
   'Master Apothecary': {
     name: 'Workshop',
-    resolvedBy: 'Workshop (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Workshop (Type)',
+        rename: 'Workshop',
+      },
+    ],
   },
   'Master Artisan': {
     name: 'Workshop',
-    resolvedBy: 'Workshop (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Workshop (Type)',
+        rename: 'Workshop',
+      },
+    ],
   },
   'Master Artist': {
     name: 'Workshop (Artist)',
-    resolvedBy: 'Workshop (Type),Workshop (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Workshop (Type)',
+        rename: 'Workshop (Artist)',
+      },
+      {
+        name: 'Workshop (Type)',
+        rename: 'Workshop (Artist)',
+      },
+    ],
   },
   'Master Beggar': {
     name: 'Pauper Follower',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Master Bounty Hunter': {
     name: 'Riding Horse and Saddle',
-    resolvedBy: 'Riding Horse,Saddle and Harness',
-    rename: '',
+    results: [
+      {
+        name: 'Riding Horse',
+        rename: 'Riding Horse and Saddle',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: 'Riding Horse and Saddle',
+      },
+    ],
   },
   'Master Engineer': {
     name: 'Workshop',
-    resolvedBy: 'Workshop (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Workshop (Type)',
+        rename: 'Workshop',
+      },
+    ],
   },
   'Master Fence': {
     name: "Pawnbroker's Shop",
-    resolvedBy: 'Workshop (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Workshop (Type)',
+        rename: "Pawnbroker's Shop",
+      },
+    ],
   },
   'Master Investigator': {
     name: 'Office',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Master Merchant': {
     name: '100 GC',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Master Miner': {
     name: 'Trade Tools (Engineer)',
-    resolvedBy:
-      'Trade Tools (Type),Trade Tools (Type),Trade Tools (Type),Engineering Marvel',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Engineer)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Engineer)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Engineer)',
+      },
+      {
+        name: 'Engineering Marvel',
+        rename: 'Trade Tools (Engineer)',
+      },
+    ],
   },
   'Master Pedlar': {
     name: 'Goods worth at least 2d10 Gold',
-    resolvedBy: 'Gold Crown',
-    rename: '',
+    results: [
+      {
+        name: 'Gold Crown',
+        rename: 'Goods worth at least 2d10 Gold',
+      },
+    ],
   },
   'Master Pilot': {
     name: 'Small Riverboat',
-    resolvedBy: 'Small shot and Powder',
-    rename: '',
+    results: [
+      {
+        name: 'Small shot and Powder',
+        rename: 'Small Riverboat',
+      },
+    ],
   },
   'Master Smuggler': {
     name: 'Speedy Riverboat',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Master Thief': {
     name: 'Crossbow Pistol with 10 Bolts',
-    resolvedBy: 'Crossbow Pistol,Bolt',
-    rename: '',
+    results: [
+      {
+        name: 'Crossbow Pistol',
+        rename: 'Crossbow Pistol with 10 Bolts',
+      },
+      {
+        name: 'Bolt',
+        rename: 'Crossbow Pistol with 10 Bolts',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: 'Crossbow Pistol with 10 Bolts',
+      },
+    ],
   },
   'Master Wizard': {
     name: 'Magical Item',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Menial: {
     name: 'Floor Brush',
-    resolvedBy: 'Floor Brush',
-    rename: '',
+    results: [
+      {
+        name: 'Floor Brush',
+        rename: '',
+      },
+    ],
   },
   Merchant: {
     name: '20 GC',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Merchant Prince': {
     name: 'Quality Clothing',
-    resolvedBy: 'Clothing',
-    rename: '',
+    results: [
+      {
+        name: 'Clothing',
+        rename: 'Quality Clothing',
+      },
+    ],
   },
   Messenger: {
     name: 'Riding Horse with Saddle and Tack',
-    resolvedBy: 'Riding Horse,Saddle and Harness',
-    rename: '',
+    results: [
+      {
+        name: 'Riding Horse',
+        rename: 'Riding Horse with Saddle and Tack',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: 'Riding Horse with Saddle and Tack',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: 'Riding Horse with Saddle and Tack',
+      },
+    ],
   },
   'Mine Foreman': {
     name: 'Writing Kit',
-    resolvedBy: 'Writing Kit',
-    rename: '',
+    results: [
+      {
+        name: 'Writing Kit',
+        rename: '',
+      },
+    ],
   },
   Miner: {
     name: 'Leather Jack',
-    resolvedBy: 'Leather Jack',
-    rename: '',
+    results: [
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
+    ],
   },
   Mystic: {
     name: 'Selection of Amulets',
-    resolvedBy: 'Amulet',
-    rename: '',
+    results: [
+      {
+        name: 'Amulet',
+        rename: 'Selection of Amulets',
+      },
+    ],
   },
   Noble: {
     name: 'Jewelry worth 50 GC',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Noble Lord': {
     name: 'Province',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Novitiate (Nun)': {
     name: 'Robes',
-    resolvedBy: 'Robes',
-    rename: '',
+    results: [
+      {
+        name: 'Robes',
+        rename: '',
+      },
+    ],
   },
   'Novitiate (Warrior Priest)': {
     name: 'Weapon (Any Melee)',
-    resolvedBy: 'Improvised Weapon,Improvised Weapon',
-    rename: '',
+    results: [
+      {
+        name: 'Improvised Weapon',
+        rename: 'Weapon (Any Melee)',
+      },
+      {
+        name: 'Improvised Weapon',
+        rename: 'Weapon (Any Melee)',
+      },
+    ],
   },
   Nun: {
     name: 'Trade Tools (Any)',
-    resolvedBy: 'Trade Tools (Type),Trade Tools (Type),Trade Tools (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Any)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Any)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Any)',
+      },
+    ],
   },
   Officer: {
     name: 'Symbol of Rank',
-    resolvedBy: 'Religious Symbol',
-    rename: '',
+    results: [
+      {
+        name: 'Religious Symbol',
+        rename: 'Symbol of Rank',
+      },
+    ],
   },
   Outlaw: {
     name: 'Tent',
-    resolvedBy: 'Tent',
-    rename: '',
+    results: [
+      {
+        name: 'Tent',
+        rename: '',
+      },
+    ],
   },
   'Outlaw Chief': {
     name: 'Band of Outlaws',
-    resolvedBy: 'Bandage',
-    rename: '',
+    results: [
+      {
+        name: 'Bandage',
+        rename: 'Band of Outlaws',
+      },
+    ],
   },
   Pamphleteer: {
     name: 'Pile of Leaflets',
-    resolvedBy: 'Leaflet',
-    rename: '',
+    results: [
+      {
+        name: 'Leaflet',
+        rename: 'Pile of Leaflets',
+      },
+    ],
   },
   Pathfinder: {
     name: 'Tent',
-    resolvedBy: 'Tent',
-    rename: '',
+    results: [
+      {
+        name: 'Tent',
+        rename: '',
+      },
+    ],
   },
   Pauper: {
     name: 'Cup',
-    resolvedBy: 'Cup',
-    rename: '',
+    results: [
+      {
+        name: 'Cup',
+        rename: '',
+      },
+    ],
   },
   Peasant: {
     name: 'None',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Pedlar: {
     name: 'Trade Tools (Tinker)',
-    resolvedBy: 'Trade Tools (Type),Trade Tools (Type),Trade Tools (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Tinker)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Tinker)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Tinker)',
+      },
+    ],
   },
   Penitent: {
     name: 'Religious Relic',
-    resolvedBy: 'Religious Symbol',
-    rename: '',
+    results: [
+      {
+        name: 'Religious Symbol',
+        rename: 'Religious Relic',
+      },
+    ],
   },
   Physician: {
     name: 'Trade Tools (Medicine)',
-    resolvedBy:
-      'Trade Tools (Type),Trade Tools (Type),Trade Tools (Type),Book, Medicine',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Medicine)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Medicine)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Medicine)',
+      },
+      {
+        name: 'Book, Medicine',
+        rename: 'Trade Tools (Medicine)',
+      },
+    ],
   },
   "Physician's Apprentice": {
     name: 'Healing Draught',
-    resolvedBy: 'Healing Draught',
-    rename: '',
+    results: [
+      {
+        name: 'Healing Draught',
+        rename: '',
+      },
+    ],
   },
   Pilot: {
     name: 'Storm Lantern and Oil',
-    resolvedBy: 'Storm Lantern',
-    rename: '',
+    results: [
+      {
+        name: 'Storm Lantern',
+        rename: 'Storm Lantern and Oil',
+      },
+    ],
   },
   'Pit Champion': {
     name: 'Helmet',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Pit Fighter': {
     name: 'Shield or Buckler',
-    resolvedBy: 'Shield,Shield (Buckler)',
-    rename: '',
+    results: [
+      {
+        name: 'Shield',
+        rename: 'Shield or Buckler',
+      },
+      {
+        name: 'Shield (Buckler)',
+        rename: 'Shield or Buckler',
+      },
+    ],
   },
   'Pit Legend': {
     name: 'Quality Helmet',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Postilion: {
     name: 'Whip',
-    resolvedBy: 'Whip',
-    rename: '',
+    results: [
+      {
+        name: 'Whip',
+        rename: '',
+      },
+    ],
   },
   Priest: {
     name: 'Ceremonial Robes',
-    resolvedBy: 'Robes',
-    rename: '',
+    results: [
+      {
+        name: 'Robes',
+        rename: 'Ceremonial Robes',
+      },
+    ],
   },
   'Priest Captain': {
     name: 'Religious Relic',
-    resolvedBy: 'Religious Symbol',
-    rename: '',
+    results: [
+      {
+        name: 'Religious Symbol',
+        rename: 'Religious Relic',
+      },
+    ],
   },
   'Priest Sergeant': {
     name: 'Light Warhorse with Saddle and Tack',
-    resolvedBy: 'Light Warhorse,Saddle and Harness',
-    rename: '',
+    results: [
+      {
+        name: 'Light Warhorse',
+        rename: 'Light Warhorse with Saddle and Tack',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: 'Light Warhorse with Saddle and Tack',
+      },
+      {
+        name: 'Saddle and Harness',
+        rename: 'Light Warhorse with Saddle and Tack',
+      },
+    ],
   },
   'Prioress General': {
     name: 'Religious Order',
-    resolvedBy: 'Religious Symbol',
-    rename: '',
+    results: [
+      {
+        name: 'Religious Symbol',
+        rename: 'Religious Order',
+      },
+    ],
   },
   Procurer: {
     name: 'A Ring of Hustlers',
-    resolvedBy: 'Engineering Marvel',
-    rename: '',
+    results: [
+      {
+        name: 'Engineering Marvel',
+        rename: 'A Ring of Hustlers',
+      },
+    ],
   },
   Professor: {
     name: 'Study',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Prophet of Doom': {
     name: 'and Zealots)',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Prospector: {
     name: 'Spade',
-    resolvedBy: 'Spade',
-    rename: '',
+    results: [
+      {
+        name: 'Spade',
+        rename: '',
+      },
+    ],
   },
   Protagonist: {
     name: 'Shield',
-    resolvedBy: 'Shield',
-    rename: '',
+    results: [
+      {
+        name: 'Shield',
+        rename: '',
+      },
+    ],
   },
   Prowler: {
     name: 'Sack',
-    resolvedBy: 'Sack',
-    rename: '',
+    results: [
+      {
+        name: 'Sack',
+        rename: '',
+      },
+    ],
   },
   Pugilist: {
     name: 'Leather Jack',
-    resolvedBy: 'Leather Jack',
-    rename: '',
+    results: [
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
+    ],
   },
   'Rabble Rouser': {
     name: 'Pamphleteer',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Racketeer: {
     name: 'Mail Shirt',
-    resolvedBy: 'Mail Shirt',
-    rename: '',
+    results: [
+      {
+        name: 'Mail Shirt',
+        rename: '',
+      },
+    ],
   },
   'Rat Catcher': {
     name: 'Pole for Dead Rats',
-    resolvedBy: 'Pole (3 yards)',
-    rename: '',
+    results: [
+      {
+        name: 'Pole (3 yards)',
+        rename: 'Pole for Dead Rats',
+      },
+    ],
   },
   'Rat Hunter': {
     name: 'Small but Vicious Dog',
-    resolvedBy: 'Small shot and Powder',
-    rename: '',
+    results: [
+      {
+        name: 'Small shot and Powder',
+        rename: 'Small but Vicious Dog',
+      },
+    ],
   },
   Recruit: {
     name: 'Uniform',
-    resolvedBy: 'Uniform',
-    rename: '',
+    results: [
+      {
+        name: 'Uniform',
+        rename: '',
+      },
+    ],
   },
   Reeve: {
     name: 'Baili?',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Ringleader: {
     name: 'a Ring of Bawds',
-    resolvedBy: 'Engineering Marvel',
-    rename: '',
+    results: [
+      {
+        name: 'Engineering Marvel',
+        rename: 'a Ring of Bawds',
+      },
+    ],
   },
   'River Elder': {
     name: 'Hut or Riverboat',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'River Pirate': {
     name: 'Riverboat',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'River Recruit': {
     name: 'Uniform',
-    resolvedBy: 'Uniform',
-    rename: '',
+    results: [
+      {
+        name: 'Uniform',
+        rename: '',
+      },
+    ],
   },
   'River Runner': {
     name: 'Storm Lantern and Oil',
-    resolvedBy: 'Storm Lantern',
-    rename: '',
+    results: [
+      {
+        name: 'Storm Lantern',
+        rename: 'Storm Lantern and Oil',
+      },
+    ],
   },
   Riverguide: {
     name: 'Storm Lantern and Oil',
-    resolvedBy: 'Storm Lantern',
-    rename: '',
+    results: [
+      {
+        name: 'Storm Lantern',
+        rename: 'Storm Lantern and Oil',
+      },
+    ],
   },
   Riverwarden: {
     name: 'Shield',
-    resolvedBy: 'Shield',
-    rename: '',
+    results: [
+      {
+        name: 'Shield',
+        rename: '',
+      },
+    ],
   },
   Riverwise: {
     name: 'Storm Lantern and Oil',
-    resolvedBy: 'Storm Lantern',
-    rename: '',
+    results: [
+      {
+        name: 'Storm Lantern',
+        rename: 'Storm Lantern and Oil',
+      },
+    ],
   },
   Riverwoman: {
     name: 'Spear',
-    resolvedBy: 'Spear',
-    rename: '',
+    results: [
+      {
+        name: 'Spear',
+        rename: '',
+      },
+    ],
   },
   'Road Captain': {
     name: 'Unit of Road Wardens',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Road Sergeant': {
     name: 'Symbol of Rank',
-    resolvedBy: 'Religious Symbol',
-    rename: '',
+    results: [
+      {
+        name: 'Religious Symbol',
+        rename: 'Symbol of Rank',
+      },
+    ],
   },
   'Road Warden': {
     name: 'Rope',
-    resolvedBy: 'Rope, 10 yards',
-    rename: '',
+    results: [
+      {
+        name: 'Rope, 10 yards',
+        rename: 'Rope',
+      },
+    ],
   },
   'Route Master': {
     name: 'Maps',
-    resolvedBy: 'Map',
-    rename: '',
+    results: [
+      {
+        name: 'Map',
+        rename: 'Maps',
+      },
+    ],
   },
   Runner: {
     name: 'Scroll Case',
-    resolvedBy: 'Scroll Case',
-    rename: '',
+    results: [
+      {
+        name: 'Scroll Case',
+        rename: '',
+      },
+    ],
   },
   Sage: {
     name: 'Trade Tools (Writing)',
-    resolvedBy:
-      'Trade Tools (Type),Trade Tools (Type),Trade Tools (Type),Writing Kit',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Writing)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Writing)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Writing)',
+      },
+      {
+        name: 'Writing Kit',
+        rename: 'Trade Tools (Writing)',
+      },
+    ],
   },
   Scholar: {
     name: 'Degree',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Scion: {
     name: 'Personal Servant',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Scoundrel: {
     name: 'Writing Kit',
-    resolvedBy: 'Writing Kit',
-    rename: '',
+    results: [
+      {
+        name: 'Writing Kit',
+        rename: '',
+      },
+    ],
   },
   Scout: {
     name: 'Mail Shirt',
-    resolvedBy: 'Mail Shirt',
-    rename: '',
+    results: [
+      {
+        name: 'Mail Shirt',
+        rename: '',
+      },
+    ],
   },
   Seaman: {
     name: 'Leather Jerkin',
-    resolvedBy: 'Leather Jerkin',
-    rename: '',
+    results: [
+      {
+        name: 'Leather Jerkin',
+        rename: '',
+      },
+    ],
   },
   Seer: {
     name: 'Trade Tools (Astrology)',
-    resolvedBy: 'Trade Tools (Type),Trade Tools (Type),Trade Tools (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Astrology)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Astrology)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Astrology)',
+      },
+    ],
   },
   Seneschal: {
     name: 'Staff of Wardens and Custodians',
-    resolvedBy: 'Quarterstaff',
-    rename: '',
+    results: [
+      {
+        name: 'Quarterstaff',
+        rename: 'Staff of Wardens and Custodians',
+      },
+    ],
   },
   Sentry: {
     name: 'Storm Lantern with Oil',
-    resolvedBy: 'Storm Lantern',
-    rename: '',
+    results: [
+      {
+        name: 'Storm Lantern',
+        rename: 'Storm Lantern with Oil',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: 'Storm Lantern with Oil',
+      },
+    ],
   },
   Sergeant: {
     name: 'Unit of Troops',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Servant: {
     name: 'Livery',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   'Sewer Jack': {
     name: 'Leather Jack',
-    resolvedBy: 'Leather Jack',
-    rename: '',
+    results: [
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
+    ],
   },
   "Ship's Master": {
     name: 'Spyglass',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Shipsword: {
     name: 'Mail Shirt',
-    resolvedBy: 'Mail Shirt',
-    rename: '',
+    results: [
+      {
+        name: 'Mail Shirt',
+        rename: '',
+      },
+    ],
   },
   'Shipsword Master': {
     name: 'Symbol of Rank',
-    resolvedBy: 'Religious Symbol',
-    rename: '',
+    results: [
+      {
+        name: 'Religious Symbol',
+        rename: 'Symbol of Rank',
+      },
+    ],
   },
   Sleuth: {
     name: 'Quill and Ink',
-    resolvedBy: 'Quill Pen',
-    rename: '',
+    results: [
+      {
+        name: 'Quill Pen',
+        rename: 'Quill and Ink',
+      },
+    ],
   },
   Smuggler: {
     name: 'Row Boat',
-    resolvedBy: 'Row Boat',
-    rename: '',
+    results: [
+      {
+        name: 'Row Boat',
+        rename: '',
+      },
+    ],
   },
   'Smuggler King': {
     name: 'Small Fleet of Riverboats',
-    resolvedBy: 'Small shot and Powder',
-    rename: '',
+    results: [
+      {
+        name: 'Small shot and Powder',
+        rename: 'Small Fleet of Riverboats',
+      },
+    ],
   },
   Soldier: {
     name: 'Weapon (Any)',
-    resolvedBy: 'Improvised Weapon,Improvised Weapon',
-    rename: '',
+    results: [
+      {
+        name: 'Improvised Weapon',
+        rename: 'Weapon (Any)',
+      },
+      {
+        name: 'Improvised Weapon',
+        rename: 'Weapon (Any)',
+      },
+    ],
   },
   Spy: {
     name: 'Telescope',
-    resolvedBy: 'Telescope',
-    rename: '',
+    results: [
+      {
+        name: 'Telescope',
+        rename: '',
+      },
+    ],
   },
   Spymaster: {
     name: 'and Informers',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Squire: {
     name: 'Trade Tools (Farrier)',
-    resolvedBy: 'Trade Tools (Type),Trade Tools (Type),Trade Tools (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Farrier)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Farrier)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Farrier)',
+      },
+    ],
   },
   Stevedore: {
     name: 'Porter Cap',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Steward: {
     name: 'Servant',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Student: {
     name: 'Writing Kit',
-    resolvedBy: 'Writing Kit',
-    rename: '',
+    results: [
+      {
+        name: 'Writing Kit',
+        rename: '',
+      },
+    ],
   },
   'Student Engineer': {
     name: 'Hammer and Spikes',
-    resolvedBy: 'Hammer,Spike',
-    rename: '',
+    results: [
+      {
+        name: 'Hammer',
+        rename: 'Hammer and Spikes',
+      },
+      {
+        name: 'Spike',
+        rename: 'Hammer and Spikes',
+      },
+    ],
   },
   'Student Lawyer': {
     name: 'Magnifying Glass',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Swindler: {
     name: 'Dice',
-    resolvedBy: 'Dice',
-    rename: '',
+    results: [
+      {
+        name: 'Dice',
+        rename: '',
+      },
+    ],
   },
   'Tax Collector': {
     name: 'small lock box',
-    resolvedBy: 'Small shot and Powder,Lock Picks',
-    rename: '',
+    results: [
+      {
+        name: 'Small shot and Powder',
+        rename: 'small lock box',
+      },
+      {
+        name: 'Lock Picks',
+        rename: 'small lock box',
+      },
+    ],
   },
   Thief: {
     name: 'Rope',
-    resolvedBy: 'Rope, 10 yards',
-    rename: '',
+    results: [
+      {
+        name: 'Rope, 10 yards',
+        rename: 'Rope',
+      },
+    ],
   },
   'Thief-taker': {
     name: 'Rope',
-    resolvedBy: 'Rope, 10 yards',
-    rename: '',
+    results: [
+      {
+        name: 'Rope, 10 yards',
+        rename: 'Rope',
+      },
+    ],
   },
   Thug: {
     name: 'Leather Jack',
-    resolvedBy: 'Leather Jack',
-    rename: '',
+    results: [
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
+    ],
   },
   'Toll Keeper': {
     name: 'Leather Jack',
-    resolvedBy: 'Leather Jack',
-    rename: '',
+    results: [
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
+    ],
   },
   'Tomb Robber': {
     name: 'Trade Tools (Thief)',
-    resolvedBy: 'Trade Tools (Type),Trade Tools (Type),Trade Tools (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Thief)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Thief)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Thief)',
+      },
+    ],
   },
   'Town Councilor': {
     name: 'Townhouse',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Townsman: {
     name: 'Quill and Ink',
-    resolvedBy: 'Quill Pen',
-    rename: '',
+    results: [
+      {
+        name: 'Quill Pen',
+        rename: 'Quill and Ink',
+      },
+    ],
   },
   Tracker: {
     name: 'Ten',
-    resolvedBy: 'Tent',
-    rename: '',
+    results: [
+      {
+        name: 'Tent',
+        rename: 'Ten',
+      },
+    ],
   },
   Trader: {
     name: '3d10 Silver Shillings',
-    resolvedBy: 'Silver Shilling',
-    rename: '',
+    results: [
+      {
+        name: 'Silver Shilling',
+        rename: '3d10 Silver Shillings',
+      },
+    ],
   },
   Trapper: {
     name: 'Sling with (10 Stone Bullets)',
-    resolvedBy: 'Stone Bullet,Sling',
-    rename: '',
+    results: [
+      {
+        name: 'Stone Bullet',
+        rename: 'Sling with (10 Stone Bullets)',
+      },
+      {
+        name: 'Sling',
+        rename: 'Sling with (10 Stone Bullets)',
+      },
+      {
+        name: 'Suffused with Ulgu',
+        rename: 'Sling with (10 Stone Bullets)',
+      },
+    ],
   },
   'Treasure Hunter': {
     name: 'Writing Kit',
-    resolvedBy: 'Writing Kit',
-    rename: '',
+    results: [
+      {
+        name: 'Writing Kit',
+        rename: '',
+      },
+    ],
   },
   'Troll Slayer': {
     name: 'Tattoos',
-    resolvedBy: 'Tattoo',
-    rename: '',
+    results: [
+      {
+        name: 'Tattoo',
+        rename: 'Tattoos',
+      },
+    ],
   },
   Troubadour: {
     name: 'Writing Kit',
-    resolvedBy: 'Writing Kit',
-    rename: '',
+    results: [
+      {
+        name: 'Writing Kit',
+        rename: '',
+      },
+    ],
   },
   'Troupe Leader': {
     name: 'Troupe of Entertainers',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Vagabond: {
     name: 'Tent',
-    resolvedBy: 'Tent',
-    rename: '',
+    results: [
+      {
+        name: 'Tent',
+        rename: '',
+      },
+    ],
   },
   'Village Elder': {
     name: 'The Respect of the Village',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Villager: {
     name: 'Trade Tools (as Trade)',
-    resolvedBy:
-      'Trade Tools (Type),Trade Tools (Type),Trade Tools (Type),Trade Tools (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (as Trade)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (as Trade)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (as Trade)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (as Trade)',
+      },
+    ],
   },
   'Wandering Trader': {
     name: '50 Silver in Coin',
-    resolvedBy: 'Silver Shilling',
-    rename: '',
+    results: [
+      {
+        name: 'Silver Shilling',
+        rename: '50 Silver in Coin',
+      },
+    ],
   },
   Warden: {
     name: 'Leather Jack',
-    resolvedBy: 'Leather Jack',
-    rename: '',
+    results: [
+      {
+        name: 'Leather Jack',
+        rename: '',
+      },
+    ],
   },
   Warlock: {
     name: 'Skull',
-    resolvedBy: 'Leather Skullcap',
-    rename: '',
+    results: [
+      {
+        name: 'Leather Skullcap',
+        rename: 'Skull',
+      },
+    ],
   },
   'Warrior Priest': {
     name: 'Weapon (Any)',
-    resolvedBy: 'Improvised Weapon,Improvised Weapon',
-    rename: '',
+    results: [
+      {
+        name: 'Improvised Weapon',
+        rename: 'Weapon (Any)',
+      },
+      {
+        name: 'Improvised Weapon',
+        rename: 'Weapon (Any)',
+      },
+    ],
   },
   'Watch Captain': {
     name: 'Quality Symbol of Rank',
-    resolvedBy: 'Religious Symbol',
-    rename: '',
+    results: [
+      {
+        name: 'Religious Symbol',
+        rename: 'Quality Symbol of Rank',
+      },
+    ],
   },
   'Watch Recruit': {
     name: 'Uniform',
-    resolvedBy: 'Uniform',
-    rename: '',
+    results: [
+      {
+        name: 'Uniform',
+        rename: '',
+      },
+    ],
   },
   'Watch Sergeant': {
     name: 'Symbol of Rank',
-    resolvedBy: 'Religious Symbol',
-    rename: '',
+    results: [
+      {
+        name: 'Religious Symbol',
+        rename: 'Symbol of Rank',
+      },
+    ],
   },
   Watchman: {
     name: 'Copper Badge',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Witch: {
     name: 'Trade Tools (Herbalist)',
-    resolvedBy: 'Trade Tools (Type),Trade Tools (Type),Trade Tools (Type)',
-    rename: '',
+    results: [
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Herbalist)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Herbalist)',
+      },
+      {
+        name: 'Trade Tools (Type)',
+        rename: 'Trade Tools (Herbalist)',
+      },
+    ],
   },
   'Witch Hunter': {
     name: 'Silvered Sword',
-    resolvedBy: 'Bastard Sword',
-    rename: '',
+    results: [
+      {
+        name: 'Bastard Sword',
+        rename: 'Silvered Sword',
+      },
+    ],
   },
   'Witchfinder General': {
     name: 'Subordinate Witch Hunters',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Wizard: {
     name: 'Magical License',
-    resolvedBy: 'Guild License',
-    rename: '',
+    results: [
+      {
+        name: 'Guild License',
+        rename: 'Magical License',
+      },
+    ],
   },
   'Wizard Lord': {
     name: 'Workshop (Magic)',
-    resolvedBy: 'Workshop (Type),Workshop (Type),Book, Magic',
-    rename: '',
+    results: [
+      {
+        name: 'Workshop (Type)',
+        rename: 'Workshop (Magic)',
+      },
+      {
+        name: 'Workshop (Type)',
+        rename: 'Workshop (Magic)',
+      },
+      {
+        name: 'Book, Magic',
+        rename: 'Workshop (Magic)',
+      },
+    ],
   },
   "Wizard's Apprentice": {
     name: 'Staff',
-    resolvedBy: 'Quarterstaff',
-    rename: '',
+    results: [
+      {
+        name: 'Quarterstaff',
+        rename: 'Staff',
+      },
+    ],
   },
   Wrecker: {
     name: 'Storm Lantern and Oil',
-    resolvedBy: 'Storm Lantern',
-    rename: '',
+    results: [
+      {
+        name: 'Storm Lantern',
+        rename: 'Storm Lantern and Oil',
+      },
+    ],
   },
   'Wrecker Captain': {
     name: 'Manacles',
-    resolvedBy: 'Manacles',
-    rename: '',
+    results: [
+      {
+        name: 'Manacles',
+        rename: '',
+      },
+    ],
   },
   Wyrd: {
     name: 'Lucky Charm',
-    resolvedBy: '',
-    rename: '',
+    results: [
+      {
+        name: '',
+        rename: '',
+      },
+    ],
   },
   Zealot: {
     name: 'Tattered Robes',
-    resolvedBy: 'Robes',
-    rename: '',
+    results: [
+      {
+        name: 'Robes',
+        rename: 'Tattered Robes',
+      },
+    ],
   },
 };
