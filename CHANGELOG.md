@@ -6,6 +6,12 @@
 - create a chat command
 - Manage other language
 
+## 1.3.1
+
+### Bugfix
+
+- On profiles settings, the path image and token were not persisted when selected from the foundry filepicker
+
 ## 1.3.0
 
 ### New features
