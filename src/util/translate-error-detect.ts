@@ -17,9 +17,19 @@ export default class TranslateErrorDetect {
         return aLevel - bLevel;
       }
     );
+    const trappings = await ReferentialUtil.getTrappingEntities(false);
+
     for (let career of careers) {
       const data: any = career?.data?.data;
-      result[career.name] = data?.trappings;
+      result[career.name] = {};
+      for (let tr of data?.trappings) {
+        result[career.name].name = tr;
+        result[career.name].resolvedBy =
+          (await ReferentialUtil.findTrappings(tr, trappings))
+            ?.map((t) => t.name)
+            ?.join(',') ?? '';
+        result[career.name].rename = '';
+      }
     }
 
     callback(result);
