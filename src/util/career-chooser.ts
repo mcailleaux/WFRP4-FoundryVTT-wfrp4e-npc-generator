@@ -61,7 +61,7 @@ export default class CareerChooser {
               </div>
               `
                 )}
-              <button id="add-extra-career-button-${dialogId}" type="button" onclick="addCareer()">
+              <button id="add-extra-career-button-${dialogId}" class="add-remove-button-career" type="button" onclick="addCareer()">
                  <i class="fas fa-plus"></i>
               </button>
           </form>
@@ -107,7 +107,7 @@ export default class CareerChooser {
                       onInput: 'check()',
                       dataListId: `select-career-list-${dialogId}`,
                     })}
-                    <button type="button" onclick="removeCareer(event)">
+                    <button class="add-remove-button-career" type="button" onclick="removeCareer(event)">
                        <i class="fas fa-trash-alt"></i>
                     </button>
                     \`
@@ -116,13 +116,24 @@ export default class CareerChooser {
             }
             
             function removeCareer(event) {
-                console.dir(event);
+               const form = document.getElementById('select-career-form-${dialogId}');
+               const div = event.target.parentElement;
+               form.removeChild(div);
             }
               
             ${RandomUtil.getRandomValueScript()}
               
             check()
           </script>
+          <style>
+            .add-remove-button-career {
+                max-width: 32px;
+            }
+            
+            #add-extra-career-button-${dialogId} > i {
+                pointer-events: none;
+            }
+          </style>
           `,
       buttons: DialogUtil.getDialogButtons(
         dialogId,
