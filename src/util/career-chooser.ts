@@ -69,8 +69,15 @@ export default class CareerChooser {
             function check() {
                 const careers = [${careers.map((c) => `"${c.name}"`).join(',')}]
                 const career = document.getElementById('select-career-${dialogId}').value;
+                let disabled = !careers.includes(career);
+                
+                for (let extraCareerElm of document.getElementsByClassName('select-extra-career-${dialogId}')) {
+                    const extraCareer = extraCareerElm.value;
+                    disabled = disabled || !careers.includes(extraCareer);
+                }
+                
                 const yesButton = document.getElementById('yes-icon-${dialogId}').parentElement;
-                yesButton.disabled = !careers.includes(career);
+                yesButton.disabled = disabled;
             }
             
             function random() {
@@ -103,7 +110,7 @@ export default class CareerChooser {
                       id: '',
                       type: 'text',
                       name: 'select-extra-career',
-                      classes: 'select-extra-career',
+                      classes: `select-extra-career-${dialogId}`,
                       onInput: 'check()',
                       outerDataListId: `select-career-list-${dialogId}`,
                     })}
@@ -113,12 +120,14 @@ export default class CareerChooser {
                     \`
                     const addButton = document.getElementById('add-extra-career-button-${dialogId}');
                     form.insertBefore(div, addButton);
+                    check();
             }
             
             function removeCareer(event) {
                const form = document.getElementById('select-career-form-${dialogId}');
                const div = event.target.parentElement;
                form.removeChild(div);
+               check();
             }
               
             ${RandomUtil.getRandomValueScript()}
