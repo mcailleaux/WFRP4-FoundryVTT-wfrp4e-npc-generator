@@ -6,6 +6,12 @@
 - create a chat command
 - Manage other language
 
+## 1.4.0
+
+### Bugfix
+
+- Search by tag trapping result other items that are not trappings, add filter on type items
+
 ## 1.3.1
 
 ### Bugfix

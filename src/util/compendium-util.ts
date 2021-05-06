@@ -63,14 +63,25 @@ export default class CompendiumUtil {
     return Promise.resolve(this.compendiumCareerGroups);
   }
 
+  public static getTrappingCategories(): string[] {
+    return Object.keys(game.wfrp4e.config.trappingCategories);
+  }
+
   public static async getCompendiumTrappings() {
     if (this.compendiumTrappings == null) {
       this.compendiumTrappings = [];
       const trappingsPacks = game.packs.filter(
         (p) => p.metadata.tags && p.metadata.tags.includes('trapping')
       );
+      const trappingCategories = CompendiumUtil.getTrappingCategories();
       for (let pack of trappingsPacks) {
-        this.compendiumTrappings.push(...(await pack.getContent()));
+        const trappings: Item[] = await pack.getContent();
+        this.compendiumTrappings.push(
+          ...trappings.filter((t) => {
+            const type = (<any>t?.data?.data)?.trappingType?.value;
+            return trappingCategories.includes(type);
+          })
+        );
       }
     }
     return Promise.resolve(this.compendiumTrappings);

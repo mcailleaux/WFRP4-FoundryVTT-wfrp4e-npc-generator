@@ -30,10 +30,6 @@ export default class ReferentialUtil {
     );
   }
 
-  public static getTrappingCategories(): string[] {
-    return Object.keys(game.wfrp4e.config.trappingCategories);
-  }
-
   public static getSpeciesMap(): { [key: string]: string } {
     return game.wfrp4e.config.species;
   }
@@ -130,9 +126,11 @@ export default class ReferentialUtil {
   public static async getTrappingEntities(withWorld = true): Promise<Item[]> {
     const trappings: Item[] = await CompendiumUtil.getCompendiumTrappings();
     if (withWorld) {
-      const trappingCategories = this.getTrappingCategories();
+      const trappingCategories = CompendiumUtil.getTrappingCategories();
       const worldTrappings = game.items?.entities?.filter((item) =>
-        trappingCategories.includes(item.type)
+        trappingCategories.includes(
+          (<any>item?.data?.data)?.trappingType?.value
+        )
       );
       if (worldTrappings != null && worldTrappings.length > 0) {
         trappings.push(...worldTrappings);
