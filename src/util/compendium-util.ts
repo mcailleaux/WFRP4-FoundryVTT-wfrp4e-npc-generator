@@ -79,7 +79,10 @@ export default class CompendiumUtil {
         this.compendiumTrappings.push(
           ...trappings.filter((t) => {
             const type = (<any>t?.data?.data)?.trappingType?.value;
-            return trappingCategories.includes(type);
+            return (
+              trappingCategories.includes(t.type) ||
+              trappingCategories.includes(type)
+            );
           })
         );
       }

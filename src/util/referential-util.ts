@@ -127,10 +127,12 @@ export default class ReferentialUtil {
     const trappings: Item[] = await CompendiumUtil.getCompendiumTrappings();
     if (withWorld) {
       const trappingCategories = CompendiumUtil.getTrappingCategories();
-      const worldTrappings = game.items?.entities?.filter((item) =>
-        trappingCategories.includes(
-          (<any>item?.data?.data)?.trappingType?.value
-        )
+      const worldTrappings = game.items?.entities?.filter(
+        (item) =>
+          trappingCategories.includes(item.type) ||
+          trappingCategories.includes(
+            (<any>item?.data?.data)?.trappingType?.value
+          )
       );
       if (worldTrappings != null && worldTrappings.length > 0) {
         trappings.push(...worldTrappings);
