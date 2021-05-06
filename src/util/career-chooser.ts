@@ -63,7 +63,8 @@ export default class CareerChooser {
               </button>
               </div>
               `
-                )}
+                )
+                .join('')}
               <button id="add-extra-career-button-${dialogId}" class="add-remove-button-career" type="button" onclick="addCareer()">
                  <i class="fas fa-plus"></i>
               </button>
@@ -159,8 +160,11 @@ export default class CareerChooser {
           html
             .find(`.select-extra-career-${dialogId}`)
             .each((_i, extraCareerElm: HTMLInputElement) => {
-              if (extraCareerElm.value != null) {
-                resultCareers.push(extraCareerElm.value);
+              const extraCareer = careers.find(
+                (c) => c.name === extraCareerElm.value
+              );
+              if (extraCareer != null) {
+                resultCareers.push(extraCareer);
               }
             });
           if (resultCareers.length > 0) {
