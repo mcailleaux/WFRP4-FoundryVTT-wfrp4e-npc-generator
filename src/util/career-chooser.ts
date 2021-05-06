@@ -105,7 +105,7 @@ export default class CareerChooser {
                       name: 'select-extra-career',
                       classes: 'select-extra-career',
                       onInput: 'check()',
-                      dataListId: `select-career-list-${dialogId}`,
+                      outerDataListId: `select-career-list-${dialogId}`,
                     })}
                     <button class="add-remove-button-career" type="button" onclick="removeCareer(event)">
                        <i class="fas fa-trash-alt"></i>
