@@ -130,7 +130,7 @@ export default class CareerChooser {
                 max-width: 32px;
             }
             
-            #add-extra-career-button-${dialogId} > i {
+            .add-remove-button-career > i {
                 pointer-events: none;
             }
           </style>
