@@ -54,10 +54,13 @@ export default class CareerChooser {
                 type: 'text',
                 initValue: c,
                 name: 'select-extra-career',
-                classes: 'select-extra-career',
+                classes: `select-extra-career-${dialogId}`,
                 onInput: 'check()',
-                dataListId: `select-career-list-${dialogId}`,
+                outerDataListId: `select-career-list-${dialogId}`,
               })}
+              <button class="add-remove-button-career" type="button" onclick="removeCareer(event)">
+                <i class="fas fa-trash-alt"></i>
+              </button>
               </div>
               `
                 )}
@@ -147,10 +150,21 @@ export default class CareerChooser {
       buttons: DialogUtil.getDialogButtons(
         dialogId,
         (html: JQuery) => {
+          let resultCareers = [];
           const careerName = html.find(`#select-career-${dialogId}`).val();
           const career = careers.find((c) => c.name === careerName);
           if (career != null) {
-            callback([career]);
+            resultCareers.push(career);
+          }
+          html
+            .find(`.select-extra-career-${dialogId}`)
+            .each((_i, extraCareerElm: HTMLInputElement) => {
+              if (extraCareerElm.value != null) {
+                resultCareers.push(extraCareerElm.value);
+              }
+            });
+          if (resultCareers.length > 0) {
+            callback(resultCareers);
           }
         },
         undo
