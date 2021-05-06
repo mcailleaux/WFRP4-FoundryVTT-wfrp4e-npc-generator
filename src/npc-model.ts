@@ -3,7 +3,7 @@ import Options from './util/options.js';
 export default class NpcModel {
   public speciesKey: string;
   public speciesValue: string;
-  public selectedCareer: Item;
+  public selectedCareers: Item[] = [];
   public career: Item.Data;
   public status: string;
   public careerPath: Item.Data[] = [];

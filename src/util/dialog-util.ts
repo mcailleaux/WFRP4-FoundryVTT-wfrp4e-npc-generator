@@ -84,12 +84,17 @@ export default class DialogUtil {
     name?: string;
     onInput?: string;
     onClick?: string;
+    outerDataListId?: string;
     dataListId?: string;
     options?: string[];
     classes?: string;
     style?: string;
     checked?: boolean;
   }): string {
+    const idStr =
+      options?.id != null && options?.id?.length > 0
+        ? `id="${options?.id}"`
+        : '';
     const hasDataList =
       options?.dataListId != null &&
       options?.options != null &&
@@ -99,6 +104,10 @@ export default class DialogUtil {
     const onClickStr =
       options?.onClick != null ? ` onclick="${options.onClick}"` : '';
     const inputListId = hasDataList ? ` list="${options.dataListId}"` : '';
+    const outerInputListId =
+      options?.outerDataListId != null
+        ? ` list="${options.outerDataListId}"`
+        : '';
     const initValueStr =
       options?.initValue != null ? ` value="${options.initValue}"` : '';
     const styleStr = options?.style != null ? ` style="${options.style}"` : '';
@@ -106,7 +115,7 @@ export default class DialogUtil {
       options?.classes != null ? ` class="${options.classes}"` : '';
     const checkedStr = options?.checked ? ' checked' : '';
     const input = `
-        <input${onInputStr}${onClickStr}${inputListId}${styleStr}${classesStr}${checkedStr}${initValueStr} type="${options?.type}" id="${options?.id}" name="${options?.name}" />
+        <input${onInputStr}${onClickStr}${inputListId}${outerInputListId}${styleStr}${classesStr}${checkedStr}${initValueStr}${idStr} type="${options?.type}" name="${options?.name}" />
       `;
     const dataList = hasDataList
       ? `

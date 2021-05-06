@@ -74,10 +74,10 @@ export default class NpcGenerator {
     callback: (model: NpcModel) => void
   ) {
     await this.careerChooser.selectCareer(
-      model.selectedCareer?.name,
+      model.selectedCareers?.map((c) => c.name),
       model.speciesKey,
-      (career: Item) => {
-        model.selectedCareer = career;
+      (careers: Item[]) => {
+        model.selectedCareers = careers;
 
         this.selectSpeciesSkills(model, callback);
       },
@@ -128,7 +128,9 @@ export default class NpcGenerator {
     callback: (model: NpcModel) => void
   ) {
     if (model.name == null) {
-      model.name = `${model.selectedCareer.name} ${model.speciesValue}`;
+      model.name = `${
+        model.selectedCareers[model.selectedCareers.length - 1].name
+      } ${model.speciesValue}`;
     }
     await this.nameChooser.selectName(
       model.name,
@@ -219,17 +221,29 @@ export default class NpcGenerator {
   private static async addCareerPath(model: NpcModel) {
     const careers: Item[] = await this.referential.getCareerEntities();
     let career: Item.Data;
-    if (model.selectedCareer.data != null) {
-      career = model.selectedCareer.data;
+    const lastCareer = model.selectedCareers[model.selectedCareers.length - 1];
+    if (lastCareer?.data != null) {
+      career = lastCareer.data;
     } else {
-      career = (<Item>(
-        careers.find((c: Item) => c.id === model.selectedCareer._id)
-      ))?.data;
+      career = (<Item>careers.find((c: Item) => c.id === lastCareer?._id))
+        ?.data;
     }
     model.career = career;
 
     const careerData: any = career?.data;
-    if (careerData?.careergroup?.value != null) {
+    if (model.selectedCareers.length > 1) {
+      model.careerPath = [];
+      for (let customCareerPath of model.selectedCareers) {
+        if (customCareerPath?.data != null) {
+          model.careerPath.push(customCareerPath?.data);
+        } else {
+          model.careerPath.push(
+            (<Item>careers.find((c: Item) => c.id === customCareerPath?._id))
+              ?.data
+          );
+        }
+      }
+    } else if (careerData?.careergroup?.value != null) {
       model.careerPath = careers
         .map((c: Item) => c.data)
         .filter((c: Item.Data) => {
