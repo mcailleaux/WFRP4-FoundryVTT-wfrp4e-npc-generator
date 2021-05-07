@@ -5,7 +5,7 @@ import CreatureBuilder from './creature-builder.js';
 import CreatureChooser from './util/creature-chooser.js';
 
 export default class CreatureGenerator {
-  public creatureChooser = CreatureChooser;
+  public static creatureChooser = CreatureChooser;
 
   public static async generateCreature(
     callback?: (model: CreatureModel, actorData: any, actor: any) => void
