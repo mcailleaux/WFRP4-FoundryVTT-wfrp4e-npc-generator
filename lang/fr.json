@@ -21,6 +21,7 @@
   "WFRP4NPCGEN.native.tongue.helf": "Langue (Elthárin)",
   "WFRP4NPCGEN.native.tongue.halfling": "Langue (Halfling)",
   "WFRP4NPCGEN.native.tongue.dwarf": "Langue (Khazalid)",
+  "WFRP4NPCGEN.native.tongue.gnome": "Langue (Ghassally)",
   "WFRP4NPCGEN.item.any": "choix",
   "WFRP4NPCGEN.notification.actor.created": "Le PNJ {name} a été créé",
   "WFRP4NPCGEN.trappings.money.label": "Générer l'argent à la création du Token",
