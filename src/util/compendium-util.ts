@@ -4,7 +4,7 @@ export default class CompendiumUtil {
   private static compendiumCareers: Item[];
   private static compendiumCareerGroups: string[];
   private static compendiumTrappings: Item[];
-  private static compendiumBestiary: Item[];
+  private static compendiumBestiary: Actor[];
 
   private static compendiumLoaded = false;
 
@@ -99,7 +99,7 @@ export default class CompendiumUtil {
         (p) => p.metadata.tags && p.metadata.tags.includes('actor')
       );
       for (let pack of actorsPacks) {
-        const actor: Item[] = await pack.getContent();
+        const actor: Actor[] = await pack.getContent();
         this.compendiumBestiary.push(
           ...actor.filter((c) => c.data?.type === 'creature')
         );

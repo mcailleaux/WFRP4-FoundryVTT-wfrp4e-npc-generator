@@ -350,10 +350,10 @@ export default class ReferentialUtil {
     return Promise.resolve(moneyItems);
   }
 
-  public static async getBestiaryEntities(withWorld = true): Promise<Item[]> {
-    const bestiary: Item[] = await CompendiumUtil.getCompendiumBestiary();
+  public static async getBestiaryEntities(withWorld = true): Promise<Actor[]> {
+    const bestiary: Actor[] = await CompendiumUtil.getCompendiumBestiary();
     if (withWorld) {
-      const worldTrappings = game.items?.entities?.filter(
+      const worldTrappings = game.actors?.entities?.filter(
         (c) => c.data?.type === 'creature'
       );
       if (worldTrappings != null && worldTrappings.length > 0) {
