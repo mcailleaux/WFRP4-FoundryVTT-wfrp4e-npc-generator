@@ -1,12 +1,15 @@
 ## In development
 
-- Add Gnome if rnhd module is present
 - Create a simpliest generator with creature template
-- Allow to select many careers to create a career path instead of de automatic career path
 - create a chat command
 - Manage other language
 
 ## 1.4.0
+
+### New features
+
+- Allow to select many careers to create a career path instead of de automatic career path
+- Adding Gnomes native tongue
 
 ### Bugfix
 

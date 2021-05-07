@@ -415,15 +415,32 @@ export default class NpcGenerator {
   }
 
   private static async addAdvanceSkills(model: NpcModel) {
-    const data: any = model.career?.data;
-    data?.skills?.forEach((skill: string) => {
-      const sk = model.skills.find(
-        (s) => s.name === skill && (<any>s.data).advances.value === 0
-      );
-      if (sk != null) {
-        (<any>sk.data).advances.value += model.careerPath.length * 5;
+    if (model.selectedCareers.length === 1) {
+      const data: any = model.career?.data;
+      data?.skills?.forEach((skill: string) => {
+        const sk = model.skills.find(
+          (s) => s.name === skill && (<any>s.data).advances.value === 0
+        );
+        if (sk != null) {
+          (<any>sk.data).advances.value += model.careerPath.length * 5;
+        }
+      });
+    } else {
+      for (let career of model.careerPath) {
+        const data: any = career?.data;
+        const level: number = Number(data.level?.value);
+        const maxAdvance = level * 5;
+        for (let skill of data?.skills) {
+          const sk = model.skills.find(
+            (s) => s.name === skill && (<any>s.data).advances.value < maxAdvance
+          );
+          if (sk != null) {
+            (<any>sk.data).advances.value = maxAdvance;
+          }
+        }
       }
-    });
+    }
+
     model.speciesSkills.major.forEach((skill) => {
       const sk = model.skills.find((s) => s.name === skill);
       if (sk != null && (<any>sk.data).advances.value === 0) {
@@ -439,13 +456,27 @@ export default class NpcGenerator {
   }
 
   private static async addAdvanceChars(model: NpcModel) {
-    const data: any = model.career?.data;
-    data?.characteristics?.forEach((char: string) => {
-      const ch = model.chars[char];
-      if (ch != null) {
-        ch.advances += model.careerPath.length * 5;
+    if (model.selectedCareers.length === 1) {
+      const data: any = model.career?.data;
+      data?.characteristics?.forEach((char: string) => {
+        const ch = model.chars[char];
+        if (ch != null) {
+          ch.advances += model.careerPath.length * 5;
+        }
+      });
+    } else {
+      for (let career of model.careerPath) {
+        const data: any = career?.data;
+        const level: number = Number(data.level?.value);
+        const maxAdvance = level * 5;
+        for (let char of data?.characteristics) {
+          const ch = model.chars[char];
+          if (ch != null && ch.advances < maxAdvance) {
+            ch.advances = maxAdvance;
+          }
+        }
       }
-    });
+    }
   }
 
   public static async prepareClassTrappings(model: NpcModel) {
