@@ -162,6 +162,12 @@ game.wfrp4e.npcGen.nameChooser.selectName(
 ## Generation rules
 
 - Actor is created with npc template (creature template comming soon)
+- Actor have the following career path :
+  - If only one career is selected during the career chooser step :
+    - The career path is the selected career and all the career at the same career group before the career level of selected career
+  - If more than one career are selected during the career chooser step :
+    - The career path is your selections of careers in the same order
+- All careers are completed and the last career of the career path is the current
 - Actor have all his career skills, species skills, native tongue skill and basic skills
   - All career skills have 5 x career level advance
   - Majors species skill have 5 advance if not present in career
@@ -190,6 +196,7 @@ If this effect is present and active on passive effect :
 
 - en : "Generate money on token creation"
 - fr : "Générer l'argent à la création du Token"
+- de : "Geld bei der Token-Erstellung generieren"
 
 Money is added to token data during creation with this rules :
 
@@ -204,6 +211,7 @@ If this effect is present and active on passive effect :
 
 - en : "Generate weapons on token creation"
 - fr : "Générer des armes à la création du Token"
+- de : "Waffen bei der Token-Erstellung generieren"
 
 Weapons are added to token data during creation with this rules :
 
@@ -213,9 +221,7 @@ Weapons are added to token data during creation with this rules :
 
 ## Comming soon
 
-- Add Gnome if rnhd module is present
 - Create a simpliest generator with creature template
-- Allow to select many careers to create a career path instead of de automatic career path
 - create a chat command
 - Manage other language
 
