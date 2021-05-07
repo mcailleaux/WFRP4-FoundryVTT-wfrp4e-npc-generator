@@ -354,7 +354,7 @@ export default class ReferentialUtil {
     const bestiary: Item[] = await CompendiumUtil.getCompendiumBestiary();
     if (withWorld) {
       const worldTrappings = game.items?.entities?.filter(
-        (c) => c.type === 'actor' && c.data?.type === 'creature'
+        (c) => c.data?.type === 'creature'
       );
       if (worldTrappings != null && worldTrappings.length > 0) {
         bestiary.push(...worldTrappings);
