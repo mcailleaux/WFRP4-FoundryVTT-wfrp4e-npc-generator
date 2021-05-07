@@ -349,4 +349,17 @@ export default class ReferentialUtil {
       });
     return Promise.resolve(moneyItems);
   }
+
+  public static async getBestiaryEntities(withWorld = true): Promise<Item[]> {
+    const bestiary: Item[] = await CompendiumUtil.getCompendiumBestiary();
+    if (withWorld) {
+      const worldTrappings = game.items?.entities?.filter(
+        (c) => c.type === 'actor' && c.data?.type === 'creature'
+      );
+      if (worldTrappings != null && worldTrappings.length > 0) {
+        bestiary.push(...worldTrappings);
+      }
+    }
+    return Promise.resolve(bestiary);
+  }
 }

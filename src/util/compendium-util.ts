@@ -4,6 +4,7 @@ export default class CompendiumUtil {
   private static compendiumCareers: Item[];
   private static compendiumCareerGroups: string[];
   private static compendiumTrappings: Item[];
+  private static compendiumBestiary: Item[];
 
   private static compendiumLoaded = false;
 
@@ -25,6 +26,7 @@ export default class CompendiumUtil {
     await this.getCompendiumCareers();
     await this.getCompendiumCareersGroups();
     await this.getCompendiumTrappings();
+    await this.getCompendiumBestiary();
     if (!this.compendiumLoaded && loadDialog != null) {
       setTimeout(async () => {
         await loadDialog?.close();
@@ -88,5 +90,23 @@ export default class CompendiumUtil {
       }
     }
     return Promise.resolve(this.compendiumTrappings);
+  }
+
+  public static async getCompendiumBestiary() {
+    if (this.compendiumBestiary == null) {
+      this.compendiumBestiary = [];
+      const actorsPacks = game.packs.filter(
+        (p) => p.metadata.tags && p.metadata.tags.includes('actor')
+      );
+      for (let pack of actorsPacks) {
+        const actor: Item[] = await pack.getContent();
+        this.compendiumBestiary.push(
+          ...actor.filter(
+            (c) => c.type === 'actor' && c.data?.type === 'creature'
+          )
+        );
+      }
+    }
+    return Promise.resolve(this.compendiumBestiary);
   }
 }
