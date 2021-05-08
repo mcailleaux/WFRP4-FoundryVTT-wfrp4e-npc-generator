@@ -28,8 +28,12 @@ export default class CreatureChooser {
               ${DialogUtil.getSelectScript(
                 `select-creatures-${dialogId}`,
                 creaturesMap,
-                initCreature
+                initCreature,
+                'change()'
               )}
+              </div>
+              <div class="form-group">
+                <img id="selected-creature-img-${dialogId}" alt="" src=""/>
               </div>
           </form>
           <script>  
@@ -40,10 +44,28 @@ export default class CreatureChooser {
                   const randomCreaturesKey = getRandomValue(creaturesKeys);
                   if (randomCreaturesKey != null) {
                       document.getElementById('select-creatures-${dialogId}').value = randomCreaturesKey;
+                      change();
                   }
               }
               
               ${RandomUtil.getRandomValueScript()}
+              
+              function change() {
+                  const creaturesImg = [${creatures
+                    .map((c) => {
+                      return `{ key: "${c._id}", img: "${c.img}" }`;
+                    })
+                    .join(',')}];
+                  const creatureKey = document.getElementById('#select-creatures-${dialogId}').value;
+                  const imgElm = document.getElementById('selected-creature-img-${dialogId}');
+                  if (creatureKey != null) {
+                      imgElm.src = creaturesImg.find((c) => c.key === creatureKey).img;
+                  } else {
+                      imgElm.src = '';
+                  }
+              }
+              
+              change();
                 
             </script>
             `,
