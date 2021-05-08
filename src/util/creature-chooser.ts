@@ -33,7 +33,7 @@ export default class CreatureChooser {
               )}
               </div>
               <div class="form-group">
-                <img id="selected-creature-img-${dialogId}" alt="" src=""/>
+                <img id="selected-creature-img-${dialogId}" alt="" src="" width="200" height="200"/>
               </div>
           </form>
           <script>  
