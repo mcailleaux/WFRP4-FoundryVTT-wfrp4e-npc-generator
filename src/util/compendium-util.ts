@@ -96,7 +96,7 @@ export default class CompendiumUtil {
     if (this.compendiumBestiary == null) {
       this.compendiumBestiary = [];
       const actorsPacks = game.packs.filter(
-        (p) => p.metadata.tags && p.metadata.tags.includes('actor')
+        (p) => p.metadata.entity === 'Actor'
       );
       for (let pack of actorsPacks) {
         const actor: Actor[] = await pack.getContent();

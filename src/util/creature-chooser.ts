@@ -8,7 +8,11 @@ export default class CreatureChooser {
     callback: (creature: Actor.Data) => void
   ) {
     const dialogId = new Date().getTime();
-    const creatures = await ReferentialUtil.getBestiaryEntities(true);
+    const creatures = (await ReferentialUtil.getBestiaryEntities(true)).sort(
+      (c1, c2) => {
+        return c1.name.localeCompare(c2.name);
+      }
+    );
     const creaturesMap: { [key: string]: string } = {};
     for (let c of creatures) {
       creaturesMap[c._id] = c.name;
@@ -24,7 +28,7 @@ export default class CreatureChooser {
               )}
               </div>
               <div class="form-group">
-              ${DialogUtil.getLabelScript('WFRP4NPCGEN.species.select.label')}
+              ${DialogUtil.getLabelScript('WFRP4NPCGEN.creatures.select.label')}
               ${DialogUtil.getSelectScript(
                 `select-creatures-${dialogId}`,
                 creaturesMap,
@@ -33,7 +37,7 @@ export default class CreatureChooser {
               )}
               </div>
               <div class="form-group">
-                <img id="selected-creature-img-${dialogId}" alt="" src="" width="200" height="200"/>
+                <img style="object-fit: contain;" id="selected-creature-img-${dialogId}" alt="" src="" width="200" height="200"/>
               </div>
           </form>
           <script>  
@@ -59,7 +63,7 @@ export default class CreatureChooser {
                   const creatureKey = document.getElementById('select-creatures-${dialogId}').value;
                   const imgElm = document.getElementById('selected-creature-img-${dialogId}');
                   if (creatureKey != null) {
-                      imgElm.src = creaturesImg.find((c) => c.key === creatureKey).img;
+                      imgElm.src = creaturesImg.find((c) => c.key === creatureKey).img + '?' + new Date().getTime();
                   } else {
                       imgElm.src = '';
                   }
