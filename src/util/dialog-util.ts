@@ -66,13 +66,52 @@ export default class DialogUtil {
     const onChangeStr = onChange != null ? ` onchange="${onChange}"` : '';
     return `
         <select id="${id}" value="${finalInitValue}"${onChangeStr}>
-            ${Object.entries(options).map(([key, value]) => {
-              const selected =
-                finalInitValue === key ? ' selected="selected"' : '';
-              return `<option${selected} id="${id}-${key}" value="${key}">${game.i18n.localize(
-                value
-              )}</option>`;
-            })}
+            ${Object.entries(options)
+              .map(([key, value]) => {
+                const selected =
+                  finalInitValue === key ? ' selected="selected"' : '';
+                return `<option${selected} id="${id}-${key}" value="${key}">${game.i18n.localize(
+                  value
+                )}</option>`;
+              })
+              .join('')}
+        </select>
+        `;
+  }
+
+  public static getSelectOptGrpScript(
+    id: string,
+    options: { [group: string]: { [key: string]: string } },
+    initValue?: string,
+    onChange?: string
+  ): string {
+    let finalInitValue = '';
+    for (let group of Object.values(options)) {
+      if (finalInitValue.length === 0) {
+        finalInitValue =
+          initValue != null && Object.keys(group).includes(initValue)
+            ? initValue
+            : '';
+      }
+    }
+    const onChangeStr = onChange != null ? ` onchange="${onChange}"` : '';
+    return `
+        <select id="${id}" value="${finalInitValue}"${onChangeStr}>
+            ${Object.entries(options)
+              .map(([groupKey, group]) => {
+                return `<optgroup label="${groupKey}">
+                ${Object.entries(group)
+                  .map(([key, value]) => {
+                    const selected =
+                      finalInitValue === key ? ' selected="selected"' : '';
+                    return `<option${selected} id="${id}-${key}" value="${key}">${game.i18n.localize(
+                      value
+                    )}</option>`;
+                  })
+                  .join('')}
+              </optgroup>`;
+              })
+              .join('')}
         </select>
         `;
   }

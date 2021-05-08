@@ -350,8 +350,12 @@ export default class ReferentialUtil {
     return Promise.resolve(moneyItems);
   }
 
-  public static async getBestiaryEntities(): Promise<Actor[]> {
-    const bestiary: Actor[] = await CompendiumUtil.getCompendiumBestiary();
+  public static async getBestiaryEntities(): Promise<{
+    [pack: string]: Actor[];
+  }> {
+    const bestiary: {
+      [pack: string]: Actor[];
+    } = await CompendiumUtil.getCompendiumBestiary();
     return Promise.resolve(bestiary);
   }
 }

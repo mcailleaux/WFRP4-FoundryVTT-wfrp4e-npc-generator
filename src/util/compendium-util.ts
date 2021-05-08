@@ -4,11 +4,11 @@ export default class CompendiumUtil {
   private static compendiumCareers: Item[];
   private static compendiumCareerGroups: string[];
   private static compendiumTrappings: Item[];
-  private static compendiumBestiary: Actor[];
+  private static compendiumBestiary: { [pack: string]: Actor[] };
 
   private static compendiumLoaded = false;
 
-  public static async initCompendium() {
+  public static async initCompendium(withCreatures = false) {
     let loadDialog: Dialog | null = null;
     if (!this.compendiumLoaded) {
       loadDialog = new Dialog({
@@ -26,7 +26,9 @@ export default class CompendiumUtil {
     await this.getCompendiumCareers();
     await this.getCompendiumCareersGroups();
     await this.getCompendiumTrappings();
-    await this.getCompendiumBestiary();
+    if (withCreatures) {
+      await this.getCompendiumBestiary();
+    }
     if (!this.compendiumLoaded && loadDialog != null) {
       setTimeout(async () => {
         await loadDialog?.close();
@@ -94,16 +96,18 @@ export default class CompendiumUtil {
 
   public static async getCompendiumBestiary() {
     if (this.compendiumBestiary == null) {
-      this.compendiumBestiary = [];
+      this.compendiumBestiary = {};
       const actorsPacks = game.packs.filter(
         (p) => p.metadata.entity === 'Actor'
       );
       for (let pack of actorsPacks) {
-        const actor: Actor[] = await pack.getContent();
-        this.compendiumBestiary.push(
-          ...actor.filter(
-            (c) => c.data?.type === 'creature' && !c.data?.token?.actorLink
-          )
+        const actor: Actor[] = (await pack.getContent()).sort(
+          (c1: Actor, c2: Actor) => {
+            return c1.name.localeCompare(c2.name);
+          }
+        );
+        this.compendiumBestiary[pack.metadata.label] = actor.filter(
+          (c) => c.data?.type === 'creature'
         );
       }
     }

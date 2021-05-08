@@ -8,14 +8,20 @@ export default class CreatureChooser {
     callback: (creature: Actor.Data) => void
   ) {
     const dialogId = new Date().getTime();
-    const creatures = (await ReferentialUtil.getBestiaryEntities()).sort(
-      (c1, c2) => {
-        return c1.name.localeCompare(c2.name);
+    const creatures = await ReferentialUtil.getBestiaryEntities();
+    const creaturesMap: { [group: string]: { [key: string]: string } } = {};
+    const allCreaturesMap: { [key: string]: string } = {};
+    const allCreaturesImgs: { _id: string; img: string }[] = [];
+    for (let [groupeKey, actors] of Object.entries(creatures)) {
+      creaturesMap[groupeKey] = {};
+      for (let actor of actors) {
+        creaturesMap[groupeKey][actor._id] = actor.name;
+        allCreaturesMap[actor._id] = actor.name;
+        allCreaturesImgs.push({
+          _id: actor._id,
+          img: actor.img,
+        });
       }
-    );
-    const creaturesMap: { [key: string]: string } = {};
-    for (let c of creatures) {
-      creaturesMap[c._id] = c.name;
     }
 
     new Dialog({
@@ -29,7 +35,7 @@ export default class CreatureChooser {
               </div>
               <div class="form-group">
               ${DialogUtil.getLabelScript('WFRP4NPCGEN.creatures.select.label')}
-              ${DialogUtil.getSelectScript(
+              ${DialogUtil.getSelectOptGrpScript(
                 `select-creatures-${dialogId}`,
                 creaturesMap,
                 initCreature,
@@ -42,7 +48,7 @@ export default class CreatureChooser {
           </form>
           <script>  
               function random() {
-                  const creaturesKeys = [${Object.keys(creaturesMap)
+                  const creaturesKeys = [${Object.keys(allCreaturesMap)
                     .map((key) => `"${key}"`)
                     .join(',')}];
                   const randomCreaturesKey = getRandomValue(creaturesKeys);
@@ -55,7 +61,7 @@ export default class CreatureChooser {
               ${RandomUtil.getRandomValueScript()}
               
               function change() {
-                  const creaturesImg = [${creatures
+                  const creaturesImg = [${allCreaturesImgs
                     .map((c) => {
                       return `{ key: "${c._id}", img: "${c.img}" }`;
                     })
@@ -77,7 +83,12 @@ export default class CreatureChooser {
         const creaturesKey = <string>(
           html.find(`#select-creatures-${dialogId}`).val()
         );
-        const creature = creatures.find((c) => c._id === creaturesKey);
+        let creature = null;
+        for (let [_groupeKey, actors] of Object.entries(creatures)) {
+          if (creature == null) {
+            creature = actors.find((c) => c._id === creaturesKey);
+          }
+        }
         if (creature != null) {
           callback(creature?.data);
         }
