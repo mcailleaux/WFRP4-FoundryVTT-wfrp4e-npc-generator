@@ -56,7 +56,7 @@ export default class CreatureChooser {
                       return `{ key: "${c._id}", img: "${c.img}" }`;
                     })
                     .join(',')}];
-                  const creatureKey = document.getElementById('#select-creatures-${dialogId}').value;
+                  const creatureKey = document.getElementById('select-creatures-${dialogId}').value;
                   const imgElm = document.getElementById('selected-creature-img-${dialogId}');
                   if (creatureKey != null) {
                       imgElm.src = creaturesImg.find((c) => c.key === creatureKey).img;
