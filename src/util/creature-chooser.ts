@@ -8,7 +8,7 @@ export default class CreatureChooser {
     callback: (creature: Actor.Data) => void
   ) {
     const dialogId = new Date().getTime();
-    const creatures = (await ReferentialUtil.getBestiaryEntities(true)).sort(
+    const creatures = (await ReferentialUtil.getBestiaryEntities()).sort(
       (c1, c2) => {
         return c1.name.localeCompare(c2.name);
       }

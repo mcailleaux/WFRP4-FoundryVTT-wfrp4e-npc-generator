@@ -101,7 +101,9 @@ export default class CompendiumUtil {
       for (let pack of actorsPacks) {
         const actor: Actor[] = await pack.getContent();
         this.compendiumBestiary.push(
-          ...actor.filter((c) => c.data?.type === 'creature')
+          ...actor.filter(
+            (c) => c.data?.type === 'creature' && !c.data?.token?.actorLink
+          )
         );
       }
     }
