@@ -14,10 +14,11 @@ export default class CompendiumUtil {
   private static compendiumArmorTrait: Item;
 
   private static compendiumLoaded = false;
+  private static creatureCompendiumLoaded = false;
 
   public static async initCompendium(forCreatures = false) {
     let loadDialog: Dialog | null = null;
-    if (!this.compendiumLoaded) {
+    if (!this.compendiumLoaded || !this.creatureCompendiumLoaded) {
       loadDialog = new Dialog({
         title: game.i18n.localize('WFRP4NPCGEN.compendium.load.title'),
         content: `<form> 
@@ -51,27 +52,19 @@ export default class CompendiumUtil {
       await this.getCompendiumCareersGroups();
     }
 
-    // if (!forCreatures) {
-    //   await this.getCompendiumCareers();
-    //   await this.getCompendiumCareersGroups();
-    // }
-    // await this.getCompendiumTrappings();
-    // if (forCreatures) {
-    //   await this.getCompendiumBestiary();
-    //   await this.getCompendiumSkills();
-    //   await this.getCompendiumTalents();
-    //   await this.getCompendiumTraits();
-    //   await this.getCompendiumSizeTrait();
-    //   await this.getCompendiumSwarmTrait();
-    //   await this.getCompendiumWeaponTrait();
-    //   await this.getCompendiumArmorTrait();
-    // }
-    if (!this.compendiumLoaded && loadDialog != null) {
+    if (
+      (!this.compendiumLoaded || !this.creatureCompendiumLoaded) &&
+      loadDialog != null
+    ) {
       setTimeout(async () => {
         await loadDialog?.close();
       });
     }
-    this.compendiumLoaded = true;
+    if (forCreatures) {
+      this.creatureCompendiumLoaded = true;
+    } else {
+      this.compendiumLoaded = true;
+    }
   }
 
   public static async getCompendiumCareers() {
