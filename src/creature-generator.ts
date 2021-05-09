@@ -51,23 +51,32 @@ export default class CreatureGenerator {
       async (creature: Actor.Data & any) => {
         model.creatureData = creature;
 
-        const swarm = await CompendiumUtil.getCompendiumSwarmTrait();
-        const weapon = await CompendiumUtil.getCompendiumWeaponTrait();
-        const armor = await CompendiumUtil.getCompendiumArmorTrait();
+        const swarm: Item &
+          any = await CompendiumUtil.getCompendiumSwarmTrait();
+        const weapon: Item &
+          any = await CompendiumUtil.getCompendiumWeaponTrait();
+        const armor: Item &
+          any = await CompendiumUtil.getCompendiumArmorTrait();
 
         model.abilities.includeBasicSkills = creature.basicSkills?.length > 0;
         model.abilities.sizeKey = creature.data?.details?.size?.value;
         model.abilities.isSwarm =
           creature.traits?.find(
-            (t: any) => t.name === swarm.name && t.included
+            (t: any) =>
+              (t.name === swarm.name || t.name === swarm.data.originalName) &&
+              t.included
           ) != null;
         model.abilities.hasWeaponTrait =
           creature.traits?.find(
-            (t: any) => t.name === weapon.name && t.included
+            (t: any) =>
+              (t.name === weapon.name || t.name === swarm.data.originalName) &&
+              t.included
           ) != null;
         model.abilities.hasArmourTrait =
           creature.traits?.find(
-            (t: any) => t.name === armor.name && t.included
+            (t: any) =>
+              (t.name === armor.name || t.name === swarm.data.originalName) &&
+              t.included
           ) != null;
 
         await this.selectCreatureAbilities(model, callback);
