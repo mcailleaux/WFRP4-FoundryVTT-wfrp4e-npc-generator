@@ -69,13 +69,13 @@ export default class CreatureGenerator {
         model.abilities.hasWeaponTrait =
           creature.traits?.find(
             (t: any) =>
-              (t.name === weapon.name || t.name === swarm.data.originalName) &&
+              (t.name === weapon.name || t.name === weapon.data.originalName) &&
               t.included
           ) != null;
         model.abilities.hasArmourTrait =
           creature.traits?.find(
             (t: any) =>
-              (t.name === armor.name || t.name === swarm.data.originalName) &&
+              (t.name === armor.name || t.name === armor.data.originalName) &&
               t.included
           ) != null;
 
