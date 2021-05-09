@@ -76,6 +76,7 @@ export default class CreatureGenerator {
     model: CreatureModel,
     callback: (model: CreatureModel) => void
   ) {
+    console.dir(model);
     callback(model);
   }
 }
