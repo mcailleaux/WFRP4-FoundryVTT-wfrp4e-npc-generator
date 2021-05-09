@@ -30,21 +30,42 @@ export default class CompendiumUtil {
       });
       loadDialog.render(true);
     }
-    if (!forCreatures) {
-      await this.getCompendiumCareers();
-      await this.getCompendiumCareersGroups();
-    }
-    await this.getCompendiumTrappings();
+
     if (forCreatures) {
-      await this.getCompendiumBestiary();
-      await this.getCompendiumSkills();
-      await this.getCompendiumTalents();
-      await this.getCompendiumTraits();
+      await Promise.all([
+        this.getCompendiumTrappings(),
+        this.getCompendiumBestiary(),
+        this.getCompendiumSkills(),
+        this.getCompendiumTalents(),
+        this.getCompendiumTraits(),
+      ]);
       await this.getCompendiumSizeTrait();
       await this.getCompendiumSwarmTrait();
       await this.getCompendiumWeaponTrait();
       await this.getCompendiumArmorTrait();
+    } else {
+      await Promise.all([
+        this.getCompendiumCareers(),
+        this.getCompendiumTrappings(),
+      ]);
+      await this.getCompendiumCareersGroups();
     }
+
+    // if (!forCreatures) {
+    //   await this.getCompendiumCareers();
+    //   await this.getCompendiumCareersGroups();
+    // }
+    // await this.getCompendiumTrappings();
+    // if (forCreatures) {
+    //   await this.getCompendiumBestiary();
+    //   await this.getCompendiumSkills();
+    //   await this.getCompendiumTalents();
+    //   await this.getCompendiumTraits();
+    //   await this.getCompendiumSizeTrait();
+    //   await this.getCompendiumSwarmTrait();
+    //   await this.getCompendiumWeaponTrait();
+    //   await this.getCompendiumArmorTrait();
+    // }
     if (!this.compendiumLoaded && loadDialog != null) {
       setTimeout(async () => {
         await loadDialog?.close();
@@ -188,7 +209,8 @@ export default class CompendiumUtil {
     if (this.compendiumSizeTrait == null) {
       this.compendiumSizeTrait = <Item>(
         (await this.getCompendiumTraits()).find(
-          (t: Item & any) => t.name === 'Size' || t.originalName === 'Size'
+          (t: Item & any) =>
+            t.data.name === 'Size' || t.data.originalName === 'Size'
         )
       );
     }
@@ -199,7 +221,8 @@ export default class CompendiumUtil {
     if (this.compendiumSwarmTrait == null) {
       this.compendiumSwarmTrait = <Item>(
         (await this.getCompendiumTraits()).find(
-          (t: Item & any) => t.name === 'Swarm' || t.originalName === 'Swarm'
+          (t: Item & any) =>
+            t.data.name === 'Swarm' || t.data.originalName === 'Swarm'
         )
       );
     }
@@ -210,7 +233,8 @@ export default class CompendiumUtil {
     if (this.compendiumWeaponTrait == null) {
       this.compendiumWeaponTrait = <Item>(
         (await this.getCompendiumTraits()).find(
-          (t: Item & any) => t.name === 'Weapon' || t.originalName === 'Weapon'
+          (t: Item & any) =>
+            t.data.name === 'Weapon' || t.data.originalName === 'Weapon'
         )
       );
     }
@@ -221,7 +245,8 @@ export default class CompendiumUtil {
     if (this.compendiumArmorTrait == null) {
       this.compendiumArmorTrait = <Item>(
         (await this.getCompendiumTraits()).find(
-          (t: Item & any) => t.name === 'Armour' || t.originalName === 'Armour'
+          (t: Item & any) =>
+            t.data.name === 'Armour' || t.data.originalName === 'Armour'
         )
       );
     }
