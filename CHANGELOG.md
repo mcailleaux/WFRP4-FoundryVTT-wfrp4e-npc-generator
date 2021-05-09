@@ -1,6 +1,8 @@
 ## In development
 
 - Create a simpliest generator with creature template
+- Optional Step for trapping choosing
+- Add a create button on folder
 - create a chat command
 - Manage other language
 

@@ -74,6 +74,7 @@
   "WFRP4NPCGEN.settings.defaultWithInitialMoney.hint": "Valeur sélectionné par défaut pour l'option 'générer avec de l'argent' lors de l'étape de choix des otpions à la génération d'un PNJ",
   "WFRP4NPCGEN.settings.defaultWithInitialWeapons.name": "Générer avec des armes",
   "WFRP4NPCGEN.settings.defaultWithInitialWeapons.hint": "Valeur sélectionné par défaut pour l'option 'générer avec des armes' lors de l'étape de choix des otpions à la génération d'un PNJ",
+  "WFRP4NPCGEN.creature.directory.button": "Générer une Créature",
   "WFRP4NPCGEN.notification.creature.created": "La Créature {name} a été créé",
   "WFRP4NPCGEN.creatures.select.title": "Choisir une Créature",
   "WFRP4NPCGEN.creatures.select.label": "Créature"

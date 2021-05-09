@@ -123,6 +123,13 @@ export default class ReferentialUtil {
     return Promise.resolve(worldCareers);
   }
 
+  public static async getWorldEntities(type: string): Promise<Item[]> {
+    const worldEntities = game.items?.entities?.filter((item) => {
+      return item.type === type;
+    });
+    return Promise.resolve(worldEntities);
+  }
+
   public static async getTrappingEntities(withWorld = true): Promise<Item[]> {
     const trappings: Item[] = await CompendiumUtil.getCompendiumTrappings();
     if (withWorld) {
@@ -357,5 +364,38 @@ export default class ReferentialUtil {
       [pack: string]: Actor[];
     } = await CompendiumUtil.getCompendiumBestiary();
     return Promise.resolve(bestiary);
+  }
+
+  public static async getSkillEntities(withWorld = true): Promise<Item[]> {
+    const skills: Item[] = await CompendiumUtil.getCompendiumSkills();
+    if (withWorld) {
+      const worldSkills = await this.getWorldEntities('skill');
+      if (worldSkills != null && worldSkills.length > 0) {
+        skills.push(...worldSkills);
+      }
+    }
+    return Promise.resolve(skills);
+  }
+
+  public static async getTalentEntities(withWorld = true): Promise<Item[]> {
+    const talents: Item[] = await CompendiumUtil.getCompendiumTalents();
+    if (withWorld) {
+      const worldTalents = await this.getWorldEntities('talent');
+      if (worldTalents != null && worldTalents.length > 0) {
+        talents.push(...worldTalents);
+      }
+    }
+    return Promise.resolve(talents);
+  }
+
+  public static async getTraitEntities(withWorld = true): Promise<Item[]> {
+    const traits: Item[] = await CompendiumUtil.getCompendiumTraits();
+    if (withWorld) {
+      const worldTraits = await this.getWorldEntities('trait');
+      if (worldTraits != null && worldTraits.length > 0) {
+        traits.push(...worldTraits);
+      }
+    }
+    return Promise.resolve(traits);
   }
 }

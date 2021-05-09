@@ -74,6 +74,7 @@
   "WFRP4NPCGEN.settings.defaultWithInitialMoney.hint": "Default selected value for the option 'generate with money' on the options generation chooser when you generate a NPC",
   "WFRP4NPCGEN.settings.defaultWithInitialWeapons.name": "Generate with weapons",
   "WFRP4NPCGEN.settings.defaultWithInitialWeapons.hint": "Default selected value for the option 'generate with weapons' on the options generation chooser when you generate a NPC",
+  "WFRP4NPCGEN.creature.directory.button": "Generate Creature",
   "WFRP4NPCGEN.notification.creature.created": "Creature {name} has been created",
   "WFRP4NPCGEN.creatures.select.title": "Choose a Creature",
   "WFRP4NPCGEN.creatures.select.label": "Creature"

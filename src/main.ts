@@ -12,15 +12,12 @@ Hooks.once('init', () => {
 
 Hooks.on('renderActorDirectory', (_app: ActorSheet, html: JQuery) => {
   if ((<any>game.user).can('ACTOR_CREATE')) {
-    const npcGenButton = document.createElement('button');
-    npcGenButton.style.width = '95%';
-    npcGenButton.innerHTML = game.i18n.localize(
-      'WFRP4NPCGEN.actor.directory.button'
-    );
-    npcGenButton.addEventListener('click', () => {
+    addActorActionButton(html, 'WFRP4NPCGEN.creature.directory.button', () => {
+      CreatureGenerator.generateCreature();
+    });
+    addActorActionButton(html, 'WFRP4NPCGEN.actor.directory.button', () => {
       NpcGenerator.generateNpc();
     });
-    html.find('.header-actions').after(npcGenButton);
   }
 });
 
@@ -54,3 +51,17 @@ Hooks.on('createToken', async (scene: any, token: any) => {
     await scene.updateEmbeddedEntity('Token', actor);
   }
 });
+
+function addActorActionButton(
+  html: JQuery,
+  label: string,
+  onClick: () => void
+) {
+  const button = document.createElement('button');
+  button.style.width = '95%';
+  button.innerHTML = game.i18n.localize(label);
+  button.addEventListener('click', () => {
+    onClick();
+  });
+  html.find('.header-actions').after(button);
+}

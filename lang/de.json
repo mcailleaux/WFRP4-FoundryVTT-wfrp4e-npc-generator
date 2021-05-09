@@ -74,7 +74,8 @@
   "WFRP4NPCGEN.settings.defaultWithInitialMoney.hint": "Standardmäßig ausgewählter Wert für die Option 'Mit Geld generieren' in der Optionsauswahl beim Generieren eines NSC",
   "WFRP4NPCGEN.settings.defaultWithInitialWeapons.name": "Generieren mit Waffen",
   "WFRP4NPCGEN.settings.defaultWithInitialWeapons.hint": "Standardmäßig ausgewählter Wert für die Option 'Mit Waffen generieren' in der Optionsauswahl bei der Generierung eines NSC",
-  "WFRP4NPCGEN.notification.creature.created": "TODO",
-  "WFRP4NPCGEN.creatures.select.title": "TODO",
-  "WFRP4NPCGEN.creatures.select.label": "TODO"
+  "WFRP4NPCGEN.creature.directory.button": "Generate Creature",
+  "WFRP4NPCGEN.notification.creature.created": "Creature {name} has been created",
+  "WFRP4NPCGEN.creatures.select.title": "Choose a Creature",
+  "WFRP4NPCGEN.creatures.select.label": "Creature"
 }

@@ -1,26 +1,32 @@
 import CompendiumUtil from './util/compendium-util.js';
 import CheckDependencies from './check-dependencies.js';
 import CreatureModel from './creature-model.js';
-import CreatureBuilder from './creature-builder.js';
 import CreatureChooser from './util/creature-chooser.js';
+import NameChooser from './util/name-chooser.js';
+import ReferentialUtil from './util/referential-util.js';
+import TranslateErrorDetect from './util/translate-error-detect.js';
 
 export default class CreatureGenerator {
-  public static creatureChooser = CreatureChooser;
+  public static readonly creatureChooser = CreatureChooser;
+  public static readonly nameChooser = NameChooser;
+  public static readonly referential = ReferentialUtil;
+  public static readonly translateErrorDetect = TranslateErrorDetect;
 
   public static async generateCreature(
     callback?: (model: CreatureModel, actorData: any, actor: any) => void
   ) {
     await CompendiumUtil.initCompendium(true);
     await this.generateCreatureModel(async (model) => {
-      const actorData = await CreatureBuilder.buildCreatureData(model);
-      const actor = await CreatureBuilder.createCreature(model, actorData);
-      ui.notifications.info(
-        game.i18n.format('WFRP4NPCGEN.notification.creature.created', {
-          name: actor.name,
-        })
-      );
+      // const actorData = await CreatureBuilder.buildCreatureData(model);
+      // const actor = await CreatureBuilder.createCreature(model, actorData);
+      // ui.notifications.info(
+      //   game.i18n.format('WFRP4NPCGEN.notification.creature.created', {
+      //     name: actor.name,
+      //   })
+      // );
       if (callback != null) {
-        callback(model, actorData, actor);
+        // callback(model, actorData, actor);
+        callback(model, null, null);
       }
     });
   }
@@ -37,7 +43,39 @@ export default class CreatureGenerator {
   }
 
   private static async selectCreature(
-    _model: CreatureModel,
-    _callback: (model: CreatureModel) => void
-  ) {}
+    model: CreatureModel,
+    callback: (model: CreatureModel) => void
+  ) {
+    await this.creatureChooser.selectCreature(
+      model.creatureData?._id,
+      async (creature: Actor.Data & any) => {
+        model.creatureData = creature;
+
+        const swarm = await CompendiumUtil.getCompendiumSwarmTrait();
+        const weapon = await CompendiumUtil.getCompendiumWeaponTrait();
+        const armor = await CompendiumUtil.getCompendiumArmorTrait();
+
+        model.abilities.includeBasicSkills = creature.basicSkills?.length > 0;
+        model.abilities.sizeKey = creature.data?.details?.size?.value;
+        model.abilities.isSwarm = creature.traits?.find(
+          (t: any) => t.name === swarm.name
+        );
+        model.abilities.hasWeaponTrait = creature.traits?.find(
+          (t: any) => t.name === weapon.name
+        );
+        model.abilities.hasArmourTrait = creature.traits?.find(
+          (t: any) => t.name === armor.name
+        );
+
+        await this.selectCreatureAbilities(model, callback);
+      }
+    );
+  }
+
+  private static async selectCreatureAbilities(
+    model: CreatureModel,
+    callback: (model: CreatureModel) => void
+  ) {
+    callback(model);
+  }
 }
