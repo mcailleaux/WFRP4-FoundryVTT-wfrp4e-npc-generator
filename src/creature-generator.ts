@@ -58,11 +58,17 @@ export default class CreatureGenerator {
         model.abilities.includeBasicSkills = creature.basicSkills?.length > 0;
         model.abilities.sizeKey = creature.data?.details?.size?.value;
         model.abilities.isSwarm =
-          creature.traits?.find((t: any) => t.name === swarm.name) != null;
+          creature.traits?.find(
+            (t: any) => t.name === swarm.name && t.included
+          ) != null;
         model.abilities.hasWeaponTrait =
-          creature.traits?.find((t: any) => t.name === weapon.name) != null;
+          creature.traits?.find(
+            (t: any) => t.name === weapon.name && t.included
+          ) != null;
         model.abilities.hasArmourTrait =
-          creature.traits?.find((t: any) => t.name === armor.name) != null;
+          creature.traits?.find(
+            (t: any) => t.name === armor.name && t.included
+          ) != null;
 
         await this.selectCreatureAbilities(model, callback);
       }
