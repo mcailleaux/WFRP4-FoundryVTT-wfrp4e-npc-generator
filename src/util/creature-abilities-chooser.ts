@@ -86,7 +86,7 @@ export default class CreatureAbilitiesChooser {
                   button.value = key;
                   button.style.maxWidth = '32px';
                   button.type = 'button';
-                  button.setAttribute('onclick', 'removeElementk(\\'' + id + '\\', \\'' + key + '\\')');
+                  button.setAttribute('onclick', 'removeElement(\\'' + id + '\\', \\'' + key + '\\')');
                   const icon = document.createElement('i');
                   icon.style.pointerEvents = 'none';
                   icon.classList.add('fa');
