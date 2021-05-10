@@ -10,13 +10,15 @@ export default class EntityUtil {
     );
   }
 
-  public static toSelectOption(items: Item.Data[]): { [key: string]: string } {
+  public static toSelectOption(
+    items: (Item.Data & any)[]
+  ): { [key: string]: string } {
     if (items == null) {
       return {};
     }
     const map: { [key: string]: string } = {};
     for (let item of items) {
-      map[item._id] = item.name;
+      map[item._id] = item.displayName ?? item.name;
     }
     return map;
   }
