@@ -76,6 +76,14 @@ export default class CreatureGenerator {
             t.name === armour.name || t.name === armour.data.originalName
         );
 
+        model.creatureTemplate.ranged = creature.traits?.find(
+          (t: any) =>
+            StringUtil.getSimpleName(t.name) ===
+              StringUtil.getSimpleName(ranged.name) ||
+            StringUtil.getSimpleName(t.name) ===
+              StringUtil.getSimpleName(ranged.data.originalName)
+        );
+
         if (model.creatureTemplate.armour != null) {
           model.creatureTemplate.armorValue = StringUtil.getGroupName(
             model.creatureTemplate.armour.displayName
@@ -84,17 +92,9 @@ export default class CreatureGenerator {
 
         if (model.creatureTemplate.ranged != null) {
           model.creatureTemplate.rangedValue = StringUtil.getGroupName(
-            model.creatureTemplate.ranged.displayName
+            model.creatureTemplate.ranged.name
           );
         }
-
-        model.creatureTemplate.ranged = creature.traits?.find(
-          (t: any) =>
-            StringUtil.getSimpleName(t.name) ===
-              StringUtil.getSimpleName(ranged.name) ||
-            StringUtil.getSimpleName(t.name) ===
-              StringUtil.getSimpleName(ranged.data.originalName)
-        );
 
         model.abilities.includeBasicSkills = creature.basicSkills?.length > 0;
         model.abilities.sizeKey = creature.data?.details?.size?.value;
