@@ -63,17 +63,26 @@ export default class CreatureGenerator {
 
         model.creatureTemplate.swarm = creature.traits?.find(
           (t: any) =>
-            t.name === swarm.name || t.name === swarm.data.originalName
+            StringUtil.getSimpleName(t.name) ===
+              StringUtil.getSimpleName(swarm.name) ||
+            StringUtil.getSimpleName(t.name) ===
+              StringUtil.getSimpleName(swarm.data.originalName)
         );
 
         model.creatureTemplate.weapon = creature.traits?.find(
           (t: any) =>
-            t.name === weapon.name || t.name === weapon.data.originalName
+            StringUtil.getSimpleName(t.name) ===
+              StringUtil.getSimpleName(weapon.name) ||
+            StringUtil.getSimpleName(t.name) ===
+              StringUtil.getSimpleName(weapon.data.originalName)
         );
 
         model.creatureTemplate.armour = creature.traits?.find(
           (t: any) =>
-            t.name === armour.name || t.name === armour.data.originalName
+            StringUtil.getSimpleName(t.name) ===
+              StringUtil.getSimpleName(armour.name) ||
+            StringUtil.getSimpleName(t.name) ===
+              StringUtil.getSimpleName(armour.data.originalName)
         );
 
         model.creatureTemplate.ranged = creature.traits?.find(
