@@ -25,7 +25,7 @@ export default class CreatureBuilder {
           },
         },
       },
-      img: model.creatureData.img,
+      img: model.creatureTemplate.creatureData.img,
     };
     return Promise.resolve(actorData);
   }
