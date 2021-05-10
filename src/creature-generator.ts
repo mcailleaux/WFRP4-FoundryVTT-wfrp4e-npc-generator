@@ -60,8 +60,9 @@ export default class CreatureGenerator {
           any = await CompendiumUtil.getCompendiumArmourTrait();
         const ranged: Item &
           any = await CompendiumUtil.getCompendiumRangedTrait();
+        const size: Item & any = await CompendiumUtil.getCompendiumSizeTrait();
 
-        const findTraits = (item: any, ref: Item & any) => {
+        const matchTraits = (item: any, ref: Item & any) => {
           return (
             StringUtil.getSimpleName(item.name) ===
               StringUtil.getSimpleName(ref.name) ||
@@ -70,21 +71,21 @@ export default class CreatureGenerator {
           );
         };
 
-        model.creatureTemplate.swarm = creature.traits?.find((t: any) =>
-          findTraits(t, swarm)
-        );
+        model.creatureTemplate.swarm = duplicate(
+          creature.traits
+        )?.find((t: any) => matchTraits(t, swarm));
 
-        model.creatureTemplate.weapon = creature.traits?.find((t: any) =>
-          findTraits(t, weapon)
-        );
+        model.creatureTemplate.weapon = duplicate(
+          creature.traits
+        )?.find((t: any) => matchTraits(t, weapon));
 
-        model.creatureTemplate.armour = creature.traits?.find((t: any) =>
-          findTraits(t, armour)
-        );
+        model.creatureTemplate.armour = duplicate(
+          creature.traits
+        )?.find((t: any) => matchTraits(t, armour));
 
-        model.creatureTemplate.ranged = creature.traits?.find((t: any) =>
-          findTraits(t, ranged)
-        );
+        model.creatureTemplate.ranged = duplicate(
+          creature.traits
+        )?.find((t: any) => matchTraits(t, ranged));
 
         if (model.creatureTemplate.armour != null) {
           model.creatureTemplate.armorValue = StringUtil.getGroupName(
@@ -112,6 +113,22 @@ export default class CreatureGenerator {
         model.abilities.hasRangedTrait =
           model.creatureTemplate.ranged != null &&
           model.creatureTemplate.ranged.included;
+
+        model.abilities.traits = duplicate(creature.traits).filter((t: any) => {
+          return (
+            !matchTraits(t, swarm) &&
+            !matchTraits(t, weapon) &&
+            !matchTraits(t, armour) &&
+            !matchTraits(t, ranged) &&
+            !matchTraits(t, size)
+          );
+        });
+
+        model.abilities.skills = duplicate(creature.skills).filter((s: any) => {
+          return s.data.advances.value > 0;
+        });
+
+        model.abilities.talents = duplicate(creature.talents);
 
         await this.selectCreatureAbilities(model, callback);
       }
