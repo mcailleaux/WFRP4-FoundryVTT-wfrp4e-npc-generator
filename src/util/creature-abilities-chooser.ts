@@ -57,7 +57,7 @@ export default class CreatureAbilitiesChooser {
                 ${DialogUtil.getLabelScript(
                   'WFRP4NPCGEN.creatures.abilities.select.traits.title'
                 )}
-                ${DialogUtil.getLabelScript('', 'max-width: 32px;')}
+                ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
                 `,
                 options: EntityUtil.toSelectOption(traits),
                 initValues: initAbilities?.traits?.map((t: Item.Data & any) => {
