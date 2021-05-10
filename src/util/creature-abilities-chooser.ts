@@ -62,54 +62,7 @@ export default class CreatureAbilitiesChooser {
           </form>
           <script>  
               
-              function addElement(id) {
-                  const select = document.getElementById(id);
-                  const key = select.value;
-                  const value = select.querySelector('option[value="' + key + '"]').innerHTML;
-                  
-                  const idDiv = id + '-' + key + '-removable'; 
-                  
-                  if (document.getElementById(idDiv) != null) {
-                      return ;
-                  }
-                  
-                  const div = document.createElement('div');
-                  div.id = idDiv;
-                  div.style.display = 'flex';
-                  div.style.flexDirection = 'row';
-                  div.style.alignItems = 'stretch';
-                  div.style.justifyContent = 'space-between';
-                  const label = document.createElement('label');
-                  label.innerHTML = value;
-                  const input = document.createElement('input');
-                  input.id = id + '-' + key;
-                  input.type = 'hidden';
-                  input.value = key;
-                  input.classList.add(id);
-                  const button = document.createElement('button');
-                  button.value = key;
-                  button.style.maxWidth = '32px';
-                  button.type = 'button';
-                  button.setAttribute('onclick', 'removeElement(\\'' + id + '\\', \\'' + key + '\\')');
-                  const icon = document.createElement('i');
-                  icon.style.pointerEvents = 'none';
-                  icon.classList.add('fa');
-                  icon.classList.add('fa-trash-alt');
-                  
-                  button.append(icon);
-                  div.append(label);
-                  div.append(input);
-                  div.append(button);
-                  
-                  document.getElementById(id + '-removables').append(div);
-                  
-              }
-              
-              function removeElement(id, key) {
-                const removables = document.getElementById(id + '-removables');
-                const div = document.getElementById(id + '-' + key + '-removable');
-                removables.removeChild(div);
-              }
+              ${DialogUtil.getAddRemoveElementScript()}
                 
             </script>
             `,
