@@ -6,9 +6,12 @@ import NameChooser from './util/name-chooser.js';
 import ReferentialUtil from './util/referential-util.js';
 import TranslateErrorDetect from './util/translate-error-detect.js';
 import StringUtil from './util/string-util.js';
+import EntityUtil from './util/entity-util.js';
+import CreatureAbilitiesChooser from './util/creature-abilities-chooser.js';
 
 export default class CreatureGenerator {
   public static readonly creatureChooser = CreatureChooser;
+  public static readonly creatureAbilitiesChooser = CreatureAbilitiesChooser;
   public static readonly nameChooser = NameChooser;
   public static readonly referential = ReferentialUtil;
   public static readonly translateErrorDetect = TranslateErrorDetect;
@@ -62,30 +65,21 @@ export default class CreatureGenerator {
           any = await CompendiumUtil.getCompendiumRangedTrait();
         const size: Item & any = await CompendiumUtil.getCompendiumSizeTrait();
 
-        const matchTraits = (item: any, ref: Item & any) => {
-          return (
-            StringUtil.getSimpleName(item.name) ===
-              StringUtil.getSimpleName(ref.name) ||
-            StringUtil.getSimpleName(item.name) ===
-              StringUtil.getSimpleName(ref.data.originalName)
-          );
-        };
-
         model.creatureTemplate.swarm = duplicate(
           creature.traits
-        )?.find((t: any) => matchTraits(t, swarm));
+        )?.find((t: any) => EntityUtil.match(t, swarm));
 
         model.creatureTemplate.weapon = duplicate(
           creature.traits
-        )?.find((t: any) => matchTraits(t, weapon));
+        )?.find((t: any) => EntityUtil.match(t, weapon));
 
         model.creatureTemplate.armour = duplicate(
           creature.traits
-        )?.find((t: any) => matchTraits(t, armour));
+        )?.find((t: any) => EntityUtil.match(t, armour));
 
         model.creatureTemplate.ranged = duplicate(
           creature.traits
-        )?.find((t: any) => matchTraits(t, ranged));
+        )?.find((t: any) => EntityUtil.match(t, ranged));
 
         if (model.creatureTemplate.armour != null) {
           model.creatureTemplate.armorValue = StringUtil.getGroupName(
@@ -116,11 +110,11 @@ export default class CreatureGenerator {
 
         model.abilities.traits = duplicate(creature.traits).filter((t: any) => {
           return (
-            !matchTraits(t, swarm) &&
-            !matchTraits(t, weapon) &&
-            !matchTraits(t, armour) &&
-            !matchTraits(t, ranged) &&
-            !matchTraits(t, size)
+            !EntityUtil.match(t, swarm) &&
+            !EntityUtil.match(t, weapon) &&
+            !EntityUtil.match(t, armour) &&
+            !EntityUtil.match(t, ranged) &&
+            !EntityUtil.match(t, size)
           );
         });
 
@@ -139,7 +133,15 @@ export default class CreatureGenerator {
     model: CreatureModel,
     callback: (model: CreatureModel) => void
   ) {
-    console.dir(model);
-    callback(model);
+    await this.creatureAbilitiesChooser.selectCreatureAbilities(
+      model.abilities,
+      (abilities) => {
+        model.abilities = abilities;
+        callback(model);
+      },
+      () => {
+        this.selectCreature(model, callback);
+      }
+    );
   }
 }

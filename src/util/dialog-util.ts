@@ -225,4 +225,68 @@ export default class DialogUtil {
         }
     `;
   }
+
+  public static getSelectAddRemoveScript(
+    id: string,
+    options: { [key: string]: string },
+    initValues: { key: string; value: string }[]
+  ): string {
+    const flexRow =
+      'display: flex; flex-direction: row; justify-content: space-between; align-items: stretch;';
+    const flexColumn =
+      'display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch;';
+    return `
+      <div style="${flexColumn}">
+        <div style="${flexRow}">
+        ${this.getSelectScript(id, options)}
+        <button
+          value="${id}"
+          style="max-width: 32px;"
+          type="button"
+          onclick="addElement(${'"' + id + '"'})"
+        >
+          <i style="pointer-events: none;" class="fas fa-plus"></i>
+        </button>
+        </div>
+      </div>
+      <div id="${id}-removables" style="${flexColumn}">
+        ${initValues
+          .map(
+            (item) => `
+        ${this.getRemovableItemScript(id, item)}
+        `
+          )
+          .join('')}
+      </div>
+    `;
+  }
+
+  public static getRemovableItemScript(
+    id: string,
+    item: { key: string; value: string }
+  ) {
+    const flexRow =
+      'display: flex; flex-direction: row; justify-content: space-between; align-items: stretch;';
+    return `
+        <div id="${id}-${item.key}-removable" style="${flexRow}">
+            ${this.getLabelScript(item.value)}
+            ${this.getInputScript({
+              id: `${id}-${item.key}`,
+              type: 'hidden',
+              initValue: item.key,
+              classes: id,
+            })}
+            <button
+              value="${item.key}"
+              style="max-width: 32px;"
+              type="button"
+              onclick="removeElement(${'"' + id + '"'}, ${
+      '"' + item.key + '"'
+    })"
+            >
+              <i style="pointer-events: none;" class="fas fa-trash-alt"></i>
+            </button>
+        </div>
+    `;
+  }
 }
