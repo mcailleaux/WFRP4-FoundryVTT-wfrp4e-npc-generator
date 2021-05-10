@@ -243,12 +243,11 @@ export default class DialogUtil {
           value="${id}"
           style="max-width: 32px;"
           type="button"
-          onclick="addElement(${'"' + id + '"'})"
+          onclick="addElement('${id}')"
         >
           <i style="pointer-events: none;" class="fas fa-plus"></i>
         </button>
         </div>
-      </div>
       <div id="${id}-removables" style="${flexColumn}">
         ${initValues
           .map(
@@ -257,6 +256,7 @@ export default class DialogUtil {
         `
           )
           .join('')}
+      </div>
       </div>
     `;
   }
@@ -280,9 +280,7 @@ export default class DialogUtil {
               value="${item.key}"
               style="max-width: 32px;"
               type="button"
-              onclick="removeElement(${'"' + id + '"'}, ${
-      '"' + item.key + '"'
-    })"
+              onclick="removeElement('${id}', '${item.key}')"
             >
               <i style="pointer-events: none;" class="fas fa-trash-alt"></i>
             </button>
