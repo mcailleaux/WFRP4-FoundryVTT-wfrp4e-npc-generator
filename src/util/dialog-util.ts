@@ -228,6 +228,8 @@ export default class DialogUtil {
 
   public static getSelectAddRemoveScript(
     id: string,
+    title: string,
+    captions: string,
     options: { [key: string]: string },
     initValues: { key: string; value: string }[]
   ): string {
@@ -237,6 +239,7 @@ export default class DialogUtil {
       'display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch;';
     return `
       <div style="${flexColumn}">
+        ${this.getLabelScript(title)}
         <div style="${flexRow}">
         ${this.getSelectScript(id, options)}
         <button
@@ -249,6 +252,9 @@ export default class DialogUtil {
         </button>
         </div>
       <div id="${id}-removables" style="${flexColumn}">
+        <div style="${flexRow}">
+            ${captions}
+        </div>
         ${initValues
           .map(
             (item) => `

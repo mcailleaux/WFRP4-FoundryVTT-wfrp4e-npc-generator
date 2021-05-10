@@ -52,6 +52,13 @@ export default class CreatureAbilitiesChooser {
               <div class="form-group">
               ${DialogUtil.getSelectAddRemoveScript(
                 traitsId,
+                'WFRP4NPCGEN.creatures.abilities.select.traits.title',
+                `
+                ${DialogUtil.getLabelScript(
+                  'WFRP4NPCGEN.creatures.abilities.select.traits.title'
+                )}
+                ${DialogUtil.getLabelScript('')}
+                `,
                 EntityUtil.toSelectOption(traits),
                 initAbilities?.traits?.map((t: Item.Data & any) => {
                   return { key: t._id, value: t.displayName ?? t.name };

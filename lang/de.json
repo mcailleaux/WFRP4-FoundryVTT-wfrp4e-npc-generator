@@ -77,5 +77,7 @@
   "WFRP4NPCGEN.creature.directory.button": "Generate Creature",
   "WFRP4NPCGEN.notification.creature.created": "Creature {name} has been created",
   "WFRP4NPCGEN.creatures.select.title": "Choose a Creature",
-  "WFRP4NPCGEN.creatures.select.label": "Creature"
+  "WFRP4NPCGEN.creatures.select.label": "Creature",
+  "WFRP4NPCGEN.creatures.abilities.select.title": "Choose Abilities",
+  "WFRP4NPCGEN.creatures.abilities.select.traits.title": "Traits"
 }
