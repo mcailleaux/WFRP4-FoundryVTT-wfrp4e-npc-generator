@@ -3,6 +3,7 @@ export default class CreatureAbilities {
   public sizeKey: string = 'avg';
   public isSwarm: boolean = false;
   public hasWeaponTrait = false;
+  public hasRangedTrait = false;
   public hasArmourTrait = false;
 
   public traits: Item.Data[] = [];

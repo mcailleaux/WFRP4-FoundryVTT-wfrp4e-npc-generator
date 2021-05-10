@@ -5,6 +5,7 @@ import CreatureChooser from './util/creature-chooser.js';
 import NameChooser from './util/name-chooser.js';
 import ReferentialUtil from './util/referential-util.js';
 import TranslateErrorDetect from './util/translate-error-detect.js';
+import StringUtil from './util/string-util.js';
 
 export default class CreatureGenerator {
   public static readonly creatureChooser = CreatureChooser;
@@ -47,37 +48,68 @@ export default class CreatureGenerator {
     callback: (model: CreatureModel) => void
   ) {
     await this.creatureChooser.selectCreature(
-      model.creatureData?._id,
+      model.creatureTemplate.creatureData?._id,
       async (creature: Actor.Data & any) => {
-        model.creatureData = creature;
+        model.creatureTemplate.creatureData = creature;
 
         const swarm: Item &
           any = await CompendiumUtil.getCompendiumSwarmTrait();
         const weapon: Item &
           any = await CompendiumUtil.getCompendiumWeaponTrait();
-        const armor: Item &
-          any = await CompendiumUtil.getCompendiumArmorTrait();
+        const armour: Item &
+          any = await CompendiumUtil.getCompendiumArmourTrait();
+        const ranged: Item &
+          any = await CompendiumUtil.getCompendiumRangedTrait();
+
+        model.creatureTemplate.swarm = creature.traits?.find(
+          (t: any) =>
+            t.name === swarm.name || t.name === swarm.data.originalName
+        );
+
+        model.creatureTemplate.weapon = creature.traits?.find(
+          (t: any) =>
+            t.name === weapon.name || t.name === weapon.data.originalName
+        );
+
+        model.creatureTemplate.armour = creature.traits?.find(
+          (t: any) =>
+            t.name === armour.name || t.name === armour.data.originalName
+        );
+
+        if (model.creatureTemplate.armour != null) {
+          model.creatureTemplate.armorValue = StringUtil.getGroupName(
+            model.creatureTemplate.armour
+          );
+        }
+
+        if (model.creatureTemplate.ranged != null) {
+          model.creatureTemplate.rangedValue = StringUtil.getGroupName(
+            model.creatureTemplate.ranged
+          );
+        }
+
+        model.creatureTemplate.ranged = creature.traits?.find(
+          (t: any) =>
+            StringUtil.getSimpleName(t.name) ===
+              StringUtil.getSimpleName(ranged.name) ||
+            StringUtil.getSimpleName(t.name) ===
+              StringUtil.getSimpleName(ranged.data.originalName)
+        );
 
         model.abilities.includeBasicSkills = creature.basicSkills?.length > 0;
         model.abilities.sizeKey = creature.data?.details?.size?.value;
         model.abilities.isSwarm =
-          creature.traits?.find(
-            (t: any) =>
-              (t.name === swarm.name || t.name === swarm.data.originalName) &&
-              t.included
-          ) != null;
+          model.creatureTemplate.swarm != null &&
+          model.creatureTemplate.swarm.included;
         model.abilities.hasWeaponTrait =
-          creature.traits?.find(
-            (t: any) =>
-              (t.name === weapon.name || t.name === weapon.data.originalName) &&
-              t.included
-          ) != null;
+          model.creatureTemplate.weapon != null &&
+          model.creatureTemplate.weapon.included;
         model.abilities.hasArmourTrait =
-          creature.traits?.find(
-            (t: any) =>
-              (t.name === armor.name || t.name === armor.data.originalName) &&
-              t.included
-          ) != null;
+          model.creatureTemplate.armour != null &&
+          model.creatureTemplate.armour.included;
+        model.abilities.hasRangedTrait =
+          model.creatureTemplate.ranged != null &&
+          model.creatureTemplate.ranged.included;
 
         await this.selectCreatureAbilities(model, callback);
       }

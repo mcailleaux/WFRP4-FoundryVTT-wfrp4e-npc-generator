@@ -12,6 +12,7 @@ export default class CompendiumUtil {
   private static compendiumSwarmTrait: Item;
   private static compendiumWeaponTrait: Item;
   private static compendiumArmorTrait: Item;
+  private static compendiumRangedTrait: Item;
 
   private static compendiumLoaded = false;
   private static creatureCompendiumLoaded = false;
@@ -43,7 +44,8 @@ export default class CompendiumUtil {
       await this.getCompendiumSizeTrait();
       await this.getCompendiumSwarmTrait();
       await this.getCompendiumWeaponTrait();
-      await this.getCompendiumArmorTrait();
+      await this.getCompendiumArmourTrait();
+      await this.getCompendiumRangedTrait();
     } else {
       await Promise.all([
         this.getCompendiumCareers(),
@@ -234,7 +236,7 @@ export default class CompendiumUtil {
     return Promise.resolve(this.compendiumWeaponTrait);
   }
 
-  public static async getCompendiumArmorTrait() {
+  public static async getCompendiumArmourTrait() {
     if (this.compendiumArmorTrait == null) {
       this.compendiumArmorTrait = <Item>(
         (await this.getCompendiumTraits()).find(
@@ -244,5 +246,18 @@ export default class CompendiumUtil {
       );
     }
     return Promise.resolve(this.compendiumArmorTrait);
+  }
+
+  public static async getCompendiumRangedTrait() {
+    if (this.compendiumRangedTrait == null) {
+      this.compendiumRangedTrait = <Item>(
+        (await this.getCompendiumTraits()).find(
+          (t: Item & any) =>
+            t.data.name.startsWith('Ranged') ||
+            t.data.originalName.startsWith('Ranged')
+        )
+      );
+    }
+    return Promise.resolve(this.compendiumRangedTrait);
   }
 }
