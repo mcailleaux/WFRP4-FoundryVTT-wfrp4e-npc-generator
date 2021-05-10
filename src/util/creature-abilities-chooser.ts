@@ -67,7 +67,11 @@ export default class CreatureAbilitiesChooser {
                   const key = select.value;
                   const value = select.querySelector('option[value="' + key + '"]').innerHTML;
                   
-                  const idDiv = id + '-' + key + '-removable';                  
+                  const idDiv = id + '-' + key + '-removable'; 
+                  
+                  if (document.getElementById(idDiv) != null) {
+                      return ;
+                  }
                   
                   const div = document.createElement('div');
                   div.id = idDiv;
