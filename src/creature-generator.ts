@@ -61,36 +61,29 @@ export default class CreatureGenerator {
         const ranged: Item &
           any = await CompendiumUtil.getCompendiumRangedTrait();
 
-        model.creatureTemplate.swarm = creature.traits?.find(
-          (t: any) =>
-            StringUtil.getSimpleName(t.name) ===
-              StringUtil.getSimpleName(swarm.name) ||
-            StringUtil.getSimpleName(t.name) ===
-              StringUtil.getSimpleName(swarm.data.originalName)
+        const findTraits = (item: any, ref: Item & any) => {
+          return (
+            StringUtil.getSimpleName(item.name) ===
+              StringUtil.getSimpleName(ref.name) ||
+            StringUtil.getSimpleName(item.name) ===
+              StringUtil.getSimpleName(ref.data.originalName)
+          );
+        };
+
+        model.creatureTemplate.swarm = creature.traits?.find((t: any) =>
+          findTraits(t, swarm)
         );
 
-        model.creatureTemplate.weapon = creature.traits?.find(
-          (t: any) =>
-            StringUtil.getSimpleName(t.name) ===
-              StringUtil.getSimpleName(weapon.name) ||
-            StringUtil.getSimpleName(t.name) ===
-              StringUtil.getSimpleName(weapon.data.originalName)
+        model.creatureTemplate.weapon = creature.traits?.find((t: any) =>
+          findTraits(t, weapon)
         );
 
-        model.creatureTemplate.armour = creature.traits?.find(
-          (t: any) =>
-            StringUtil.getSimpleName(t.name) ===
-              StringUtil.getSimpleName(armour.name) ||
-            StringUtil.getSimpleName(t.name) ===
-              StringUtil.getSimpleName(armour.data.originalName)
+        model.creatureTemplate.armour = creature.traits?.find((t: any) =>
+          findTraits(t, armour)
         );
 
-        model.creatureTemplate.ranged = creature.traits?.find(
-          (t: any) =>
-            StringUtil.getSimpleName(t.name) ===
-              StringUtil.getSimpleName(ranged.name) ||
-            StringUtil.getSimpleName(t.name) ===
-              StringUtil.getSimpleName(ranged.data.originalName)
+        model.creatureTemplate.ranged = creature.traits?.find((t: any) =>
+          findTraits(t, ranged)
         );
 
         if (model.creatureTemplate.armour != null) {
