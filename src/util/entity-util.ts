@@ -10,7 +10,7 @@ export default class EntityUtil {
     );
   }
 
-  public static toSelectOption(items: Item[]): { [key: string]: string } {
+  public static toSelectOption(items: Item.Data[]): { [key: string]: string } {
     if (items == null) {
       return {};
     }

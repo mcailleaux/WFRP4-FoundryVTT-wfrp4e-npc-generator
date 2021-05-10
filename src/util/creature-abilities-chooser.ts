@@ -19,17 +19,27 @@ export default class CreatureAbilitiesChooser {
 
     // const skills = await ReferentialUtil.getSkillEntities(true);
     // const talents = await ReferentialUtil.getTalentEntities(true);
-    const traits = (await ReferentialUtil.getTraitEntities(true)).filter(
-      (t) => {
-        return (
-          !EntityUtil.match(t, swarm) &&
-          !EntityUtil.match(t, weapon) &&
-          !EntityUtil.match(t, armour) &&
-          !EntityUtil.match(t, ranged) &&
-          !EntityUtil.match(t, size)
-        );
-      }
-    );
+    const traits = [
+      ...initAbilities.traits.sort(
+        (t1: Item.Data & any, t2: Item.Data & any) => {
+          return t1.displayName.localeCompare(t2.displayName);
+        }
+      ),
+      ...(await ReferentialUtil.getTraitEntities(true))
+        .filter((t) => {
+          return (
+            !EntityUtil.match(t, swarm) &&
+            !EntityUtil.match(t, weapon) &&
+            !EntityUtil.match(t, armour) &&
+            !EntityUtil.match(t, ranged) &&
+            !EntityUtil.match(t, size)
+          );
+        })
+        .map((t) => t.data)
+        .sort((t1, t2) => {
+          return t1.name.localeCompare(t2.name);
+        }),
+    ];
 
     // const skillsId = `add-remove-skills-${dialogId}`;
     // const talentsId = `add-remove-talents-${dialogId}`;
@@ -43,8 +53,8 @@ export default class CreatureAbilitiesChooser {
               ${DialogUtil.getSelectAddRemoveScript(
                 traitsId,
                 EntityUtil.toSelectOption(traits),
-                initAbilities?.traits?.map((t) => {
-                  return { key: t._id, value: t.name };
+                initAbilities?.traits?.map((t: Item.Data & any) => {
+                  return { key: t._id, value: t.displayName ?? t.name };
                 })
               )}
               </div>
@@ -57,11 +67,7 @@ export default class CreatureAbilitiesChooser {
                   const key = select.value;
                   const value = select.querySelector('option[value="' + key + '"]').innerHTML;
                   
-                  const idDiv = id + '-' + key + '-removable';
-                  
-                  if (document.getElementById(idDiv) != null) {
-                      return ;
-                  }
+                  const idDiv = id + '-' + key + '-removable';                  
                   
                   const div = document.createElement('div');
                   div.id = idDiv;
@@ -80,7 +86,7 @@ export default class CreatureAbilitiesChooser {
                   button.value = key;
                   button.style.maxWidth = '32px';
                   button.type = 'button';
-                  button.setAttribute('onclick', 'removeAbility("' + id + '", "'+ key + '"');
+                  button.setAttribute('onclick', 'removeAbility(\\'' + id + '\\', \\'' + key + '\\')');
                   const icon = document.createElement('i');
                   icon.style.pointerEvents = 'none';
                   icon.classList.add('fa');
