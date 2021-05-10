@@ -78,13 +78,13 @@ export default class CreatureGenerator {
 
         if (model.creatureTemplate.armour != null) {
           model.creatureTemplate.armorValue = StringUtil.getGroupName(
-            model.creatureTemplate.armour
+            model.creatureTemplate.armour.name
           );
         }
 
         if (model.creatureTemplate.ranged != null) {
           model.creatureTemplate.rangedValue = StringUtil.getGroupName(
-            model.creatureTemplate.ranged
+            model.creatureTemplate.ranged.name
           );
         }
 
