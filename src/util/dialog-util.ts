@@ -57,15 +57,17 @@ export default class DialogUtil {
     id: string,
     options: { [key: string]: string },
     initValue?: string,
-    onChange?: string
+    onChange?: string,
+    style: string = null as any
   ): string {
+    const styleStr = style != null ? ` style="${style}"` : '';
     const finalInitValue =
       initValue != null && Object.keys(options).includes(initValue)
         ? initValue
         : '';
     const onChangeStr = onChange != null ? ` onchange="${onChange}"` : '';
     return `
-        <select id="${id}" value="${finalInitValue}"${onChangeStr}>
+        <select${styleStr} id="${id}" value="${finalInitValue}"${onChangeStr}>
             ${Object.entries(options)
               .map(([key, value]) => {
                 const selected =
@@ -226,39 +228,45 @@ export default class DialogUtil {
     `;
   }
 
-  public static getSelectAddRemoveScript(
-    id: string,
-    title: string,
-    captions: string,
-    options: { [key: string]: string },
-    initValues: { key: string; value: string }[]
-  ): string {
+  public static getSelectAddRemoveScript(options: {
+    id: string;
+    title: string;
+    captions: string;
+    options: { [key: string]: string };
+    initValues: { key: string; value: string }[];
+  }): string {
     const flexRow =
       'display: flex; flex-direction: row; justify-content: space-between; align-items: stretch;';
     const flexColumn =
       'display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch;';
     return `
       <div style="${flexColumn}">
-        ${this.getLabelScript(title)}
+        ${this.getLabelScript(options.title)}
         <div style="${flexRow}">
-        ${this.getSelectScript(id, options)}
+        ${this.getSelectScript(
+          options.id,
+          options.options,
+          undefined,
+          undefined,
+          'width: 100%;'
+        )}
         <button
-          value="${id}"
+          value="${options.id}"
           style="max-width: 32px;"
           type="button"
-          onclick="addElement('${id}')"
+          onclick="addElement('${options.id}')"
         >
           <i style="pointer-events: none;" class="fas fa-plus"></i>
         </button>
         </div>
-      <div id="${id}-removables" style="${flexColumn}">
+      <div id="${options.id}-removables" style="${flexColumn}">
         <div style="${flexRow}">
-            ${captions}
+            ${options.captions}
         </div>
-        ${initValues
+        ${options.initValues
           .map(
             (item) => `
-        ${this.getRemovableItemScript(id, item)}
+        ${this.getRemovableItemScript(options.id, item)}
         `
           )
           .join('')}

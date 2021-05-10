@@ -50,20 +50,20 @@ export default class CreatureAbilitiesChooser {
       content: `<form>
               
               <div class="form-group">
-              ${DialogUtil.getSelectAddRemoveScript(
-                traitsId,
-                'WFRP4NPCGEN.creatures.abilities.select.traits.title',
-                `
+              ${DialogUtil.getSelectAddRemoveScript({
+                id: traitsId,
+                title: 'WFRP4NPCGEN.creatures.abilities.select.traits.title',
+                captions: `
                 ${DialogUtil.getLabelScript(
                   'WFRP4NPCGEN.creatures.abilities.select.traits.title'
                 )}
-                ${DialogUtil.getLabelScript('')}
+                ${DialogUtil.getLabelScript('', 'max-width: 32px;')}
                 `,
-                EntityUtil.toSelectOption(traits),
-                initAbilities?.traits?.map((t: Item.Data & any) => {
+                options: EntityUtil.toSelectOption(traits),
+                initValues: initAbilities?.traits?.map((t: Item.Data & any) => {
                   return { key: t._id, value: t.displayName ?? t.name };
-                })
-              )}
+                }),
+              })}
               </div>
               
           </form>
