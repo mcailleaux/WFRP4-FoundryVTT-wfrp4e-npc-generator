@@ -71,6 +71,7 @@ export default class CreatureAbilitiesChooser {
                     check: t.included,
                   };
                 }),
+                withCheck: true,
               })}
               </div>
               
