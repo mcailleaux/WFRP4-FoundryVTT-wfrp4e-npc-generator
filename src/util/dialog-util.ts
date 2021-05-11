@@ -230,10 +230,17 @@ export default class DialogUtil {
 
   public static getSelectAddRemoveScript(options: {
     id: string;
-    title: string;
-    captions: string;
     options: { [key: string]: string };
-    initValues: { key: string; value: string }[];
+    initValues: {
+      key: string;
+      value: string;
+      check?: boolean;
+      count?: number;
+    }[];
+    title?: string;
+    captions?: string;
+    withCheck?: boolean;
+    withCount?: boolean;
   }): string {
     const flexRow =
       'display: flex; flex-direction: row; justify-content: space-between; align-items: stretch;';
@@ -241,7 +248,7 @@ export default class DialogUtil {
       'display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch;';
     return `
       <div style="${flexColumn}">
-        ${this.getLabelScript(options.title)}
+        ${options.title != null ? this.getLabelScript(options.title) : ''}
         <div style="${flexRow}">
         ${this.getSelectScript(
           options.id,
@@ -254,19 +261,34 @@ export default class DialogUtil {
           value="${options.id}"
           style="max-width: 32px;"
           type="button"
-          onclick="addElement('${options.id}')"
+          onclick="addElement('${options.id}', ${options.withCheck}, ${
+      options.withCount
+    })"
         >
           <i style="pointer-events: none;" class="fas fa-plus"></i>
         </button>
         </div>
       <div id="${options.id}-removables" style="${flexColumn}">
-        <div style="${flexRow}">
-            ${options.captions}
-        </div>
+        
+            ${
+              options.captions != null
+                ? `
+            <div style="${flexRow}">
+                ${options.captions}
+            </div>
+            `
+                : ''
+            }
+        
         ${options.initValues
           .map(
             (item) => `
-        ${this.getRemovableItemScript(options.id, item)}
+        ${this.getRemovableItemScript({
+          id: options.id,
+          item: item,
+          withCheck: options.withCheck,
+          withCount: options.withCount,
+        })}
         `
           )
           .join('')}
@@ -275,26 +297,40 @@ export default class DialogUtil {
     `;
   }
 
-  public static getRemovableItemScript(
-    id: string,
-    item: { key: string; value: string }
-  ) {
+  public static getRemovableItemScript(options: {
+    id: string;
+    item: { key: string; value: string; check?: boolean; count?: number };
+    withCheck?: boolean;
+    withCount?: boolean;
+  }) {
     const flexRow =
       'display: flex; flex-direction: row; justify-content: space-between; align-items: stretch;';
     return `
-        <div id="${id}-${item.key}-removable" style="${flexRow}">
-            ${this.getLabelScript(item.value)}
+        <div id="${options.id}-${
+      options.item.key
+    }-removable" style="${flexRow}">
+            ${this.getLabelScript(options.item.value)}
             ${this.getInputScript({
-              id: `${id}-${item.key}`,
+              id: `${options.id}-${options.item.key}`,
               type: 'hidden',
-              initValue: item.key,
-              classes: id,
+              initValue: options.item.key,
+              classes: options.id,
             })}
+            ${
+              options.withCheck
+                ? this.getInputScript({
+                    id: `${options.id}-${options.item.key}-check`,
+                    type: 'checkbox',
+                    initValue: options.item.check,
+                    classes: `${options.id}-check`,
+                  })
+                : ''
+            }
             <button
-              value="${item.key}"
+              value="${options.item.key}"
               style="max-width: 32px;"
               type="button"
-              onclick="removeElement('${id}', '${item.key}')"
+              onclick="removeElement('${options.id}', '${options.item.key}')"
             >
               <i style="pointer-events: none;" class="fas fa-trash-alt"></i>
             </button>
@@ -304,7 +340,7 @@ export default class DialogUtil {
 
   public static getAddRemoveElementScript(): string {
     return `
-        function addElement(id) {
+        function addElement(id, withCheck, withCount) {
             const select = document.getElementById(id);
             const key = select.value;
             const value = select.querySelector('option[value="' + key + '"]').innerHTML;
@@ -328,6 +364,14 @@ export default class DialogUtil {
             input.type = 'hidden';
             input.value = key;
             input.classList.add(id);
+            let inputCheck = null;
+            if (withCheck) {
+                inputCheck = document.createElement('input');
+                inputCheck.id = id + '-' + key + '-check';
+                inputCheck.type = 'checkbox';
+                inputCheck.checked = true;
+                inputCheck.classList.add(id + '-check');
+            }
             const button = document.createElement('button');
             button.value = key;
             button.style.maxWidth = '32px';
@@ -341,6 +385,9 @@ export default class DialogUtil {
             button.append(icon);
             div.append(label);
             div.append(input);
+            if (inputCheck != null) {
+                div.append(inputCheck);
+            }
             div.append(button);
             
             document.getElementById(id + '-removables').append(div);

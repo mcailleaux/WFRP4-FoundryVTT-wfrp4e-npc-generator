@@ -58,11 +58,18 @@ export default class CreatureAbilitiesChooser {
                 title: 'WFRP4NPCGEN.creatures.abilities.select.traits.title',
                 captions: `
                 ${DialogUtil.getLabelScript('WFRP4NPCGEN.name.select.label')}
+                ${DialogUtil.getLabelScript(
+                  'WFRP4NPCGEN.creatures.abilities.select.traits.included.label'
+                )}
                 ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
                 `,
                 options: EntityUtil.toSelectOption(traits),
                 initValues: initAbilities?.traits?.map((t: Item.Data & any) => {
-                  return { key: t._id, value: t.displayName ?? t.name };
+                  return {
+                    key: t._id,
+                    value: t.displayName ?? t.name,
+                    check: t.included,
+                  };
                 }),
               })}
               </div>
