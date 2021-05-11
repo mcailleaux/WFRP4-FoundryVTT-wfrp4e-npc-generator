@@ -92,8 +92,8 @@ export default class CreatureGenerator {
             model.creatureTemplate.ranged.name
           );
           model.creatureTemplate.rangedDamage = StringUtil.getGroupName(
-            model.creatureTemplate.ranged.name.substring(
-              model.creatureTemplate.ranged.name.indexOf(')')
+            model.creatureTemplate.ranged.displayName.substring(
+              model.creatureTemplate.ranged.displayName.indexOf(')')
             )
           );
         }
