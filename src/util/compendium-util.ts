@@ -270,4 +270,8 @@ export default class CompendiumUtil {
     }
     return Promise.resolve(this.compendiumRangedTrait);
   }
+
+  public static getSizes(): { [key: string]: string } {
+    return game.wfrp4e.config.actorSizes;
+  }
 }

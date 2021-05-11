@@ -112,6 +112,9 @@ export default class CreatureGenerator {
         model.abilities.hasRangedTrait =
           model.creatureTemplate.ranged != null &&
           model.creatureTemplate.ranged.included;
+        model.abilities.rangedRange = model.creatureTemplate.rangedRange;
+        model.abilities.rangedDamage = model.creatureTemplate.rangedDamage;
+        model.abilities.armourValue = model.creatureTemplate.armorValue;
 
         model.abilities.traits = duplicate(creature.traits).filter((t: any) => {
           return (

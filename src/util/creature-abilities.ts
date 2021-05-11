@@ -5,6 +5,9 @@ export default class CreatureAbilities {
   public hasWeaponTrait = false;
   public hasRangedTrait = false;
   public hasArmourTrait = false;
+  public rangedRange: string;
+  public rangedDamage: string;
+  public armourValue: string;
 
   public traits: Item.Data[] = [];
   public talents: Item.Data[] = [];

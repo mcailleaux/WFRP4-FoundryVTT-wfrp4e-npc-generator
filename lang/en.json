@@ -83,5 +83,14 @@
   "WFRP4NPCGEN.creatures.abilities.select.traits.included.label": "Include",
   "WFRP4NPCGEN.creatures.abilities.select.skills.title": "Skills",
   "WFRP4NPCGEN.creatures.abilities.select.talents.title": "Talents",
-  "WFRP4NPCGEN.creatures.abilities.select.advances.label": "Advances"
+  "WFRP4NPCGEN.creatures.abilities.select.advances.label": "Advances",
+  "WFRP4NPCGEN.creatures.abilities.select.basic.label": "Basic Skills",
+  "WFRP4NPCGEN.creatures.abilities.select.swarm.label": "Swarm",
+  "WFRP4NPCGEN.creatures.abilities.select.weapon.label": "Weapon",
+  "WFRP4NPCGEN.creatures.abilities.select.ranged.label": "Ranged",
+  "WFRP4NPCGEN.creatures.abilities.select.ranged.range.label": "Ranged (Range)",
+  "WFRP4NPCGEN.creatures.abilities.select.ranged.damage.label": "Ranged (Damage)",
+  "WFRP4NPCGEN.creatures.abilities.select.armour.label": "Armour",
+  "WFRP4NPCGEN.creatures.abilities.select.armour.value.label": "Armour (AP)",
+  "WFRP4NPCGEN.creatures.abilities.select.size.label": "Size"
 }

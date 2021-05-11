@@ -76,19 +76,110 @@ export default class CreatureAbilitiesChooser {
         }),
     ];
 
-    const skillsId = `add-remove-skills-${dialogId}`;
-    const talentsId = `add-remove-talents-${dialogId}`;
-    const traitsId = `add-remove-traits-${dialogId}`;
+    const skillsId = `creature-abilities-add-remove-skills-${dialogId}`;
+    const talentsId = `creature-abilities-add-remove-talents-${dialogId}`;
+    const traitsId = `creature-abilities-add-remove-traits-${dialogId}`;
 
     new Dialog({
       title: game.i18n.localize('WFRP4NPCGEN.creatures.abilities.select.title'),
       content: `<form>
               
               <div class="form-group">
-              ${DialogUtil.getSelectAddRemoveScript({
-                id: traitsId,
-                title: 'WFRP4NPCGEN.creatures.abilities.select.traits.title',
-                captions: `
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.creatures.abilities.select.basic.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `creature-abilities-basic-${dialogId}`,
+                type: 'checkbox',
+                checked: initAbilities.includeBasicSkills,
+              })}
+              </div>
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.creatures.abilities.select.swarm.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `creature-abilities-swarm-${dialogId}`,
+                type: 'checkbox',
+                checked: initAbilities.isSwarm,
+              })}
+              </div>
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.creatures.abilities.select.weapon.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `creature-abilities-weapon-${dialogId}`,
+                type: 'checkbox',
+                checked: initAbilities.hasWeaponTrait,
+              })}
+              </div>
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.creatures.abilities.select.ranged.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `creature-abilities-ranged-${dialogId}`,
+                type: 'checkbox',
+                checked: initAbilities.hasRangedTrait,
+              })}
+              </div>
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.creatures.abilities.select.ranged.range.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `creature-abilities-ranged-range-${dialogId}`,
+                type: 'number',
+                initValue: initAbilities.rangedRange,
+              })}
+              </div>
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.creatures.abilities.select.ranged.damage.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `creature-abilities-ranged-damage-${dialogId}`,
+                type: 'number',
+                initValue: initAbilities.rangedDamage,
+              })}
+              </div>
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.creatures.abilities.select.armour.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `creature-abilities-armour-${dialogId}`,
+                type: 'checkbox',
+                checked: initAbilities.hasArmourTrait,
+              })}
+              </div>
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.creatures.abilities.select.armour.value.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `creature-abilities-armour-value-${dialogId}`,
+                type: 'number',
+                initValue: initAbilities.armourValue,
+              })}
+              </div>
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.creatures.abilities.select.size.label'
+              )}
+              ${DialogUtil.getSelectScript(
+                `creature-abilities-size-${dialogId}`,
+                CompendiumUtil.getSizes(),
+                initAbilities.sizeKey
+              )}
+              </div>
+                
+                <div class="form-group">
+${DialogUtil.getSelectAddRemoveScript({
+  id: traitsId,
+  title: 'WFRP4NPCGEN.creatures.abilities.select.traits.title',
+  captions: `
                 ${DialogUtil.getLabelScript('WFRP4NPCGEN.name.select.label')}
                 ${DialogUtil.getLabelScript(
                   'WFRP4NPCGEN.creatures.abilities.select.traits.included.label',
@@ -96,16 +187,16 @@ export default class CreatureAbilitiesChooser {
                 )}
                 ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
                 `,
-                options: EntityUtil.toSelectOption(traits),
-                initValues: initAbilities?.traits?.map((t: Item.Data & any) => {
-                  return {
-                    key: t._id,
-                    value: t.displayName ?? t.name,
-                    check: t.included,
-                  };
-                }),
-                withCheck: true,
-              })}
+  options: EntityUtil.toSelectOption(traits),
+  initValues: initAbilities?.traits?.map((t: Item.Data & any) => {
+    return {
+      key: t._id,
+      value: t.displayName ?? t.name,
+      check: t.included,
+    };
+  }),
+  withCheck: true,
+})}
               </div>
               
               <div class="form-group">
