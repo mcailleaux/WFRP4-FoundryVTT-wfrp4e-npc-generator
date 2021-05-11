@@ -327,6 +327,17 @@ export default class DialogUtil {
                   })
                 : ''
             }
+            ${
+              options.withCount
+                ? this.getInputScript({
+                    id: `${options.id}-${options.item.key}-count`,
+                    type: 'number',
+                    initValue: options.item.count,
+                    classes: `${options.id}-count`,
+                    style: 'min-width: 60px; max-width: 60px;',
+                  })
+                : ''
+            }
             <button
               value="${options.item.key}"
               style="max-width: 32px;"
@@ -375,6 +386,16 @@ export default class DialogUtil {
                 inputCheck.style.maxWidth = '60px';
                 inputCheck.style.minWidth = '60px';
             }
+            let inputCount = null;
+            if (withCount) {
+                inputCount = document.createElement('input');
+                inputCount.id = id + '-' + key + '-count';
+                inputCount.type = 'number';
+                inputCount.value = 0;
+                inputCount.classList.add(id + '-count');
+                inputCount.style.maxWidth = '60px';
+                inputCount.style.minWidth = '60px';
+            }
             const button = document.createElement('button');
             button.value = key;
             button.style.maxWidth = '32px';
@@ -390,6 +411,9 @@ export default class DialogUtil {
             div.append(input);
             if (inputCheck != null) {
                 div.append(inputCheck);
+            }
+            if (inputCount != null) {
+                div.append(inputCount);
             }
             div.append(button);
             

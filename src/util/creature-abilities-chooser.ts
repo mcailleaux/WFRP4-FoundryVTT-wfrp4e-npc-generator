@@ -18,7 +18,23 @@ export default class CreatureAbilitiesChooser {
     const ranged: Item & any = await CompendiumUtil.getCompendiumRangedTrait();
     const size: Item & any = await CompendiumUtil.getCompendiumSizeTrait();
 
-    // const skills = await ReferentialUtil.getSkillEntities(true);
+    const initSkillssNames = initAbilities.skills.map((s) => s.name);
+    const skills = [
+      ...initAbilities.skills.sort((s1, s2) => {
+        return s1.name.localeCompare(s2.name);
+      }),
+      ...(await ReferentialUtil.getSkillEntities(true))
+        .filter((s) => {
+          return !StringUtil.arrayIncludesDeburrIgnoreCase(
+            initSkillssNames,
+            s.name
+          );
+        })
+        .map((s) => s.data)
+        .sort((s1, s2) => {
+          return s1.name.localeCompare(s2.name);
+        }),
+    ];
     // const talents = await ReferentialUtil.getTalentEntities(true);
     const initTraitsNames = initAbilities.traits.map((t) => t.name);
     const traits = [
@@ -44,7 +60,7 @@ export default class CreatureAbilitiesChooser {
         }),
     ];
 
-    // const skillsId = `add-remove-skills-${dialogId}`;
+    const skillsId = `add-remove-skills-${dialogId}`;
     // const talentsId = `add-remove-talents-${dialogId}`;
     const traitsId = `add-remove-traits-${dialogId}`;
 
@@ -73,6 +89,30 @@ export default class CreatureAbilitiesChooser {
                   };
                 }),
                 withCheck: true,
+              })}
+              </div>
+              
+              <div class="form-group">
+              ${DialogUtil.getSelectAddRemoveScript({
+                id: skillsId,
+                title: 'WFRP4NPCGEN.creatures.abilities.select.skills.title',
+                captions: `
+                ${DialogUtil.getLabelScript('WFRP4NPCGEN.name.select.label')}
+                ${DialogUtil.getLabelScript(
+                  'WFRP4NPCGEN.creatures.abilities.select.traits.advances.label',
+                  'max-width: 60px;'
+                )}
+                ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
+                `,
+                options: EntityUtil.toSelectOption(skills),
+                initValues: initAbilities?.skills?.map((s: Item.Data & any) => {
+                  return {
+                    key: s._id,
+                    value: s.displayName ?? s.name,
+                    count: s.advances.value,
+                  };
+                }),
+                withCount: true,
               })}
               </div>
               
