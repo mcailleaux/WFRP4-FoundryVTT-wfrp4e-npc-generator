@@ -109,7 +109,7 @@ export default class CreatureAbilitiesChooser {
                   return {
                     key: s._id,
                     value: s.displayName ?? s.name,
-                    count: s.advances.value,
+                    count: s.data.advances.value,
                   };
                 }),
                 withCount: true,

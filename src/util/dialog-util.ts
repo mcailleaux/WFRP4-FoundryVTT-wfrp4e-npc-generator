@@ -261,9 +261,9 @@ export default class DialogUtil {
           value="${options.id}"
           style="max-width: 32px;"
           type="button"
-          onclick="addElement('${options.id}', ${options.withCheck}, ${
-      options.withCount
-    })"
+          onclick="addElement('${options.id}', ${
+      options.withCheck != null && options.withCheck
+    }, ${options.withCount != null && options.withCount})"
         >
           <i style="pointer-events: none;" class="fas fa-plus"></i>
         </button>
