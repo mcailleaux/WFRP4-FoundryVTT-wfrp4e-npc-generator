@@ -142,7 +142,13 @@ export default class CompendiumUtil {
             return c1.name.localeCompare(c2.name);
           }
         );
-        this.compendiumBestiary[pack.metadata.label] = actor.filter(
+
+        const module = game.modules.get(pack.metadata.package);
+        const key =
+          module?.packs?.find((p: any) => p.name === pack.name)?.label ??
+          pack.metadata.label;
+
+        this.compendiumBestiary[key] = actor.filter(
           (c) => c.data?.type === 'creature'
         );
       }

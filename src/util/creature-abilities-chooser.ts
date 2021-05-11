@@ -54,9 +54,7 @@ export default class CreatureAbilitiesChooser {
                 id: traitsId,
                 title: 'WFRP4NPCGEN.creatures.abilities.select.traits.title',
                 captions: `
-                ${DialogUtil.getLabelScript(
-                  'WFRP4NPCGEN.creatures.abilities.select.traits.title'
-                )}
+                ${DialogUtil.getLabelScript('WFRP4NPCGEN.name.select.label')}
                 ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
                 `,
                 options: EntityUtil.toSelectOption(traits),
