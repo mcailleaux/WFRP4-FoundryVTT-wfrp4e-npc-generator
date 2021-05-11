@@ -99,7 +99,7 @@ export default class CreatureAbilitiesChooser {
                 captions: `
                 ${DialogUtil.getLabelScript('WFRP4NPCGEN.name.select.label')}
                 ${DialogUtil.getLabelScript(
-                  'WFRP4NPCGEN.creatures.abilities.select.traits.advances.label',
+                  'WFRP4NPCGEN.creatures.abilities.select.skills.advances.label',
                   'max-width: 60px;'
                 )}
                 ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
