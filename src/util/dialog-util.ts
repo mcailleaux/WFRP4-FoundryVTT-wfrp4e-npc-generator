@@ -321,8 +321,9 @@ export default class DialogUtil {
                 ? this.getInputScript({
                     id: `${options.id}-${options.item.key}-check`,
                     type: 'checkbox',
-                    initValue: options.item.check,
+                    checked: options.item.check,
                     classes: `${options.id}-check`,
+                    style: 'min-width: 60px; max-width: 60px;',
                   })
                 : ''
             }
@@ -371,6 +372,8 @@ export default class DialogUtil {
                 inputCheck.type = 'checkbox';
                 inputCheck.checked = true;
                 inputCheck.classList.add(id + '-check');
+                inputCheck.style.maxWidth = '60px';
+                inputCheck.style.minWidth = '60px';
             }
             const button = document.createElement('button');
             button.value = key;
