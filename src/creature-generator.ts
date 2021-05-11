@@ -93,7 +93,7 @@ export default class CreatureGenerator {
           );
           model.creatureTemplate.rangedDamage = StringUtil.getGroupName(
             model.creatureTemplate.ranged.displayName.substring(
-              model.creatureTemplate.ranged.displayName.indexOf(')')
+              model.creatureTemplate.ranged.displayName.indexOf(')') + 1
             )
           );
         }
