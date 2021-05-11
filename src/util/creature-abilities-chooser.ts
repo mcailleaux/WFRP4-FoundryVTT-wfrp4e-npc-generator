@@ -153,6 +153,7 @@ export default class CreatureAbilitiesChooser {
                     };
                   }
                 ),
+                initCount: 1,
                 withCount: true,
               })}
               </div>

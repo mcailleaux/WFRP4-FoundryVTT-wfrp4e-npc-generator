@@ -241,6 +241,7 @@ export default class DialogUtil {
     captions?: string;
     withCheck?: boolean;
     withCount?: boolean;
+    initCount?: number;
   }): string {
     const flexRow =
       'display: flex; flex-direction: row; justify-content: space-between; align-items: stretch;';
@@ -263,7 +264,9 @@ export default class DialogUtil {
           type="button"
           onclick="addElement('${options.id}', ${
       options.withCheck != null && options.withCheck
-    }, ${options.withCount != null && options.withCount})"
+    }, ${options.withCount != null && options.withCount}, ${
+      options.initCount ?? 0
+    })"
         >
           <i style="pointer-events: none;" class="fas fa-plus"></i>
         </button>
@@ -352,7 +355,7 @@ export default class DialogUtil {
 
   public static getAddRemoveElementScript(): string {
     return `
-        function addElement(id, withCheck, withCount) {
+        function addElement(id, withCheck, withCount, initCount) {
             const select = document.getElementById(id);
             const key = select.value;
             const value = select.querySelector('option[value="' + key + '"]').innerHTML;
@@ -391,7 +394,7 @@ export default class DialogUtil {
                 inputCount = document.createElement('input');
                 inputCount.id = id + '-' + key + '-count';
                 inputCount.type = 'number';
-                inputCount.value = 0;
+                inputCount.value = initCount;
                 inputCount.classList.add(id + '-count');
                 inputCount.style.maxWidth = '80px';
                 inputCount.style.minWidth = '80px';
