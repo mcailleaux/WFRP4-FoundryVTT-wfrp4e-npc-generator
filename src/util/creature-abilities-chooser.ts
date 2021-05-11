@@ -3,6 +3,7 @@ import ReferentialUtil from './referential-util.js';
 import EntityUtil from './entity-util.js';
 import CompendiumUtil from './compendium-util.js';
 import DialogUtil from './dialog-util.js';
+import StringUtil from './string-util.js';
 
 export default class CreatureAbilitiesChooser {
   public static async selectCreatureAbilities(
@@ -19,6 +20,7 @@ export default class CreatureAbilitiesChooser {
 
     // const skills = await ReferentialUtil.getSkillEntities(true);
     // const talents = await ReferentialUtil.getTalentEntities(true);
+    const initTraitsNames = initAbilities.traits.map((t) => t.name);
     const traits = [
       ...initAbilities.traits.sort(
         (t1: Item.Data & any, t2: Item.Data & any) => {
@@ -32,7 +34,8 @@ export default class CreatureAbilitiesChooser {
             !EntityUtil.match(t, weapon) &&
             !EntityUtil.match(t, armour) &&
             !EntityUtil.match(t, ranged) &&
-            !EntityUtil.match(t, size)
+            !EntityUtil.match(t, size) &&
+            !StringUtil.arrayIncludesDeburrIgnoreCase(initTraitsNames, t.name)
           );
         })
         .map((t) => t.data)
