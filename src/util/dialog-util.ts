@@ -134,7 +134,7 @@ export default class DialogUtil {
   }): string {
     const idStr =
       options?.id != null && options?.id?.length > 0
-        ? `id="${options?.id}"`
+        ? ` id="${options?.id}"`
         : '';
     const hasDataList =
       options?.dataListId != null &&
