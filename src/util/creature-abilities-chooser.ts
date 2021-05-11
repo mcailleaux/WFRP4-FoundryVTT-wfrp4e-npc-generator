@@ -35,7 +35,23 @@ export default class CreatureAbilitiesChooser {
           return s1.name.localeCompare(s2.name);
         }),
     ];
-    // const talents = await ReferentialUtil.getTalentEntities(true);
+    const initTalentsNames = initAbilities.talents.map((t) => t.name);
+    const talents = [
+      ...initAbilities.talents.sort((t1, t2) => {
+        return t1.name.localeCompare(t2.name);
+      }),
+      ...(await ReferentialUtil.getTalentEntities(true))
+        .filter((t) => {
+          return !StringUtil.arrayIncludesDeburrIgnoreCase(
+            initTalentsNames,
+            t.name
+          );
+        })
+        .map((t) => t.data)
+        .sort((t1, t2) => {
+          return t1.name.localeCompare(t2.name);
+        }),
+    ];
     const initTraitsNames = initAbilities.traits.map((t) => t.name);
     const traits = [
       ...initAbilities.traits.sort(
@@ -61,7 +77,7 @@ export default class CreatureAbilitiesChooser {
     ];
 
     const skillsId = `add-remove-skills-${dialogId}`;
-    // const talentsId = `add-remove-talents-${dialogId}`;
+    const talentsId = `add-remove-talents-${dialogId}`;
     const traitsId = `add-remove-traits-${dialogId}`;
 
     new Dialog({
@@ -99,8 +115,8 @@ export default class CreatureAbilitiesChooser {
                 captions: `
                 ${DialogUtil.getLabelScript('WFRP4NPCGEN.name.select.label')}
                 ${DialogUtil.getLabelScript(
-                  'WFRP4NPCGEN.creatures.abilities.select.skills.advances.label',
-                  'max-width: 60px;'
+                  'WFRP4NPCGEN.creatures.abilities.select.advances.label',
+                  'max-width: 80px;'
                 )}
                 ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
                 `,
@@ -112,6 +128,31 @@ export default class CreatureAbilitiesChooser {
                     count: s.data.advances.value,
                   };
                 }),
+                withCount: true,
+              })}
+              </div>
+              <div class="form-group">
+              ${DialogUtil.getSelectAddRemoveScript({
+                id: talentsId,
+                title: 'WFRP4NPCGEN.creatures.abilities.select.talents.title',
+                captions: `
+                ${DialogUtil.getLabelScript('WFRP4NPCGEN.name.select.label')}
+                ${DialogUtil.getLabelScript(
+                  'WFRP4NPCGEN.creatures.abilities.select.advances.label',
+                  'max-width: 80px;'
+                )}
+                ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
+                `,
+                options: EntityUtil.toSelectOption(talents),
+                initValues: initAbilities?.talents?.map(
+                  (t: Item.Data & any) => {
+                    return {
+                      key: t._id,
+                      value: t.displayName ?? t.name,
+                      count: t.data.advances.value,
+                    };
+                  }
+                ),
                 withCount: true,
               })}
               </div>

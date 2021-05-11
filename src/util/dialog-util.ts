@@ -334,7 +334,7 @@ export default class DialogUtil {
                     type: 'number',
                     initValue: options.item.count,
                     classes: `${options.id}-count`,
-                    style: 'min-width: 60px; max-width: 60px;',
+                    style: 'min-width: 80px; max-width: 80px;',
                   })
                 : ''
             }
@@ -393,8 +393,8 @@ export default class DialogUtil {
                 inputCount.type = 'number';
                 inputCount.value = 0;
                 inputCount.classList.add(id + '-count');
-                inputCount.style.maxWidth = '60px';
-                inputCount.style.minWidth = '60px';
+                inputCount.style.maxWidth = '80px';
+                inputCount.style.minWidth = '80px';
             }
             const button = document.createElement('button');
             button.value = key;

@@ -82,5 +82,6 @@
   "WFRP4NPCGEN.creatures.abilities.select.traits.title": "Traits",
   "WFRP4NPCGEN.creatures.abilities.select.traits.included.label": "Inclure",
   "WFRP4NPCGEN.creatures.abilities.select.skills.title": "Compétences",
-  "WFRP4NPCGEN.creatures.abilities.select.skills.advances.label": "Avancement"
+  "WFRP4NPCGEN.creatures.abilities.select.talents.title": "Talents",
+  "WFRP4NPCGEN.creatures.abilities.select.advances.label": "Avancement"
 }
