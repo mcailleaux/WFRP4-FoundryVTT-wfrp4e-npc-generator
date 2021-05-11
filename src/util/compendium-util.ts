@@ -144,9 +144,13 @@ export default class CompendiumUtil {
         );
 
         const module = game.modules.get(pack.metadata.package);
-        const key =
-          module?.packs?.find((p: any) => p.name === pack.metadata.name)
-            ?.label ?? pack.metadata.label;
+        let key = pack.metadata.label;
+
+        if (key === pack.metadata.name) {
+          key =
+            module?.packs?.find((p: any) => p.name === pack.metadata.name)
+              ?.label ?? pack.metadata.label;
+        }
 
         this.compendiumBestiary[key] = actor.filter(
           (c) => c.data?.type === 'creature'
