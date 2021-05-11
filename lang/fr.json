@@ -87,6 +87,7 @@
   "WFRP4NPCGEN.creatures.abilities.select.basic.label": "Compétences de base",
   "WFRP4NPCGEN.creatures.abilities.select.swarm.label": "Nuée",
   "WFRP4NPCGEN.creatures.abilities.select.weapon.label": "Arme",
+  "WFRP4NPCGEN.creatures.abilities.select.weapon.damage.label": "Arme (Dégât hors BF)",
   "WFRP4NPCGEN.creatures.abilities.select.ranged.label": "Distance",
   "WFRP4NPCGEN.creatures.abilities.select.ranged.range.label": "Distance (Portée)",
   "WFRP4NPCGEN.creatures.abilities.select.ranged.damage.label": "Distance (Dégât)",

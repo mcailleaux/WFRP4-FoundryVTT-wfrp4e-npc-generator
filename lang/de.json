@@ -87,6 +87,7 @@
   "WFRP4NPCGEN.creatures.abilities.select.basic.label": "Basic Skills",
   "WFRP4NPCGEN.creatures.abilities.select.swarm.label": "Swarm",
   "WFRP4NPCGEN.creatures.abilities.select.weapon.label": "Weapon",
+  "WFRP4NPCGEN.creatures.abilities.select.weapon.damage.label": "Weapon (Damage without SB)",
   "WFRP4NPCGEN.creatures.abilities.select.ranged.label": "Ranged",
   "WFRP4NPCGEN.creatures.abilities.select.ranged.range.label": "Ranged (Range)",
   "WFRP4NPCGEN.creatures.abilities.select.ranged.damage.label": "Ranged (Damage)",

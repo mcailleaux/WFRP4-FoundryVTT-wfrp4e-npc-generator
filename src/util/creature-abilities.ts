@@ -5,6 +5,7 @@ export default class CreatureAbilities {
   public hasWeaponTrait = false;
   public hasRangedTrait = false;
   public hasArmourTrait = false;
+  public weaponDamage: string;
   public rangedRange: string;
   public rangedDamage: string;
   public armourValue: string;

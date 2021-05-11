@@ -4,8 +4,9 @@ export default class CreatureTemplate {
   public swarm: Item.Data & any;
   public weapon: Item.Data & any;
   public ranged: Item.Data & any;
+  public weaponDamage: string;
   public rangedRange: string;
   public rangedDamage: string;
   public armour: Item.Data & any;
-  public armorValue: string;
+  public armourValue: string;
 }

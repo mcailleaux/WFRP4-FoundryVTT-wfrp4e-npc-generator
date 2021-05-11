@@ -116,6 +116,16 @@ export default class CreatureAbilitiesChooser {
               </div>
               <div class="form-group">
               ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.creatures.abilities.select.weapon.damage.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `creature-abilities-weapon-damage-${dialogId}`,
+                type: 'number',
+                initValue: initAbilities.weaponDamage,
+              })}
+              </div>
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
                 'WFRP4NPCGEN.creatures.abilities.select.ranged.label'
               )}
               ${DialogUtil.getInputScript({

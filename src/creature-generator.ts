@@ -82,8 +82,15 @@ export default class CreatureGenerator {
         )?.find((t: any) => EntityUtil.match(t, ranged));
 
         if (model.creatureTemplate.armour != null) {
-          model.creatureTemplate.armorValue = StringUtil.getGroupName(
+          model.creatureTemplate.armourValue = StringUtil.getGroupName(
             model.creatureTemplate.armour.displayName
+          );
+        }
+
+        if (model.creatureTemplate.weapon != null) {
+          model.creatureTemplate.weaponDamage = String(
+            model.creatureTemplate.weapon.damage -
+              model.creatureTemplate.weapon.bonus
           );
         }
 
@@ -112,9 +119,10 @@ export default class CreatureGenerator {
         model.abilities.hasRangedTrait =
           model.creatureTemplate.ranged != null &&
           model.creatureTemplate.ranged.included;
+        model.abilities.weaponDamage = model.creatureTemplate.weaponDamage;
         model.abilities.rangedRange = model.creatureTemplate.rangedRange;
         model.abilities.rangedDamage = model.creatureTemplate.rangedDamage;
-        model.abilities.armourValue = model.creatureTemplate.armorValue;
+        model.abilities.armourValue = model.creatureTemplate.armourValue;
 
         model.abilities.traits = duplicate(creature.traits).filter((t: any) => {
           return (
