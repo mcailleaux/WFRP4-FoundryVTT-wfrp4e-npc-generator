@@ -321,6 +321,30 @@ export default class CreatureAbilitiesChooser {
             abilities.traits.push(trait);
           });
 
+          html.find(`.${skillsId}`).each((_i, r: HTMLInputElement) => {
+            const id = r.id;
+            const key = r.value;
+            let count = 0;
+            html.find(`#${id}-count`).each((_i1, r1: HTMLInputElement) => {
+              count = Number(r1.value);
+            });
+            const skill = <Item.Data & any>skills.find((s) => s._id === key);
+            skill.data.advances.value = count;
+            abilities.skills.push(skill);
+          });
+
+          html.find(`.${talentsId}`).each((_i, r: HTMLInputElement) => {
+            const id = r.id;
+            const key = r.value;
+            let count = 0;
+            html.find(`#${id}-count`).each((_i1, r1: HTMLInputElement) => {
+              count = Number(r1.value);
+            });
+            const talent = <Item.Data & any>talents.find((t) => t._id === key);
+            talent.data.advances.value = count;
+            abilities.talents.push(talent);
+          });
+
           callback(initAbilities);
         },
         undo
