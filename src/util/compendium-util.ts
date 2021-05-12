@@ -137,12 +137,6 @@ export default class CompendiumUtil {
         (p) => p.metadata.entity === 'Actor'
       );
       for (let pack of actorsPacks) {
-        const actor: Actor[] = (await pack.getContent()).sort(
-          (c1: Actor, c2: Actor) => {
-            return c1.name.localeCompare(c2.name);
-          }
-        );
-
         const module = game.modules.get(pack.metadata.package);
         let key = pack.metadata.label;
 
@@ -152,9 +146,19 @@ export default class CompendiumUtil {
               ?.label ?? pack.metadata.label;
         }
 
+        console.info(`Start to load ${key} compendium`);
+
+        const actor: Actor[] = (await pack.getContent()).sort(
+          (c1: Actor, c2: Actor) => {
+            return c1.name.localeCompare(c2.name);
+          }
+        );
+
         this.compendiumBestiary[key] = actor.filter(
           (c) => c.data?.type === 'creature'
         );
+
+        console.info(`End to load ${key} compendium`);
       }
     }
     return Promise.resolve(this.compendiumBestiary);
