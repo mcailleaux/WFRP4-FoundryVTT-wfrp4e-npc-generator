@@ -268,7 +268,7 @@ export default class CompendiumUtil {
         (await this.getCompendiumTraits()).find(
           (t: Item & any) =>
             t.data.name.startsWith('Ranged') ||
-            t.data.originalName.startsWith('Ranged')
+            t.data.originalName?.startsWith('Ranged')
         )
       );
     }
