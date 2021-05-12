@@ -124,7 +124,7 @@ export default class CreatureGenerator {
         model.abilities.rangedDamage = model.creatureTemplate.rangedDamage;
         model.abilities.armourValue = model.creatureTemplate.armourValue;
 
-        model.abilities.traits = duplicate(creature.traits).filter((t: any) => {
+        const traits = creature.traits.filter((t: any) => {
           return (
             !EntityUtil.match(t, swarm) &&
             !EntityUtil.match(t, weapon) &&
@@ -133,12 +133,40 @@ export default class CreatureGenerator {
             !EntityUtil.match(t, size)
           );
         });
+        const compendiumTraits = await ReferentialUtil.getTraitEntities(true);
+        for (let trait of traits) {
+          const finalTrait =
+            compendiumTraits.find(
+              (t: Item & any) =>
+                t.data.name === trait.name || t.data.originalName === trait.name
+            ) ?? trait;
+          model.abilities.traits.push(duplicate(finalTrait));
+        }
 
-        model.abilities.skills = duplicate(creature.skills).filter((s: any) => {
+        const skills = creature.skills.filter((s: any) => {
           return s.data.advances.value > 0;
         });
+        const compendiumSkills = await ReferentialUtil.getSkillEntities(true);
+        for (let skill of skills) {
+          const finalSkill =
+            compendiumSkills.find(
+              (s: Item & any) =>
+                s.data.name === skill.name || s.data.originalName === skill.name
+            ) ?? skill;
+          model.abilities.skills.push(duplicate(finalSkill));
+        }
 
-        model.abilities.talents = duplicate(creature.talents);
+        const talents = creature.talents;
+        const compendiumTalents = await ReferentialUtil.getTalentEntities(true);
+        for (let talent of talents) {
+          const finalTalent =
+            compendiumTalents.find(
+              (t: Item & any) =>
+                t.data.name === talent.name ||
+                t.data.originalName === talent.name
+            ) ?? talent;
+          model.abilities.talents.push(duplicate(finalTalent));
+        }
 
         await this.selectCreatureAbilities(model, callback);
       }
