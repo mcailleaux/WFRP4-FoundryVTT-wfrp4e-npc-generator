@@ -30,7 +30,11 @@ export default class CompendiumUtil {
             `,
         buttons: {},
       });
-      loadDialog.render(true);
+      setTimeout(() => {
+        if (loadDialog != null) {
+          loadDialog.render(true);
+        }
+      });
     }
 
     if (forCreatures) {
