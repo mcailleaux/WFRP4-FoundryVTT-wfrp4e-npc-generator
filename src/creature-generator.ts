@@ -154,8 +154,7 @@ export default class CreatureGenerator {
           const finalSkill =
             compendiumSkills.find(
               (s: Item & any) =>
-                s.data.name === skill.displayName ||
-                s.data.originalName === skill.displayName
+                s.data.name === skill.name || s.data.originalName === skill.name
             ) ?? skill;
           model.abilities.skills.push(duplicate(finalSkill));
         }
@@ -166,8 +165,8 @@ export default class CreatureGenerator {
           const finalTalent =
             compendiumTalents.find(
               (t: Item & any) =>
-                t.data.name === talent.displayName ||
-                t.data.originalName === talent.displayName
+                t.data.name === talent.name ||
+                t.data.originalName === talent.name
             ) ?? talent;
           model.abilities.talents.push(duplicate(finalTalent));
         }
