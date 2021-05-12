@@ -81,12 +81,16 @@ export default class CompendiumUtil {
           (p.metadata.tags && p.metadata.tags.includes('career')) ||
           p.metadata.entity === 'Item'
       );
+      const loaders: Promise<any>[] = [];
       for (let pack of careersPacks) {
+        loaders.push(pack.getContent());
         const career: Item[] = await pack.getContent();
         this.compendiumCareers.push(
           ...career.filter((c) => c.type === 'career')
         );
       }
+      const contents = await Promise.all(loaders);
+      console.dir(contents);
     }
     return Promise.resolve(this.compendiumCareers);
   }
@@ -141,7 +145,7 @@ export default class CompendiumUtil {
         (p) => p.metadata.entity === 'Actor'
       );
       const packLoader = (pack: any) => {
-        const promise = new Promise(async (resolve) => {
+        return new Promise(async (resolve) => {
           const module = game.modules.get(pack.metadata.package);
           let key = pack.metadata.label;
 
@@ -167,33 +171,10 @@ export default class CompendiumUtil {
 
           resolve();
         });
-        return promise;
       };
       const loaders: Promise<any>[] = [];
       for (let pack of actorsPacks) {
         loaders.push(packLoader(pack));
-        //   const module = game.modules.get(pack.metadata.package);
-        //   let key = pack.metadata.label;
-        //
-        //   if (key === pack.metadata.name) {
-        //     key =
-        //       module?.packs?.find((p: any) => p.name === pack.metadata.name)
-        //         ?.label ?? pack.metadata.label;
-        //   }
-        //
-        //   console.info(`Start to load ${key} compendium`);
-        //
-        //   const actor: Actor[] = (await pack.getContent()).sort(
-        //     (c1: Actor, c2: Actor) => {
-        //       return c1.name.localeCompare(c2.name);
-        //     }
-        //   );
-        //
-        //   this.compendiumBestiary[key] = actor.filter(
-        //     (c) => c.data?.type === 'creature'
-        //   );
-        //
-        //   console.info(`End to load ${key} compendium`);
       }
       await Promise.all(loaders);
     }
