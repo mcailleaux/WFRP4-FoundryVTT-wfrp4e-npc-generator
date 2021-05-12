@@ -345,7 +345,7 @@ export default class CreatureAbilitiesChooser {
             abilities.talents.push(talent);
           });
 
-          callback(initAbilities);
+          callback(abilities);
         },
         undo
       ),
