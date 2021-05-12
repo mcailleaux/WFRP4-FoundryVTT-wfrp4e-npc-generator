@@ -17,7 +17,7 @@ export default class CompendiumUtil {
   private static compendiumLoaded = false;
   private static creatureCompendiumLoaded = false;
 
-  public static async initCompendium(forCreatures = false) {
+  public static initCompendium(callback: () => void, forCreatures = false) {
     let loadDialog: Dialog | null = null;
     if (!this.compendiumLoaded || !this.creatureCompendiumLoaded) {
       loadDialog = new Dialog({
@@ -30,47 +30,47 @@ export default class CompendiumUtil {
             `,
         buttons: {},
       });
-      setTimeout(() => {
-        if (loadDialog != null) {
-          loadDialog.render(true);
-        }
-      });
+      loadDialog.render(true);
     }
 
-    if (forCreatures) {
-      await Promise.all([
-        this.getCompendiumTrappings(),
-        this.getCompendiumBestiary(),
-        this.getCompendiumSkills(),
-        this.getCompendiumTalents(),
-        this.getCompendiumTraits(),
-      ]);
-      await this.getCompendiumSizeTrait();
-      await this.getCompendiumSwarmTrait();
-      await this.getCompendiumWeaponTrait();
-      await this.getCompendiumArmourTrait();
-      await this.getCompendiumRangedTrait();
-    } else {
-      await Promise.all([
-        this.getCompendiumCareers(),
-        this.getCompendiumTrappings(),
-      ]);
-      await this.getCompendiumCareersGroups();
-    }
+    setTimeout(async () => {
+      if (forCreatures) {
+        await Promise.all([
+          this.getCompendiumTrappings(),
+          this.getCompendiumBestiary(),
+          this.getCompendiumSkills(),
+          this.getCompendiumTalents(),
+          this.getCompendiumTraits(),
+        ]);
+        await this.getCompendiumSizeTrait();
+        await this.getCompendiumSwarmTrait();
+        await this.getCompendiumWeaponTrait();
+        await this.getCompendiumArmourTrait();
+        await this.getCompendiumRangedTrait();
+      } else {
+        await Promise.all([
+          this.getCompendiumCareers(),
+          this.getCompendiumTrappings(),
+        ]);
+        await this.getCompendiumCareersGroups();
+      }
 
-    if (
-      (!this.compendiumLoaded || !this.creatureCompendiumLoaded) &&
-      loadDialog != null
-    ) {
-      setTimeout(async () => {
-        await loadDialog?.close();
-      });
-    }
-    if (forCreatures) {
-      this.creatureCompendiumLoaded = true;
-    } else {
-      this.compendiumLoaded = true;
-    }
+      if (
+        (!this.compendiumLoaded || !this.creatureCompendiumLoaded) &&
+        loadDialog != null
+      ) {
+        setTimeout(async () => {
+          await loadDialog?.close();
+        });
+      }
+      if (forCreatures) {
+        this.creatureCompendiumLoaded = true;
+      } else {
+        this.compendiumLoaded = true;
+      }
+
+      callback();
+    });
   }
 
   public static async getCompendiumCareers() {

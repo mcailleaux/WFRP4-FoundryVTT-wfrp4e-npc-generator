@@ -30,18 +30,19 @@ export default class NpcGenerator {
   public static async generateNpc(
     callback?: (model: NpcModel, actorData: any, actor: any) => void
   ) {
-    await CompendiumUtil.initCompendium();
-    await this.generateNpcModel(async (model) => {
-      const actorData = await ActorBuilder.buildActorData(model, 'npc');
-      const actor = await ActorBuilder.createActor(model, actorData);
-      ui.notifications.info(
-        game.i18n.format('WFRP4NPCGEN.notification.actor.created', {
-          name: actor.name,
-        })
-      );
-      if (callback != null) {
-        callback(model, actorData, actor);
-      }
+    CompendiumUtil.initCompendium(async () => {
+      await this.generateNpcModel(async (model) => {
+        const actorData = await ActorBuilder.buildActorData(model, 'npc');
+        const actor = await ActorBuilder.createActor(model, actorData);
+        ui.notifications.info(
+          game.i18n.format('WFRP4NPCGEN.notification.actor.created', {
+            name: actor.name,
+          })
+        );
+        if (callback != null) {
+          callback(model, actorData, actor);
+        }
+      });
     });
   }
 

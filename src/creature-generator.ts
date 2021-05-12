@@ -21,20 +21,21 @@ export default class CreatureGenerator {
   public static async generateCreature(
     callback?: (model: CreatureModel, actorData: any, actor: any) => void
   ) {
-    await CompendiumUtil.initCompendium(true);
-    await this.generateCreatureModel(async (model) => {
-      // const actorData = await CreatureBuilder.buildCreatureData(model);
-      // const actor = await CreatureBuilder.createCreature(model, actorData);
-      // ui.notifications.info(
-      //   game.i18n.format('WFRP4NPCGEN.notification.creature.created', {
-      //     name: actor.name,
-      //   })
-      // );
-      if (callback != null) {
-        // callback(model, actorData, actor);
-        callback(model, null, null);
-      }
-    });
+    CompendiumUtil.initCompendium(async () => {
+      await this.generateCreatureModel(async (model) => {
+        // const actorData = await CreatureBuilder.buildCreatureData(model);
+        // const actor = await CreatureBuilder.createCreature(model, actorData);
+        // ui.notifications.info(
+        //   game.i18n.format('WFRP4NPCGEN.notification.creature.created', {
+        //     name: actor.name,
+        //   })
+        // );
+        if (callback != null) {
+          // callback(model, actorData, actor);
+          callback(model, null, null);
+        }
+      });
+    }, true);
   }
 
   public static async generateCreatureModel(
