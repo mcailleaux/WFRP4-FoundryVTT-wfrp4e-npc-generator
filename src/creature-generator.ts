@@ -8,6 +8,8 @@ import TranslateErrorDetect from './util/translate-error-detect.js';
 import StringUtil from './util/string-util.js';
 import EntityUtil from './util/entity-util.js';
 import CreatureAbilitiesChooser from './util/creature-abilities-chooser.js';
+import CreatureAbilities from './util/creature-abilities.js';
+import CreatureTemplate from './util/creature-template.js';
 
 export default class CreatureGenerator {
   public static readonly creatureChooser = CreatureChooser;
@@ -140,9 +142,10 @@ export default class CreatureGenerator {
               (t: Item & any) =>
                 t.data.name === trait.displayName ||
                 t.data.originalName === trait.displayName
-            ) ?? trait
+            )?.data ?? trait
           );
           finalTrait.displayName = trait.displayName;
+          finalTrait.included = trait.included;
           model.abilities.traits.push(finalTrait);
         }
 
@@ -155,7 +158,8 @@ export default class CreatureGenerator {
             compendiumSkills.find(
               (s: Item & any) =>
                 s.data.name === skill.name || s.data.originalName === skill.name
-            ) ?? skill;
+            )?.data ?? skill;
+          finalSkill.data.advances.value = skill.data.advances.value;
           model.abilities.skills.push(duplicate(finalSkill));
         }
 
@@ -167,7 +171,8 @@ export default class CreatureGenerator {
               (t: Item & any) =>
                 t.data.name === talent.name ||
                 t.data.originalName === talent.name
-            ) ?? talent;
+            )?.data ?? talent;
+          finalTalent.data.advances.value = talent.data.advances.value;
           model.abilities.talents.push(duplicate(finalTalent));
         }
 
@@ -187,6 +192,8 @@ export default class CreatureGenerator {
         callback(model);
       },
       () => {
+        model.creatureTemplate = new CreatureTemplate();
+        model.abilities = new CreatureAbilities();
         this.selectCreature(model, callback);
       }
     );

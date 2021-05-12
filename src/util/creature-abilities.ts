@@ -2,9 +2,9 @@ export default class CreatureAbilities {
   public includeBasicSkills: boolean = false;
   public sizeKey: string = 'avg';
   public isSwarm: boolean = false;
-  public hasWeaponTrait = false;
-  public hasRangedTrait = false;
-  public hasArmourTrait = false;
+  public hasWeaponTrait: boolean = false;
+  public hasRangedTrait: boolean = false;
+  public hasArmourTrait: boolean = false;
   public weaponDamage: string;
   public rangedRange: string;
   public rangedDamage: string;
