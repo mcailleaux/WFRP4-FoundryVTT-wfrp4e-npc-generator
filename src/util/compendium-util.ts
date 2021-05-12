@@ -136,30 +136,62 @@ export default class CompendiumUtil {
       const actorsPacks = game.packs.filter(
         (p) => p.metadata.entity === 'Actor'
       );
-      for (let pack of actorsPacks) {
-        const module = game.modules.get(pack.metadata.package);
-        let key = pack.metadata.label;
+      const packLoader = (pack: any) => {
+        const promise = new Promise((resolve) => {
+          const module = game.modules.get(pack.metadata.package);
+          let key = pack.metadata.label;
 
-        if (key === pack.metadata.name) {
-          key =
-            module?.packs?.find((p: any) => p.name === pack.metadata.name)
-              ?.label ?? pack.metadata.label;
-        }
-
-        console.info(`Start to load ${key} compendium`);
-
-        const actor: Actor[] = (await pack.getContent()).sort(
-          (c1: Actor, c2: Actor) => {
-            return c1.name.localeCompare(c2.name);
+          if (key === pack.metadata.name) {
+            key =
+              module?.packs?.find((p: any) => p.name === pack.metadata.name)
+                ?.label ?? pack.metadata.label;
           }
-        );
 
-        this.compendiumBestiary[key] = actor.filter(
-          (c) => c.data?.type === 'creature'
-        );
+          console.info(`Start to load ${key} compendium`);
 
-        console.info(`End to load ${key} compendium`);
+          const actor: Actor[] = (await pack.getContent()).sort(
+            (c1: Actor, c2: Actor) => {
+              return c1.name.localeCompare(c2.name);
+            }
+          );
+
+          this.compendiumBestiary[key] = actor.filter(
+            (c) => c.data?.type === 'creature'
+          );
+
+          console.info(`End to load ${key} compendium`);
+
+          resolve();
+        });
+        return promise;
+      };
+      const loaders: Promise<any>[] = [];
+      for (let pack of actorsPacks) {
+        loaders.push(packLoader(pack));
+        //   const module = game.modules.get(pack.metadata.package);
+        //   let key = pack.metadata.label;
+        //
+        //   if (key === pack.metadata.name) {
+        //     key =
+        //       module?.packs?.find((p: any) => p.name === pack.metadata.name)
+        //         ?.label ?? pack.metadata.label;
+        //   }
+        //
+        //   console.info(`Start to load ${key} compendium`);
+        //
+        //   const actor: Actor[] = (await pack.getContent()).sort(
+        //     (c1: Actor, c2: Actor) => {
+        //       return c1.name.localeCompare(c2.name);
+        //     }
+        //   );
+        //
+        //   this.compendiumBestiary[key] = actor.filter(
+        //     (c) => c.data?.type === 'creature'
+        //   );
+        //
+        //   console.info(`End to load ${key} compendium`);
       }
+      await Promise.all(loaders);
     }
     return Promise.resolve(this.compendiumBestiary);
   }
