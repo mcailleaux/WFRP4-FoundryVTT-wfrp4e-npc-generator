@@ -84,13 +84,13 @@ export default class CompendiumUtil {
       const loaders: Promise<any>[] = [];
       for (let pack of careersPacks) {
         loaders.push(pack.getContent());
-        const career: Item[] = await pack.getContent();
-        this.compendiumCareers.push(
-          ...career.filter((c) => c.type === 'career')
-        );
       }
       const contents = await Promise.all(loaders);
-      console.dir(contents);
+      for (let careers of contents) {
+        this.compendiumCareers.push(
+          ...careers.filter((c: Item) => c.type === 'career')
+        );
+      }
     }
     return Promise.resolve(this.compendiumCareers);
   }
@@ -122,10 +122,14 @@ export default class CompendiumUtil {
           p.metadata.entity === 'Item'
       );
       const trappingCategories = CompendiumUtil.getTrappingCategories();
+      const loaders: Promise<any>[] = [];
       for (let pack of trappingsPacks) {
-        const trappings: Item[] = await pack.getContent();
+        loaders.push(pack.getContent());
+      }
+      const contents = await Promise.all(loaders);
+      for (let trappings of contents) {
         this.compendiumTrappings.push(
-          ...trappings.filter((t) => {
+          ...trappings.filter((t: Item) => {
             const type = (<any>t?.data?.data)?.trappingType?.value;
             return (
               trappingCategories.includes(t.type) ||
@@ -189,9 +193,15 @@ export default class CompendiumUtil {
           (p.metadata.tags && p.metadata.tags.includes('skill')) ||
           p.metadata.entity === 'Item'
       );
+      const loaders: Promise<any>[] = [];
       for (let pack of skillsPacks) {
-        const career: Item[] = await pack.getContent();
-        this.compendiumSkills.push(...career.filter((c) => c.type === 'skill'));
+        loaders.push(pack.getContent());
+      }
+      const contents = await Promise.all(loaders);
+      for (let skills of contents) {
+        this.compendiumSkills.push(
+          ...skills.filter((c: Item) => c.type === 'skill')
+        );
       }
     }
     return Promise.resolve(this.compendiumSkills);
@@ -205,10 +215,15 @@ export default class CompendiumUtil {
           (p.metadata.tags && p.metadata.tags.includes('talent')) ||
           p.metadata.entity === 'Item'
       );
+
+      const loaders: Promise<any>[] = [];
       for (let pack of talentsPacks) {
-        const career: Item[] = await pack.getContent();
+        loaders.push(pack.getContent());
+      }
+      const contents = await Promise.all(loaders);
+      for (let talents of contents) {
         this.compendiumTalents.push(
-          ...career.filter((c) => c.type === 'talent')
+          ...talents.filter((c: Item) => c.type === 'talent')
         );
       }
     }
@@ -223,9 +238,16 @@ export default class CompendiumUtil {
           (p.metadata.tags && p.metadata.tags.includes('trait')) ||
           p.metadata.entity === 'Item'
       );
+
+      const loaders: Promise<any>[] = [];
       for (let pack of traitsPacks) {
-        const career: Item[] = await pack.getContent();
-        this.compendiumTraits.push(...career.filter((c) => c.type === 'trait'));
+        loaders.push(pack.getContent());
+      }
+      const contents = await Promise.all(loaders);
+      for (let traits of contents) {
+        this.compendiumTraits.push(
+          ...traits.filter((c: Item) => c.type === 'trait')
+        );
       }
     }
     return Promise.resolve(this.compendiumTraits);
