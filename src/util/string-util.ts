@@ -53,13 +53,13 @@ export default class StringUtil {
   }
 
   public static getSimpleName(name: string): string {
-    return name.includes('(') && name.includes(')')
+    return name?.includes('(') && name?.includes(')')
       ? name.substring(0, name.indexOf('(')).trim()
       : name;
   }
 
   public static getGroupName(name: string): string {
-    return name.includes('(') && name.includes(')')
+    return name?.includes('(') && name?.includes(')')
       ? name.substring(name.indexOf('(') + 1, name.indexOf(')')).trim()
       : name;
   }
