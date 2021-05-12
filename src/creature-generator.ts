@@ -30,6 +30,7 @@ export default class CreatureGenerator {
         //     name: actor.name,
         //   })
         // );
+        console.dir(model);
         if (callback != null) {
           // callback(model, actorData, actor);
           callback(model, null, null);
