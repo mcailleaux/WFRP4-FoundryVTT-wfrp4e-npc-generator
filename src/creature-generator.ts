@@ -135,12 +135,15 @@ export default class CreatureGenerator {
         });
         const compendiumTraits = await ReferentialUtil.getTraitEntities(true);
         for (let trait of traits) {
-          const finalTrait =
+          const finalTrait = duplicate(
             compendiumTraits.find(
               (t: Item & any) =>
-                t.data.name === trait.name || t.data.originalName === trait.name
-            ) ?? trait;
-          model.abilities.traits.push(duplicate(finalTrait));
+                t.data.name === trait.displayName ||
+                t.data.originalName === trait.displayName
+            ) ?? trait
+          );
+          finalTrait.displayName = trait.displayName;
+          model.abilities.traits.push(finalTrait);
         }
 
         const skills = creature.skills.filter((s: any) => {
@@ -151,7 +154,8 @@ export default class CreatureGenerator {
           const finalSkill =
             compendiumSkills.find(
               (s: Item & any) =>
-                s.data.name === skill.name || s.data.originalName === skill.name
+                s.data.name === skill.displayName ||
+                s.data.originalName === skill.displayName
             ) ?? skill;
           model.abilities.skills.push(duplicate(finalSkill));
         }
@@ -162,8 +166,8 @@ export default class CreatureGenerator {
           const finalTalent =
             compendiumTalents.find(
               (t: Item & any) =>
-                t.data.name === talent.name ||
-                t.data.originalName === talent.name
+                t.data.name === talent.displayName ||
+                t.data.originalName === talent.displayName
             ) ?? talent;
           model.abilities.talents.push(duplicate(finalTalent));
         }
