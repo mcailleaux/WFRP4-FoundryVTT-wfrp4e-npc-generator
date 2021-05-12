@@ -137,7 +137,7 @@ export default class CompendiumUtil {
         (p) => p.metadata.entity === 'Actor'
       );
       const packLoader = (pack: any) => {
-        const promise = new Promise((resolve) => {
+        const promise = new Promise(async (resolve) => {
           const module = game.modules.get(pack.metadata.package);
           let key = pack.metadata.label;
 
