@@ -32,6 +32,7 @@ export default class CompendiumUtil {
         'WFRP4NPCGEN.compendium.load.hint',
         async () => {
           if (forCreatures) {
+            await this.getCompendiumItems();
             await Promise.all([
               this.getCompendiumTrappings(),
               this.getCompendiumBestiary(),
@@ -39,12 +40,15 @@ export default class CompendiumUtil {
               this.getCompendiumTalents(),
               this.getCompendiumTraits(),
             ]);
-            await this.getCompendiumSizeTrait();
-            await this.getCompendiumSwarmTrait();
-            await this.getCompendiumWeaponTrait();
-            await this.getCompendiumArmourTrait();
-            await this.getCompendiumRangedTrait();
+            await Promise.all([
+              this.getCompendiumSizeTrait(),
+              this.getCompendiumSwarmTrait(),
+              this.getCompendiumWeaponTrait(),
+              this.getCompendiumArmourTrait(),
+              this.getCompendiumRangedTrait(),
+            ]);
           } else {
+            await this.getCompendiumItems();
             await Promise.all([
               this.getCompendiumCareers(),
               this.getCompendiumTrappings(),
@@ -88,21 +92,11 @@ export default class CompendiumUtil {
   public static async getCompendiumCareers() {
     if (this.compendiumCareers == null) {
       this.compendiumCareers = [];
-      const careersPacks = game.packs.filter(
-        (p) =>
-          (p.metadata.tags && p.metadata.tags.includes('career')) ||
-          p.metadata.entity === 'Item'
+      this.compendiumCareers.push(
+        ...(await this.getCompendiumItems()).filter(
+          (c: Item) => c.type === 'career'
+        )
       );
-      const loaders: Promise<any>[] = [];
-      for (let pack of careersPacks) {
-        loaders.push(pack.getContent());
-      }
-      const contents = await Promise.all(loaders);
-      for (let careers of contents) {
-        this.compendiumCareers.push(
-          ...careers.filter((c: Item) => c.type === 'career')
-        );
-      }
     }
     return Promise.resolve(this.compendiumCareers);
   }
@@ -128,28 +122,16 @@ export default class CompendiumUtil {
   public static async getCompendiumTrappings() {
     if (this.compendiumTrappings == null) {
       this.compendiumTrappings = [];
-      const trappingsPacks = game.packs.filter(
-        (p) =>
-          (p.metadata.tags && p.metadata.tags.includes('trapping')) ||
-          p.metadata.entity === 'Item'
-      );
       const trappingCategories = CompendiumUtil.getTrappingCategories();
-      const loaders: Promise<any>[] = [];
-      for (let pack of trappingsPacks) {
-        loaders.push(pack.getContent());
-      }
-      const contents = await Promise.all(loaders);
-      for (let trappings of contents) {
-        this.compendiumTrappings.push(
-          ...trappings.filter((t: Item) => {
-            const type = (<any>t?.data?.data)?.trappingType?.value;
-            return (
-              trappingCategories.includes(t.type) ||
-              trappingCategories.includes(type)
-            );
-          })
-        );
-      }
+      this.compendiumTrappings.push(
+        ...(await this.getCompendiumItems()).filter((t: Item) => {
+          const type = (<any>t?.data?.data)?.trappingType?.value;
+          return (
+            trappingCategories.includes(t.type) ||
+            trappingCategories.includes(type)
+          );
+        })
+      );
     }
     return Promise.resolve(this.compendiumTrappings);
   }
@@ -200,21 +182,11 @@ export default class CompendiumUtil {
   public static async getCompendiumSkills() {
     if (this.compendiumSkills == null) {
       this.compendiumSkills = [];
-      const skillsPacks = game.packs.filter(
-        (p) =>
-          (p.metadata.tags && p.metadata.tags.includes('skill')) ||
-          p.metadata.entity === 'Item'
+      this.compendiumSkills.push(
+        ...(await this.getCompendiumItems()).filter(
+          (c: Item) => c.type === 'skill'
+        )
       );
-      const loaders: Promise<any>[] = [];
-      for (let pack of skillsPacks) {
-        loaders.push(pack.getContent());
-      }
-      const contents = await Promise.all(loaders);
-      for (let skills of contents) {
-        this.compendiumSkills.push(
-          ...skills.filter((c: Item) => c.type === 'skill')
-        );
-      }
     }
     return Promise.resolve(this.compendiumSkills);
   }
@@ -222,22 +194,11 @@ export default class CompendiumUtil {
   public static async getCompendiumTalents() {
     if (this.compendiumTalents == null) {
       this.compendiumTalents = [];
-      const talentsPacks = game.packs.filter(
-        (p) =>
-          (p.metadata.tags && p.metadata.tags.includes('talent')) ||
-          p.metadata.entity === 'Item'
+      this.compendiumTalents.push(
+        ...(await this.getCompendiumItems()).filter(
+          (c: Item) => c.type === 'talent'
+        )
       );
-
-      const loaders: Promise<any>[] = [];
-      for (let pack of talentsPacks) {
-        loaders.push(pack.getContent());
-      }
-      const contents = await Promise.all(loaders);
-      for (let talents of contents) {
-        this.compendiumTalents.push(
-          ...talents.filter((c: Item) => c.type === 'talent')
-        );
-      }
     }
     return Promise.resolve(this.compendiumTalents);
   }
@@ -245,22 +206,11 @@ export default class CompendiumUtil {
   public static async getCompendiumTraits() {
     if (this.compendiumTraits == null) {
       this.compendiumTraits = [];
-      const traitsPacks = game.packs.filter(
-        (p) =>
-          (p.metadata.tags && p.metadata.tags.includes('trait')) ||
-          p.metadata.entity === 'Item'
+      this.compendiumTraits.push(
+        ...(await this.getCompendiumItems()).filter(
+          (c: Item) => c.type === 'trait'
+        )
       );
-
-      const loaders: Promise<any>[] = [];
-      for (let pack of traitsPacks) {
-        loaders.push(pack.getContent());
-      }
-      const contents = await Promise.all(loaders);
-      for (let traits of contents) {
-        this.compendiumTraits.push(
-          ...traits.filter((c: Item) => c.type === 'trait')
-        );
-      }
     }
     return Promise.resolve(this.compendiumTraits);
   }
@@ -328,5 +278,57 @@ export default class CompendiumUtil {
 
   public static getSizes(): { [key: string]: string } {
     return game.wfrp4e.config.actorSizes;
+  }
+
+  public static async getCompendiumSpells() {
+    if (this.compendiumSpells == null) {
+      this.compendiumSpells = [];
+      this.compendiumSpells.push(
+        ...(await this.getCompendiumItems()).filter(
+          (c: Item) => c.type === 'spell'
+        )
+      );
+    }
+    return Promise.resolve(this.compendiumSpells);
+  }
+
+  public static async getCompendiumPrayers() {
+    if (this.compendiumPrayers == null) {
+      this.compendiumPrayers = [];
+      this.compendiumPrayers.push(
+        ...(await this.getCompendiumItems()).filter(
+          (c: Item) => c.type === 'prayer'
+        )
+      );
+    }
+    return Promise.resolve(this.compendiumPrayers);
+  }
+
+  public static async getCompendiumPhysicalMutations() {
+    if (this.compendiumPhysicalMutations == null) {
+      this.compendiumPhysicalMutations = [];
+      this.compendiumPhysicalMutations.push(
+        ...(await this.getCompendiumItems()).filter(
+          (c: Item) =>
+            c.type === 'mutation' &&
+            (<any>c.data.data).mutationType.value === 'physical'
+        )
+      );
+    }
+    return Promise.resolve(this.compendiumPhysicalMutations);
+  }
+
+  public static async getCompendiumMentalMutations() {
+    if (this.compendiumMentalMutations == null) {
+      this.compendiumMentalMutations = [];
+      this.compendiumMentalMutations.push(
+        ...(await this.getCompendiumItems()).filter(
+          (c: Item) =>
+            c.type === 'mutation' &&
+            (<any>c.data.data).mutationType.value === 'mental'
+        )
+      );
+    }
+    return Promise.resolve(this.compendiumMentalMutations);
   }
 }

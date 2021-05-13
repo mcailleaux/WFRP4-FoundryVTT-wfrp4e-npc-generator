@@ -413,4 +413,60 @@ export default class ReferentialUtil {
     }
     return Promise.resolve(traits);
   }
+
+  public static async getSpellEntities(withWorld = true): Promise<Item[]> {
+    const spells: Item[] = await CompendiumUtil.getCompendiumSpells();
+    if (withWorld) {
+      const worldSpells = await this.getWorldEntities('spell');
+      if (worldSpells != null && worldSpells.length > 0) {
+        spells.push(...worldSpells);
+      }
+    }
+    return Promise.resolve(spells);
+  }
+
+  public static async getPrayerEntities(withWorld = true): Promise<Item[]> {
+    const prayers: Item[] = await CompendiumUtil.getCompendiumPrayers();
+    if (withWorld) {
+      const worldPrayers = await this.getWorldEntities('prayer');
+      if (worldPrayers != null && worldPrayers.length > 0) {
+        prayers.push(...worldPrayers);
+      }
+    }
+    return Promise.resolve(prayers);
+  }
+
+  public static async getPhysicalMutationEntities(
+    withWorld = true
+  ): Promise<Item[]> {
+    const physicalMutations: Item[] = await CompendiumUtil.getCompendiumPhysicalMutations();
+    if (withWorld) {
+      const worldPrayers = await this.getWorldEntities('mutation');
+      if (worldPrayers != null && worldPrayers.length > 0) {
+        physicalMutations.push(
+          ...worldPrayers.filter(
+            (m) => (<any>m.data.data).mutationType.value === 'physical'
+          )
+        );
+      }
+    }
+    return Promise.resolve(physicalMutations);
+  }
+
+  public static async getMentalMutationEntities(
+    withWorld = true
+  ): Promise<Item[]> {
+    const mentalMutations: Item[] = await CompendiumUtil.getCompendiumMentalMutations();
+    if (withWorld) {
+      const worldPrayers = await this.getWorldEntities('mutation');
+      if (worldPrayers != null && worldPrayers.length > 0) {
+        mentalMutations.push(
+          ...worldPrayers.filter(
+            (m) => (<any>m.data.data).mutationType.value === 'mental'
+          )
+        );
+      }
+    }
+    return Promise.resolve(mentalMutations);
+  }
 }
