@@ -26,7 +26,9 @@ export default class MagicsChooser {
       const loreLabel =
         lore == null || lore?.trim() == ''
           ? game.i18n.localize('WFRP4NPCGEN.select.magics.no.lore.label')
-          : game.wfrp4e.config.magicLores[lore] ?? this.getCorrectedLore(lore);
+          : game.wfrp4e.config.magicLores[lore] ??
+            game.wfrp4e.config.magicLores[this.getCorrectedLore(lore)] ??
+            lore;
       if (spellsMap[loreLabel] == null) {
         spellsMap[loreLabel] = [];
       }
