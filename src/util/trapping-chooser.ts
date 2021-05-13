@@ -58,6 +58,11 @@ export default class TrappingChooser {
           })}
           </div>
           </form>
+          <script>  
+              
+              ${DialogUtil.getAddRemoveElementScript()}
+                
+            </script>
             `,
       buttons: DialogUtil.getDialogButtons(
         dialogId,
