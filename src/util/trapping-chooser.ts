@@ -18,7 +18,7 @@ export default class TrappingChooser {
 
     const trappingsMap: { [group: string]: Item.Data[] } = {};
     for (let trapping of trappings) {
-      const type = (<any>trapping.data).trappingType.value;
+      const type = (<any>trapping.data)?.trappingType?.value ?? trapping.type;
       const categorie = game.wfrp4e.config.trappingCategories[type];
       if (trappingsMap[categorie] == null) {
         trappingsMap[categorie] = [];
