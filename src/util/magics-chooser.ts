@@ -43,11 +43,16 @@ export default class MagicsChooser {
 
     const prayersMap: { [group: string]: Item.Data[] } = {};
     for (let prayer of prayers) {
+      const type = (<any>prayer.data)?.type?.value;
       const god = (<any>prayer.data)?.god?.value;
-      if (prayersMap[god] == null) {
-        prayersMap[god] = [];
+      const key =
+        type === 'blessing'
+          ? game.wfrp4e.config.prayerTypes[type]
+          : `${game.wfrp4e.config.prayerTypes[type]} - ${god}`;
+      if (prayersMap[key] == null) {
+        prayersMap[key] = [];
       }
-      prayersMap[god].push(prayer);
+      prayersMap[key].push(prayer);
     }
 
     const spellsId = `creature-add-remove-spells-${dialogId}`;
