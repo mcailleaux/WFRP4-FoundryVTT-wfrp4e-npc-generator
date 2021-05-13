@@ -1,6 +1,5 @@
 import DialogUtil from './dialog-util.js';
 import ReferentialUtil from './referential-util.js';
-import StringUtil from './string-util.js';
 import EntityUtil from './entity-util.js';
 
 export default class TrappingChooser {
@@ -11,20 +10,21 @@ export default class TrappingChooser {
   ) {
     const dialogId = new Date().getTime();
 
-    const initTrappingsNames = initTrappings.map((t) => t.name);
     const trappings = [
-      ...initTrappings,
-      ...(await ReferentialUtil.getTrappingEntities(true))
-        .filter((t) => {
-          return !StringUtil.arrayIncludesDeburrIgnoreCase(
-            initTrappingsNames,
-            t.name
-          );
-        })
-        .map((t) => t.data),
+      ...(await ReferentialUtil.getTrappingEntities(true)).map((t) => t.data),
     ].sort((t1, t2) => {
       return t1.name.localeCompare(t2.name);
     });
+
+    const trappingsMap: { [group: string]: Item.Data[] } = {};
+    for (let trapping of trappings) {
+      const type = (<any>trapping.data).trappingType.value;
+      const categorie = game.wfrp4e.config.trappingCategories[type];
+      if (trappingsMap[categorie] == null) {
+        trappingsMap[categorie] = [];
+      }
+      trappingsMap[categorie].push(trapping);
+    }
 
     const trappingsId = `creature-add-remove-trappings-${dialogId}`;
 
@@ -42,7 +42,7 @@ export default class TrappingChooser {
             )}
             ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
             `,
-            options: EntityUtil.toSelectOption(trappings),
+            optionGroups: EntityUtil.toSelectOptionGroup(trappingsMap),
             initValues: initTrappings?.map((s: Item.Data & any) => {
               return {
                 key: s._id,

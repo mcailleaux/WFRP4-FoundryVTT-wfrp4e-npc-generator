@@ -85,8 +85,10 @@ export default class DialogUtil {
     id: string,
     options: { [group: string]: { [key: string]: string } },
     initValue?: string,
-    onChange?: string
+    onChange?: string,
+    style: string = null as any
   ): string {
+    const styleStr = style != null ? ` style="${style}"` : '';
     let finalInitValue = '';
     for (let group of Object.values(options)) {
       if (finalInitValue.length === 0) {
@@ -98,7 +100,7 @@ export default class DialogUtil {
     }
     const onChangeStr = onChange != null ? ` onchange="${onChange}"` : '';
     return `
-        <select id="${id}" value="${finalInitValue}"${onChangeStr}>
+        <select${styleStr} id="${id}" value="${finalInitValue}"${onChangeStr}>
             ${Object.entries(options)
               .map(([groupKey, group]) => {
                 return `<optgroup label="${groupKey}">
@@ -230,13 +232,14 @@ export default class DialogUtil {
 
   public static getSelectAddRemoveScript(options: {
     id: string;
-    options: { [key: string]: string };
     initValues: {
       key: string;
       value: string;
       check?: boolean;
       count?: number;
     }[];
+    options?: { [key: string]: string };
+    optionGroups?: { [group: string]: { [key: string]: string } };
     title?: string;
     captions?: string;
     withCheck?: boolean;
@@ -251,13 +254,25 @@ export default class DialogUtil {
       <div style="${flexColumn}">
         ${options.title != null ? this.getLabelScript(options.title) : ''}
         <div style="${flexRow}">
-        ${this.getSelectScript(
-          options.id,
-          options.options,
-          undefined,
-          undefined,
-          'width: 100%;'
-        )}
+        ${
+          options.optionGroups != null
+            ? this.getSelectOptGrpScript(
+                options.id,
+                options.optionGroups,
+                undefined,
+                undefined,
+                'width: 100%;'
+              )
+            : options.options != null
+            ? this.getSelectScript(
+                options.id,
+                options.options,
+                undefined,
+                undefined,
+                'width: 100%;'
+              )
+            : ''
+        }
         <button
           value="${options.id}"
           style="max-width: 32px;"

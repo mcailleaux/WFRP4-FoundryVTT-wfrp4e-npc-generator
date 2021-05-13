@@ -24,4 +24,17 @@ export default class EntityUtil {
     }
     return map;
   }
+
+  public static toSelectOptionGroup(items: {
+    [group: string]: (Item.Data & any)[];
+  }): { [group: string]: { [key: string]: string } } {
+    if (items == null) {
+      return {};
+    }
+    const map: { [group: string]: { [key: string]: string } } = {};
+    for (let group of Object.keys(items)) {
+      map[group] = this.toSelectOption(items[group]);
+    }
+    return map;
+  }
 }
