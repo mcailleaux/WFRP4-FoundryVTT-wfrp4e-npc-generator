@@ -26,7 +26,7 @@ export default class MagicsChooser {
       const loreLabel =
         lore == null || lore?.trim() == ''
           ? game.i18n.localize('WFRP4NPCGEN.select.magics.no.lore.label')
-          : game.wfrp4e.config.magicLores[lore] ?? lore;
+          : game.wfrp4e.config.magicLores[lore] ?? this.getCorrectedLore(lore);
       if (spellsMap[loreLabel] == null) {
         spellsMap[loreLabel] = [];
       }
@@ -123,5 +123,20 @@ export default class MagicsChooser {
       ),
       default: 'yes',
     }).render(true);
+  }
+
+  private static getCorrectedLore(lore: string): string {
+    switch (lore) {
+      case 'minor':
+        return 'petty';
+      case 'shadows':
+        return 'shadow';
+      case 'undivided':
+        return 'Chaos';
+      case 'warp':
+        return 'Skaven';
+      default:
+        return lore;
+    }
   }
 }
