@@ -73,19 +73,6 @@ export default class OptionsChooser {
               </div>
               <div class="form-group">
               ${DialogUtil.getLabelScript(
-                'WFRP4NPCGEN.options.select.withCareerTrappings.label'
-              )}
-              ${DialogUtil.getInputScript({
-                id: `select-with-career-trappings-${dialogId}`,
-                type: 'checkbox',
-                name: 'select-with-career-trappings',
-                initValue:
-                  initOptions != null && initOptions.withCareerTrappings,
-                checked: initOptions != null && initOptions.withCareerTrappings,
-              })}
-              </div>
-              <div class="form-group">
-              ${DialogUtil.getLabelScript(
                 'WFRP4NPCGEN.options.select.editTrappings.label'
               )}
               ${DialogUtil.getInputScript({

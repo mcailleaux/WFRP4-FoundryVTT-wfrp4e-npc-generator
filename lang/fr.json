@@ -99,5 +99,5 @@
   "WFRP4NPCGEN.creatures.trappings.select.quantity.label": "Quantitée",
   "WFRP4NPCGEN.settings.defaultEditTrappings.name": "Éditer l'Équipement",
   "WFRP4NPCGEN.settings.defaultEditTrappings.hint": "Valeur sélectionné par défaut pour l'option 'éditer l'équipement' lors de l'étape de choix des options à la génération d'un PNJ",
-  "WFRP4NPCGEN.options.select.defaultEditTrappings.label": "Éditer l'Équipement"
+  "WFRP4NPCGEN.options.select.editTrappings.label": "Éditer l'Équipement"
 }

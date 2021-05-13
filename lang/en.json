@@ -99,5 +99,5 @@
   "WFRP4NPCGEN.creatures.trappings.select.quantity.label": "Quantity",
   "WFRP4NPCGEN.settings.defaultEditTrappings.name": "Edit Trappings",
   "WFRP4NPCGEN.settings.defaultEditTrappings.hint": "Default selected value for the option 'edit trappings' on the options generation chooser when you generate a NPC",
-  "WFRP4NPCGEN.options.select.defaultEditTrappings.label": "Edit Trappings"
+  "WFRP4NPCGEN.options.select.editTrappings.label": "Edit Trappings"
 }
