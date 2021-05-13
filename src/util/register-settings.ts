@@ -175,5 +175,18 @@ export default class RegisterSettings {
       type: Boolean,
       default: false,
     });
+
+    game.settings.register(moduleName, 'defaultEditTrappings', {
+      name: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultEditTrappings.name'
+      ),
+      hint: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultEditTrappings.hint'
+      ),
+      scope: 'world',
+      config: true,
+      type: Boolean,
+      default: false,
+    });
   }
 }

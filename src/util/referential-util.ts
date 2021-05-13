@@ -130,6 +130,13 @@ export default class ReferentialUtil {
     return Promise.resolve(worldEntities);
   }
 
+  public static async getWorldActorEntities(type: string): Promise<Actor[]> {
+    const worldEntities = game.actors?.filter((actor) => {
+      return actor.data?.type === type;
+    });
+    return Promise.resolve(worldEntities);
+  }
+
   public static async getTrappingEntities(withWorld = true): Promise<Item[]> {
     const trappings: Item[] = await CompendiumUtil.getCompendiumTrappings();
     if (withWorld) {
@@ -357,12 +364,20 @@ export default class ReferentialUtil {
     return Promise.resolve(moneyItems);
   }
 
-  public static async getBestiaryEntities(): Promise<{
+  public static async getBestiaryEntities(
+    withWorld = true
+  ): Promise<{
     [pack: string]: Actor[];
   }> {
     const bestiary: {
       [pack: string]: Actor[];
     } = await CompendiumUtil.getCompendiumBestiary();
+    if (withWorld) {
+      const worldActors = await this.getWorldActorEntities('creature');
+      if (worldActors != null && worldActors.length > 0) {
+        bestiary[game.world.title] = worldActors;
+      }
+    }
     return Promise.resolve(bestiary);
   }
 

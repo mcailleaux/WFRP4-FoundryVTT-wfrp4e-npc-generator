@@ -18,7 +18,7 @@ export default class CreatureAbilitiesChooser {
     const ranged: Item & any = await CompendiumUtil.getCompendiumRangedTrait();
     const size: Item & any = await CompendiumUtil.getCompendiumSizeTrait();
 
-    const initSkillssNames = initAbilities.skills.map((s) => s.name);
+    const initSkillsNames = initAbilities.skills.map((s) => s.name);
     const skills = [
       ...initAbilities.skills.sort((s1, s2) => {
         return s1.name.localeCompare(s2.name);
@@ -26,7 +26,7 @@ export default class CreatureAbilitiesChooser {
       ...(await ReferentialUtil.getSkillEntities(true))
         .filter((s) => {
           return !StringUtil.arrayIncludesDeburrIgnoreCase(
-            initSkillssNames,
+            initSkillsNames,
             s.name
           );
         })

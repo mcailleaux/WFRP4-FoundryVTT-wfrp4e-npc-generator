@@ -57,13 +57,9 @@ export default class CreatureGenerator {
     await this.creatureChooser.selectCreature(
       model.creatureTemplate.creatureData?._id,
       async (creature: Actor.Data & any) => {
-        if (
-          model.creatureTemplate.creatureData != null &&
-          model.creatureTemplate.creatureData._id !== creature._id
-        ) {
-          model.creatureTemplate = new CreatureTemplate();
-          model.abilities = new CreatureAbilities();
-        }
+        model.creatureTemplate = new CreatureTemplate();
+        model.abilities = new CreatureAbilities();
+        model.trappings = [];
         model.creatureTemplate.creatureData = creature;
 
         const swarm: Item &

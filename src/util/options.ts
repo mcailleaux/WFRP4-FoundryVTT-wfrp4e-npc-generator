@@ -51,4 +51,9 @@ export default class Options {
   public imagePath: string | null = null;
 
   public tokenPath: string | null = null;
+
+  public editTrappings = game.settings.get(
+    RegisterSettings.moduleName,
+    'defaultEditTrappings'
+  );
 }

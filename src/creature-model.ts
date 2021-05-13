@@ -8,4 +8,5 @@ export default class CreatureModel {
   public move: string;
   public creatureTemplate: CreatureTemplate = new CreatureTemplate();
   public abilities: CreatureAbilities = new CreatureAbilities();
+  public trappings: Item.Data[] = [];
 }

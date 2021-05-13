@@ -14,6 +14,7 @@ import TrappingUtil from './util/trapping-util.js';
 import OptionsChooser from './util/options.chooser.js';
 import Options from './util/options.js';
 import CompendiumUtil from './util/compendium-util.js';
+import TrappingChooser from './util/trapping-chooser.js';
 
 export default class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
@@ -25,6 +26,7 @@ export default class NpcGenerator {
   public static readonly actorBuilder = ActorBuilder;
   public static readonly referential = ReferentialUtil;
   public static readonly trapping = TrappingUtil;
+  public static readonly trappingChooser = TrappingChooser;
   public static readonly translateErrorDetect = TranslateErrorDetect;
 
   public static async generateNpc(
@@ -223,7 +225,18 @@ export default class NpcGenerator {
       console.log('Prepare Trappings');
       await this.addTrappings(model);
     }
-    callback(model);
+
+    if (model.options.editTrappings) {
+      await this.trappingChooser.selectTrappings(
+        model.trappings,
+        (trappings) => {
+          model.trappings = trappings;
+          callback(model);
+        }
+      );
+    } else {
+      callback(model);
+    }
   }
 
   private static async addCareerPath(model: NpcModel) {
