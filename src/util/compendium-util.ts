@@ -59,6 +59,8 @@ export default class CompendiumUtil {
           callback();
         }
       );
+    } else {
+      callback();
     }
   }
 
