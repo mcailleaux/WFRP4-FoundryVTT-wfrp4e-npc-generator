@@ -1,6 +1,7 @@
 import ReferentialUtil from './referential-util.js';
 import DialogUtil from './dialog-util.js';
 import EntityUtil from './entity-util.js';
+import StringUtil from './string-util.js';
 
 export default class MagicsChooser {
   public static async selectMagics(
@@ -19,7 +20,9 @@ export default class MagicsChooser {
 
     const spellsMap: { [group: string]: Item.Data[] } = {};
     for (let spell of spells) {
-      const lore = (<any>spell.data)?.lore?.value;
+      const lore = StringUtil.toDeburrLowerCase(
+        (<any>spell.data)?.lore?.value ?? ''
+      );
       const loreLabel =
         lore == null || lore?.trim() == ''
           ? game.i18n.localize('WFRP4NPCGEN.select.magics.no.lore.label')
