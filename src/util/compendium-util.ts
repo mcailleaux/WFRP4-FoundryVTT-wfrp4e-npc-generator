@@ -1,6 +1,7 @@
 import WaiterUtil from './waiter-util.js';
 
 export default class CompendiumUtil {
+  private static compendiumItems: Item[];
   private static compendiumCareers: Item[];
   private static compendiumCareerGroups: string[];
   private static compendiumTrappings: Item[];
@@ -13,6 +14,10 @@ export default class CompendiumUtil {
   private static compendiumWeaponTrait: Item;
   private static compendiumArmorTrait: Item;
   private static compendiumRangedTrait: Item;
+  private static compendiumSpells: Item[];
+  private static compendiumPrayers: Item[];
+  private static compendiumPhysicalMutations: Item[];
+  private static compendiumMentalMutations: Item[];
 
   private static compendiumLoaded = false;
   private static creatureCompendiumLoaded = false;
@@ -62,6 +67,22 @@ export default class CompendiumUtil {
     } else {
       callback();
     }
+  }
+
+  public static async getCompendiumItems() {
+    if (this.compendiumItems == null) {
+      this.compendiumItems = [];
+      const itemsPacks = game.packs.filter((p) => p.metadata.entity === 'Item');
+      const loaders: Promise<any>[] = [];
+      for (let pack of itemsPacks) {
+        loaders.push(pack.getContent());
+      }
+      const contents = await Promise.all(loaders);
+      for (let items of contents) {
+        this.compendiumItems.push(...items);
+      }
+    }
+    return Promise.resolve(this.compendiumItems);
   }
 
   public static async getCompendiumCareers() {
