@@ -16,6 +16,8 @@ import Options from './util/options.js';
 import CompendiumUtil from './util/compendium-util.js';
 import TrappingChooser from './util/trapping-chooser.js';
 import WaiterUtil from './util/waiter-util.js';
+import MagicsChooser from './util/magics-chooser';
+import MutationsChooser from './util/mutations-chooser';
 
 export default class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
@@ -28,6 +30,8 @@ export default class NpcGenerator {
   public static readonly referential = ReferentialUtil;
   public static readonly trapping = TrappingUtil;
   public static readonly trappingChooser = TrappingChooser;
+  public static readonly magicsChooser = MagicsChooser;
+  public static readonly mutationsChooser = MutationsChooser;
   public static readonly translateErrorDetect = TranslateErrorDetect;
 
   public static async generateNpc(
@@ -232,26 +236,79 @@ export default class NpcGenerator {
           await this.addTrappings(model);
         }
 
-        if (model.options.editTrappings) {
-          await WaiterUtil.hide(false);
-          await this.trappingChooser.selectTrappings(
-            model.trappings,
-            async (trappings) => {
-              await WaiterUtil.show(
-                'WFRP4NPCGEN.npc.generation.inprogress.title',
-                'WFRP4NPCGEN.npc.generation.inprogress.hint',
-                async () => {
-                  model.trappings = trappings;
-                  callback(model);
-                }
-              );
-            }
-          );
-        } else {
-          callback(model);
-        }
+        await this.editTrappings(model, callback);
       }
     );
+  }
+
+  private static async editTrappings(
+    model: NpcModel,
+    callback: (model: NpcModel) => void
+  ) {
+    if (model.options.editTrappings) {
+      await WaiterUtil.hide(false);
+      await this.trappingChooser.selectTrappings(
+        model.trappings,
+        async (trappings) => {
+          model.trappings = trappings;
+          await this.editMagics(model, callback);
+        }
+      );
+    } else {
+      await this.editMagics(model, callback);
+    }
+  }
+
+  private static async editMagics(
+    model: NpcModel,
+    callback: (model: NpcModel) => void
+  ) {
+    if (model.options.addMagics) {
+      await WaiterUtil.hide(false);
+      await this.magicsChooser.selectMagics(
+        model.spells,
+        model.prayers,
+        async (spells, prayers) => {
+          model.spells = spells;
+          model.prayers = prayers;
+          await this.editMutations(model, callback);
+        }
+      );
+    } else {
+      await this.editMutations(model, callback);
+    }
+  }
+
+  private static async editMutations(
+    model: NpcModel,
+    callback: (model: NpcModel) => void
+  ) {
+    if (model.options.addMutations) {
+      await WaiterUtil.hide(false);
+      await this.mutationsChooser.selectMutations(
+        model.physicalMutations,
+        model.mentalMutations,
+        async (physicals, mentals) => {
+          await WaiterUtil.show(
+            'WFRP4NPCGEN.npc.generation.inprogress.title',
+            'WFRP4NPCGEN.npc.generation.inprogress.hint',
+            async () => {
+              model.physicalMutations = physicals;
+              model.mentalMutations = mentals;
+              callback(model);
+            }
+          );
+        }
+      );
+    } else {
+      await WaiterUtil.show(
+        'WFRP4NPCGEN.npc.generation.inprogress.title',
+        'WFRP4NPCGEN.npc.generation.inprogress.hint',
+        async () => {
+          callback(model);
+        }
+      );
+    }
   }
 
   private static async addCareerPath(model: NpcModel) {

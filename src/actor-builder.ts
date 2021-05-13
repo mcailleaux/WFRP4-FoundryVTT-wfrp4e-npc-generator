@@ -63,6 +63,18 @@ export class ActorBuilder {
     if (model.trappings.length > 0) {
       await actor.createOwnedItem(model.trappings);
     }
+    if (model.spells.length > 0) {
+      await actor.createOwnedItem(model.spells);
+    }
+    if (model.prayers.length > 0) {
+      await actor.createOwnedItem(model.prayers);
+    }
+    if (model.physicalMutations.length > 0) {
+      await actor.createOwnedItem(model.physicalMutations);
+    }
+    if (model.mentalMutations.length > 0) {
+      await actor.createOwnedItem(model.mentalMutations);
+    }
 
     if (model?.options?.withInitialMoney) {
       await TrappingUtil.generateMoney(actor);

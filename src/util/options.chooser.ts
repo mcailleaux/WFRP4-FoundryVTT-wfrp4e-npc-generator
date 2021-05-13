@@ -84,6 +84,30 @@ export default class OptionsChooser {
               })}
               </div>
               <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.options.select.addMagics.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `select-add-magics-${dialogId}`,
+                type: 'checkbox',
+                name: 'select-add-magics',
+                initValue: initOptions != null && initOptions.addMagics,
+                checked: initOptions != null && initOptions.addMagics,
+              })}
+              </div>
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.options.select.addMutations.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `select-add-mutations-${dialogId}`,
+                type: 'checkbox',
+                name: 'select-add-mutations',
+                initValue: initOptions != null && initOptions.addMutations,
+                checked: initOptions != null && initOptions.addMutations,
+              })}
+              </div>
+              <div class="form-group">
               ${DialogUtil.getLabelScript('WFRP4NPCGEN.trappings.money.label')}
               ${DialogUtil.getEffectSelectScript(
                 dialogId,
@@ -249,6 +273,16 @@ export default class OptionsChooser {
             .find(`#select-edit-trappings-${dialogId}`)
             .each((_i, r: HTMLInputElement) => {
               options.editTrappings = r.checked;
+            });
+          html
+            .find(`#select-add-magics-${dialogId}`)
+            .each((_i, r: HTMLInputElement) => {
+              options.addMagics = r.checked;
+            });
+          html
+            .find(`#select-add-mutations-${dialogId}`)
+            .each((_i, r: HTMLInputElement) => {
+              options.addMutations = r.checked;
             });
           html
             .find(`#generate-effect-money-${dialogId}`)

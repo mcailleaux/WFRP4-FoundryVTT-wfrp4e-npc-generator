@@ -37,7 +37,7 @@ export default class TrappingChooser {
             captions: `
             ${DialogUtil.getLabelScript('WFRP4NPCGEN.name.select.label')}
             ${DialogUtil.getLabelScript(
-              'WFRP4NPCGEN.creatures.trappings.select.quantity.label',
+              'WFRP4NPCGEN.select.trappings.quantity.label',
               'max-width: 80px;'
             )}
             ${DialogUtil.getLabelScript('', 'max-width: 38px;')}

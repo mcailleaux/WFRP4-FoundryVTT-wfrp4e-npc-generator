@@ -56,4 +56,14 @@ export default class Options {
     RegisterSettings.moduleName,
     'defaultEditTrappings'
   );
+
+  public addMagics = game.settings.get(
+    RegisterSettings.moduleName,
+    'defaultAddMagics'
+  );
+
+  public addMutations = game.settings.get(
+    RegisterSettings.moduleName,
+    'defaultAddMutations'
+  );
 }

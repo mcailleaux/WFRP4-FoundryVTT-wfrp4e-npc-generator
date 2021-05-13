@@ -188,5 +188,23 @@ export default class RegisterSettings {
       type: Boolean,
       default: false,
     });
+
+    game.settings.register(moduleName, 'defaultAddMagics', {
+      name: game.i18n.localize('WFRP4NPCGEN.settings.defaultAddMagics.name'),
+      hint: game.i18n.localize('WFRP4NPCGEN.settings.defaultAddMagics.hint'),
+      scope: 'world',
+      config: true,
+      type: Boolean,
+      default: false,
+    });
+
+    game.settings.register(moduleName, 'defaultAddMutations', {
+      name: game.i18n.localize('WFRP4NPCGEN.settings.defaultAddMutations.name'),
+      hint: game.i18n.localize('WFRP4NPCGEN.settings.defaultAddMutations.hint'),
+      scope: 'world',
+      config: true,
+      type: Boolean,
+      default: false,
+    });
   }
 }
