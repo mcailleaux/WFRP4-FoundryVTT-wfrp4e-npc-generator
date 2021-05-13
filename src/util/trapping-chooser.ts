@@ -13,9 +13,7 @@ export default class TrappingChooser {
 
     const initTrappingsNames = initTrappings.map((t) => t.name);
     const trappings = [
-      ...initTrappings.sort((t1, t2) => {
-        return t1.name.localeCompare(t2.name);
-      }),
+      ...initTrappings,
       ...(await ReferentialUtil.getTrappingEntities(true))
         .filter((t) => {
           return !StringUtil.arrayIncludesDeburrIgnoreCase(
@@ -23,11 +21,10 @@ export default class TrappingChooser {
             t.name
           );
         })
-        .map((t) => t.data)
-        .sort((t1, t2) => {
-          return t1.name.localeCompare(t2.name);
-        }),
-    ];
+        .map((t) => t.data),
+    ].sort((t1, t2) => {
+      return t1.name.localeCompare(t2.name);
+    });
 
     const trappingsId = `creature-add-remove-trappings-${dialogId}`;
 

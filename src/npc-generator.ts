@@ -15,6 +15,7 @@ import OptionsChooser from './util/options.chooser.js';
 import Options from './util/options.js';
 import CompendiumUtil from './util/compendium-util.js';
 import TrappingChooser from './util/trapping-chooser.js';
+import WaiterUtil from './util/waiter-util.js';
 
 export default class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
@@ -32,7 +33,7 @@ export default class NpcGenerator {
   public static async generateNpc(
     callback?: (model: NpcModel, actorData: any, actor: any) => void
   ) {
-    CompendiumUtil.initCompendium(async () => {
+    await CompendiumUtil.initCompendium(async () => {
       await this.generateNpcModel(async (model) => {
         const actorData = await ActorBuilder.buildActorData(model, 'npc');
         const actor = await ActorBuilder.createActor(model, actorData);
@@ -41,6 +42,7 @@ export default class NpcGenerator {
             name: actor.name,
           })
         );
+        await WaiterUtil.hide();
         if (callback != null) {
           callback(model, actorData, actor);
         }
@@ -177,66 +179,79 @@ export default class NpcGenerator {
     model: NpcModel,
     callback: (model: NpcModel) => void
   ) {
-    console.log('Prepare Career Path');
-    await this.addCareerPath(model);
+    await WaiterUtil.show(
+      'WFRP4NPCGEN.npc.generation.inprogress.title',
+      'WFRP4NPCGEN.npc.generation.inprogress.hint',
+      async () => {
+        console.log('Prepare Career Path');
+        await this.addCareerPath(model);
 
-    console.log('Prepare Status');
-    await this.addStatus(model);
+        console.log('Prepare Status');
+        await this.addStatus(model);
 
-    console.log('Prepare Basic skills');
-    await this.addBasicSkill(model);
+        console.log('Prepare Basic skills');
+        await this.addBasicSkill(model);
 
-    console.log('Prepare Native Tongue');
-    await this.addNativeTongueSkill(model);
+        console.log('Prepare Native Tongue');
+        await this.addNativeTongueSkill(model);
 
-    console.log('Prepare Career Skills');
-    await this.addCareerSkill(model);
+        console.log('Prepare Career Skills');
+        await this.addCareerSkill(model);
 
-    console.log('Prepare Species Skills');
-    await this.addSpeciesSkill(model);
+        console.log('Prepare Species Skills');
+        await this.addSpeciesSkill(model);
 
-    console.log('Prepare Species Talents');
-    await this.addSpeciesTalents(model);
+        console.log('Prepare Species Talents');
+        await this.addSpeciesTalents(model);
 
-    console.log('Prepare Career Talents');
-    await this.addCareerTalents(model);
+        console.log('Prepare Career Talents');
+        await this.addCareerTalents(model);
 
-    console.log('Prepare Basic Chars');
-    await this.addBasicChars(model);
+        console.log('Prepare Basic Chars');
+        await this.addBasicChars(model);
 
-    console.log('Prepare Movement');
-    await this.addMovement(model);
+        console.log('Prepare Movement');
+        await this.addMovement(model);
 
-    console.log('Prepare Skills Advances');
-    await this.addAdvanceSkills(model);
+        console.log('Prepare Skills Advances');
+        await this.addAdvanceSkills(model);
 
-    console.log('Prepare Chars Advances');
-    await this.addAdvanceChars(model);
+        console.log('Prepare Chars Advances');
+        await this.addAdvanceChars(model);
 
-    if (model.options.withClassTrappings) {
-      console.log('Prepare Class Trappings');
-      await this.prepareClassTrappings(model);
-    }
-    if (model.options.withCareerTrappings) {
-      console.log('Prepare Career Trappings');
-      await this.prepareCareerTrappings(model);
-    }
-    if (model.trappingsStr.length > 0) {
-      console.log('Prepare Trappings');
-      await this.addTrappings(model);
-    }
+        if (model.options.withClassTrappings) {
+          console.log('Prepare Class Trappings');
+          await this.prepareClassTrappings(model);
+        }
+        if (model.options.withCareerTrappings) {
+          console.log('Prepare Career Trappings');
+          await this.prepareCareerTrappings(model);
+        }
+        if (model.trappingsStr.length > 0) {
+          console.log('Prepare Trappings');
+          await this.addTrappings(model);
+        }
 
-    if (model.options.editTrappings) {
-      await this.trappingChooser.selectTrappings(
-        model.trappings,
-        (trappings) => {
-          model.trappings = trappings;
+        if (model.options.editTrappings) {
+          await WaiterUtil.hide(false);
+          await this.trappingChooser.selectTrappings(
+            model.trappings,
+            async (trappings) => {
+              await WaiterUtil.show(
+                'WFRP4NPCGEN.npc.generation.inprogress.title',
+                'WFRP4NPCGEN.npc.generation.inprogress.hint',
+                async () => {
+                  model.trappings = trappings;
+                  callback(model);
+                }
+              );
+            }
+          );
+        } else {
           callback(model);
         }
-      );
-    } else {
-      callback(model);
-    }
+      }
+    );
   }
 
   private static async addCareerPath(model: NpcModel) {

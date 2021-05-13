@@ -99,5 +99,9 @@
   "WFRP4NPCGEN.creatures.trappings.select.quantity.label": "Quantity",
   "WFRP4NPCGEN.settings.defaultEditTrappings.name": "Edit Trappings",
   "WFRP4NPCGEN.settings.defaultEditTrappings.hint": "Default selected value for the option 'edit trappings' on the options generation chooser when you generate a NPC",
-  "WFRP4NPCGEN.options.select.editTrappings.label": "Edit Trappings"
+  "WFRP4NPCGEN.options.select.editTrappings.label": "Edit Trappings",
+  "WFRP4NPCGEN.npc.generation.inprogress.title": "NPC Generation in progress",
+  "WFRP4NPCGEN.npc.generation.inprogress.hint": "Please wait for the NPC generation",
+  "WFRP4NPCGEN.creature.generation.inprogress.title": "Creature Generation in progress",
+  "WFRP4NPCGEN.creature.generation.inprogress.hint": "Please wait for the Creature generation"
 }

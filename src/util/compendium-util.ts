@@ -1,4 +1,4 @@
-import DialogUtil from './dialog-util.js';
+import WaiterUtil from './waiter-util.js';
 
 export default class CompendiumUtil {
   private static compendiumCareers: Item[];
@@ -17,60 +17,48 @@ export default class CompendiumUtil {
   private static compendiumLoaded = false;
   private static creatureCompendiumLoaded = false;
 
-  public static initCompendium(callback: () => void, forCreatures = false) {
-    let loadDialog: Dialog | null = null;
+  public static async initCompendium(
+    callback: () => void,
+    forCreatures = false
+  ) {
     if (!this.compendiumLoaded || !this.creatureCompendiumLoaded) {
-      loadDialog = new Dialog(<DialogData & any>{
-        title: game.i18n.localize('WFRP4NPCGEN.compendium.load.title'),
-        content: `<form> 
-              <div class="form-group">
-              ${DialogUtil.getLabelScript('WFRP4NPCGEN.compendium.load.hint')}
-              </div>
-          </form>
-            `,
-        buttons: {},
-        render: (_html: JQuery) => {
-          setTimeout(async () => {
-            if (forCreatures) {
-              await Promise.all([
-                this.getCompendiumTrappings(),
-                this.getCompendiumBestiary(),
-                this.getCompendiumSkills(),
-                this.getCompendiumTalents(),
-                this.getCompendiumTraits(),
-              ]);
-              await this.getCompendiumSizeTrait();
-              await this.getCompendiumSwarmTrait();
-              await this.getCompendiumWeaponTrait();
-              await this.getCompendiumArmourTrait();
-              await this.getCompendiumRangedTrait();
-            } else {
-              await Promise.all([
-                this.getCompendiumCareers(),
-                this.getCompendiumTrappings(),
-              ]);
-              await this.getCompendiumCareersGroups();
-            }
+      await WaiterUtil.show(
+        'WFRP4NPCGEN.compendium.load.title',
+        'WFRP4NPCGEN.compendium.load.hint',
+        async () => {
+          if (forCreatures) {
+            await Promise.all([
+              this.getCompendiumTrappings(),
+              this.getCompendiumBestiary(),
+              this.getCompendiumSkills(),
+              this.getCompendiumTalents(),
+              this.getCompendiumTraits(),
+            ]);
+            await this.getCompendiumSizeTrait();
+            await this.getCompendiumSwarmTrait();
+            await this.getCompendiumWeaponTrait();
+            await this.getCompendiumArmourTrait();
+            await this.getCompendiumRangedTrait();
+          } else {
+            await Promise.all([
+              this.getCompendiumCareers(),
+              this.getCompendiumTrappings(),
+            ]);
+            await this.getCompendiumCareersGroups();
+          }
 
-            if (
-              (!this.compendiumLoaded || !this.creatureCompendiumLoaded) &&
-              loadDialog != null
-            ) {
-              setTimeout(async () => {
-                await loadDialog?.close();
-              });
-            }
-            if (forCreatures) {
-              this.creatureCompendiumLoaded = true;
-            } else {
-              this.compendiumLoaded = true;
-            }
+          if (!this.compendiumLoaded || !this.creatureCompendiumLoaded) {
+            await WaiterUtil.hide();
+          }
+          if (forCreatures) {
+            this.creatureCompendiumLoaded = true;
+          } else {
+            this.compendiumLoaded = true;
+          }
 
-            callback();
-          });
-        },
-      });
-      loadDialog.render(true);
+          callback();
+        }
+      );
     }
   }
 

@@ -21,7 +21,7 @@ export default class CreatureGenerator {
   public static async generateCreature(
     callback?: (model: CreatureModel, actorData: any, actor: any) => void
   ) {
-    CompendiumUtil.initCompendium(async () => {
+    await CompendiumUtil.initCompendium(async () => {
       await this.generateCreatureModel(async (model) => {
         // const actorData = await CreatureBuilder.buildCreatureData(model);
         // const actor = await CreatureBuilder.createCreature(model, actorData);
