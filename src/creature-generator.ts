@@ -57,6 +57,13 @@ export default class CreatureGenerator {
     await this.creatureChooser.selectCreature(
       model.creatureTemplate.creatureData?._id,
       async (creature: Actor.Data & any) => {
+        if (
+          model.creatureTemplate.creatureData != null &&
+          model.creatureTemplate.creatureData._id !== creature._id
+        ) {
+          model.creatureTemplate = new CreatureTemplate();
+          model.abilities = new CreatureAbilities();
+        }
         model.creatureTemplate.creatureData = creature;
 
         const swarm: Item &
@@ -194,8 +201,6 @@ export default class CreatureGenerator {
         callback(model);
       },
       () => {
-        model.creatureTemplate = new CreatureTemplate();
-        model.abilities = new CreatureAbilities();
         this.selectCreature(model, callback);
       }
     );

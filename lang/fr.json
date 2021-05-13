@@ -93,5 +93,6 @@
   "WFRP4NPCGEN.creatures.abilities.select.ranged.damage.label": "Distance (Dégât)",
   "WFRP4NPCGEN.creatures.abilities.select.armour.label": "Armure",
   "WFRP4NPCGEN.creatures.abilities.select.armour.value.label": "Armure (PA)",
-  "WFRP4NPCGEN.creatures.abilities.select.size.label": "Taille"
+  "WFRP4NPCGEN.creatures.abilities.select.size.label": "Taille",
+  "WFRP4NPCGEN.creatures.abilities.select.species.label": "Race (Pour le générateur de nom)"
 }

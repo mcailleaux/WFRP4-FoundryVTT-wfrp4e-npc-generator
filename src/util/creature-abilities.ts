@@ -9,6 +9,7 @@ export default class CreatureAbilities {
   public rangedRange: string;
   public rangedDamage: string;
   public armourValue: string;
+  public speciesKey: string = 'none';
 
   public traits: Item.Data[] = [];
   public talents: Item.Data[] = [];

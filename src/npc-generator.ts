@@ -62,6 +62,13 @@ export default class NpcGenerator {
     await this.speciesChooser.selectSpecies(
       model.speciesKey,
       (key: string, value: string) => {
+        if (model.speciesKey != null && model.speciesKey !== key) {
+          model.speciesSkills = {
+            major: [],
+            minor: [],
+          };
+          model.speciesTalents = [];
+        }
         model.speciesKey = key;
         model.speciesValue = value;
 

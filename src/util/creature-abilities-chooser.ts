@@ -80,6 +80,9 @@ export default class CreatureAbilitiesChooser {
     const talentsId = `creature-abilities-add-remove-talents-${dialogId}`;
     const traitsId = `creature-abilities-add-remove-traits-${dialogId}`;
 
+    const speciesMap = duplicate(ReferentialUtil.getSpeciesMap());
+    speciesMap['none'] = '';
+
     new Dialog({
       title: game.i18n.localize('WFRP4NPCGEN.creatures.abilities.select.title'),
       content: `<form>
@@ -182,6 +185,16 @@ export default class CreatureAbilitiesChooser {
                 `creature-abilities-size-${dialogId}`,
                 CompendiumUtil.getSizes(),
                 initAbilities.sizeKey
+              )}
+              </div>
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.creatures.abilities.select.species.label'
+              )}
+              ${DialogUtil.getSelectScript(
+                `creature-abilities-species-${dialogId}`,
+                speciesMap,
+                initAbilities.speciesKey
               )}
               </div>
                 
@@ -307,6 +320,10 @@ export default class CreatureAbilitiesChooser {
           );
           abilities.armourValue = <string>(
             html.find(`#creature-abilities-armour-value-${dialogId}`).val()
+          );
+
+          abilities.speciesKey = <string>(
+            html.find(`#creature-abilities-species-${dialogId}`).val()
           );
 
           html.find(`.${traitsId}`).each((_i, r: HTMLInputElement) => {
