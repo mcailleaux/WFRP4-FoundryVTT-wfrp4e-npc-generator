@@ -1,6 +1,6 @@
-import ReferentialUtil from './referential-util';
-import DialogUtil from './dialog-util';
-import EntityUtil from './entity-util';
+import ReferentialUtil from './referential-util.js';
+import DialogUtil from './dialog-util.js';
+import EntityUtil from './entity-util.js';
 
 export default class MagicsChooser {
   public static async selectMagics(

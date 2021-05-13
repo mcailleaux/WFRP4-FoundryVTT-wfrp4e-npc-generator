@@ -16,8 +16,8 @@ import Options from './util/options.js';
 import CompendiumUtil from './util/compendium-util.js';
 import TrappingChooser from './util/trapping-chooser.js';
 import WaiterUtil from './util/waiter-util.js';
-import MagicsChooser from './util/magics-chooser';
-import MutationsChooser from './util/mutations-chooser';
+import MagicsChooser from './util/magics-chooser.js';
+import MutationsChooser from './util/mutations-chooser.js';
 
 export default class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
