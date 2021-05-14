@@ -485,6 +485,7 @@ export default class CreatureGenerator {
     );
     if (model.abilities.isSwarm) {
       model.abilities.traits.push(swarm);
+      swarm.included = true;
     } else if (model.creatureTemplate.swarm != null) {
       swarm.included = false;
       model.abilities.traits.push(swarm);
