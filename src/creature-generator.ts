@@ -451,7 +451,7 @@ export default class CreatureGenerator {
         advances: 0,
       };
     });
-    if (model.creatureTemplate.swarm != null) {
+    if (model.creatureTemplate.isSwarm) {
       model.chars.ws.initial -= 10;
     }
 

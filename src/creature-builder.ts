@@ -57,7 +57,7 @@ export default class CreatureBuilder {
       .map((t) => t._id);
     if (excludedTraitIds.length > 0) {
       await actor.update({
-        'data.excludedTraits': model.abilities.traits,
+        'data.excludedTraits': excludedTraitIds,
       });
     }
     if (model.trappings.length > 0) {
