@@ -3,6 +3,7 @@ import FolderUtil from './util/folder-util.js';
 import TrappingUtil from './util/trapping-util.js';
 import { GenerateEffectOptionEnum } from './util/generate-effect-option.enum.js';
 import CompendiumUtil from './util/compendium-util.js';
+import StringUtil from './util/string-util.js';
 
 export default class CreatureBuilder {
   public static async buildCreatureData(model: CreatureModel) {
@@ -85,9 +86,14 @@ export default class CreatureBuilder {
           actorTrait = (<any>actor.data).traits.find(
             (at: Item.Data & any) => at.name === weapon.name
           );
-        } else if (ranged.name === t.name) {
+        } else if (
+          StringUtil.getSimpleName(ranged.name) ===
+          StringUtil.getSimpleName(t.name)
+        ) {
           actorTrait = (<any>actor.data).traits.find(
-            (at: Item.Data & any) => at.name === ranged.name
+            (at: Item.Data & any) =>
+              StringUtil.getSimpleName(at.name) ===
+              StringUtil.getSimpleName(ranged.name)
           );
         } else if (swarm.name === t.name) {
           actorTrait = (<any>actor.data).traits.find(
