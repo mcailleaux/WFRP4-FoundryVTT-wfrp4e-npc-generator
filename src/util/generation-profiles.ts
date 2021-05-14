@@ -23,4 +23,7 @@ export default class GenerationProfiles {
   helf: GenerationProfile = {
     profiles: [],
   };
+  creature: GenerationProfile = {
+    profiles: [],
+  };
 }

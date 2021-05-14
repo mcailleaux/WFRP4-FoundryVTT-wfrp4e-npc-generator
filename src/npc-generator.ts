@@ -167,6 +167,7 @@ export default class NpcGenerator {
     callback: (model: NpcModel) => void
   ) {
     await this.optionsChooser.selectOptions(
+      false,
       model.options,
       model.speciesKey,
       (options: Options) => {

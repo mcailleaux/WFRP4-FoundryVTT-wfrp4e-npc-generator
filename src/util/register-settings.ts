@@ -206,5 +206,107 @@ export default class RegisterSettings {
       type: Boolean,
       default: false,
     });
+
+    game.settings.register(moduleName, 'defaultCreatureGenerateMoneyEffect', {
+      name: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultCreatureGenerateMoneyEffect.name'
+      ),
+      hint: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultCreatureGenerateMoneyEffect.hint'
+      ),
+      scope: 'world',
+      config: true,
+      type: String,
+      choices: {
+        [GenerateEffectOptionEnum.NONE]: game.i18n.localize(
+          `WFRP4NPCGEN.options.effects.${GenerateEffectOptionEnum.NONE}`
+        ),
+        [GenerateEffectOptionEnum.DEFAULT_DISABLED]: game.i18n.localize(
+          `WFRP4NPCGEN.options.effects.${GenerateEffectOptionEnum.DEFAULT_DISABLED}`
+        ),
+        [GenerateEffectOptionEnum.DEFAULT_ENABLED]: game.i18n.localize(
+          `WFRP4NPCGEN.options.effects.${GenerateEffectOptionEnum.DEFAULT_ENABLED}`
+        ),
+      },
+      default: GenerateEffectOptionEnum.NONE,
+    });
+
+    game.settings.register(moduleName, 'defaultCreatureWithLinkedToken', {
+      name: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultCreatureWithLinkedToken.name'
+      ),
+      hint: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultCreatureWithLinkedToken.hint'
+      ),
+      scope: 'world',
+      config: true,
+      type: Boolean,
+      default: false,
+    });
+
+    game.settings.register(moduleName, 'defaultCreatureWithInitialMoney', {
+      name: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultCreatureWithInitialMoney.name'
+      ),
+      hint: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultCreatureWithInitialMoney.hint'
+      ),
+      scope: 'world',
+      config: true,
+      type: Boolean,
+      default: false,
+    });
+
+    game.settings.register(moduleName, 'defaultCreatureGenPath', {
+      name: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultCreatureGenPath.name'
+      ),
+      hint: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultCreatureGenPath.hint'
+      ),
+      scope: 'world',
+      config: true,
+      type: String,
+      default: '',
+    });
+
+    game.settings.register(moduleName, 'defaultCreatureEditTrappings', {
+      name: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultCreatureEditTrappings.name'
+      ),
+      hint: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultCreatureEditTrappings.hint'
+      ),
+      scope: 'world',
+      config: true,
+      type: Boolean,
+      default: false,
+    });
+
+    game.settings.register(moduleName, 'defaultCreatureAddMagics', {
+      name: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultCreatureAddMagics.name'
+      ),
+      hint: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultCreatureAddMagics.hint'
+      ),
+      scope: 'world',
+      config: true,
+      type: Boolean,
+      default: false,
+    });
+
+    game.settings.register(moduleName, 'defaultCreatureAddMutations', {
+      name: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultCreatureAddMutations.name'
+      ),
+      hint: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultCreatureAddMutations.hint'
+      ),
+      scope: 'world',
+      config: true,
+      type: Boolean,
+      default: false,
+    });
   }
 }

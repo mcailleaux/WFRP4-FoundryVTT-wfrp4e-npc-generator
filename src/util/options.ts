@@ -3,8 +3,9 @@ import {
   getGenerateEffectOptionEnum,
 } from './generate-effect-option.enum.js';
 import RegisterSettings from './register-settings.js';
+import { IOptions } from './options-int.js';
 
-export default class Options {
+export default class Options implements IOptions {
   public withClassTrappings: boolean = game.settings.get(
     RegisterSettings.moduleName,
     'defaultWithClassTrappings'

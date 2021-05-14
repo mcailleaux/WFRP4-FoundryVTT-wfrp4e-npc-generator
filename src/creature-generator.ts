@@ -10,11 +10,21 @@ import EntityUtil from './util/entity-util.js';
 import CreatureAbilitiesChooser from './util/creature-abilities-chooser.js';
 import CreatureAbilities from './util/creature-abilities.js';
 import CreatureTemplate from './util/creature-template.js';
+import Options from './util/options.js';
+import OptionsChooser from './util/options.chooser.js';
+import WaiterUtil from './util/waiter-util.js';
+import TrappingChooser from './util/trapping-chooser.js';
+import MagicsChooser from './util/magics-chooser.js';
+import MutationsChooser from './util/mutations-chooser.js';
 
 export default class CreatureGenerator {
   public static readonly creatureChooser = CreatureChooser;
   public static readonly creatureAbilitiesChooser = CreatureAbilitiesChooser;
   public static readonly nameChooser = NameChooser;
+  public static readonly optionsChooser = OptionsChooser;
+  public static readonly trappingChooser = TrappingChooser;
+  public static readonly magicsChooser = MagicsChooser;
+  public static readonly mutationsChooser = MutationsChooser;
   public static readonly referential = ReferentialUtil;
   public static readonly translateErrorDetect = TranslateErrorDetect;
 
@@ -60,6 +70,10 @@ export default class CreatureGenerator {
         model.creatureTemplate = new CreatureTemplate();
         model.abilities = new CreatureAbilities();
         model.trappings = [];
+        model.spells = [];
+        model.prayers = [];
+        model.physicalMutations = [];
+        model.mentalMutations = [];
         model.creatureTemplate.creatureData = creature;
 
         const swarm: Item &
@@ -181,6 +195,19 @@ export default class CreatureGenerator {
           model.abilities.talents.push(duplicate(finalTalent));
         }
 
+        for (let inventory of Object.values(creature.inventory)) {
+          model.trappings.push(...(<any>inventory).items);
+        }
+
+        model.spells = creature.spells;
+        model.prayers = creature.prayers;
+        model.physicalMutations = creature.mutations.filter(
+          (m: Item.Data) => (<any>m.data).mutationType.value === 'physical'
+        );
+        model.mentalMutations = creature.mutations.filter(
+          (m: Item.Data) => (<any>m.data).mutationType.value === 'mental'
+        );
+
         await this.selectCreatureAbilities(model, callback);
       }
     );
@@ -200,5 +227,136 @@ export default class CreatureGenerator {
         this.selectCreature(model, callback);
       }
     );
+  }
+
+  private static async selectName(
+    model: CreatureModel,
+    callback: (model: CreatureModel) => void
+  ) {
+    if (model.name == null) {
+      const swarm = await CompendiumUtil.getCompendiumSwarmTrait();
+      const swarmLabel = model.abilities.isSwarm ? `, ${swarm.name}` : '';
+
+      model.name = `${model.creatureTemplate.creatureData.name} (${
+        CompendiumUtil.getSizes()[model.abilities.sizeKey]
+      }${swarmLabel})`;
+    }
+    await this.nameChooser.selectName(
+      model.name,
+      model.abilities.speciesKey,
+      model.abilities.speciesKey != null,
+      (name: string) => {
+        model.name = name;
+        this.selectOptions(model, callback);
+      },
+      () => {
+        this.selectCreatureAbilities(model, callback);
+      }
+    );
+  }
+
+  private static async selectOptions(
+    model: CreatureModel,
+    callback: (model: CreatureModel) => void
+  ) {
+    model.options.imagePath = model.creatureTemplate.creatureData.img ?? '';
+    model.options.tokenPath =
+      model.creatureTemplate.creatureData.token?.img ?? '';
+
+    await this.optionsChooser.selectOptions(
+      true,
+      model.options,
+      'creature',
+      (options: Options) => {
+        model.options = options;
+        this.finalize(model, callback);
+      },
+      () => {
+        this.selectName(model, callback);
+      }
+    );
+  }
+
+  private static async finalize(
+    model: CreatureModel,
+    callback: (model: CreatureModel) => void
+  ) {
+    await WaiterUtil.show(
+      'WFRP4NPCGEN.creature.generation.inprogress.title',
+      'WFRP4NPCGEN.creature.generation.inprogress.hint',
+      async () => {
+        await this.editTrappings(model, callback);
+      }
+    );
+  }
+
+  private static async editTrappings(
+    model: CreatureModel,
+    callback: (model: CreatureModel) => void
+  ) {
+    if (model.options.editTrappings) {
+      await WaiterUtil.hide(false);
+      await this.trappingChooser.selectTrappings(
+        model.trappings,
+        async (trappings) => {
+          model.trappings = trappings;
+          await this.editMagics(model, callback);
+        }
+      );
+    } else {
+      await this.editMagics(model, callback);
+    }
+  }
+
+  private static async editMagics(
+    model: CreatureModel,
+    callback: (model: CreatureModel) => void
+  ) {
+    if (model.options.addMagics) {
+      await WaiterUtil.hide(false);
+      await this.magicsChooser.selectMagics(
+        model.spells,
+        model.prayers,
+        async (spells, prayers) => {
+          model.spells = spells;
+          model.prayers = prayers;
+          await this.editMutations(model, callback);
+        }
+      );
+    } else {
+      await this.editMutations(model, callback);
+    }
+  }
+
+  private static async editMutations(
+    model: CreatureModel,
+    callback: (model: CreatureModel) => void
+  ) {
+    if (model.options.addMutations) {
+      await WaiterUtil.hide(false);
+      await this.mutationsChooser.selectMutations(
+        model.physicalMutations,
+        model.mentalMutations,
+        async (physicals, mentals) => {
+          await WaiterUtil.show(
+            'WFRP4NPCGEN.creature.generation.inprogress.title',
+            'WFRP4NPCGEN.creature.generation.inprogress.hint',
+            async () => {
+              model.physicalMutations = physicals;
+              model.mentalMutations = mentals;
+              callback(model);
+            }
+          );
+        }
+      );
+    } else {
+      await WaiterUtil.show(
+        'WFRP4NPCGEN.creature.generation.inprogress.title',
+        'WFRP4NPCGEN.creature.generation.inprogress.hint',
+        async () => {
+          callback(model);
+        }
+      );
+    }
   }
 }

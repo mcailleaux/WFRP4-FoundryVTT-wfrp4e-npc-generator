@@ -36,6 +36,11 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
           profiles[key].species = label;
         }
       });
+      if (profiles.creature != null) {
+        profiles.creature.species = game.i18n.localize(
+          'WFRP4NPCGEN.options.select.profiles.creature.label'
+        );
+      }
       Object.entries(profiles).forEach(([key, value]) => {
         value.profiles.forEach((profile: any) => {
           profile.id = `${key}-${profile.name}`;

@@ -20,12 +20,9 @@ export default class CreatureBuilder {
           move: {
             value: model.move,
           },
-          species: {
-            value: model.speciesValue,
-          },
         },
       },
-      img: model.creatureTemplate.creatureData.img,
+      img: model.options.imagePath,
     };
     return Promise.resolve(actorData);
   }

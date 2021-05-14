@@ -1,14 +1,17 @@
 import DialogUtil from './dialog-util.js';
-import Options from './options.js';
 import { getGenerateEffectOptionEnum } from './generate-effect-option.enum.js';
 import RegisterSettings from './register-settings.js';
 import { GenerationProfile } from './generation-profiles.js';
+import { IOptions } from './options-int.js';
+import OptionsCreature from './options-creature.js';
+import Options from './options.js';
 
 export default class OptionsChooser {
   public static async selectOptions(
-    initOptions: Options,
+    forCreature: boolean,
+    initOptions: IOptions,
     speciesKey: string,
-    callback: (options: Options) => void,
+    callback: (options: IOptions) => void,
     undo: () => void
   ) {
     const dialogId = new Date().getTime();
@@ -42,9 +45,10 @@ export default class OptionsChooser {
     `;
       }
     }
-    new Dialog({
-      title: game.i18n.localize('WFRP4NPCGEN.options.select.title'),
-      content: `<form>
+
+    const withClassTrappings = forCreature
+      ? ''
+      : `
               <div class="form-group">
               ${DialogUtil.getLabelScript(
                 'WFRP4NPCGEN.options.select.withClassTrappings.label'
@@ -58,6 +62,11 @@ export default class OptionsChooser {
                 checked: initOptions != null && initOptions.withClassTrappings,
               })}
               </div>
+    `;
+
+    const withCareerTrappings = forCreature
+      ? ''
+      : `
               <div class="form-group">
               ${DialogUtil.getLabelScript(
                 'WFRP4NPCGEN.options.select.withCareerTrappings.label'
@@ -71,6 +80,63 @@ export default class OptionsChooser {
                 checked: initOptions != null && initOptions.withCareerTrappings,
               })}
               </div>
+    `;
+
+    const generateWeaponEffect = forCreature
+      ? ''
+      : `
+              <div class="form-group">
+              ${DialogUtil.getLabelScript('WFRP4NPCGEN.trappings.weapon.label')}
+              ${DialogUtil.getEffectSelectScript(
+                dialogId,
+                'generate-effect-weapon',
+                initOptions?.generateWeaponEffect
+              )}
+              </div>
+    `;
+
+    const withGenPathCareerName = forCreature
+      ? ''
+      : `
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.options.select.withGenPathCareerName.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `select-with-genPath-career-name-${dialogId}`,
+                type: 'checkbox',
+                name: 'select-with-genPath-career-name',
+                initValue:
+                  initOptions != null && initOptions.withGenPathCareerName,
+                checked:
+                  initOptions != null && initOptions.withGenPathCareerName,
+              })}
+              </div>
+    `;
+
+    const withInitialWeapons = forCreature
+      ? ''
+      : `
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.options.select.withInitialWeapons.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `select-with-init-weapons-${dialogId}`,
+                type: 'checkbox',
+                name: 'select-with-init-weapons',
+                initValue:
+                  initOptions != null && initOptions.withInitialWeapons,
+                checked: initOptions != null && initOptions.withInitialWeapons,
+              })}
+              </div>
+    `;
+
+    new Dialog({
+      title: game.i18n.localize('WFRP4NPCGEN.options.select.title'),
+      content: `<form>
+              ${withClassTrappings}
+              ${withCareerTrappings}             
               <div class="form-group">
               ${DialogUtil.getLabelScript(
                 'WFRP4NPCGEN.options.select.editTrappings.label'
@@ -115,29 +181,9 @@ export default class OptionsChooser {
                 initOptions?.generateMoneyEffect
               )}
               </div>
-              <div class="form-group">
-              ${DialogUtil.getLabelScript('WFRP4NPCGEN.trappings.weapon.label')}
-              ${DialogUtil.getEffectSelectScript(
-                dialogId,
-                'generate-effect-weapon',
-                initOptions?.generateWeaponEffect
-              )}
-              </div>
+              ${generateWeaponEffect}
               
-              <div class="form-group">
-              ${DialogUtil.getLabelScript(
-                'WFRP4NPCGEN.options.select.withGenPathCareerName.label'
-              )}
-              ${DialogUtil.getInputScript({
-                id: `select-with-genPath-career-name-${dialogId}`,
-                type: 'checkbox',
-                name: 'select-with-genPath-career-name',
-                initValue:
-                  initOptions != null && initOptions.withGenPathCareerName,
-                checked:
-                  initOptions != null && initOptions.withGenPathCareerName,
-              })}
-              </div>
+              ${withGenPathCareerName}             
               
               <div class="form-group">
               ${DialogUtil.getLabelScript(
@@ -165,19 +211,7 @@ export default class OptionsChooser {
               })}
               </div>
               
-              <div class="form-group">
-              ${DialogUtil.getLabelScript(
-                'WFRP4NPCGEN.options.select.withInitialWeapons.label'
-              )}
-              ${DialogUtil.getInputScript({
-                id: `select-with-init-weapons-${dialogId}`,
-                type: 'checkbox',
-                name: 'select-with-init-weapons',
-                initValue:
-                  initOptions != null && initOptions.withInitialWeapons,
-                checked: initOptions != null && initOptions.withInitialWeapons,
-              })}
-              </div>
+              ${withInitialWeapons}
               
               ${profilesChooser}
               
@@ -258,7 +292,7 @@ export default class OptionsChooser {
       buttons: DialogUtil.getDialogButtons(
         dialogId,
         (html: JQuery) => {
-          const options = new Options();
+          const options = forCreature ? new OptionsCreature() : new Options();
           html
             .find(`#select-with-class-trappings-${dialogId}`)
             .each((_i, r: HTMLInputElement) => {

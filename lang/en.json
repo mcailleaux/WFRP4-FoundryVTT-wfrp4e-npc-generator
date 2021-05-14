@@ -116,5 +116,20 @@
   "WFRP4NPCGEN.select.magics.no.lore.label": "No Lore",
   "WFRP4NPCGEN.select.mutations.title": "Choose Mutations",
   "WFRP4NPCGEN.select.mutations.physicals.title": "Physical Mutations",
-  "WFRP4NPCGEN.select.mutations.mentals.title": "Mental Mutations"
+  "WFRP4NPCGEN.select.mutations.mentals.title": "Mental Mutations",
+  "WFRP4NPCGEN.options.select.profiles.creature.label": "Creature",
+  "WFRP4NPCGEN.settings.defaultCreatureGenerateMoneyEffect.name": "Generate money on token creation (Creature)",
+  "WFRP4NPCGEN.settings.defaultCreatureGenerateMoneyEffect.hint": "Default selected value for the option 'generate money on token creation' on the options generation chooser when you generate a Creature",
+  "WFRP4NPCGEN.settings.defaultCreatureWithLinkedToken.name": "Link token with actor (Creature)",
+  "WFRP4NPCGEN.settings.defaultCreatureWithLinkedToken.hint": "Default selected value for the option 'link token with actor' on the options generation chooser when you generate a Creature",
+  "WFRP4NPCGEN.settings.defaultCreatureWithInitialMoney.name": "Generate with money (Creature)",
+  "WFRP4NPCGEN.settings.defaultCreatureWithInitialMoney.hint": "Default selected value for the option 'generate with money' on the options generation chooser when you generate a Creature",
+  "WFRP4NPCGEN.settings.defaultCreatureGenPath.name": "Default generation path (Creature)",
+  "WFRP4NPCGEN.settings.defaultCreatureGenPath.hint": "Define the default generation path on actor directories for Creature generation",
+  "WFRP4NPCGEN.settings.defaultCreatureEditTrappings.name": "Edit Trappings (Creature)",
+  "WFRP4NPCGEN.settings.defaultCreatureEditTrappings.hint": "Default selected value for the option 'edit trappings' on the options generation chooser when you generate a Creature",
+  "WFRP4NPCGEN.settings.defaultCreatureAddMagics.name": "Add Spells and/or Prayers (Creature)",
+  "WFRP4NPCGEN.settings.defaultCreatureAddMagics.hint": "Default selected value for the option 'add spells and/or prayers' on the options generation chooser when you generate a Creature",
+  "WFRP4NPCGEN.settings.defaultCreatureAddMutations.name": "Add Mutations (Creature)",
+  "WFRP4NPCGEN.settings.defaultCreatureAddMutations.hint": "Default selected value for the option 'Add mutations' on the options generation chooser when you generate a Creature"
 }
