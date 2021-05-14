@@ -199,8 +199,8 @@ export default class CreatureGenerator {
           model.trappings.push(...(<any>inventory).items);
         }
 
-        model.spells = creature.spells;
-        model.prayers = creature.prayers;
+        model.spells = [...creature.petty, ...creature.grimoire];
+        model.prayers = [...creature.blessings, ...creature.miracles];
         model.physicalMutations = creature.mutations.filter(
           (m: Item.Data) => (<any>m.data).mutationType.value === 'physical'
         );
@@ -313,6 +313,11 @@ export default class CreatureGenerator {
     callback: (model: CreatureModel) => void
   ) {
     if (model.options.addMagics) {
+      const undo = model.options.editTrappings
+        ? () => {
+            this.editTrappings(model, callback);
+          }
+        : undefined;
       await WaiterUtil.hide(false);
       await this.magicsChooser.selectMagics(
         model.spells,
@@ -321,7 +326,8 @@ export default class CreatureGenerator {
           model.spells = spells;
           model.prayers = prayers;
           await this.editMutations(model, callback);
-        }
+        },
+        undo
       );
     } else {
       await this.editMutations(model, callback);
@@ -333,6 +339,15 @@ export default class CreatureGenerator {
     callback: (model: CreatureModel) => void
   ) {
     if (model.options.addMutations) {
+      const undo = model.options.addMagics
+        ? () => {
+            this.editMagics(model, callback);
+          }
+        : model.options.editTrappings
+        ? () => {
+            this.editTrappings(model, callback);
+          }
+        : undefined;
       await WaiterUtil.hide(false);
       await this.mutationsChooser.selectMutations(
         model.physicalMutations,
@@ -347,7 +362,8 @@ export default class CreatureGenerator {
               callback(model);
             }
           );
-        }
+        },
+        undo
       );
     } else {
       await WaiterUtil.show(

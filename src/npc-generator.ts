@@ -265,6 +265,11 @@ export default class NpcGenerator {
     callback: (model: NpcModel) => void
   ) {
     if (model.options.addMagics) {
+      const undo = model.options.editTrappings
+        ? () => {
+            this.editTrappings(model, callback);
+          }
+        : undefined;
       await WaiterUtil.hide(false);
       await this.magicsChooser.selectMagics(
         model.spells,
@@ -273,7 +278,8 @@ export default class NpcGenerator {
           model.spells = spells;
           model.prayers = prayers;
           await this.editMutations(model, callback);
-        }
+        },
+        undo
       );
     } else {
       await this.editMutations(model, callback);
@@ -285,6 +291,15 @@ export default class NpcGenerator {
     callback: (model: NpcModel) => void
   ) {
     if (model.options.addMutations) {
+      const undo = model.options.addMagics
+        ? () => {
+            this.editMagics(model, callback);
+          }
+        : model.options.editTrappings
+        ? () => {
+            this.editTrappings(model, callback);
+          }
+        : undefined;
       await WaiterUtil.hide(false);
       await this.mutationsChooser.selectMutations(
         model.physicalMutations,
@@ -299,7 +314,8 @@ export default class NpcGenerator {
               callback(model);
             }
           );
-        }
+        },
+        undo
       );
     } else {
       await WaiterUtil.show(
