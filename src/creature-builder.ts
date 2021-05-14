@@ -2,6 +2,7 @@ import CreatureModel from './creature-model.js';
 import FolderUtil from './util/folder-util.js';
 import TrappingUtil from './util/trapping-util.js';
 import { GenerateEffectOptionEnum } from './util/generate-effect-option.enum.js';
+import CompendiumUtil from './util/compendium-util.js';
 
 export default class CreatureBuilder {
   public static async buildCreatureData(model: CreatureModel) {
@@ -52,11 +53,13 @@ export default class CreatureBuilder {
     if (model.abilities.traits.length > 0) {
       await actor.createOwnedItem(model.abilities.traits);
     }
+    const weapon = await CompendiumUtil.getCompendiumWeaponTrait();
     const excludedTraitIds = model.abilities.traits
       .filter((t: Item.Data & any) => !t.included)
       .map((t: Item.Data & any) => {
         const actorTrait = (<any>actor.data).traits.find(
-          (at: Item.Data & any) => at.displayName === t.displayName
+          (at: Item.Data & any) =>
+            at.displayName === t.displayName || weapon.name === t.name
         );
         return actorTrait?._id ?? t._id;
       });
