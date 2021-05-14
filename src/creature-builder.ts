@@ -54,7 +54,12 @@ export default class CreatureBuilder {
     }
     const excludedTraitIds = model.abilities.traits
       .filter((t: Item.Data & any) => !t.included)
-      .map((t) => t._id);
+      .map((t) => {
+        const actorTrait = (<any>actor.data).traits.find(
+          (at: Item.Data) => at.name === t.name
+        );
+        return actorTrait?._id ?? t._id;
+      });
     if (excludedTraitIds.length > 0) {
       actor = <Actor>await actor.update({
         'data.excludedTraits': excludedTraitIds,
