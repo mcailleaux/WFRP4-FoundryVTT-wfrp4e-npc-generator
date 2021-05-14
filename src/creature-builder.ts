@@ -57,10 +57,16 @@ export default class CreatureBuilder {
     const excludedTraitIds = model.abilities.traits
       .filter((t: Item.Data & any) => !t.included)
       .map((t: Item.Data & any) => {
-        const actorTrait = (<any>actor.data).traits.find(
-          (at: Item.Data & any) =>
-            at.displayName === t.displayName || weapon.name === t.name
-        );
+        let actorTrait;
+        if (weapon.name === t.name) {
+          actorTrait = (<any>actor.data).traits.find(
+            (at: Item.Data & any) => at.name === weapon.name
+          );
+        } else {
+          actorTrait = (<any>actor.data).traits.find(
+            (at: Item.Data & any) => at.displayName === t.displayName
+          );
+        }
         return actorTrait?._id ?? t._id;
       });
     if (excludedTraitIds.length > 0) {
