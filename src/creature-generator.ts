@@ -514,8 +514,10 @@ export default class CreatureGenerator {
       model.abilities.traits.push(weapon);
     } else if (model.creatureTemplate.hasWeaponTrait) {
       (<any>weapon.data).specification.value = Number.isNumeric(
-        model.creatureTemplate.weaponDamage
+        model.abilities.weaponDamage
       )
+        ? Number(model.abilities.weaponDamage)
+        : Number.isNumeric(model.creatureTemplate.weaponDamage)
         ? Number(model.creatureTemplate.weaponDamage)
         : 0;
       weapon.included = false;
