@@ -16,6 +16,7 @@ import WaiterUtil from './util/waiter-util.js';
 import TrappingChooser from './util/trapping-chooser.js';
 import MagicsChooser from './util/magics-chooser.js';
 import MutationsChooser from './util/mutations-chooser.js';
+import CreatureBuilder from './creature-builder.js';
 
 export default class CreatureGenerator {
   public static readonly creatureChooser = CreatureChooser;
@@ -33,17 +34,16 @@ export default class CreatureGenerator {
   ) {
     await CompendiumUtil.initCompendium(async () => {
       await this.generateCreatureModel(async (model) => {
-        // const actorData = await CreatureBuilder.buildCreatureData(model);
-        // const actor = await CreatureBuilder.createCreature(model, actorData);
-        // ui.notifications.info(
-        //   game.i18n.format('WFRP4NPCGEN.notification.creature.created', {
-        //     name: actor.name,
-        //   })
-        // );
-        console.dir(model);
+        const actorData = await CreatureBuilder.buildCreatureData(model);
+        const actor = await CreatureBuilder.createCreature(model, actorData);
+        ui.notifications.info(
+          game.i18n.format('WFRP4NPCGEN.notification.creature.created', {
+            name: actor.name,
+          })
+        );
+        await WaiterUtil.hide();
         if (callback != null) {
-          // callback(model, actorData, actor);
-          callback(model, null, null);
+          callback(model, actorData, actor);
         }
       });
     }, true);
@@ -86,6 +86,7 @@ export default class CreatureGenerator {
           any = await CompendiumUtil.getCompendiumRangedTrait();
         const size: Item & any = await CompendiumUtil.getCompendiumSizeTrait();
 
+        model.creatureTemplate.size = creature.data?.details?.size?.value;
         model.creatureTemplate.swarm = duplicate(
           creature.traits
         )?.find((t: any) => EntityUtil.match(t, swarm));
@@ -199,14 +200,47 @@ export default class CreatureGenerator {
           model.trappings.push(...(<any>inventory).items);
         }
 
-        model.spells = [...creature.petty, ...creature.grimoire];
-        model.prayers = [...creature.blessings, ...creature.miracles];
-        model.physicalMutations = creature.mutations.filter(
-          (m: Item.Data) => (<any>m.data).mutationType.value === 'physical'
-        );
-        model.mentalMutations = creature.mutations.filter(
-          (m: Item.Data) => (<any>m.data).mutationType.value === 'mental'
-        );
+        const spells = await ReferentialUtil.getSpellEntities();
+        const prayers = await ReferentialUtil.getPrayerEntities();
+        const physicals = await ReferentialUtil.getPhysicalMutationEntities();
+        const mentals = await ReferentialUtil.getMentalMutationEntities();
+
+        model.spells = [
+          ...creature.petty.map((p: Item.Data) => {
+            const spell = spells.find((s) => s.name === p.name);
+            return spell != null ? duplicate(spell.data) : p;
+          }),
+          ...creature.grimoire.map((g: Item.Data) => {
+            const spell = spells.find((s) => s.name === g.name);
+            return spell != null ? duplicate(spell.data) : g;
+          }),
+        ];
+        model.prayers = [
+          ...creature.blessings.map((b: Item.Data) => {
+            const prayer = prayers.find((p) => p.name === b.name);
+            return prayer != null ? duplicate(prayer.data) : b;
+          }),
+          ...creature.miracles.map((m: Item.Data) => {
+            const prayer = prayers.find((p) => p.name === m.name);
+            return prayer != null ? duplicate(prayer.data) : m;
+          }),
+        ];
+        model.physicalMutations = creature.mutations
+          .filter(
+            (m: Item.Data) => (<any>m.data).mutationType.value === 'physical'
+          )
+          .map((m: Item.Data) => {
+            const mutation = physicals.find((p) => p.name === m.name);
+            return mutation != null ? duplicate(mutation.data) : m;
+          });
+        model.mentalMutations = creature.mutations
+          .filter(
+            (m: Item.Data) => (<any>m.data).mutationType.value === 'mental'
+          )
+          .map((m: Item.Data) => {
+            const mutation = mentals.find((p) => p.name === m.name);
+            return mutation != null ? duplicate(mutation.data) : m;
+          });
 
         await this.selectCreatureAbilities(model, callback);
       }
@@ -285,6 +319,21 @@ export default class CreatureGenerator {
       'WFRP4NPCGEN.creature.generation.inprogress.title',
       'WFRP4NPCGEN.creature.generation.inprogress.hint',
       async () => {
+        console.log('Prepare Basic skills');
+        await this.addBasicSkill(model);
+
+        console.log('Prepare Basic Chars');
+        await this.addBasicChars(model);
+
+        console.log('Prepare Swarm');
+        await this.addSwarm(model);
+
+        console.log('Prepare Size');
+        await this.addSize(model);
+
+        console.log('Prepare Weapon');
+        await this.addWeapon(model);
+
         await this.editTrappings(model, callback);
       }
     );
@@ -373,6 +422,83 @@ export default class CreatureGenerator {
           callback(model);
         }
       );
+    }
+  }
+
+  private static async addBasicSkill(model: CreatureModel) {
+    const skills = await this.referential.getAllBasicSkills();
+    for (let skill of skills) {
+      const existingSkill = model.abilities.skills.find(
+        (s) => s.name === skill.name
+      );
+      if (existingSkill == null) {
+        model.abilities.skills.push(skill);
+      }
+    }
+  }
+
+  private static async addBasicChars(model: CreatureModel) {
+    Object.entries(
+      model.creatureTemplate.creatureData.data.characteristics
+    ).forEach(([key, char]) => {
+      // const positive = RandomUtil.getRandomBoolean();
+      // const amplitude = RandomUtil.getRandomPositiveNumber(6);
+      // const adjust =
+      //   (positive ? 1 : -1) * RandomUtil.getRandomPositiveNumber(amplitude);
+      model.chars[key] = {
+        initial: (<any>char).value /*+ adjust*/,
+        advances: 0,
+      };
+    });
+    if (model.creatureTemplate.swarm != null) {
+      model.chars.ws.initial -= 10;
+    }
+
+    const fromSize = ReferentialUtil.sortedSize.indexOf(
+      model.creatureTemplate.size
+    );
+    const toSize = ReferentialUtil.sortedSize.indexOf(model.abilities.sizeKey);
+
+    const sizeRatio = Math.abs(toSize - fromSize);
+    const smallToBig = toSize > fromSize;
+
+    if (sizeRatio > 0) {
+      model.chars.s.initial += sizeRatio * 10 * (smallToBig ? 1 : -1);
+      model.chars.t.initial += sizeRatio * 10 * (smallToBig ? 1 : -1);
+      model.chars.ag.initial += sizeRatio * 5 * (smallToBig ? -1 : 1);
+    }
+  }
+
+  private static async addSwarm(model: CreatureModel) {
+    if (model.abilities.isSwarm) {
+      const swarm = duplicate(
+        (await CompendiumUtil.getCompendiumSwarmTrait()).data
+      );
+      model.abilities.traits.push(swarm);
+    }
+  }
+
+  private static async addSize(model: CreatureModel) {
+    const size = duplicate(
+      (await CompendiumUtil.getCompendiumSizeTrait()).data
+    );
+    (<any>size.data).specification.value = CompendiumUtil.getSizes()[
+      model.abilities.sizeKey
+    ];
+    model.abilities.traits.push(size);
+  }
+
+  private static async addWeapon(model: CreatureModel) {
+    if (model.abilities.hasWeaponTrait) {
+      const weapon = duplicate(
+        (await CompendiumUtil.getCompendiumWeaponTrait()).data
+      );
+      (<any>weapon.data).specification.value = Number.isNumeric(
+        model.abilities.weaponDamage
+      )
+        ? Number(model.abilities.weaponDamage)
+        : 0;
+      model.abilities.traits.push(weapon);
     }
   }
 }

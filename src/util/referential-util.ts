@@ -2,6 +2,16 @@ import StringUtil from './string-util.js';
 import CompendiumUtil from './compendium-util.js';
 
 export default class ReferentialUtil {
+  public static readonly sortedSize = [
+    'tiny',
+    'ltl',
+    'sml',
+    'avg',
+    'lrg',
+    'enor',
+    'mnst',
+  ];
+
   public static getClassTrappings(): { [key: string]: string } {
     const voClassTraping: { [key: string]: string } =
       game.wfrp4e.config.classTrappings;
