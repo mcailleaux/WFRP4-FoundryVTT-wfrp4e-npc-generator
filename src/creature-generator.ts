@@ -97,6 +97,9 @@ export default class CreatureGenerator {
         model.creatureTemplate.weapon = duplicate(
           creature.traits
         )?.find((t: any) => EntityUtil.match(t, weapon));
+        model.creatureTemplate.hasWeaponTrait =
+          model.creatureTemplate.weapon != null &&
+          model.creatureTemplate.weapon.included;
 
         model.creatureTemplate.armour = duplicate(
           creature.traits
@@ -133,9 +136,7 @@ export default class CreatureGenerator {
         model.abilities.includeBasicSkills = creature.basicSkills?.length > 0;
         model.abilities.sizeKey = creature.data?.details?.size?.value;
         model.abilities.isSwarm = model.creatureTemplate.isSwarm;
-        model.abilities.hasWeaponTrait =
-          model.creatureTemplate.weapon != null &&
-          model.creatureTemplate.weapon.included;
+        model.abilities.hasWeaponTrait = model.creatureTemplate.hasWeaponTrait;
         model.abilities.hasArmourTrait =
           model.creatureTemplate.armour != null &&
           model.creatureTemplate.armour.included;
