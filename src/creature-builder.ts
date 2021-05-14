@@ -56,7 +56,7 @@ export default class CreatureBuilder {
       .filter((t: Item.Data & any) => !t.included)
       .map((t) => t._id);
     if (excludedTraitIds.length > 0) {
-      await actor.update({
+      actor = <Actor>await actor.update({
         'data.excludedTraits': excludedTraitIds,
       });
     }
