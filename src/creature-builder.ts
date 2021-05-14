@@ -56,9 +56,7 @@ export default class CreatureBuilder {
       .filter((t: Item.Data & any) => !t.included)
       .map((t: Item.Data & any) => {
         const actorTrait = (<any>actor.data).traits.find(
-          (at: Item.Data & any) =>
-            (at.displayName != null && at.displayName === t.displayName) ||
-            at.name === t.name
+          (at: Item.Data & any) => at.displayName === t.displayName
         );
         return actorTrait?._id ?? t._id;
       });
