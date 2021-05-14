@@ -113,5 +113,8 @@
   "WFRP4NPCGEN.select.magics.title": "Choose Magics",
   "WFRP4NPCGEN.select.spells.title": "Spells",
   "WFRP4NPCGEN.select.prayers.title": "Prayers",
-  "WFRP4NPCGEN.select.magics.no.lore.label": "No Lore"
+  "WFRP4NPCGEN.select.magics.no.lore.label": "No Lore",
+  "WFRP4NPCGEN.select.mutations.title": "Choose Mutations",
+  "WFRP4NPCGEN.select.mutations.physicals.title": "Physical Mutations",
+  "WFRP4NPCGEN.select.mutations.mentals.title": "Mental Mutations"
 }
