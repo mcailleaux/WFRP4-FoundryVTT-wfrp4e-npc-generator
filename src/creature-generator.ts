@@ -221,7 +221,7 @@ export default class CreatureGenerator {
       model.abilities,
       (abilities) => {
         model.abilities = abilities;
-        callback(model);
+        this.selectName(model, callback);
       },
       () => {
         this.selectCreature(model, callback);
