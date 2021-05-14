@@ -90,6 +90,9 @@ export default class CreatureGenerator {
         model.creatureTemplate.swarm = duplicate(
           creature.traits
         )?.find((t: any) => EntityUtil.match(t, swarm));
+        model.creatureTemplate.isSwarm =
+          model.creatureTemplate.swarm != null &&
+          model.creatureTemplate.swarm.included;
 
         model.creatureTemplate.weapon = duplicate(
           creature.traits
@@ -129,9 +132,7 @@ export default class CreatureGenerator {
 
         model.abilities.includeBasicSkills = creature.basicSkills?.length > 0;
         model.abilities.sizeKey = creature.data?.details?.size?.value;
-        model.abilities.isSwarm =
-          model.creatureTemplate.swarm != null &&
-          model.creatureTemplate.swarm.included;
+        model.abilities.isSwarm = model.creatureTemplate.isSwarm;
         model.abilities.hasWeaponTrait =
           model.creatureTemplate.weapon != null &&
           model.creatureTemplate.weapon.included;
@@ -278,7 +279,7 @@ export default class CreatureGenerator {
     await this.nameChooser.selectName(
       model.name,
       model.abilities.speciesKey,
-      model.abilities.speciesKey != null,
+      model.abilities.speciesKey != 'none',
       (name: string) => {
         model.name = name;
         this.selectOptions(model, callback);

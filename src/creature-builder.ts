@@ -52,6 +52,14 @@ export default class CreatureBuilder {
     if (model.abilities.traits.length > 0) {
       await actor.createOwnedItem(model.abilities.traits);
     }
+    const excludedTraitIds = model.abilities.traits
+      .filter((t: Item.Data & any) => !t.included)
+      .map((t) => t._id);
+    if (excludedTraitIds.length > 0) {
+      await actor.update({
+        'data.excludedTraits': model.abilities.traits,
+      });
+    }
     if (model.trappings.length > 0) {
       await actor.createOwnedItem(model.trappings);
     }
