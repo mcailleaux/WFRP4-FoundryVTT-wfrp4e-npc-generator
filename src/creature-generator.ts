@@ -116,21 +116,22 @@ export default class CreatureGenerator {
         }
 
         if (model.creatureTemplate.weapon != null) {
-          model.creatureTemplate.weaponDamage = String(
-            model.creatureTemplate.weapon.damage -
-              model.creatureTemplate.weapon.bonus
-          );
+          model.creatureTemplate.weaponDamage =
+            model.creatureTemplate.weapon.data.specification.value;
         }
 
         if (model.creatureTemplate.ranged != null) {
           model.creatureTemplate.rangedRange = StringUtil.getGroupName(
             model.creatureTemplate.ranged.name
           );
-          model.creatureTemplate.rangedDamage = StringUtil.getGroupName(
-            model.creatureTemplate.ranged.displayName.substring(
-              model.creatureTemplate.ranged.displayName.indexOf(')') + 1
-            )
-          );
+          model.creatureTemplate.rangedDamage =
+            model.creatureTemplate.ranged.data.specification.value;
+          if (model.creatureTemplate.rangedDamage?.includes('+')) {
+            model.creatureTemplate.rangedDamage = model.creatureTemplate.rangedDamage.replace(
+              '+',
+              ''
+            );
+          }
         }
 
         model.abilities.includeBasicSkills = creature.basicSkills?.length > 0;
@@ -336,6 +337,9 @@ export default class CreatureGenerator {
         console.log('Prepare Weapon');
         await this.addWeapon(model);
 
+        console.log('Prepare Ranged');
+        await this.addRanged(model);
+
         await this.editTrappings(model, callback);
       }
     );
@@ -525,6 +529,45 @@ export default class CreatureGenerator {
         : 0;
       weapon.included = false;
       model.abilities.traits.push(weapon);
+    }
+  }
+
+  private static async addRanged(model: CreatureModel) {
+    const ranged: Item.Data & any = duplicate(
+      (await CompendiumUtil.getCompendiumRangedTrait()).data
+    );
+    const defaultRange = StringUtil.getGroupName(ranged.name);
+    const defaultDamage = ranged.data.specification.value;
+    if (model.abilities.hasRangedTrait) {
+      const range = Number.isNumeric(model.abilities.rangedRange)
+        ? model.abilities.rangedRange
+        : defaultRange;
+      const damage = Number.isNumeric(model.abilities.rangedDamage)
+        ? model.abilities.rangedDamage
+        : defaultDamage;
+      ranged.name = `${StringUtil.getSimpleName(
+        ranged.name
+      ).trim()} (${range})`;
+      ranged.data.specification.value = damage;
+      ranged.included = true;
+      model.abilities.traits.push(ranged);
+    } else if (model.creatureTemplate.ranged != null) {
+      const range = Number.isNumeric(model.abilities.rangedRange)
+        ? model.abilities.rangedRange
+        : Number.isNumeric(model.creatureTemplate.rangedRange)
+        ? model.creatureTemplate.rangedRange
+        : defaultRange;
+      const damage = Number.isNumeric(model.abilities.rangedDamage)
+        ? model.abilities.rangedDamage
+        : Number.isNumeric(model.creatureTemplate.rangedDamage)
+        ? model.creatureTemplate.rangedDamage
+        : defaultDamage;
+      ranged.name = `${StringUtil.getSimpleName(
+        ranged.name
+      ).trim()} (${range})`;
+      ranged.data.specification.value = damage;
+      ranged.included = false;
+      model.abilities.traits.push(ranged);
     }
   }
 }
