@@ -3,6 +3,7 @@ export default class CreatureTemplate {
   public size: string;
   public isSwarm: boolean = false;
   public swarm: Item.Data & any;
+  public hasWeaponTrait: boolean = false;
   public weapon: Item.Data & any;
   public ranged: Item.Data & any;
   public weaponDamage: string;

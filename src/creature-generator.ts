@@ -427,13 +427,15 @@ export default class CreatureGenerator {
   }
 
   private static async addBasicSkill(model: CreatureModel) {
-    const skills = await this.referential.getAllBasicSkills();
-    for (let skill of skills) {
-      const existingSkill = model.abilities.skills.find(
-        (s) => s.name === skill.name
-      );
-      if (existingSkill == null) {
-        model.abilities.skills.push(skill);
+    if (model.abilities.includeBasicSkills) {
+      const skills = await this.referential.getAllBasicSkills();
+      for (let skill of skills) {
+        const existingSkill = model.abilities.skills.find(
+          (s) => s.name === skill.name
+        );
+        if (existingSkill == null) {
+          model.abilities.skills.push(skill);
+        }
       }
     }
   }
@@ -468,13 +470,22 @@ export default class CreatureGenerator {
       model.chars.t.initial += sizeRatio * 10 * (smallToBig ? 1 : -1);
       model.chars.ag.initial += sizeRatio * 5 * (smallToBig ? -1 : 1);
     }
+
+    Object.entries(model.chars).forEach(([_key, char]) => {
+      if (char.initial < 0) {
+        char.initial = 0;
+      }
+    });
   }
 
   private static async addSwarm(model: CreatureModel) {
+    const swarm: Item.Data & any = duplicate(
+      (await CompendiumUtil.getCompendiumSwarmTrait()).data
+    );
     if (model.abilities.isSwarm) {
-      const swarm = duplicate(
-        (await CompendiumUtil.getCompendiumSwarmTrait()).data
-      );
+      model.abilities.traits.push(swarm);
+    } else if (model.creatureTemplate.isSwarm) {
+      swarm.included = false;
       model.abilities.traits.push(swarm);
     }
   }
@@ -490,15 +501,23 @@ export default class CreatureGenerator {
   }
 
   private static async addWeapon(model: CreatureModel) {
+    const weapon: Item.Data & any = duplicate(
+      (await CompendiumUtil.getCompendiumWeaponTrait()).data
+    );
     if (model.abilities.hasWeaponTrait) {
-      const weapon = duplicate(
-        (await CompendiumUtil.getCompendiumWeaponTrait()).data
-      );
       (<any>weapon.data).specification.value = Number.isNumeric(
         model.abilities.weaponDamage
       )
         ? Number(model.abilities.weaponDamage)
         : 0;
+      model.abilities.traits.push(weapon);
+    } else if (model.creatureTemplate.hasWeaponTrait) {
+      (<any>weapon.data).specification.value = Number.isNumeric(
+        model.creatureTemplate.weaponDamage
+      )
+        ? Number(model.creatureTemplate.weaponDamage)
+        : 0;
+      weapon.included = false;
       model.abilities.traits.push(weapon);
     }
   }
