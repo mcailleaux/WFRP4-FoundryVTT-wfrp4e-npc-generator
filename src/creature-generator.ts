@@ -485,19 +485,20 @@ export default class CreatureGenerator {
     );
     if (model.abilities.isSwarm) {
       model.abilities.traits.push(swarm);
-    } else if (model.creatureTemplate.isSwarm) {
+    } else if (model.creatureTemplate.swarm != null) {
       swarm.included = false;
       model.abilities.traits.push(swarm);
     }
   }
 
   private static async addSize(model: CreatureModel) {
-    const size = duplicate(
+    const size: Item.Data & any = duplicate(
       (await CompendiumUtil.getCompendiumSizeTrait()).data
     );
     (<any>size.data).specification.value = CompendiumUtil.getSizes()[
       model.abilities.sizeKey
     ];
+    size.included = true;
     model.abilities.traits.push(size);
   }
 
@@ -511,8 +512,9 @@ export default class CreatureGenerator {
       )
         ? Number(model.abilities.weaponDamage)
         : 0;
+      weapon.included = true;
       model.abilities.traits.push(weapon);
-    } else if (model.creatureTemplate.hasWeaponTrait) {
+    } else if (model.creatureTemplate.weapon != null) {
       (<any>weapon.data).specification.value = Number.isNumeric(
         model.abilities.weaponDamage
       )
