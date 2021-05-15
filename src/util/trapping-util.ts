@@ -72,7 +72,7 @@ export default class TrappingUtil {
       } else {
         await actor.updateOwnedItem({
           _id: gCoin._id,
-          [this.UPDATE_QUANTITY_KEY]: gold,
+          [this.UPDATE_QUANTITY_KEY]: gold + gCoin.data.quantity.value,
         });
       }
     }
@@ -84,7 +84,7 @@ export default class TrappingUtil {
       } else {
         await actor.updateOwnedItem({
           _id: sCoin._id,
-          [this.UPDATE_QUANTITY_KEY]: silver,
+          [this.UPDATE_QUANTITY_KEY]: silver + sCoin.data.quantity.value,
         });
       }
     }
@@ -96,7 +96,7 @@ export default class TrappingUtil {
       } else {
         await actor.updateOwnedItem({
           _id: bCoin._id,
-          [this.UPDATE_QUANTITY_KEY]: brass,
+          [this.UPDATE_QUANTITY_KEY]: brass + bCoin.data.quantity.value,
         });
       }
     }

@@ -628,6 +628,8 @@ export default class NpcGenerator {
   public static async addTrappings(model: NpcModel) {
     const trappingCompendiums = await ReferentialUtil.getTrappingEntities(true);
     const trappingIds: string[] = [];
+    const moneyItems = await ReferentialUtil.getAllMoneyItems();
+    model.trappings.push(...moneyItems);
     for (let tr of model.trappingsStr) {
       const trappings = await ReferentialUtil.findTrappings(
         tr,

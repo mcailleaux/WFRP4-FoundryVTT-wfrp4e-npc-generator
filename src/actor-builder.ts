@@ -1,12 +1,10 @@
 import NpcModel from './npc-model.js';
-import ReferentialUtil from './util/referential-util.js';
 import { GenerateEffectOptionEnum } from './util/generate-effect-option.enum.js';
 import FolderUtil from './util/folder-util.js';
 import TrappingUtil from './util/trapping-util.js';
 
 export class ActorBuilder {
   public static async buildActorData(model: NpcModel, type: string) {
-    const moneyItems = await ReferentialUtil.getAllMoneyItems();
     const actorData: any = {
       name: model.name,
       type: type,
@@ -33,7 +31,7 @@ export class ActorBuilder {
           },
         },
       },
-      items: [...model.careerPath, ...moneyItems],
+      items: [...model.careerPath],
     };
     if (
       model.options?.imagePath != null &&
