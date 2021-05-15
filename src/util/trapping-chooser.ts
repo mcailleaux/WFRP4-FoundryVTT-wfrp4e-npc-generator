@@ -28,9 +28,10 @@ export default class TrappingChooser {
 
     const trappingsId = `creature-add-remove-trappings-${dialogId}`;
 
-    new Dialog({
-      title: game.i18n.localize('WFRP4NPCGEN.select.trappings.title'),
-      content: `<form>
+    new Dialog(
+      {
+        title: game.i18n.localize('WFRP4NPCGEN.select.trappings.title'),
+        content: `<form>
             <div class="form-group">
           ${DialogUtil.getSelectAddRemoveScript({
             id: trappingsId,
@@ -61,28 +62,32 @@ export default class TrappingChooser {
                 
             </script>
             `,
-      buttons: DialogUtil.getDialogButtons(
-        dialogId,
-        (html: JQuery) => {
-          const resultTrappings: Item.Data[] = [];
-          html.find(`.${trappingsId}`).each((_i, r: HTMLInputElement) => {
-            const id = r.id;
-            const key = r.value;
-            let count = 0;
-            html.find(`#${id}-count`).each((_i1, r1: HTMLInputElement) => {
-              count = Number(r1.value);
+        buttons: DialogUtil.getDialogButtons(
+          dialogId,
+          (html: JQuery) => {
+            const resultTrappings: Item.Data[] = [];
+            html.find(`.${trappingsId}`).each((_i, r: HTMLInputElement) => {
+              const id = r.id;
+              const key = r.value;
+              let count = 0;
+              html.find(`#${id}-count`).each((_i1, r1: HTMLInputElement) => {
+                count = Number(r1.value);
+              });
+              const trapping = <Item.Data & any>(
+                trappings.find((t) => t._id === key)
+              );
+              trapping.data.quantity.value = count;
+              resultTrappings.push(trapping);
             });
-            const trapping = <Item.Data & any>(
-              trappings.find((t) => t._id === key)
-            );
-            trapping.data.quantity.value = count;
-            resultTrappings.push(trapping);
-          });
-          callback(resultTrappings);
-        },
-        undo
-      ),
-      default: 'yes',
-    }).render(true);
+            callback(resultTrappings);
+          },
+          undo
+        ),
+        default: 'yes',
+      },
+      {
+        resizable: true,
+      }
+    ).render(true);
   }
 }
