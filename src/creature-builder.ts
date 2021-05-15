@@ -78,6 +78,7 @@ export default class CreatureBuilder {
     const weapon = await CompendiumUtil.getCompendiumWeaponTrait();
     const ranged = await CompendiumUtil.getCompendiumRangedTrait();
     const swarm = await CompendiumUtil.getCompendiumSwarmTrait();
+    const armour = await CompendiumUtil.getCompendiumArmourTrait();
     const excludedTraitIds = model.abilities.traits
       .filter((t: Item.Data & any) => !t.included)
       .map((t: Item.Data & any) => {
@@ -98,6 +99,10 @@ export default class CreatureBuilder {
         } else if (swarm.name === t.name) {
           actorTrait = (<any>actor.data).traits.find(
             (at: Item.Data & any) => at.name === swarm.name
+          );
+        } else if (armour.name === t.name) {
+          actorTrait = (<any>actor.data).traits.find(
+            (at: Item.Data & any) => at.name === armour.name
           );
         } else {
           actorTrait = (<any>actor.data).traits.find(

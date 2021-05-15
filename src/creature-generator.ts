@@ -104,6 +104,9 @@ export default class CreatureGenerator {
         model.creatureTemplate.armour = duplicate(
           creature.traits
         )?.find((t: any) => EntityUtil.match(t, armour));
+        model.creatureTemplate.hasArmourTrait =
+          model.creatureTemplate.armour != null &&
+          model.creatureTemplate.armour.included;
 
         model.creatureTemplate.ranged = duplicate(
           creature.traits
@@ -340,6 +343,9 @@ export default class CreatureGenerator {
         console.log('Prepare Ranged');
         await this.addRanged(model);
 
+        console.log('Prepare Armour');
+        await this.addArmour(model);
+
         await this.editTrappings(model, callback);
       }
     );
@@ -568,6 +574,31 @@ export default class CreatureGenerator {
       ranged.data.specification.value = damage;
       ranged.included = false;
       model.abilities.traits.push(ranged);
+    }
+  }
+
+  private static async addArmour(model: CreatureModel) {
+    const armour: Item.Data & any = duplicate(
+      (await CompendiumUtil.getCompendiumArmourTrait()).data
+    );
+    if (model.abilities.hasArmourTrait) {
+      armour.data.specification.value = Number.isNumeric(
+        model.abilities.armourValue
+      )
+        ? Number(model.abilities.armourValue)
+        : 1;
+      armour.included = true;
+      model.abilities.traits.push(armour);
+    } else if (model.creatureTemplate.armour != null) {
+      armour.data.specification.value = Number.isNumeric(
+        model.abilities.armourValue
+      )
+        ? Number(model.abilities.armourValue)
+        : Number.isNumeric(model.creatureTemplate.armourValue)
+        ? Number(model.creatureTemplate.armourValue)
+        : 0;
+      armour.included = false;
+      model.abilities.traits.push(armour);
     }
   }
 }
