@@ -7,7 +7,15 @@
   min-height: 500px;
 }
 
+.wfrp4e-npc-generator-dialog .creature-chooser {
+  height: 100%;
+}
+
 .wfrp4e-npc-generator-dialog .creature-chooser-img {
+  flex-direction: row;
+  align-items: stretch;
+  display: flex;
+  justify-content: center;
   position: relative;
   padding-bottom: 20em;
   height: 0;
