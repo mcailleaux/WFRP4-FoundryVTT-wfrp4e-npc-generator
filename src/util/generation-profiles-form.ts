@@ -1,4 +1,6 @@
-import GenerationProfiles from './generation-profiles.js';
+import GenerationProfiles, {
+  GenerationProfile,
+} from './generation-profiles.js';
 import RegisterSettings from './register-settings.js';
 import ReferentialUtil from './referential-util.js';
 import NameChooser from './name-chooser.js';
@@ -30,6 +32,11 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
       const profiles: { [key: string]: any } = duplicate(
         game.settings.get(RegisterSettings.moduleName, 'generationProfiles')
       );
+      if (profiles.creature == null) {
+        profiles.creature = <GenerationProfile>{
+          profiles: [],
+        };
+      }
       const speciesMap = ReferentialUtil.getSpeciesMap();
       Object.entries(speciesMap).forEach(([key, label]) => {
         if (profiles[key] != null) {

@@ -346,6 +346,9 @@ export default class CreatureGenerator {
         console.log('Prepare Armour');
         await this.addArmour(model);
 
+        console.log('Prepare Trappings');
+        await this.addTrappings(model);
+
         await this.editTrappings(model, callback);
       }
     );
@@ -600,5 +603,10 @@ export default class CreatureGenerator {
       armour.included = false;
       model.abilities.traits.push(armour);
     }
+  }
+
+  private static async addTrappings(model: CreatureModel) {
+    const moneyItems = await ReferentialUtil.getAllMoneyItems();
+    model.trappings.push(...moneyItems);
   }
 }
