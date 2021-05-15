@@ -98,7 +98,7 @@ export default class CreatureChooser {
       },
       {
         resizable: true,
-        classes: ['wfrp4e-npc-generator-dialog'],
+        classes: ['dialog', 'wfrp4e-npc-generator-dialog'],
       }
     ).render(true);
   }
