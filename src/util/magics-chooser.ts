@@ -35,6 +35,58 @@ export default class MagicsChooser {
       spellsMap[loreLabel].push(spell);
     }
 
+    const spellsLoreEntries = Object.entries(
+      <{ [key: string]: string }>game.wfrp4e.config.magicLores
+    );
+    spellsLoreEntries.push(['undivided', 'Chaos']);
+    spellsLoreEntries.push(['warp', 'Skaven']);
+    spellsLoreEntries.push([
+      'none',
+      game.i18n.localize('WFRP4NPCGEN.select.magics.no.lore.label'),
+    ]);
+
+    const spellsLoreSortList = [
+      'petty',
+      'none',
+      'beasts',
+      'heavens',
+      'fire',
+      'light',
+      'metal',
+      'death',
+      'shadow',
+      'life',
+      'hedgecraft',
+      'witchcraft',
+      'daemonology',
+      'necromancy',
+      'undivided',
+      'nurgle',
+      'slaanesh',
+      'tzeentch',
+      'warp',
+    ];
+
+    const spellsSort = (
+      a: [groupKey: string, group: { [key: string]: string }],
+      b: [groupKey: string, group: { [key: string]: string }]
+    ) => {
+      const g1 = a[0];
+      const g2 = b[0];
+      const entry1 = spellsLoreEntries?.find(([_key, value]) => value === g1);
+      const entry2 = spellsLoreEntries?.find(([_key, value]) => value === g2);
+      const key1 = entry1 != null ? entry1[0] : null;
+      const key2 = entry2 != null ? entry2[0] : null;
+
+      if (key1 == null || key2 == null) {
+        return 0;
+      }
+
+      return (
+        spellsLoreSortList.indexOf(key1) - spellsLoreSortList.indexOf(key2)
+      );
+    };
+
     const prayers = [
       ...(await ReferentialUtil.getPrayerEntities(true)).map((t) => t.data),
     ].sort((t1, t2) => {
@@ -55,6 +107,30 @@ export default class MagicsChooser {
       prayersMap[key].push(prayer);
     }
 
+    const prayersGodSortList = [
+      `${game.wfrp4e.config.prayerTypes.blessing}`,
+      `${game.wfrp4e.config.prayerTypes.miracle} - Manann`,
+      `${game.wfrp4e.config.prayerTypes.miracle} - Morr`,
+      `${game.wfrp4e.config.prayerTypes.miracle} - Myrmidia`,
+      `${game.wfrp4e.config.prayerTypes.miracle} - Ranald`,
+      `${game.wfrp4e.config.prayerTypes.miracle} - Rhya`,
+      `${game.wfrp4e.config.prayerTypes.miracle} - Shallya`,
+      `${game.wfrp4e.config.prayerTypes.miracle} - Sigmar`,
+      `${game.wfrp4e.config.prayerTypes.miracle} - Taal`,
+      `${game.wfrp4e.config.prayerTypes.miracle} - Ulric`,
+      `${game.wfrp4e.config.prayerTypes.miracle} - Verena`,
+    ];
+
+    const prayersSort = (
+      a: [groupKey: string, group: { [key: string]: string }],
+      b: [groupKey: string, group: { [key: string]: string }]
+    ) => {
+      const g1 = a[0];
+      const g2 = b[0];
+
+      return prayersGodSortList.indexOf(g1) - prayersGodSortList.indexOf(g2);
+    };
+
     const spellsId = `creature-add-remove-spells-${dialogId}`;
     const prayersId = `creature-add-remove-prayers-${dialogId}`;
 
@@ -73,6 +149,7 @@ export default class MagicsChooser {
             ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
             `,
               optionGroups: EntityUtil.toSelectOptionGroup(spellsMap),
+              sort: spellsSort,
               initValues: initSpells?.map((s: Item.Data & any) => {
                 return {
                   key: s._id,
@@ -92,6 +169,7 @@ export default class MagicsChooser {
             ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
             `,
             optionGroups: EntityUtil.toSelectOptionGroup(prayersMap),
+            sort: prayersSort,
             initValues: initPrayers?.map((s: Item.Data & any) => {
               return {
                 key: s._id,
