@@ -65,6 +65,7 @@ export default class MagicsChooser {
       'slaanesh',
       'tzeentch',
       'warp',
+      'others',
     ];
 
     const spellsSort = (
@@ -75,12 +76,8 @@ export default class MagicsChooser {
       const g2 = b[0];
       const entry1 = spellsLoreEntries?.find(([_key, value]) => value === g1);
       const entry2 = spellsLoreEntries?.find(([_key, value]) => value === g2);
-      const key1 = entry1 != null ? entry1[0] : null;
-      const key2 = entry2 != null ? entry2[0] : null;
-
-      if (key1 == null || key2 == null) {
-        return -1;
-      }
+      const key1 = entry1 != null ? entry1[0] : 'others';
+      const key2 = entry2 != null ? entry2[0] : 'others';
 
       return (
         spellsLoreSortList.indexOf(key1) - spellsLoreSortList.indexOf(key2)

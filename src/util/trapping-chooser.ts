@@ -44,6 +44,7 @@ export default class TrappingChooser {
       'misc',
       'ingredient',
       'money',
+      'others',
     ];
 
     const trappingsSort = (
@@ -58,12 +59,8 @@ export default class TrappingChooser {
       const entry2 = trappingsCategorieEntries?.find(
         ([_key, value]) => value === g2
       );
-      const key1 = entry1 != null ? entry1[0] : null;
-      const key2 = entry2 != null ? entry2[0] : null;
-
-      if (key1 == null || key2 == null) {
-        return 0;
-      }
+      const key1 = entry1 != null ? entry1[0] : 'others';
+      const key2 = entry2 != null ? entry2[0] : 'others';
 
       return trappingsSortList.indexOf(key1) - trappingsSortList.indexOf(key2);
     };
