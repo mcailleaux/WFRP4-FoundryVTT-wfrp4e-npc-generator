@@ -44,7 +44,7 @@ export default class CreatureChooser {
               )}
               </div>
               <div class="form-group creature-chooser-img">
-                <img style="object-fit: contain;" id="selected-creature-img-${dialogId}" alt="" src=""/>
+                <img id="selected-creature-img-${dialogId}" alt="" src=""/>
               </div>
           </form>
           <script>  
@@ -78,12 +78,7 @@ export default class CreatureChooser {
               
               change();
                 
-            </script>
-            
-            <style>
-            
-            
-            </style>
+            </script>          
             `,
         buttons: DialogUtil.getDialogButtons(dialogId, (html: JQuery) => {
           const creaturesKey = <string>(
