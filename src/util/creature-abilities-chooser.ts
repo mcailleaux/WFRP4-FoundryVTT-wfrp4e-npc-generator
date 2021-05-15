@@ -375,6 +375,7 @@ export default class CreatureAbilitiesChooser {
       },
       {
         resizable: true,
+        classes: ['dialog', 'wfrp4e-npc-generator-dialog'],
       }
     ).render(true);
   }

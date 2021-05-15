@@ -178,6 +178,7 @@ export default class CareerChooser {
       },
       {
         resizable: true,
+        classes: ['dialog', 'wfrp4e-npc-generator-dialog'],
       }
     ).render(true);
   }

@@ -377,6 +377,7 @@ export default class OptionsChooser {
       },
       {
         resizable: true,
+        classes: ['dialog', 'wfrp4e-npc-generator-dialog'],
       }
     ).render(true);
   }

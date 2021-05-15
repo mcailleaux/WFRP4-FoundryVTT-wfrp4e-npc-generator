@@ -109,6 +109,7 @@ export default class MutationsChooser {
       },
       {
         resizable: true,
+        classes: ['dialog', 'wfrp4e-npc-generator-dialog'],
       }
     ).render(true);
   }

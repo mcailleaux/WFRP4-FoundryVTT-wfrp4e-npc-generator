@@ -239,6 +239,7 @@ export default class SpeciesTalentsChooser {
       },
       {
         resizable: true,
+        classes: ['dialog', 'wfrp4e-npc-generator-dialog'],
       }
     ).render(true);
   }
