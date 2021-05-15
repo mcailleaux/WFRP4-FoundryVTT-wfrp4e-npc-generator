@@ -26,6 +26,48 @@ export default class TrappingChooser {
       trappingsMap[categorie].push(trapping);
     }
 
+    const trappingsCategorieEntries = Object.entries(
+      <{ [key: string]: string }>game.wfrp4e.config.trappingCategories
+    );
+
+    const trappingsSortList = [
+      'weapon',
+      'ammunition',
+      'armour',
+      'container',
+      'clothingAccessories',
+      'foodAndDrink',
+      'toolsAndKits',
+      'booksAndDocuments',
+      'tradeTools',
+      'drugsPoisonsHerbsDraughts',
+      'misc',
+      'ingredient',
+      'money',
+    ];
+
+    const trappingsSort = (
+      a: [groupKey: string, group: { [key: string]: string }],
+      b: [groupKey: string, group: { [key: string]: string }]
+    ) => {
+      const g1 = a[0];
+      const g2 = b[0];
+      const entry1 = trappingsCategorieEntries?.find(
+        ([_key, value]) => value === g1
+      );
+      const entry2 = trappingsCategorieEntries?.find(
+        ([_key, value]) => value === g2
+      );
+      const key1 = entry1 != null ? entry1[0] : null;
+      const key2 = entry2 != null ? entry2[0] : null;
+
+      if (key1 == null || key2 == null) {
+        return 0;
+      }
+
+      return trappingsSortList.indexOf(key1) - trappingsSortList.indexOf(key2);
+    };
+
     const trappingsId = `creature-add-remove-trappings-${dialogId}`;
 
     new Dialog(
@@ -44,6 +86,7 @@ export default class TrappingChooser {
             ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
             `,
             optionGroups: EntityUtil.toSelectOptionGroup(trappingsMap),
+            sort: trappingsSort,
             initValues: initTrappings?.map((s: Item.Data & any) => {
               return {
                 key: s._id,

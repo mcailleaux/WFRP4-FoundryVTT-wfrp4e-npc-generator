@@ -39,6 +39,7 @@ export default class CreatureChooser {
               ${DialogUtil.getSelectOptGrpScript(
                 `select-creatures-${dialogId}`,
                 creaturesMap,
+                undefined,
                 initCreature,
                 'change()'
               )}

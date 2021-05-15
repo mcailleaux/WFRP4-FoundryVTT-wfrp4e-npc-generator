@@ -84,6 +84,10 @@ export default class DialogUtil {
   public static getSelectOptGrpScript(
     id: string,
     options: { [group: string]: { [key: string]: string } },
+    sort?: (
+      a: [groupKey: string, group: { [key: string]: string }],
+      b: [groupKey: string, group: { [key: string]: string }]
+    ) => number,
     initValue?: string,
     onChange?: string,
     style: string = null as any
@@ -102,6 +106,7 @@ export default class DialogUtil {
     return `
         <select${styleStr} id="${id}" value="${finalInitValue}"${onChangeStr}>
             ${Object.entries(options)
+              .sort((a, b) => (sort != null ? sort(a, b) : 0))
               .map(([groupKey, group]) => {
                 return `<optgroup label="${groupKey}">
                 ${Object.entries(group)
@@ -240,6 +245,10 @@ export default class DialogUtil {
     }[];
     options?: { [key: string]: string };
     optionGroups?: { [group: string]: { [key: string]: string } };
+    sort?: (
+      a: [groupKey: string, group: { [key: string]: string }],
+      b: [groupKey: string, group: { [key: string]: string }]
+    ) => number;
     title?: string;
     captions?: string;
     withCheck?: boolean;
@@ -259,6 +268,7 @@ export default class DialogUtil {
             ? this.getSelectOptGrpScript(
                 options.id,
                 options.optionGroups,
+                options.sort,
                 undefined,
                 undefined,
                 'width: 100%;'
