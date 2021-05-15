@@ -44,7 +44,7 @@ export default class CreatureChooser {
               )}
               </div>
               <div class="form-group creature-chooser-img">
-                <img style="object-fit: contain;" id="selected-creature-img-${dialogId}" alt="" src="" width="200" height="200"/>
+                <img style="object-fit: contain;" id="selected-creature-img-${dialogId}" alt="" src=""/>
               </div>
           </form>
           <script>  
