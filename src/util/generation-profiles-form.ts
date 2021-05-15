@@ -81,7 +81,9 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
             name: name,
             genPath: game.settings.get(
               RegisterSettings.moduleName,
-              'defaultGenPath'
+              species === 'creature'
+                ? 'defaultCreatureGenPath'
+                : 'defaultGenPath'
             ),
             imagePath: '',
             tokenPath: '',
