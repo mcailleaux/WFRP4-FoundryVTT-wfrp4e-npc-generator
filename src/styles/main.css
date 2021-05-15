@@ -1,3 +1,18 @@
 .wfrp4e-npc-generator-dialog .dialog-content {
   flex: 100%;
 }
+
+.wfrp4e-npc-generator-dialog .creature-chooser {
+  height: 100%;
+}
+
+.wfrp4e-npc-generator-dialog .creature-chooser-img {
+  flex-direction: row;
+  align-items: stretch;
+  display: flex;
+  justify-content: center;
+}
+
+.wfrp4e-npc-generator-dialog .creature-chooser-img img {
+  max-width: 50%;
+}

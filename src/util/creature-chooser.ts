@@ -27,7 +27,7 @@ export default class CreatureChooser {
     new Dialog(
       {
         title: game.i18n.localize('WFRP4NPCGEN.creatures.select.title'),
-        content: `<form>
+        content: `<form class="creature-chooser">
               <div class="form-group">
               ${DialogUtil.getButtonScript(
                 'WFRP4NPCGEN.common.button.Random',
@@ -43,7 +43,7 @@ export default class CreatureChooser {
                 'change()'
               )}
               </div>
-              <div class="form-group">
+              <div class="form-group creature-chooser-img">
                 <img style="object-fit: contain;" id="selected-creature-img-${dialogId}" alt="" src="" width="200" height="200"/>
               </div>
           </form>
@@ -79,6 +79,11 @@ export default class CreatureChooser {
               change();
                 
             </script>
+            
+            <style>
+            
+            
+            </style>
             `,
         buttons: DialogUtil.getDialogButtons(dialogId, (html: JQuery) => {
           const creaturesKey = <string>(
