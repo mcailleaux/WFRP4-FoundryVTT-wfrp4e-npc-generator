@@ -79,7 +79,7 @@ export default class MagicsChooser {
       const key2 = entry2 != null ? entry2[0] : null;
 
       if (key1 == null || key2 == null) {
-        return 0;
+        return -1;
       }
 
       return (
