@@ -19,7 +19,7 @@ export default class TrappingUtil {
 
     const status = actorStatus?.split(' ')[0];
     const tierStr = actorStatus?.split(' ')[1];
-    const tier: number =
+    let tier: number =
       tierStr != null && Number.isNumeric(tierStr) ? Number(tierStr) : -1;
     let statusKey = null;
     Object.entries(statusTiers)?.forEach(([key, value]) => {
@@ -28,8 +28,12 @@ export default class TrappingUtil {
       }
     });
 
-    if (tier < 0 || statusKey == null) {
-      return;
+    if (tier < 0) {
+      tier = RandomUtil.getRandomValue([1, 2, 3, 4, 5]);
+    }
+
+    if (statusKey == null) {
+      statusKey = RandomUtil.getRandomValue(['g', 's', 'b']);
     }
 
     let gold = 0;
