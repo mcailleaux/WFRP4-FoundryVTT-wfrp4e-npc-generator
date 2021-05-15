@@ -14,9 +14,10 @@ export default class CareerChooser {
     const randomCareers = await ReferentialUtil.getRandomSpeciesCareers(
       speciesKey
     );
-    new Dialog({
-      title: game.i18n.localize('WFRP4NPCGEN.career.select.title'),
-      content: `<form id="select-career-form-${dialogId}">
+    new Dialog(
+      {
+        title: game.i18n.localize('WFRP4NPCGEN.career.select.title'),
+        content: `<form id="select-career-form-${dialogId}">
               <div class="form-group">
                       ${DialogUtil.getButtonScript(
                         'WFRP4NPCGEN.common.button.Random',
@@ -148,32 +149,36 @@ export default class CareerChooser {
             }
           </style>
           `,
-      buttons: DialogUtil.getDialogButtons(
-        dialogId,
-        (html: JQuery) => {
-          let resultCareers = [];
-          const careerName = html.find(`#select-career-${dialogId}`).val();
-          const career = careers.find((c) => c.name === careerName);
-          if (career != null) {
-            resultCareers.push(career);
-          }
-          html
-            .find(`.select-extra-career-${dialogId}`)
-            .each((_i, extraCareerElm: HTMLInputElement) => {
-              const extraCareer = careers.find(
-                (c) => c.name === extraCareerElm.value
-              );
-              if (extraCareer != null) {
-                resultCareers.push(extraCareer);
-              }
-            });
-          if (resultCareers.length > 0) {
-            callback(resultCareers);
-          }
-        },
-        undo
-      ),
-      default: 'yes',
-    }).render(true);
+        buttons: DialogUtil.getDialogButtons(
+          dialogId,
+          (html: JQuery) => {
+            let resultCareers = [];
+            const careerName = html.find(`#select-career-${dialogId}`).val();
+            const career = careers.find((c) => c.name === careerName);
+            if (career != null) {
+              resultCareers.push(career);
+            }
+            html
+              .find(`.select-extra-career-${dialogId}`)
+              .each((_i, extraCareerElm: HTMLInputElement) => {
+                const extraCareer = careers.find(
+                  (c) => c.name === extraCareerElm.value
+                );
+                if (extraCareer != null) {
+                  resultCareers.push(extraCareer);
+                }
+              });
+            if (resultCareers.length > 0) {
+              callback(resultCareers);
+            }
+          },
+          undo
+        ),
+        default: 'yes',
+      },
+      {
+        resizable: true,
+      }
+    ).render(true);
   }
 }

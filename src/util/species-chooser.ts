@@ -9,9 +9,10 @@ export default class SpeciesChooser {
   ) {
     const dialogId = new Date().getTime();
     const speciesMap = ReferentialUtil.getSpeciesMap();
-    new Dialog({
-      title: game.i18n.localize('WFRP4NPCGEN.species.select.title'),
-      content: `<form>
+    new Dialog(
+      {
+        title: game.i18n.localize('WFRP4NPCGEN.species.select.title'),
+        content: `<form>
               <div class="form-group">
               ${DialogUtil.getButtonScript(
                 'WFRP4NPCGEN.common.button.Random',
@@ -42,14 +43,18 @@ export default class SpeciesChooser {
                 
             </script>
             `,
-      buttons: DialogUtil.getDialogButtons(dialogId, (html: JQuery) => {
-        const speciesKey = <string>(
-          html.find(`#select-species-${dialogId}`).val()
-        );
-        const speciesValue = speciesMap[speciesKey];
-        callback(speciesKey, speciesValue);
-      }),
-      default: 'yes',
-    }).render(true);
+        buttons: DialogUtil.getDialogButtons(dialogId, (html: JQuery) => {
+          const speciesKey = <string>(
+            html.find(`#select-species-${dialogId}`).val()
+          );
+          const speciesValue = speciesMap[speciesKey];
+          callback(speciesKey, speciesValue);
+        }),
+        default: 'yes',
+      },
+      {
+        resizable: true,
+      }
+    ).render(true);
   }
 }

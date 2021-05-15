@@ -12,9 +12,10 @@ export default class SpeciesSkillsChooser {
   ) {
     const dialogId = new Date().getTime();
     const speciesSkillsMap = ReferentialUtil.getSpeciesSkillsMap();
-    new Dialog({
-      title: game.i18n.localize('WFRP4NPCGEN.species.skills.select.title'),
-      content: `<form>
+    new Dialog(
+      {
+        title: game.i18n.localize('WFRP4NPCGEN.species.skills.select.title'),
+        content: `<form>
                 <div class="form-group">
                       ${DialogUtil.getButtonScript(
                         'WFRP4NPCGEN.common.button.Random',
@@ -58,11 +59,11 @@ export default class SpeciesSkillsChooser {
                 )
                 .join('')}       
                   <input type="hidden" id="select-skill-major-nbr-${dialogId}" value="${
-        initMajors.length
-      }"/>
+          initMajors.length
+        }"/>
                   <input type="hidden" id="select-skill-minor-nbr-${dialogId}" value="${
-        initMinors.length
-      }"/>       
+          initMinors.length
+        }"/>       
           </form>
           <script>                        
               function check(elm, isMajor) {
@@ -122,28 +123,32 @@ export default class SpeciesSkillsChooser {
               check(null, true);
           </script>
                  `,
-      buttons: DialogUtil.getDialogButtons(
-        dialogId,
-        (html: JQuery) => {
-          const major: string[] = [];
-          const minor: string[] = [];
-          html
-            .find(`.select-skill-major-${dialogId}`)
-            .filter((_i, r: HTMLInputElement) => r.checked)
-            .each((_i, r: HTMLInputElement) => {
-              major.push(r.value);
-            });
-          html
-            .find(`.select-skill-minor-${dialogId}`)
-            .filter((_i, r: HTMLInputElement) => r.checked)
-            .each((_i, r: HTMLInputElement) => {
-              minor.push(r.value);
-            });
-          callback(major, minor);
-        },
-        undo
-      ),
-      default: 'yes',
-    }).render(true);
+        buttons: DialogUtil.getDialogButtons(
+          dialogId,
+          (html: JQuery) => {
+            const major: string[] = [];
+            const minor: string[] = [];
+            html
+              .find(`.select-skill-major-${dialogId}`)
+              .filter((_i, r: HTMLInputElement) => r.checked)
+              .each((_i, r: HTMLInputElement) => {
+                major.push(r.value);
+              });
+            html
+              .find(`.select-skill-minor-${dialogId}`)
+              .filter((_i, r: HTMLInputElement) => r.checked)
+              .each((_i, r: HTMLInputElement) => {
+                minor.push(r.value);
+              });
+            callback(major, minor);
+          },
+          undo
+        ),
+        default: 'yes',
+      },
+      {
+        resizable: true,
+      }
+    ).render(true);
   }
 }

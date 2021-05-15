@@ -30,9 +30,10 @@ export default class MutationsChooser {
     const physicalsId = `creature-add-remove-physicals-${dialogId}`;
     const mentalsId = `creature-add-remove-mentals-${dialogId}`;
 
-    new Dialog({
-      title: game.i18n.localize('WFRP4NPCGEN.select.mutations.title'),
-      content: `<form>
+    new Dialog(
+      {
+        title: game.i18n.localize('WFRP4NPCGEN.select.mutations.title'),
+        content: `<form>
             <div class="form-group">
             ${DialogUtil.getSelectAddRemoveScript({
               id: physicalsId,
@@ -78,31 +79,37 @@ export default class MutationsChooser {
                 
             </script>
             `,
-      buttons: DialogUtil.getDialogButtons(
-        dialogId,
-        (html: JQuery) => {
-          const resultPhysicals: Item.Data[] = [];
-          html.find(`.${physicalsId}`).each((_i, r: HTMLInputElement) => {
-            const key = r.value;
+        buttons: DialogUtil.getDialogButtons(
+          dialogId,
+          (html: JQuery) => {
+            const resultPhysicals: Item.Data[] = [];
+            html.find(`.${physicalsId}`).each((_i, r: HTMLInputElement) => {
+              const key = r.value;
 
-            const physical = <Item.Data & any>(
-              physicals.find((t) => t._id === key)
-            );
-            resultPhysicals.push(physical);
-          });
+              const physical = <Item.Data & any>(
+                physicals.find((t) => t._id === key)
+              );
+              resultPhysicals.push(physical);
+            });
 
-          const resultMentals: Item.Data[] = [];
-          html.find(`.${mentalsId}`).each((_i, r: HTMLInputElement) => {
-            const key = r.value;
+            const resultMentals: Item.Data[] = [];
+            html.find(`.${mentalsId}`).each((_i, r: HTMLInputElement) => {
+              const key = r.value;
 
-            const mental = <Item.Data & any>mentals.find((t) => t._id === key);
-            resultMentals.push(mental);
-          });
-          callback(resultPhysicals, resultMentals);
-        },
-        undo
-      ),
-      default: 'yes',
-    }).render(true);
+              const mental = <Item.Data & any>(
+                mentals.find((t) => t._id === key)
+              );
+              resultMentals.push(mental);
+            });
+            callback(resultPhysicals, resultMentals);
+          },
+          undo
+        ),
+        default: 'yes',
+      },
+      {
+        resizable: true,
+      }
+    ).render(true);
   }
 }

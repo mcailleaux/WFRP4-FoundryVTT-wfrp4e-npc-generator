@@ -24,9 +24,10 @@ export default class CreatureChooser {
       }
     }
 
-    new Dialog({
-      title: game.i18n.localize('WFRP4NPCGEN.creatures.select.title'),
-      content: `<form>
+    new Dialog(
+      {
+        title: game.i18n.localize('WFRP4NPCGEN.creatures.select.title'),
+        content: `<form>
               <div class="form-group">
               ${DialogUtil.getButtonScript(
                 'WFRP4NPCGEN.common.button.Random',
@@ -79,21 +80,25 @@ export default class CreatureChooser {
                 
             </script>
             `,
-      buttons: DialogUtil.getDialogButtons(dialogId, (html: JQuery) => {
-        const creaturesKey = <string>(
-          html.find(`#select-creatures-${dialogId}`).val()
-        );
-        let creature = null;
-        for (let [_groupeKey, actors] of Object.entries(creatures)) {
-          if (creature == null) {
-            creature = actors.find((c) => c._id === creaturesKey);
+        buttons: DialogUtil.getDialogButtons(dialogId, (html: JQuery) => {
+          const creaturesKey = <string>(
+            html.find(`#select-creatures-${dialogId}`).val()
+          );
+          let creature = null;
+          for (let [_groupeKey, actors] of Object.entries(creatures)) {
+            if (creature == null) {
+              creature = actors.find((c) => c._id === creaturesKey);
+            }
           }
-        }
-        if (creature != null) {
-          callback(creature?.data);
-        }
-      }),
-      default: 'yes',
-    }).render(true);
+          if (creature != null) {
+            callback(creature?.data);
+          }
+        }),
+        default: 'yes',
+      },
+      {
+        resizable: true,
+      }
+    ).render(true);
   }
 }

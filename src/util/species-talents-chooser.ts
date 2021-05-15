@@ -121,9 +121,10 @@ export default class SpeciesTalentsChooser {
         `
         : '';
 
-    new Dialog({
-      title: game.i18n.localize('WFRP4NPCGEN.species.talents.select.title'),
-      content: `<form>   
+    new Dialog(
+      {
+        title: game.i18n.localize('WFRP4NPCGEN.species.talents.select.title'),
+        content: `<form>   
               ${choiceTalentsForm}
               ${randomTalentsForm}      
           </form>
@@ -206,35 +207,39 @@ export default class SpeciesTalentsChooser {
               check();
           </script>
                  `,
-      buttons: DialogUtil.getDialogButtons(
-        dialogId,
-        (html: JQuery) => {
-          const talents: string[] = [];
-          html
-            .find(`.select-talent-left-${dialogId}`)
-            .filter((_i, r: HTMLInputElement) => r.checked)
-            .each((_i, r: HTMLInputElement) => {
-              talents.push(r.value);
-            });
-          html
-            .find(`.select-talent-right-${dialogId}`)
-            .filter((_i, r: HTMLInputElement) => r.checked)
-            .each((_i, r: HTMLInputElement) => {
-              talents.push(r.value);
-            });
-          if (randomTalentsNbr > 0) {
+        buttons: DialogUtil.getDialogButtons(
+          dialogId,
+          (html: JQuery) => {
+            const talents: string[] = [];
             html
-              .find(`.select-talent-random-${dialogId}`)
+              .find(`.select-talent-left-${dialogId}`)
               .filter((_i, r: HTMLInputElement) => r.checked)
               .each((_i, r: HTMLInputElement) => {
                 talents.push(r.value);
               });
-          }
-          callback(talents);
-        },
-        undo
-      ),
-      default: 'yes',
-    }).render(true);
+            html
+              .find(`.select-talent-right-${dialogId}`)
+              .filter((_i, r: HTMLInputElement) => r.checked)
+              .each((_i, r: HTMLInputElement) => {
+                talents.push(r.value);
+              });
+            if (randomTalentsNbr > 0) {
+              html
+                .find(`.select-talent-random-${dialogId}`)
+                .filter((_i, r: HTMLInputElement) => r.checked)
+                .each((_i, r: HTMLInputElement) => {
+                  talents.push(r.value);
+                });
+            }
+            callback(talents);
+          },
+          undo
+        ),
+        default: 'yes',
+      },
+      {
+        resizable: true,
+      }
+    ).render(true);
   }
 }

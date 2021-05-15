@@ -83,9 +83,12 @@ export default class CreatureAbilitiesChooser {
     const speciesMap = duplicate(ReferentialUtil.getSpeciesMap());
     speciesMap['none'] = '';
 
-    new Dialog({
-      title: game.i18n.localize('WFRP4NPCGEN.creatures.abilities.select.title'),
-      content: `<form>
+    new Dialog(
+      {
+        title: game.i18n.localize(
+          'WFRP4NPCGEN.creatures.abilities.select.title'
+        ),
+        content: `<form>
               
               <div class="form-group">
               ${DialogUtil.getLabelScript(
@@ -277,96 +280,102 @@ export default class CreatureAbilitiesChooser {
                 
             </script>
             `,
-      buttons: DialogUtil.getDialogButtons(
-        dialogId,
-        (html: JQuery) => {
-          const abilities = new CreatureAbilities();
-          html
-            .find(`#creature-abilities-basic-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              abilities.includeBasicSkills = r.checked;
-            });
-          abilities.sizeKey = <string>(
-            html.find(`#creature-abilities-size-${dialogId}`).val()
-          );
-          html
-            .find(`#creature-abilities-swarm-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              abilities.isSwarm = r.checked;
-            });
-          html
-            .find(`#creature-abilities-ranged-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              abilities.hasRangedTrait = r.checked;
-            });
-          html
-            .find(`#creature-abilities-armour-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              abilities.hasArmourTrait = r.checked;
-            });
-          html
-            .find(`#creature-abilities-weapon-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              abilities.hasWeaponTrait = r.checked;
-            });
-          abilities.rangedRange = <string>(
-            html.find(`#creature-abilities-ranged-range-${dialogId}`).val()
-          );
-          abilities.rangedDamage = <string>(
-            html.find(`#creature-abilities-ranged-damage-${dialogId}`).val()
-          );
-          abilities.weaponDamage = <string>(
-            html.find(`#creature-abilities-weapon-damage-${dialogId}`).val()
-          );
-          abilities.armourValue = <string>(
-            html.find(`#creature-abilities-armour-value-${dialogId}`).val()
-          );
+        buttons: DialogUtil.getDialogButtons(
+          dialogId,
+          (html: JQuery) => {
+            const abilities = new CreatureAbilities();
+            html
+              .find(`#creature-abilities-basic-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                abilities.includeBasicSkills = r.checked;
+              });
+            abilities.sizeKey = <string>(
+              html.find(`#creature-abilities-size-${dialogId}`).val()
+            );
+            html
+              .find(`#creature-abilities-swarm-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                abilities.isSwarm = r.checked;
+              });
+            html
+              .find(`#creature-abilities-ranged-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                abilities.hasRangedTrait = r.checked;
+              });
+            html
+              .find(`#creature-abilities-armour-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                abilities.hasArmourTrait = r.checked;
+              });
+            html
+              .find(`#creature-abilities-weapon-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                abilities.hasWeaponTrait = r.checked;
+              });
+            abilities.rangedRange = <string>(
+              html.find(`#creature-abilities-ranged-range-${dialogId}`).val()
+            );
+            abilities.rangedDamage = <string>(
+              html.find(`#creature-abilities-ranged-damage-${dialogId}`).val()
+            );
+            abilities.weaponDamage = <string>(
+              html.find(`#creature-abilities-weapon-damage-${dialogId}`).val()
+            );
+            abilities.armourValue = <string>(
+              html.find(`#creature-abilities-armour-value-${dialogId}`).val()
+            );
 
-          abilities.speciesKey = <string>(
-            html.find(`#creature-abilities-species-${dialogId}`).val()
-          );
+            abilities.speciesKey = <string>(
+              html.find(`#creature-abilities-species-${dialogId}`).val()
+            );
 
-          html.find(`.${traitsId}`).each((_i, r: HTMLInputElement) => {
-            const id = r.id;
-            const key = r.value;
-            let included = false;
-            html.find(`#${id}-check`).each((_i1, r1: HTMLInputElement) => {
-              included = r1.checked;
+            html.find(`.${traitsId}`).each((_i, r: HTMLInputElement) => {
+              const id = r.id;
+              const key = r.value;
+              let included = false;
+              html.find(`#${id}-check`).each((_i1, r1: HTMLInputElement) => {
+                included = r1.checked;
+              });
+              const trait = <Item.Data & any>traits.find((t) => t._id === key);
+              trait.included = included;
+              abilities.traits.push(trait);
             });
-            const trait = <Item.Data & any>traits.find((t) => t._id === key);
-            trait.included = included;
-            abilities.traits.push(trait);
-          });
 
-          html.find(`.${skillsId}`).each((_i, r: HTMLInputElement) => {
-            const id = r.id;
-            const key = r.value;
-            let count = 0;
-            html.find(`#${id}-count`).each((_i1, r1: HTMLInputElement) => {
-              count = Number(r1.value);
+            html.find(`.${skillsId}`).each((_i, r: HTMLInputElement) => {
+              const id = r.id;
+              const key = r.value;
+              let count = 0;
+              html.find(`#${id}-count`).each((_i1, r1: HTMLInputElement) => {
+                count = Number(r1.value);
+              });
+              const skill = <Item.Data & any>skills.find((s) => s._id === key);
+              skill.data.advances.value = count;
+              abilities.skills.push(skill);
             });
-            const skill = <Item.Data & any>skills.find((s) => s._id === key);
-            skill.data.advances.value = count;
-            abilities.skills.push(skill);
-          });
 
-          html.find(`.${talentsId}`).each((_i, r: HTMLInputElement) => {
-            const id = r.id;
-            const key = r.value;
-            let count = 0;
-            html.find(`#${id}-count`).each((_i1, r1: HTMLInputElement) => {
-              count = Number(r1.value);
+            html.find(`.${talentsId}`).each((_i, r: HTMLInputElement) => {
+              const id = r.id;
+              const key = r.value;
+              let count = 0;
+              html.find(`#${id}-count`).each((_i1, r1: HTMLInputElement) => {
+                count = Number(r1.value);
+              });
+              const talent = <Item.Data & any>(
+                talents.find((t) => t._id === key)
+              );
+              talent.data.advances.value = count;
+              abilities.talents.push(talent);
             });
-            const talent = <Item.Data & any>talents.find((t) => t._id === key);
-            talent.data.advances.value = count;
-            abilities.talents.push(talent);
-          });
 
-          callback(abilities);
-        },
-        undo
-      ),
-      default: 'yes',
-    }).render(true);
+            callback(abilities);
+          },
+          undo
+        ),
+        default: 'yes',
+      },
+      {
+        resizable: true,
+      }
+    ).render(true);
   }
 }

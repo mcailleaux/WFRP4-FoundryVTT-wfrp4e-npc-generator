@@ -132,9 +132,10 @@ export default class OptionsChooser {
               </div>
     `;
 
-    new Dialog({
-      title: game.i18n.localize('WFRP4NPCGEN.options.select.title'),
-      content: `<form>
+    new Dialog(
+      {
+        title: game.i18n.localize('WFRP4NPCGEN.options.select.title'),
+        content: `<form>
               ${withClassTrappings}
               ${withCareerTrappings}             
               <div class="form-group">
@@ -289,90 +290,94 @@ export default class OptionsChooser {
               ${DialogUtil.browseFileScript()}
               </script>      
             `,
-      buttons: DialogUtil.getDialogButtons(
-        dialogId,
-        (html: JQuery) => {
-          const options = forCreature ? new OptionsCreature() : new Options();
-          html
-            .find(`#select-with-class-trappings-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              options.withClassTrappings = r.checked;
-            });
-          html
-            .find(`#select-with-career-trappings-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              options.withCareerTrappings = r.checked;
-            });
-          html
-            .find(`#select-edit-trappings-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              options.editTrappings = r.checked;
-            });
-          html
-            .find(`#select-add-magics-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              options.addMagics = r.checked;
-            });
-          html
-            .find(`#select-add-mutations-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              options.addMutations = r.checked;
-            });
-          html
-            .find(`#generate-effect-money-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              options.generateMoneyEffect = getGenerateEffectOptionEnum(
-                r.value
-              );
-            });
-          html
-            .find(`#generate-effect-weapon-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              options.generateWeaponEffect = getGenerateEffectOptionEnum(
-                r.value
-              );
-            });
-          html
-            .find(`#select-with-genPath-career-name-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              options.withGenPathCareerName = r.checked;
-            });
-          html
-            .find(`#select-with-linked-token-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              options.withLinkedToken = r.checked;
-            });
-          html
-            .find(`#select-with-init-money-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              options.withInitialMoney = r.checked;
-            });
-          html
-            .find(`#select-with-init-weapons-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              options.withInitialWeapons = r.checked;
-            });
-          html
-            .find(`#select-genPath-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              options.genPath = r.value ?? '';
-            });
-          html
-            .find(`#select-imagePath-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              options.imagePath = r.value ?? '';
-            });
-          html
-            .find(`#select-tokenPath-${dialogId}`)
-            .each((_i, r: HTMLInputElement) => {
-              options.tokenPath = r.value ?? '';
-            });
+        buttons: DialogUtil.getDialogButtons(
+          dialogId,
+          (html: JQuery) => {
+            const options = forCreature ? new OptionsCreature() : new Options();
+            html
+              .find(`#select-with-class-trappings-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                options.withClassTrappings = r.checked;
+              });
+            html
+              .find(`#select-with-career-trappings-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                options.withCareerTrappings = r.checked;
+              });
+            html
+              .find(`#select-edit-trappings-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                options.editTrappings = r.checked;
+              });
+            html
+              .find(`#select-add-magics-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                options.addMagics = r.checked;
+              });
+            html
+              .find(`#select-add-mutations-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                options.addMutations = r.checked;
+              });
+            html
+              .find(`#generate-effect-money-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                options.generateMoneyEffect = getGenerateEffectOptionEnum(
+                  r.value
+                );
+              });
+            html
+              .find(`#generate-effect-weapon-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                options.generateWeaponEffect = getGenerateEffectOptionEnum(
+                  r.value
+                );
+              });
+            html
+              .find(`#select-with-genPath-career-name-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                options.withGenPathCareerName = r.checked;
+              });
+            html
+              .find(`#select-with-linked-token-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                options.withLinkedToken = r.checked;
+              });
+            html
+              .find(`#select-with-init-money-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                options.withInitialMoney = r.checked;
+              });
+            html
+              .find(`#select-with-init-weapons-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                options.withInitialWeapons = r.checked;
+              });
+            html
+              .find(`#select-genPath-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                options.genPath = r.value ?? '';
+              });
+            html
+              .find(`#select-imagePath-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                options.imagePath = r.value ?? '';
+              });
+            html
+              .find(`#select-tokenPath-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                options.tokenPath = r.value ?? '';
+              });
 
-          callback(options);
-        },
-        undo
-      ),
-      default: 'yes',
-    }).render(true);
+            callback(options);
+          },
+          undo
+        ),
+        default: 'yes',
+      },
+      {
+        resizable: true,
+      }
+    ).render(true);
   }
 }

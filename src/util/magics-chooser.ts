@@ -58,9 +58,10 @@ export default class MagicsChooser {
     const spellsId = `creature-add-remove-spells-${dialogId}`;
     const prayersId = `creature-add-remove-prayers-${dialogId}`;
 
-    new Dialog({
-      title: game.i18n.localize('WFRP4NPCGEN.select.magics.title'),
-      content: `<form>
+    new Dialog(
+      {
+        title: game.i18n.localize('WFRP4NPCGEN.select.magics.title'),
+        content: `<form>
             <div class="form-group">
             ${DialogUtil.getSelectAddRemoveScript({
               id: spellsId,
@@ -106,30 +107,36 @@ export default class MagicsChooser {
                 
             </script>
             `,
-      buttons: DialogUtil.getDialogButtons(
-        dialogId,
-        (html: JQuery) => {
-          const resultSpells: Item.Data[] = [];
-          html.find(`.${spellsId}`).each((_i, r: HTMLInputElement) => {
-            const key = r.value;
+        buttons: DialogUtil.getDialogButtons(
+          dialogId,
+          (html: JQuery) => {
+            const resultSpells: Item.Data[] = [];
+            html.find(`.${spellsId}`).each((_i, r: HTMLInputElement) => {
+              const key = r.value;
 
-            const spell = <Item.Data & any>spells.find((t) => t._id === key);
-            resultSpells.push(spell);
-          });
+              const spell = <Item.Data & any>spells.find((t) => t._id === key);
+              resultSpells.push(spell);
+            });
 
-          const resultPrayers: Item.Data[] = [];
-          html.find(`.${prayersId}`).each((_i, r: HTMLInputElement) => {
-            const key = r.value;
+            const resultPrayers: Item.Data[] = [];
+            html.find(`.${prayersId}`).each((_i, r: HTMLInputElement) => {
+              const key = r.value;
 
-            const prayer = <Item.Data & any>prayers.find((t) => t._id === key);
-            resultPrayers.push(prayer);
-          });
-          callback(resultSpells, resultPrayers);
-        },
-        undo
-      ),
-      default: 'yes',
-    }).render(true);
+              const prayer = <Item.Data & any>(
+                prayers.find((t) => t._id === key)
+              );
+              resultPrayers.push(prayer);
+            });
+            callback(resultSpells, resultPrayers);
+          },
+          undo
+        ),
+        default: 'yes',
+      },
+      {
+        resizable: true,
+      }
+    ).render(true);
   }
 
   private static getCorrectedLore(lore: string): string {

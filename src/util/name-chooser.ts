@@ -19,9 +19,10 @@ export default class NameChooser {
         </div>     
         `
       : '';
-    new Dialog({
-      title: game.i18n.localize('WFRP4NPCGEN.name.select.title'),
-      content: `<form>
+    new Dialog(
+      {
+        title: game.i18n.localize('WFRP4NPCGEN.name.select.title'),
+        content: `<form>
               ${randomButton}            
               <div class="form-group">
               ${DialogUtil.getLabelScript('WFRP4NPCGEN.name.select.label')}
@@ -49,15 +50,19 @@ export default class NameChooser {
               ${DialogUtil.getNameRandomScript()};
             </script>
             `,
-      buttons: DialogUtil.getDialogButtons(
-        dialogId,
-        (html: JQuery) => {
-          const name = <string>html.find(`#select-name-${dialogId}`).val();
-          callback(name);
-        },
-        undo
-      ),
-      default: 'yes',
-    }).render(true);
+        buttons: DialogUtil.getDialogButtons(
+          dialogId,
+          (html: JQuery) => {
+            const name = <string>html.find(`#select-name-${dialogId}`).val();
+            callback(name);
+          },
+          undo
+        ),
+        default: 'yes',
+      },
+      {
+        resizable: true,
+      }
+    ).render(true);
   }
 }
