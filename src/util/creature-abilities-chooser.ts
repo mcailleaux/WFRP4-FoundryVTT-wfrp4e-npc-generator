@@ -23,34 +23,48 @@ export default class CreatureAbilitiesChooser {
       ...initAbilities.skills.sort((s1, s2) => {
         return s1.name.localeCompare(s2.name);
       }),
-      ...(await ReferentialUtil.getSkillEntities(true))
-        .filter((s) => {
+      ...[
+        ...(await ReferentialUtil.getSkillEntities(true))
+          .filter((s) => {
+            return !StringUtil.arrayIncludesDeburrIgnoreCase(
+              initSkillsNames,
+              s.name
+            );
+          })
+          .map((s) => s.data),
+        ...(await CompendiumUtil.getCompendiumActorSkills()).filter((s) => {
           return !StringUtil.arrayIncludesDeburrIgnoreCase(
             initSkillsNames,
             s.name
           );
-        })
-        .map((s) => s.data)
-        .sort((s1, s2) => {
-          return s1.name.localeCompare(s2.name);
         }),
+      ].sort((s1, s2) => {
+        return s1.name.localeCompare(s2.name);
+      }),
     ];
     const initTalentsNames = initAbilities.talents.map((t) => t.name);
     const talents = [
       ...initAbilities.talents.sort((t1, t2) => {
         return t1.name.localeCompare(t2.name);
       }),
-      ...(await ReferentialUtil.getTalentEntities(true))
-        .filter((t) => {
+      ...[
+        ...(await ReferentialUtil.getTalentEntities(true))
+          .filter((t) => {
+            return !StringUtil.arrayIncludesDeburrIgnoreCase(
+              initTalentsNames,
+              t.name
+            );
+          })
+          .map((t) => t.data),
+        ...(await CompendiumUtil.getCompendiumActorTalents()).filter((t) => {
           return !StringUtil.arrayIncludesDeburrIgnoreCase(
             initTalentsNames,
             t.name
           );
-        })
-        .map((t) => t.data)
-        .sort((t1, t2) => {
-          return t1.name.localeCompare(t2.name);
         }),
+      ].sort((t1, t2) => {
+        return t1.name.localeCompare(t2.name);
+      }),
     ];
     const initTraitsNames = initAbilities.traits.map((t) => t.name);
     const initTraitsDisplayNames = initAbilities.traits.map(
