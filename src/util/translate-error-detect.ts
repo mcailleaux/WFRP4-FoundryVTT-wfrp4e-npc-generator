@@ -1,7 +1,29 @@
 import ReferentialUtil from './referential-util.js';
 import StringUtil from './string-util.js';
+import CompendiumUtil from './compendium-util.js';
 
 export default class TranslateErrorDetect {
+  public static async findActorBySkillIncludes(
+    name: string
+  ): Promise<Actor | null> {
+    const actorsMap = await CompendiumUtil.getCompendiumActors();
+    let result: Actor | null = null;
+    for (let [_key, actors] of Object.entries(actorsMap)) {
+      for (let actor of actors) {
+        if (
+          result == null &&
+          StringUtil.arrayIncludesDeburrIgnoreCase(
+            (<any>actor.data).skills.map((s: any) => s.name),
+            name
+          )
+        ) {
+          result = actor;
+        }
+      }
+    }
+    return result;
+  }
+
   public static async detectTrappingsTranslateError(
     callback: (errors: { notFounds: string[]; resolved: string[] }) => void
   ) {
