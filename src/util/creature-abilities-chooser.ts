@@ -53,6 +53,9 @@ export default class CreatureAbilitiesChooser {
         }),
     ];
     const initTraitsNames = initAbilities.traits.map((t) => t.name);
+    const initTraitsDisplayNames = initAbilities.traits.map(
+      (t: any) => t.displayName
+    );
     const traits = [
       ...initAbilities.traits.sort(
         (t1: Item.Data & any, t2: Item.Data & any) => {
@@ -72,16 +75,21 @@ export default class CreatureAbilitiesChooser {
             );
           })
           .map((t) => t.data),
-        ...(await CompendiumUtil.getCompendiumActorTraits()).filter((t) => {
-          return (
-            !EntityUtil.match(t, swarm) &&
-            !EntityUtil.match(t, weapon) &&
-            !EntityUtil.match(t, armour) &&
-            !EntityUtil.match(t, ranged) &&
-            !EntityUtil.match(t, size) &&
-            !StringUtil.arrayIncludesDeburrIgnoreCase(initTraitsNames, t.name)
-          );
-        }),
+        ...(await CompendiumUtil.getCompendiumActorTraits()).filter(
+          (t: any) => {
+            return (
+              !EntityUtil.match(t, swarm) &&
+              !EntityUtil.match(t, weapon) &&
+              !EntityUtil.match(t, armour) &&
+              !EntityUtil.match(t, ranged) &&
+              !EntityUtil.match(t, size) &&
+              !StringUtil.arrayIncludesDeburrIgnoreCase(
+                initTraitsDisplayNames,
+                t.displayName
+              )
+            );
+          }
+        ),
       ].sort((t1, t2) => {
         return t1.name.localeCompare(t2.name);
       }),
