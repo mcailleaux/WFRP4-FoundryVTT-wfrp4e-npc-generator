@@ -8,11 +8,8 @@ export default class CompendiumUtil {
   private static compendiumTrappings: Item[];
   private static compendiumBestiary: { [pack: string]: Actor[] };
   private static compendiumSkills: Item[];
-  private static compendiumActorSkills: Item.Data[];
   private static compendiumTalents: Item[];
-  private static compendiumActorTalents: Item.Data[];
   private static compendiumTraits: Item[];
-  private static compendiumActorTraits: Item.Data[];
   private static compendiumSizeTrait: Item;
   private static compendiumSwarmTrait: Item;
   private static compendiumWeaponTrait: Item;
@@ -233,72 +230,6 @@ export default class CompendiumUtil {
       );
     }
     return Promise.resolve(this.compendiumTraits);
-  }
-
-  public static async getCompendiumActorTraits() {
-    if (this.compendiumActorTraits == null) {
-      this.compendiumActorTraits = [];
-      const traits = await this.getCompendiumTraits();
-      const traitsNames = traits.map((t) => t.name);
-      const actorsMap = await this.getCompendiumActors();
-      for (let [_key, actors] of Object.entries(actorsMap)) {
-        for (let actor of actors) {
-          const data: any = actor.data;
-          const newTraits: Item.Data[] = data?.traits?.filter(
-            (t: Item.Data) => !traitsNames.includes(t.name)
-          );
-          if (newTraits != null && newTraits.length > 0) {
-            traitsNames.push(...newTraits.map((t) => t.name));
-            this.compendiumActorTraits.push(...newTraits);
-          }
-        }
-      }
-    }
-    return Promise.resolve(this.compendiumActorTraits);
-  }
-
-  public static async getCompendiumActorSkills() {
-    if (this.compendiumActorSkills == null) {
-      this.compendiumActorSkills = [];
-      const skills = await this.getCompendiumSkills();
-      const skillsNames = skills.map((t) => t.name);
-      const actorsMap = await this.getCompendiumActors();
-      for (let [_key, actors] of Object.entries(actorsMap)) {
-        for (let actor of actors) {
-          const data: any = actor.data;
-          const newSkills: Item.Data[] = data?.skills?.filter(
-            (t: Item.Data) => !skillsNames.includes(t.name)
-          );
-          if (newSkills != null && newSkills.length > 0) {
-            skillsNames.push(...newSkills.map((t) => t.name));
-            this.compendiumActorSkills.push(...newSkills);
-          }
-        }
-      }
-    }
-    return Promise.resolve(this.compendiumActorSkills);
-  }
-
-  public static async getCompendiumActorTalents() {
-    if (this.compendiumActorTalents == null) {
-      this.compendiumActorTalents = [];
-      const talents = await this.getCompendiumTalents();
-      const talentsNames = talents.map((t) => t.name);
-      const actorsMap = await this.getCompendiumActors();
-      for (let [_key, actors] of Object.entries(actorsMap)) {
-        for (let actor of actors) {
-          const data: any = actor.data;
-          const newTalents: Item.Data[] = data?.talents?.filter(
-            (t: Item.Data) => !talentsNames.includes(t.name)
-          );
-          if (newTalents != null && newTalents.length > 0) {
-            talentsNames.push(...newTalents.map((t) => t.name));
-            this.compendiumActorTalents.push(...newTalents);
-          }
-        }
-      }
-    }
-    return Promise.resolve(this.compendiumActorTalents);
   }
 
   public static async getCompendiumSizeTrait() {

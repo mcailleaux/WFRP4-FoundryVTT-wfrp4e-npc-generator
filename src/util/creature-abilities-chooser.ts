@@ -32,7 +32,7 @@ export default class CreatureAbilitiesChooser {
             );
           })
           .map((s) => s.data),
-        ...(await CompendiumUtil.getCompendiumActorSkills()).filter((s) => {
+        ...(await ReferentialUtil.getCompendiumActorSkills()).filter((s) => {
           return !StringUtil.arrayIncludesDeburrIgnoreCase(
             initSkillsNames,
             s.name
@@ -56,7 +56,7 @@ export default class CreatureAbilitiesChooser {
             );
           })
           .map((t) => t.data),
-        ...(await CompendiumUtil.getCompendiumActorTalents()).filter((t) => {
+        ...(await ReferentialUtil.getCompendiumActorTalents()).filter((t) => {
           return !StringUtil.arrayIncludesDeburrIgnoreCase(
             initTalentsNames,
             t.name
@@ -89,7 +89,7 @@ export default class CreatureAbilitiesChooser {
             );
           })
           .map((t) => t.data),
-        ...(await CompendiumUtil.getCompendiumActorTraits()).filter(
+        ...(await ReferentialUtil.getCompendiumActorTraits()).filter(
           (t: any) => {
             return (
               !EntityUtil.match(t, swarm) &&
