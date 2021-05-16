@@ -1,10 +1,23 @@
 ## In development
 
-- Create a simpliest generator with creature template
-- Optional Step for trapping choosing
 - Add a create button on folder
 - create a chat command
 - Manage other language
+
+## 1.5.0
+
+### New features
+
+- Generate Creature from an existing compendium/world creature
+  - Can add/remove traits, skills, talents, swarm
+  - Can change Size
+  - Can add/remove trappings, spells, prayers, mutations
+- Settings for creature generator
+- Settings profiles for creatures
+- Adding optional steps to NPC generator
+  - Can add/remove trappings, spells, prayers, mutations
+- Allow to resize Dialogs
+- Add wait message during generation
 
 ## 1.4.0
 
