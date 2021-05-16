@@ -17,6 +17,7 @@ import TrappingChooser from './util/trapping-chooser.js';
 import MagicsChooser from './util/magics-chooser.js';
 import MutationsChooser from './util/mutations-chooser.js';
 import CreatureBuilder from './creature-builder.js';
+import RandomUtil from './util/random-util.js';
 
 export default class CreatureGenerator {
   public static readonly creatureChooser = CreatureChooser;
@@ -456,12 +457,17 @@ export default class CreatureGenerator {
     Object.entries(
       model.creatureTemplate.creatureData.data.characteristics
     ).forEach(([key, char]) => {
-      // const positive = RandomUtil.getRandomBoolean();
-      // const amplitude = RandomUtil.getRandomPositiveNumber(6);
-      // const adjust =
-      //   (positive ? 1 : -1) * RandomUtil.getRandomPositiveNumber(amplitude);
+      let initial = (<any>char).value;
+      if (initial > 0) {
+        const positive = RandomUtil.getRandomBoolean();
+        const amplitude = RandomUtil.getRandomPositiveNumber(6);
+        const adjust =
+          (positive ? 1 : -1) * RandomUtil.getRandomPositiveNumber(amplitude);
+        initial = Math.max(1, initial + adjust);
+      }
+
       model.chars[key] = {
-        initial: (<any>char).value /*+ adjust*/,
+        initial: initial,
         advances: 0,
       };
     });
