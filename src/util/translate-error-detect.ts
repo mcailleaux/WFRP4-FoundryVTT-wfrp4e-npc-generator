@@ -3,21 +3,18 @@ import StringUtil from './string-util.js';
 import CompendiumUtil from './compendium-util.js';
 
 export default class TranslateErrorDetect {
-  public static async findActorBySkillIncludes(
-    name: string
-  ): Promise<Actor | null> {
+  public static async findActorBySkillIncludes(name: string): Promise<Actor[]> {
     const actorsMap = await CompendiumUtil.getCompendiumActors();
-    let result: Actor | null = null;
+    let result: Actor[] = [];
     for (let [_key, actors] of Object.entries(actorsMap)) {
       for (let actor of actors) {
         if (
-          result == null &&
           StringUtil.arrayIncludesDeburrIgnoreCase(
             (<any>actor.data).skills.map((s: any) => s.name),
             name
           )
         ) {
-          result = actor;
+          result.push(actor);
         }
       }
     }
