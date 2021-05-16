@@ -140,9 +140,9 @@ export default class ReferentialUtil {
     return Promise.resolve(worldEntities);
   }
 
-  public static async getWorldActorEntities(type: string): Promise<Actor[]> {
+  public static async getWorldActorEntities(type?: string): Promise<Actor[]> {
     const worldEntities = game.actors?.filter((actor) => {
-      return actor.data?.type === type;
+      return type != null ? actor.data?.type === type : true;
     });
     return Promise.resolve(worldEntities);
   }
@@ -374,6 +374,23 @@ export default class ReferentialUtil {
     return Promise.resolve(moneyItems);
   }
 
+  public static async getActorsEntities(
+    withWorld = true
+  ): Promise<{
+    [pack: string]: Actor[];
+  }> {
+    const actors: {
+      [pack: string]: Actor[];
+    } = await CompendiumUtil.getCompendiumActors();
+    if (withWorld) {
+      const worldActors = await this.getWorldActorEntities();
+      if (worldActors != null && worldActors.length > 0) {
+        actors[game.world.title] = worldActors;
+      }
+    }
+    return Promise.resolve(actors);
+  }
+
   public static async getBestiaryEntities(
     withWorld = true
   ): Promise<{
@@ -484,7 +501,7 @@ export default class ReferentialUtil {
     const compendiumActorTraits: Item.Data[] = [];
     const traits = await CompendiumUtil.getCompendiumTraits();
     const traitsNames = traits.map((t) => t.name);
-    const actorsMap = await CompendiumUtil.getCompendiumActors();
+    const actorsMap = await this.getActorsEntities();
     for (let [_key, actors] of Object.entries(actorsMap)) {
       for (let actor of actors) {
         const data: any = actor.data;
@@ -505,7 +522,7 @@ export default class ReferentialUtil {
     const compendiumActorSkills: Item.Data[] = [];
     const skills = await CompendiumUtil.getCompendiumSkills();
     const skillsNames = skills.map((t) => t.name);
-    const actorsMap = await CompendiumUtil.getCompendiumActors();
+    const actorsMap = await this.getActorsEntities();
     for (let [_key, actors] of Object.entries(actorsMap)) {
       for (let actor of actors) {
         const data: any = actor.data;
@@ -526,7 +543,7 @@ export default class ReferentialUtil {
     const compendiumActorTalents: Item.Data[] = [];
     const talents = await CompendiumUtil.getCompendiumTalents();
     const talentsNames = talents.map((t) => t.name);
-    const actorsMap = await CompendiumUtil.getCompendiumActors();
+    const actorsMap = await this.getActorsEntities();
     for (let [_key, actors] of Object.entries(actorsMap)) {
       for (let actor of actors) {
         const data: any = actor.data;
