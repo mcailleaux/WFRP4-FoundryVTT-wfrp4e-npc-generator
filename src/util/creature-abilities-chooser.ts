@@ -4,6 +4,7 @@ import EntityUtil from './entity-util.js';
 import CompendiumUtil from './compendium-util.js';
 import DialogUtil from './dialog-util.js';
 import StringUtil from './string-util.js';
+import RandomUtil from './random-util.js';
 
 export default class CreatureAbilitiesChooser {
   public static async selectCreatureAbilities(
@@ -31,13 +32,23 @@ export default class CreatureAbilitiesChooser {
               s.name
             );
           })
-          .map((s) => s.data),
-        ...(await ReferentialUtil.getCompendiumActorSkills()).filter((s) => {
-          return !StringUtil.arrayIncludesDeburrIgnoreCase(
-            initSkillsNames,
-            s.name
-          );
-        }),
+          .map((s) => {
+            const data = duplicate(s.data);
+            data._id = RandomUtil.getRandomId();
+            return data;
+          }),
+        ...(await ReferentialUtil.getCompendiumActorSkills())
+          .filter((s) => {
+            return !StringUtil.arrayIncludesDeburrIgnoreCase(
+              initSkillsNames,
+              s.name
+            );
+          })
+          .map((s) => {
+            const data = duplicate(s);
+            data._id = RandomUtil.getRandomId();
+            return data;
+          }),
       ].sort((s1, s2) => {
         return s1.name.localeCompare(s2.name);
       }),
@@ -55,13 +66,23 @@ export default class CreatureAbilitiesChooser {
               t.name
             );
           })
-          .map((t) => t.data),
-        ...(await ReferentialUtil.getCompendiumActorTalents()).filter((t) => {
-          return !StringUtil.arrayIncludesDeburrIgnoreCase(
-            initTalentsNames,
-            t.name
-          );
-        }),
+          .map((t) => {
+            const data = duplicate(t.data);
+            data._id = RandomUtil.getRandomId();
+            return data;
+          }),
+        ...(await ReferentialUtil.getCompendiumActorTalents())
+          .filter((t) => {
+            return !StringUtil.arrayIncludesDeburrIgnoreCase(
+              initTalentsNames,
+              t.name
+            );
+          })
+          .map((t) => {
+            const data = duplicate(t);
+            data._id = RandomUtil.getRandomId();
+            return data;
+          }),
       ].sort((t1, t2) => {
         return t1.name.localeCompare(t2.name);
       }),
@@ -88,9 +109,13 @@ export default class CreatureAbilitiesChooser {
               !StringUtil.arrayIncludesDeburrIgnoreCase(initTraitsNames, t.name)
             );
           })
-          .map((t) => t.data),
-        ...(await ReferentialUtil.getCompendiumActorTraits()).filter(
-          (t: any) => {
+          .map((t) => {
+            const data = duplicate(t.data);
+            data._id = RandomUtil.getRandomId();
+            return data;
+          }),
+        ...(await ReferentialUtil.getCompendiumActorTraits())
+          .filter((t: any) => {
             return (
               !EntityUtil.match(t, swarm) &&
               !EntityUtil.match(t, weapon) &&
@@ -102,8 +127,12 @@ export default class CreatureAbilitiesChooser {
                 t.displayName
               )
             );
-          }
-        ),
+          })
+          .map((t) => {
+            const data = duplicate(t);
+            data._id = RandomUtil.getRandomId();
+            return data;
+          }),
       ].sort((t1, t2) => {
         return t1.name.localeCompare(t2.name);
       }),

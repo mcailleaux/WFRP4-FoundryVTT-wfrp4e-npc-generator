@@ -68,6 +68,10 @@ export default class RandomUtil {
     `;
   }
 
+  public static getRandomId(): string {
+    return Math.random().toString(36).substr(2);
+  }
+
   private static random(): number {
     let random = 0;
     for (let i = 0; i < 10; i++) {
