@@ -1,4 +1,5 @@
 import StringUtil from './string-util.js';
+import deburr from './lodash/deburr.js';
 
 export default class EntityUtil {
   public static match(item: any, ref: Item & any) {
@@ -36,5 +37,13 @@ export default class EntityUtil {
       map[group] = this.toSelectOption(items[group]);
     }
     return map;
+  }
+
+  public static toMinimalName(value: string): string {
+    let result = deburr(value).toLowerCase().trim();
+    result = result.replace(/\s/g, '');
+    result = result.replace(/\(/g, '');
+    result = result.replace(/\)/g, '');
+    return result;
   }
 }

@@ -1,5 +1,6 @@
 import StringUtil from './string-util.js';
 import CompendiumUtil from './compendium-util.js';
+import EntityUtil from './entity-util.js';
 
 export default class ReferentialUtil {
   public static readonly sortedSize = [
@@ -501,7 +502,7 @@ export default class ReferentialUtil {
     const compendiumActorTraits: Item.Data[] = [];
     const traits = await CompendiumUtil.getCompendiumTraits();
     const traitsNames = traits.map((t) =>
-      StringUtil.toDeburrLowerCase(t.name).trim()
+      EntityUtil.toMinimalName(t.name).trim()
     );
     const actorsMap = await this.getActorsEntities();
     for (let [_key, actors] of Object.entries(actorsMap)) {
@@ -509,11 +510,11 @@ export default class ReferentialUtil {
         const data: any = actor.data;
         const newTraits: Item.Data[] = data?.traits?.filter(
           (t: Item.Data) =>
-            !traitsNames.includes(StringUtil.toDeburrLowerCase(t.name).trim())
+            !traitsNames.includes(EntityUtil.toMinimalName(t.name).trim())
         );
         if (newTraits != null && newTraits.length > 0) {
           traitsNames.push(
-            ...newTraits.map((t) => StringUtil.toDeburrLowerCase(t.name).trim())
+            ...newTraits.map((t) => EntityUtil.toMinimalName(t.name).trim())
           );
           compendiumActorTraits.push(...newTraits);
         }
@@ -527,7 +528,7 @@ export default class ReferentialUtil {
     const compendiumActorSkills: Item.Data[] = [];
     const skills = await CompendiumUtil.getCompendiumSkills();
     const skillsNames = skills.map((t) =>
-      StringUtil.toDeburrLowerCase(t.name).trim()
+      EntityUtil.toMinimalName(t.name).trim()
     );
     const actorsMap = await this.getActorsEntities();
     for (let [_key, actors] of Object.entries(actorsMap)) {
@@ -535,13 +536,12 @@ export default class ReferentialUtil {
         const data: any = actor.data;
         const newSkills: Item.Data[] = data?.skills?.filter(
           (t: Item.Data) =>
-            !skillsNames.includes(
-              StringUtil.toDeburrLowerCase(t.name).trim()
-            ) && !t.name.trim().startsWith('(')
+            !skillsNames.includes(EntityUtil.toMinimalName(t.name).trim()) &&
+            !t.name.trim().startsWith('(')
         );
         if (newSkills != null && newSkills.length > 0) {
           skillsNames.push(
-            ...newSkills.map((t) => StringUtil.toDeburrLowerCase(t.name).trim())
+            ...newSkills.map((t) => EntityUtil.toMinimalName(t.name).trim())
           );
           compendiumActorSkills.push(...newSkills);
         }
@@ -555,7 +555,7 @@ export default class ReferentialUtil {
     const compendiumActorTalents: Item.Data[] = [];
     const talents = await CompendiumUtil.getCompendiumTalents();
     const talentsNames = talents.map((t) =>
-      StringUtil.toDeburrLowerCase(t.name).trim()
+      EntityUtil.toMinimalName(t.name).trim()
     );
     const actorsMap = await this.getActorsEntities();
     for (let [_key, actors] of Object.entries(actorsMap)) {
@@ -563,15 +563,12 @@ export default class ReferentialUtil {
         const data: any = actor.data;
         const newTalents: Item.Data[] = data?.talents?.filter(
           (t: Item.Data) =>
-            !talentsNames.includes(
-              StringUtil.toDeburrLowerCase(t.name).trim()
-            ) && !t.name.trim().startsWith('(')
+            !talentsNames.includes(EntityUtil.toMinimalName(t.name).trim()) &&
+            !t.name.trim().startsWith('(')
         );
         if (newTalents != null && newTalents.length > 0) {
           talentsNames.push(
-            ...newTalents.map((t) =>
-              StringUtil.toDeburrLowerCase(t.name).trim()
-            )
+            ...newTalents.map((t) => EntityUtil.toMinimalName(t.name).trim())
           );
           compendiumActorTalents.push(...newTalents);
         }
