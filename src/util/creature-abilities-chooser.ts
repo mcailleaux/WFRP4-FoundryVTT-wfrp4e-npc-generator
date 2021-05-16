@@ -19,6 +19,15 @@ export default class CreatureAbilitiesChooser {
     const ranged: Item & any = await CompendiumUtil.getCompendiumRangedTrait();
     const size: Item & any = await CompendiumUtil.getCompendiumSizeTrait();
 
+    const correctDataName = (data: Item.Data) => {
+      if (data.name.includes('*')) {
+        data.name = data.name.replace(/\*/g, '');
+      }
+      if (data.name.includes('(') && !data.name.includes(')')) {
+        data.name = data.name + ')';
+      }
+    };
+
     const initSkillsNames = initAbilities.skills.map((s) => s.name);
     const skills = [
       ...initAbilities.skills.sort((s1, s2) => {
@@ -46,6 +55,7 @@ export default class CreatureAbilitiesChooser {
           })
           .map((s) => {
             const data = duplicate(s);
+            correctDataName(data);
             data._id = RandomUtil.getRandomId();
             return data;
           }),
@@ -80,6 +90,7 @@ export default class CreatureAbilitiesChooser {
           })
           .map((t) => {
             const data = duplicate(t);
+            correctDataName(data);
             data._id = RandomUtil.getRandomId();
             return data;
           }),
@@ -130,6 +141,7 @@ export default class CreatureAbilitiesChooser {
           })
           .map((t) => {
             const data = duplicate(t);
+            correctDataName(data);
             data._id = RandomUtil.getRandomId();
             return data;
           }),

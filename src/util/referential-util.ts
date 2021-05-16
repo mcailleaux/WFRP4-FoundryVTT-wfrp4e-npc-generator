@@ -527,7 +527,8 @@ export default class ReferentialUtil {
       for (let actor of actors) {
         const data: any = actor.data;
         const newSkills: Item.Data[] = data?.skills?.filter(
-          (t: Item.Data) => !skillsNames.includes(t.name)
+          (t: Item.Data) =>
+            !skillsNames.includes(t.name) && !t.name.trim().startsWith('(')
         );
         if (newSkills != null && newSkills.length > 0) {
           skillsNames.push(...newSkills.map((t) => t.name));
