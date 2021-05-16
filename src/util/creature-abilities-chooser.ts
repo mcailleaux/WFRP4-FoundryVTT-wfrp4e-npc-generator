@@ -59,8 +59,20 @@ export default class CreatureAbilitiesChooser {
           return t1.displayName.localeCompare(t2.displayName);
         }
       ),
-      ...(await ReferentialUtil.getTraitEntities(true))
-        .filter((t) => {
+      ...[
+        ...(await ReferentialUtil.getTraitEntities(true))
+          .filter((t) => {
+            return (
+              !EntityUtil.match(t, swarm) &&
+              !EntityUtil.match(t, weapon) &&
+              !EntityUtil.match(t, armour) &&
+              !EntityUtil.match(t, ranged) &&
+              !EntityUtil.match(t, size) &&
+              !StringUtil.arrayIncludesDeburrIgnoreCase(initTraitsNames, t.name)
+            );
+          })
+          .map((t) => t.data),
+        ...(await CompendiumUtil.getCompendiumActorTraits()).filter((t) => {
           return (
             !EntityUtil.match(t, swarm) &&
             !EntityUtil.match(t, weapon) &&
@@ -69,11 +81,10 @@ export default class CreatureAbilitiesChooser {
             !EntityUtil.match(t, size) &&
             !StringUtil.arrayIncludesDeburrIgnoreCase(initTraitsNames, t.name)
           );
-        })
-        .map((t) => t.data)
-        .sort((t1, t2) => {
-          return t1.name.localeCompare(t2.name);
         }),
+      ].sort((t1, t2) => {
+        return t1.name.localeCompare(t2.name);
+      }),
     ];
 
     const skillsId = `creature-abilities-add-remove-skills-${dialogId}`;

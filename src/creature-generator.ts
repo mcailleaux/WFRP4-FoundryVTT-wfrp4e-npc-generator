@@ -27,12 +27,13 @@ export default class CreatureGenerator {
   public static readonly magicsChooser = MagicsChooser;
   public static readonly mutationsChooser = MutationsChooser;
   public static readonly referential = ReferentialUtil;
+  public static readonly compendium = CompendiumUtil;
   public static readonly translateErrorDetect = TranslateErrorDetect;
 
   public static async generateCreature(
     callback?: (model: CreatureModel, actorData: any, actor: any) => void
   ) {
-    await CompendiumUtil.initCompendium(async () => {
+    await this.compendium.initCompendium(async () => {
       await this.generateCreatureModel(async (model) => {
         const actorData = await CreatureBuilder.buildCreatureData(model);
         const actor = await CreatureBuilder.createCreature(model, actorData);
@@ -77,14 +78,14 @@ export default class CreatureGenerator {
         model.creatureTemplate.creatureData = creature;
 
         const swarm: Item &
-          any = await CompendiumUtil.getCompendiumSwarmTrait();
+          any = await this.compendium.getCompendiumSwarmTrait();
         const weapon: Item &
-          any = await CompendiumUtil.getCompendiumWeaponTrait();
+          any = await this.compendium.getCompendiumWeaponTrait();
         const armour: Item &
-          any = await CompendiumUtil.getCompendiumArmourTrait();
+          any = await this.compendium.getCompendiumArmourTrait();
         const ranged: Item &
-          any = await CompendiumUtil.getCompendiumRangedTrait();
-        const size: Item & any = await CompendiumUtil.getCompendiumSizeTrait();
+          any = await this.compendium.getCompendiumRangedTrait();
+        const size: Item & any = await this.compendium.getCompendiumSizeTrait();
 
         model.creatureTemplate.size = creature.data?.details?.size?.value;
         model.creatureTemplate.swarm = duplicate(
@@ -274,11 +275,11 @@ export default class CreatureGenerator {
     callback: (model: CreatureModel) => void
   ) {
     if (model.name == null) {
-      const swarm = await CompendiumUtil.getCompendiumSwarmTrait();
+      const swarm = await this.compendium.getCompendiumSwarmTrait();
       const swarmLabel = model.abilities.isSwarm ? `, ${swarm.name}` : '';
 
       model.name = `${model.creatureTemplate.creatureData.name} (${
-        CompendiumUtil.getSizes()[model.abilities.sizeKey]
+        this.compendium.getSizes()[model.abilities.sizeKey]
       }${swarmLabel})`;
     }
     await this.nameChooser.selectName(
@@ -491,7 +492,7 @@ export default class CreatureGenerator {
 
   private static async addSwarm(model: CreatureModel) {
     const swarm: Item.Data & any = duplicate(
-      (await CompendiumUtil.getCompendiumSwarmTrait()).data
+      (await this.compendium.getCompendiumSwarmTrait()).data
     );
     if (model.abilities.isSwarm) {
       model.abilities.traits.push(swarm);
@@ -504,9 +505,9 @@ export default class CreatureGenerator {
 
   private static async addSize(model: CreatureModel) {
     const size: Item.Data & any = duplicate(
-      (await CompendiumUtil.getCompendiumSizeTrait()).data
+      (await this.compendium.getCompendiumSizeTrait()).data
     );
-    (<any>size.data).specification.value = CompendiumUtil.getSizes()[
+    (<any>size.data).specification.value = this.compendium.getSizes()[
       model.abilities.sizeKey
     ];
     size.included = true;
@@ -515,7 +516,7 @@ export default class CreatureGenerator {
 
   private static async addWeapon(model: CreatureModel) {
     const weapon: Item.Data & any = duplicate(
-      (await CompendiumUtil.getCompendiumWeaponTrait()).data
+      (await this.compendium.getCompendiumWeaponTrait()).data
     );
     if (model.abilities.hasWeaponTrait) {
       (<any>weapon.data).specification.value = Number.isNumeric(
@@ -540,7 +541,7 @@ export default class CreatureGenerator {
 
   private static async addRanged(model: CreatureModel) {
     const ranged: Item.Data & any = duplicate(
-      (await CompendiumUtil.getCompendiumRangedTrait()).data
+      (await this.compendium.getCompendiumRangedTrait()).data
     );
     const defaultRange = StringUtil.getGroupName(ranged.name);
     const defaultDamage = ranged.data.specification.value;
@@ -579,7 +580,7 @@ export default class CreatureGenerator {
 
   private static async addArmour(model: CreatureModel) {
     const armour: Item.Data & any = duplicate(
-      (await CompendiumUtil.getCompendiumArmourTrait()).data
+      (await this.compendium.getCompendiumArmourTrait()).data
     );
     if (model.abilities.hasArmourTrait) {
       armour.data.specification.value = Number.isNumeric(

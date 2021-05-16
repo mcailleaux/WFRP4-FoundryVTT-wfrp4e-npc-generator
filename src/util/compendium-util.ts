@@ -2,6 +2,7 @@ import WaiterUtil from './waiter-util.js';
 
 export default class CompendiumUtil {
   private static compendiumItems: Item[];
+  private static compendiumActors: { [pack: string]: Actor[] };
   private static compendiumCareers: Item[];
   private static compendiumCareerGroups: string[];
   private static compendiumTrappings: Item[];
@@ -9,6 +10,7 @@ export default class CompendiumUtil {
   private static compendiumSkills: Item[];
   private static compendiumTalents: Item[];
   private static compendiumTraits: Item[];
+  private static compendiumActorTraits: Item.Data[];
   private static compendiumSizeTrait: Item;
   private static compendiumSwarmTrait: Item;
   private static compendiumWeaponTrait: Item;
@@ -32,7 +34,10 @@ export default class CompendiumUtil {
         'WFRP4NPCGEN.compendium.load.hint',
         async () => {
           if (forCreatures) {
-            await this.getCompendiumItems();
+            await Promise.all([
+              this.getCompendiumItems(),
+              this.getCompendiumActors(),
+            ]);
             await Promise.all([
               this.getCompendiumTrappings(),
               this.getCompendiumBestiary(),
@@ -89,6 +94,47 @@ export default class CompendiumUtil {
     return Promise.resolve(this.compendiumItems);
   }
 
+  public static async getCompendiumActors() {
+    if (this.compendiumActors == null) {
+      this.compendiumActors = {};
+      const actorsPacks = game.packs.filter(
+        (p) => p.metadata.entity === 'Actor'
+      );
+      const packLoader = (pack: any) => {
+        return new Promise(async (resolve) => {
+          const module = game.modules.get(pack.metadata.package);
+          let key = pack.metadata.label;
+
+          if (key === pack.metadata.name) {
+            key =
+              module?.packs?.find((p: any) => p.name === pack.metadata.name)
+                ?.label ?? pack.metadata.label;
+          }
+
+          console.info(`Start to load ${key} compendium`);
+
+          const actor: Actor[] = (await pack.getContent()).sort(
+            (c1: Actor, c2: Actor) => {
+              return c1.name.localeCompare(c2.name);
+            }
+          );
+
+          this.compendiumActors[key] = actor;
+
+          console.info(`End to load ${key} compendium`);
+
+          resolve();
+        });
+      };
+      const loaders: Promise<any>[] = [];
+      for (let pack of actorsPacks) {
+        loaders.push(packLoader(pack));
+      }
+      await Promise.all(loaders);
+    }
+    return Promise.resolve(this.compendiumActors);
+  }
+
   public static async getCompendiumCareers() {
     if (this.compendiumCareers == null) {
       this.compendiumCareers = [];
@@ -139,42 +185,14 @@ export default class CompendiumUtil {
   public static async getCompendiumBestiary() {
     if (this.compendiumBestiary == null) {
       this.compendiumBestiary = {};
-      const actorsPacks = game.packs.filter(
-        (p) => p.metadata.entity === 'Actor'
-      );
-      const packLoader = (pack: any) => {
-        return new Promise(async (resolve) => {
-          const module = game.modules.get(pack.metadata.package);
-          let key = pack.metadata.label;
 
-          if (key === pack.metadata.name) {
-            key =
-              module?.packs?.find((p: any) => p.name === pack.metadata.name)
-                ?.label ?? pack.metadata.label;
-          }
+      const actorsMap = await this.getCompendiumActors();
 
-          console.info(`Start to load ${key} compendium`);
-
-          const actor: Actor[] = (await pack.getContent()).sort(
-            (c1: Actor, c2: Actor) => {
-              return c1.name.localeCompare(c2.name);
-            }
-          );
-
-          this.compendiumBestiary[key] = actor.filter(
-            (c) => c.data?.type === 'creature'
-          );
-
-          console.info(`End to load ${key} compendium`);
-
-          resolve();
-        });
-      };
-      const loaders: Promise<any>[] = [];
-      for (let pack of actorsPacks) {
-        loaders.push(packLoader(pack));
+      for (let [key, actors] of Object.entries(actorsMap)) {
+        this.compendiumBestiary[key] = actors.filter(
+          (c) => c.data?.type === 'creature'
+        );
       }
-      await Promise.all(loaders);
     }
     return Promise.resolve(this.compendiumBestiary);
   }
@@ -213,6 +231,28 @@ export default class CompendiumUtil {
       );
     }
     return Promise.resolve(this.compendiumTraits);
+  }
+
+  public static async getCompendiumActorTraits() {
+    if (this.compendiumActorTraits == null) {
+      this.compendiumActorTraits = [];
+      const traits = await this.getCompendiumTraits();
+      const traitsNames = traits.map((t) => t.name);
+      const actorsMap = await this.getCompendiumActors();
+      for (let [_key, actors] of Object.entries(actorsMap)) {
+        for (let actor of actors) {
+          const data: any = actor.data;
+          const newTraits: Item.Data[] = data?.traits?.filter(
+            (t: Item.Data) => !traitsNames.includes(t.name)
+          );
+          if (newTraits != null && newTraits.length > 0) {
+            traitsNames.push(...newTraits.map((t) => t.name));
+            this.compendiumActorTraits.push(...newTraits);
+          }
+        }
+      }
+    }
+    return Promise.resolve(this.compendiumActorTraits);
   }
 
   public static async getCompendiumSizeTrait() {

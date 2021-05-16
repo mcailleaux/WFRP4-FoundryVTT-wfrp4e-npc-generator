@@ -28,6 +28,7 @@ export default class NpcGenerator {
   public static readonly optionsChooser = OptionsChooser;
   public static readonly actorBuilder = ActorBuilder;
   public static readonly referential = ReferentialUtil;
+  public static readonly compendium = CompendiumUtil;
   public static readonly trapping = TrappingUtil;
   public static readonly trappingChooser = TrappingChooser;
   public static readonly magicsChooser = MagicsChooser;
@@ -37,7 +38,7 @@ export default class NpcGenerator {
   public static async generateNpc(
     callback?: (model: NpcModel, actorData: any, actor: any) => void
   ) {
-    await CompendiumUtil.initCompendium(async () => {
+    await this.compendium.initCompendium(async () => {
       await this.generateNpcModel(async (model) => {
         const actorData = await ActorBuilder.buildActorData(model, 'npc');
         const actor = await ActorBuilder.createActor(model, actorData);
