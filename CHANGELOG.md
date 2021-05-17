@@ -1,8 +1,21 @@
 ## In development
 
 - Add a create button on folder
+- Adding details
+- Add optionnal Step to edit NPC abilities after generation
 - create a chat command
 - Manage other language
+
+## 1.5.1
+
+### New features
+
+- Deutsch support for 1.5.0
+
+### Bugfix
+
+- Remove empty group on grouped select
+- bug with Career skills when more than one career
 
 ## 1.5.0
 
