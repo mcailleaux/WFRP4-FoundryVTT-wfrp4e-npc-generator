@@ -5,6 +5,7 @@
 - Use cache skills and Talents when find for npc generator
 - Add optional Step to edit NPC abilities after generation
 - Add optional Step to edit specialisations after generation
+- Add Subspecies
 - create a chat command
 - Manage other language
 
