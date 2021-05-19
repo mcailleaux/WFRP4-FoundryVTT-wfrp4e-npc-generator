@@ -3,15 +3,18 @@
 - Add a create button on folder
 - Adding details
 - Use cache skills and Talents when find for npc generator
-- Add optionnal Step to edit NPC abilities after generation
+- Add optional Step to edit NPC abilities after generation
+- Add optional Step to edit specialisations after generation
 - create a chat command
 - Manage other language
 
-## 1.5.1
+## 1.5.2
 
 ### New features
 
 - Deutsch support for 1.5.0
+
+## 1.5.1
 
 ### Bugfix
 
