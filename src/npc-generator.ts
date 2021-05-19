@@ -390,6 +390,24 @@ export default class NpcGenerator {
         data.complete.value = true;
       }
     });
+
+    const careerSkillsMap: { [group: string]: Item.Data } = {};
+    for (let career of model.careerPath) {
+      const data: any = career.data;
+      const level = data?.level?.value ?? 0;
+      const group = data?.careergroup?.value ?? '';
+      const careerSkill = careerSkillsMap[group];
+      if (careerSkill == null) {
+        careerSkillsMap[group] = career;
+      } else {
+        const csData: any = careerSkill.data;
+        const csLevel = csData?.level?.value ?? 0;
+        if (level > csLevel) {
+          careerSkillsMap[group] = career;
+        }
+      }
+    }
+    model.careerForSkills.push(...Object.values(careerSkillsMap));
   }
 
   private static async addStatus(model: NpcModel) {
@@ -407,9 +425,10 @@ export default class NpcGenerator {
   }
 
   private static async addCareerSkill(model: NpcModel) {
-    const careerData: any = model.career?.data;
-    const careerSkills: string[] = careerData?.skills;
-    await this.addSkills(model, careerSkills);
+    for (let career of model.careerForSkills) {
+      const data: any = career?.data;
+      await this.addSkills(model, data?.skills);
+    }
   }
 
   private static async addSpeciesSkill(model: NpcModel) {

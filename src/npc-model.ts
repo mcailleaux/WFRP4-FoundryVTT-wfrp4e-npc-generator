@@ -7,6 +7,7 @@ export default class NpcModel {
   public career: Item.Data;
   public status: string;
   public careerPath: Item.Data[] = [];
+  public careerForSkills: Item.Data[] = [];
   public speciesSkills: { major: string[]; minor: string[] } = {
     major: [],
     minor: [],
