@@ -2,6 +2,7 @@
 
 - Add a create button on folder
 - Adding details
+- Use cache skills and Talents when find for npc generator
 - Add optionnal Step to edit NPC abilities after generation
 - create a chat command
 - Manage other language

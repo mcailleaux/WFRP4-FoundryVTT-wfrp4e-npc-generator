@@ -112,13 +112,15 @@ export default class CompendiumUtil {
 
           console.info(`Start to load ${key} compendium`);
 
-          const actor: Actor[] = (await pack.getContent()).sort(
+          const actors: Actor[] = (await pack.getContent()).sort(
             (c1: Actor, c2: Actor) => {
               return c1.name.localeCompare(c2.name);
             }
           );
 
-          this.compendiumActors[key] = actor;
+          if (actors.length > 0) {
+            this.compendiumActors[key] = actors;
+          }
 
           console.info(`End to load ${key} compendium`);
 
@@ -188,9 +190,10 @@ export default class CompendiumUtil {
       const actorsMap = await this.getCompendiumActors();
 
       for (let [key, actors] of Object.entries(actorsMap)) {
-        this.compendiumBestiary[key] = actors.filter(
-          (c) => c.data?.type === 'creature'
-        );
+        const creatures = actors.filter((c) => c.data?.type === 'creature');
+        if (creatures.length > 0) {
+          this.compendiumBestiary[key] = creatures;
+        }
       }
     }
     return Promise.resolve(this.compendiumBestiary);
