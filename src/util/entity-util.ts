@@ -47,12 +47,18 @@ export default class EntityUtil {
     return result;
   }
 
-  public static find(name: string, entities: Item[]): Item {
+  public static find(name: string, entities: Item[]): Item.Data | null {
+    if (name == null || entities?.length <= 0) {
+      return null;
+    }
     const matchName = StringUtil.toDeburrLowerCase(name).trim();
     let result = entities.find(
       (e: Item & any) =>
         StringUtil.equalsDeburrIgnoreCase(e.name.trim(), matchName) ||
-        StringUtil.equalsDeburrIgnoreCase(e.data.originalName.trim(), matchName)
+        StringUtil.equalsDeburrIgnoreCase(
+          e.data.originalName?.trim(),
+          matchName
+        )
     );
     if (result == null) {
       const simpleMatchName = StringUtil.toDeburrLowerCase(
@@ -60,22 +66,21 @@ export default class EntityUtil {
       ).trim();
       result = entities.find(
         (e: Item & any) =>
-          StringUtil.equalsDeburrIgnoreCase(e.name.trim(), simpleMatchName) ||
           StringUtil.equalsDeburrIgnoreCase(
-            e.data.originalName.trim(),
+            StringUtil.getSimpleName(e.name).trim(),
+            simpleMatchName
+          ) ||
+          StringUtil.equalsDeburrIgnoreCase(
+            StringUtil.getSimpleName(e.data.originalName)?.trim(),
             simpleMatchName
           )
       );
     }
     if (result != null) {
-      result = duplicate(result);
-      result.data.name = name;
-      return result;
+      const data = duplicate(result.data);
+      data.name = name;
+      return data;
     }
-    throw (
-      'Could not find skill (or specialization of) ' +
-      name +
-      ' in compendum or world'
-    );
+    return null;
   }
 }

@@ -471,7 +471,7 @@ export default class NpcGenerator {
     ) {
       try {
         const skillToAdd = await this.referential.findSkill(name);
-        model.skills.push(skillToAdd.data);
+        model.skills.push(skillToAdd);
       } catch (e) {
         console.warn('Cant find Skill : ' + name);
       }

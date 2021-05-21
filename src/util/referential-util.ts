@@ -218,12 +218,20 @@ export default class ReferentialUtil {
     return await game.wfrp4e.utility.allBasicSkills();
   }
 
-  public static async findSkill(name: string) {
+  public static async findSkill(name: string): Promise<Item.Data> {
     const skills = [
       ...(await this.getWorldEntities('skill')),
       ...(await this.getSkillEntities(false)),
     ];
-    return EntityUtil.find(name, skills);
+    const skill = EntityUtil.find(name, skills);
+    if (skill == null) {
+      throw (
+        'Could not find skill (or specialization of) ' +
+        name +
+        ' in compendum or world'
+      );
+    }
+    return skill;
     // return await game.wfrp4e.utility.findSkill(name);
   }
 
