@@ -517,7 +517,7 @@ export default class NpcGenerator {
     ) {
       try {
         const talentToAdd = await this.referential.findTalent(name);
-        model.talents.push(talentToAdd.data);
+        model.talents.push(talentToAdd);
       } catch (e) {
         console.warn('Cant find Talent : ' + name);
       }

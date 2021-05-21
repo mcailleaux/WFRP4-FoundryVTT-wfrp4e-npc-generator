@@ -232,11 +232,22 @@ export default class ReferentialUtil {
       );
     }
     return skill;
-    // return await game.wfrp4e.utility.findSkill(name);
   }
 
   public static async findTalent(name: string) {
-    return await game.wfrp4e.utility.findTalent(name);
+    const talents = [
+      ...(await this.getWorldEntities('talent')),
+      ...(await this.getTalentEntities(false)),
+    ];
+    const talent = EntityUtil.find(name, talents);
+    if (talent == null) {
+      throw (
+        'Could not find talent (or specialization of) ' +
+        name +
+        ' in compendum or world'
+      );
+    }
+    return talent;
   }
 
   public static async findTrappings(
