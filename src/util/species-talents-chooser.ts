@@ -12,30 +12,34 @@ export default class SpeciesTalentsChooser {
   ) {
     const dialogId = new Date().getTime();
 
-    const subSpeciesTalents: string[] = [];
+    const subSpeciesTalents: any[] = [];
     if (subSpeciesKey != null) {
       for (let talent of ReferentialUtil.getSubSpeciesMap()[speciesKey][
         subSpeciesKey
       ].talents) {
-        if (talent.includes(',')) {
-          const splited = talent.split(',');
-          const result: string[] = [];
-          for (let t of splited) {
-            const refTalent = await ReferentialUtil.findTalent(t);
+        if (typeof talent === 'string') {
+          if (talent.includes(',')) {
+            const splited = talent.split(',');
+            const result: string[] = [];
+            for (let t of splited) {
+              const refTalent = await ReferentialUtil.findTalent(t);
+              if (refTalent != null) {
+                result.push(refTalent.name);
+              } else {
+                result.push(talent);
+              }
+            }
+            subSpeciesTalents.push(result.join(', '));
+          } else {
+            const refTalent = await ReferentialUtil.findTalent(talent);
             if (refTalent != null) {
-              result.push(refTalent.name);
+              subSpeciesTalents.push(refTalent.name);
             } else {
-              result.push(talent);
+              subSpeciesTalents.push(talent);
             }
           }
-          subSpeciesTalents.push(result.join(', '));
         } else {
-          const refTalent = await ReferentialUtil.findTalent(talent);
-          if (refTalent != null) {
-            subSpeciesTalents.push(refTalent.name);
-          } else {
-            subSpeciesTalents.push(talent);
-          }
+          subSpeciesTalents.push(talent);
         }
       }
     }
