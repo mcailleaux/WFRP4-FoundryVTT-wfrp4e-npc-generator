@@ -89,11 +89,12 @@ export default class SpeciesChooser {
                   selectSubSpecies.innerHTML = '';
                   
                   if (subSpecies[speciesKey] != null) {
+                      subSpecies[speciesKey].none = '';
                       for(let [key, value] of Object.entries(subSpecies[speciesKey])) {
                           
                           const option = document.createElement('option');
                           
-                          if (selectSubSpecies.value == null) {
+                          if (selectSubSpecies.value == null && key === 'none') {
                               option.setAttribute('selected', 'selected');
                               selectSubSpecies.value = key;
                           }
@@ -129,7 +130,7 @@ export default class SpeciesChooser {
             </script>
             <style>
             .select-subspecies-no-subspecies {
-                display: none;
+                display: none !important;
             }
             </style>
             `,
