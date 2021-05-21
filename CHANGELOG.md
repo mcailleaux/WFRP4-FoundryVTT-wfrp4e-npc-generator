@@ -2,12 +2,18 @@
 
 - Add a create button on folder
 - Adding details
-- Use cache skills and Talents when find for npc generator
 - Add optional Step to edit NPC abilities after generation
 - Add optional Step to edit specialisations after generation
 - Add Subspecies
 - create a chat command
 - Manage other language
+
+## 1.6.0
+
+### New features
+
+- Select a subspecies on species choosing step (wfrp-core 3.6.0 +)
+- Use cache skills and Talents when find for npc generator
 
 ## 1.5.2
 

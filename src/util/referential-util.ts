@@ -219,7 +219,12 @@ export default class ReferentialUtil {
   }
 
   public static async findSkill(name: string) {
-    return await game.wfrp4e.utility.findSkill(name);
+    const skills = [
+      ...(await this.getWorldEntities('skill')),
+      ...(await this.getSkillEntities(false)),
+    ];
+    return EntityUtil.find(name, skills);
+    // return await game.wfrp4e.utility.findSkill(name);
   }
 
   public static async findTalent(name: string) {

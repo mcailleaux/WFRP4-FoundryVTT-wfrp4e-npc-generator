@@ -2,7 +2,7 @@ import StringUtil from './string-util.js';
 import deburr from './lodash/deburr.js';
 
 export default class EntityUtil {
-  public static match(item: any, ref: Item & any) {
+  public static match(item: any, ref: Item & any): boolean {
     return (
       StringUtil.getSimpleName(item.name) ===
         StringUtil.getSimpleName(ref.name) ||
@@ -45,5 +45,40 @@ export default class EntityUtil {
     result = result.replace(/\(/g, '');
     result = result.replace(/\)/g, '');
     return result;
+  }
+
+  public static find(name: string, entities: Item[]): Item | null {
+    if (name == null || entities?.length <= 0) {
+      return null;
+    }
+    const matchName = StringUtil.toDeburrLowerCase(name).trim();
+    let result = entities.find(
+      (e: Item & any) =>
+        StringUtil.equalsDeburrIgnoreCase(e.name.trim(), matchName) ||
+        StringUtil.equalsDeburrIgnoreCase(e.data.originalName.trim(), matchName)
+    );
+    if (result == null) {
+      const simpleMatchName = StringUtil.toDeburrLowerCase(
+        StringUtil.getSimpleName(name)
+      ).trim();
+      result = entities.find(
+        (e: Item & any) =>
+          StringUtil.equalsDeburrIgnoreCase(e.name.trim(), simpleMatchName) ||
+          StringUtil.equalsDeburrIgnoreCase(
+            e.data.originalName.trim(),
+            simpleMatchName
+          )
+      );
+    }
+    if (result != null) {
+      result = duplicate(result);
+      result.data.name = name;
+      return result;
+    }
+    throw (
+      'Could not find skill (or specialization of) ' +
+      name +
+      ' in compendum or world'
+    );
   }
 }
