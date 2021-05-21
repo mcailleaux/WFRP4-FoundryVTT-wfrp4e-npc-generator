@@ -23,6 +23,7 @@ export default class SpeciesChooser {
     const initSubSpeciesLabelsMap: { [key: string]: string } =
       initSubSpeciesMap != null ? {} : {};
     if (initSubSpeciesMap != null && initSubSpeciesLabelsMap != null) {
+      initSubSpeciesLabelsMap['none'] = '';
       for (let [key, value] of Object.entries(initSubSpeciesMap)) {
         initSubSpeciesLabelsMap[key] = value.name;
       }
@@ -137,14 +138,18 @@ export default class SpeciesChooser {
             html.find(`#select-species-${dialogId}`).val()
           );
           let speciesValue = speciesMap[speciesKey];
-          const subSpeciesKey = <string>(
+          const subSpeciesKeyStr = <string>(
             html.find(`#select-subspecies-${dialogId}`).val()
           );
+          const subSpeciesKey =
+            subSpeciesKeyStr != null && subSpeciesKeyStr != 'none'
+              ? subSpeciesKeyStr
+              : null;
           if (subSpeciesKey != null) {
             speciesValue +=
               ' (' + subSpeciesMap[speciesKey][subSpeciesKey] + ')';
           }
-          callback(speciesKey, speciesValue, subSpeciesKey);
+          callback(speciesKey, speciesValue, <string>subSpeciesKey);
         }),
         default: 'yes',
       },
