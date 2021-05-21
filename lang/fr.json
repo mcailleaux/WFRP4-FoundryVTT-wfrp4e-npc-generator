@@ -131,5 +131,7 @@
   "WFRP4NPCGEN.settings.defaultCreatureAddMagics.name": "Ajouter des Sorts et/ou Prières (Créature)",
   "WFRP4NPCGEN.settings.defaultCreatureAddMagics.hint": "Valeur sélectionné par défaut pour l'option 'ajouter des sorts et/ou prières' lors de l'étape de choix des options à la génération d'une Créature",
   "WFRP4NPCGEN.settings.defaultCreatureAddMutations.name": "Ajouter des Mutations (Créature)",
-  "WFRP4NPCGEN.settings.defaultCreatureAddMutations.hint": "Valeur sélectionné par défaut pour l'option 'ajouter des mutations' lors de l'étape de choix des options à la génération d'une Créature"
+  "WFRP4NPCGEN.settings.defaultCreatureAddMutations.hint": "Valeur sélectionné par défaut pour l'option 'ajouter des mutations' lors de l'étape de choix des options à la génération d'une Créature",
+  "WFRP4NPCGEN.subspecies.select.title": "Choisir une Ethnie",
+  "WFRP4NPCGEN.subspecies.select.label": "Ethnie"
 }

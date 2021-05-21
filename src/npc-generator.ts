@@ -70,6 +70,7 @@ export default class NpcGenerator {
   ) {
     await this.speciesChooser.selectSpecies(
       model.speciesKey,
+      model.subSpeciesKey,
       (key: string, value: string) => {
         if (model.speciesKey != null && model.speciesKey !== key) {
           model.speciesSkills = {

@@ -45,6 +45,31 @@ export default class ReferentialUtil {
     return game.wfrp4e.config.species;
   }
 
+  public static getSubSpeciesMap(): {
+    [key: string]: {
+      [subKey: string]: {
+        name: string;
+        skills: string[];
+        talents: any[];
+      };
+    };
+  } {
+    return game.wfrp4e.config.subspecies;
+  }
+
+  public static getSpeciesSubSpeciesMap(
+    speciesKey: string
+  ): {
+    [key: string]: {
+      name: string;
+      skills: string[];
+      talents: any[];
+    };
+  } | null {
+    const subSpecies = this.getSubSpeciesMap();
+    return subSpecies != null ? subSpecies[speciesKey] : null;
+  }
+
   public static getSpeciesSkillsMap(): { [key: string]: string[] } {
     return game.wfrp4e.config.speciesSkills;
   }

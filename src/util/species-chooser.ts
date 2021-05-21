@@ -5,10 +5,27 @@ import ReferentialUtil from './referential-util.js';
 export default class SpeciesChooser {
   public static async selectSpecies(
     initSpeciesKey: string,
+    initSubSpeciesKey: string,
     callback: (speciesKey: string, speciesValue: string) => void
   ) {
     const dialogId = new Date().getTime();
     const speciesMap = ReferentialUtil.getSpeciesMap();
+    const initSubSpeciesMap =
+      initSpeciesKey != null
+        ? ReferentialUtil.getSpeciesSubSpeciesMap(initSpeciesKey)
+        : null;
+
+    const initSubSpeciesLabelsMap: { [key: string]: string } =
+      initSubSpeciesMap != null ? {} : {};
+    if (initSubSpeciesMap != null && initSubSpeciesLabelsMap != null) {
+      for (let [key, value] of Object.entries(initSubSpeciesMap)) {
+        initSubSpeciesLabelsMap[key] = value.name;
+      }
+    }
+
+    const initSubSpeciesClass =
+      initSubSpeciesMap != null ? '' : 'select-subspecies-no-subspecies';
+
     new Dialog(
       {
         title: game.i18n.localize('WFRP4NPCGEN.species.select.title'),
@@ -24,11 +41,69 @@ export default class SpeciesChooser {
               ${DialogUtil.getSelectScript(
                 `select-species-${dialogId}`,
                 speciesMap,
-                initSpeciesKey
+                initSpeciesKey,
+                'speciesChange()'
+              )}
+              </div>
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.subspecies.select.label'
+              )}
+              ${DialogUtil.getSelectScript(
+                `select-subspecies-${dialogId}`,
+                initSubSpeciesLabelsMap,
+                initSubSpeciesKey,
+                undefined,
+                initSubSpeciesClass
               )}
               </div>
           </form>
           <script>  
+          
+                function speciesChange() {
+                  const subSpecies = \{
+                      ${Object.entries(ReferentialUtil.getSubSpeciesMap())
+                        .map(
+                          ([key, value]) =>
+                            `"${key}": {${Object.entries(value)
+                              .map(
+                                ([subKey, subValue]) =>
+                                  `"${subKey}": "${game.i18n.localize(
+                                    subValue.name
+                                  )}"`
+                              )
+                              .join(',')}}`
+                        )
+                        .join(',')}
+                  \};
+                  
+                  
+                  const speciesKey = document.getElementById('select-species-${dialogId}').value;
+                  const selectSubSpecies = document.getElementById('select-subspecies-${dialogId}');
+                  selectSubSpecies.value = null;
+                  selectSubSpecies.innerHTML = '';
+                  
+                  if (subSpecies[speciesKey] != null) {
+                      for(let [key, value] of Object.entries(subSpecies[speciesKey])) {
+                          
+                          const option = document.createElement('option');
+                          
+                          if (selectSubSpecies.value == null) {
+                              option.setAttribute('selected', 'selected');
+                              selectSubSpecies.value = key;
+                          }
+                          
+                          option.setAttribute('id', 'select-subspecies-${dialogId}-' + key);
+                          option.setAttribute('value', key);
+                          option.innerHTML = value;
+                          
+                          selectSubSpecies.append(option);
+                          
+                      }
+                  } 
+                  
+              }
+          
               function random() {
                   const speciesKeys = [${Object.keys(speciesMap)
                     .map((key) => `"${key}"`)
@@ -39,9 +114,16 @@ export default class SpeciesChooser {
                   }
               }
               
+              
+              
               ${RandomUtil.getRandomValueScript()}
                 
             </script>
+            <style>
+            .select-subspecies-no-subspecies {
+                display: none;
+            }
+            </style>
             `,
         buttons: DialogUtil.getDialogButtons(dialogId, (html: JQuery) => {
           const speciesKey = <string>(
