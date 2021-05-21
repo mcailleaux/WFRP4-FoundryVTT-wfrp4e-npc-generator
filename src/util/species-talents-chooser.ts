@@ -11,12 +11,25 @@ export default class SpeciesTalentsChooser {
     undo: () => void
   ) {
     const dialogId = new Date().getTime();
+
+    const subSpeciesTalents: string[] = [];
+    if (subSpeciesKey != null) {
+      for (let talent of ReferentialUtil.getSubSpeciesMap()[speciesKey][
+        subSpeciesKey
+      ].talents) {
+        const refTalent = await ReferentialUtil.findTalent(talent);
+        if (refTalent != null) {
+          subSpeciesTalents.push(refTalent.name);
+        } else {
+          subSpeciesTalents.push(talent);
+        }
+      }
+    }
+
     const speciesTalentsMap =
       subSpeciesKey != null
         ? {
-            [speciesKey]: ReferentialUtil.getSubSpeciesMap()[speciesKey][
-              subSpeciesKey
-            ].talents,
+            [speciesKey]: subSpeciesTalents,
           }
         : ReferentialUtil.getSpeciesTalentsMap();
     const speciesTalent: string[] = speciesTalentsMap[speciesKey].filter(

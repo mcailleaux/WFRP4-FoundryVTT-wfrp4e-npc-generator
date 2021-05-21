@@ -12,14 +12,28 @@ export default class SpeciesSkillsChooser {
     undo: () => void
   ) {
     const dialogId = new Date().getTime();
+
+    const subSpeciesSkills: string[] = [];
+    if (subSpeciesKey != null) {
+      for (let skill of ReferentialUtil.getSubSpeciesMap()[speciesKey][
+        subSpeciesKey
+      ].skills) {
+        const refSkill = await ReferentialUtil.findSkill(skill);
+        if (refSkill != null) {
+          subSpeciesSkills.push(refSkill.name);
+        } else {
+          subSpeciesSkills.push(skill);
+        }
+      }
+    }
+
     const speciesSkillsMap =
       subSpeciesKey != null
         ? {
-            [speciesKey]: ReferentialUtil.getSubSpeciesMap()[speciesKey][
-              subSpeciesKey
-            ].skills,
+            [speciesKey]: subSpeciesSkills,
           }
         : ReferentialUtil.getSpeciesSkillsMap();
+
     new Dialog(
       {
         title: game.i18n.localize('WFRP4NPCGEN.species.skills.select.title'),
