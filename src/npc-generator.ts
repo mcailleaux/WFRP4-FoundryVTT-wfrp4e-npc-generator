@@ -462,23 +462,23 @@ export default class NpcGenerator {
     if (name == null || name.length === 0) {
       return;
     }
-    if (
-      !StringUtil.arrayIncludesDeburrIgnoreCase(
-        model.skills.map((ms) => ms.name),
-        name
-      ) ||
-      (name.includes('(') &&
-        StringUtil.includesDeburrIgnoreCase(
-          name,
-          game.i18n.localize('WFRP4NPCGEN.item.any')
-        ))
-    ) {
-      try {
-        const skillToAdd = await this.referential.findSkill(name);
+    try {
+      const skillToAdd = await this.referential.findSkill(name);
+      if (
+        !StringUtil.arrayIncludesDeburrIgnoreCase(
+          model.skills.map((ms) => ms.name),
+          skillToAdd.name
+        ) ||
+        (skillToAdd.name.includes('(') &&
+          StringUtil.includesDeburrIgnoreCase(
+            skillToAdd.name,
+            game.i18n.localize('WFRP4NPCGEN.item.any')
+          ))
+      ) {
         model.skills.push(skillToAdd);
-      } catch (e) {
-        console.warn('Cant find Skill : ' + name);
       }
+    } catch (e) {
+      console.warn('Cant find Skill : ' + name);
     }
   }
 
@@ -513,18 +513,19 @@ export default class NpcGenerator {
     if (name == null || name.length === 0) {
       return;
     }
-    if (
-      !StringUtil.arrayIncludesDeburrIgnoreCase(
-        model.talents.map((ms) => ms.name),
-        name
-      )
-    ) {
-      try {
-        const talentToAdd = await this.referential.findTalent(name);
+
+    try {
+      const talentToAdd = await this.referential.findTalent(name);
+      if (
+        !StringUtil.arrayIncludesDeburrIgnoreCase(
+          model.talents.map((ms) => ms.name),
+          talentToAdd.name
+        )
+      ) {
         model.talents.push(talentToAdd);
-      } catch (e) {
-        console.warn('Cant find Talent : ' + name);
       }
+    } catch (e) {
+      console.warn('Cant find Talent : ' + name);
     }
   }
 
