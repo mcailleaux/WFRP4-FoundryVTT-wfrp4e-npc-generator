@@ -10,10 +10,10 @@ export default class SpeciesChooser {
   ) {
     const dialogId = new Date().getTime();
     const speciesMap = ReferentialUtil.getSpeciesMap();
-    const initSubSpeciesMap =
-      initSpeciesKey != null
-        ? ReferentialUtil.getSpeciesSubSpeciesMap(initSpeciesKey)
-        : null;
+    const defaultSpeciesKey = initSpeciesKey != null ? initSpeciesKey : 'human';
+    const initSubSpeciesMap = ReferentialUtil.getSpeciesSubSpeciesMap(
+      defaultSpeciesKey
+    );
 
     const initSubSpeciesLabelsMap: { [key: string]: string } =
       initSubSpeciesMap != null ? {} : {};
@@ -100,7 +100,10 @@ export default class SpeciesChooser {
                           selectSubSpecies.append(option);
                           
                       }
-                  } 
+                     selectSubSpecies.classList.remove('select-subspecies-no-subspecies');
+                  } else {
+                     selectSubSpecies.classList.add('select-subspecies-no-subspecies'); 
+                  }
                   
               }
           
