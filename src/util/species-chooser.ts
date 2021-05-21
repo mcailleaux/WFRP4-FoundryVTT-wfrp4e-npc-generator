@@ -51,6 +51,12 @@ export default class SpeciesChooser {
                 'speciesChange()'
               )}
               </div>
+              <div id="select-subspecies-random-${dialogId}" class="form-group ${initSubSpeciesContainerClass}">
+              ${DialogUtil.getButtonScript(
+                'WFRP4NPCGEN.common.button.Random',
+                'randomSubSpecies()'
+              )}
+              </div>
               <div id="select-subspecies-container-${dialogId}" class="form-group ${initSubSpeciesContainerClass}">
               ${DialogUtil.getLabelScript(
                 'WFRP4NPCGEN.subspecies.select.label'
@@ -85,6 +91,7 @@ export default class SpeciesChooser {
                   const speciesKey = document.getElementById('select-species-${dialogId}').value;
                   const selectSubSpecies = document.getElementById('select-subspecies-${dialogId}');
                   const selectSubSpeciesContainer = document.getElementById('select-subspecies-container-${dialogId}');
+                  const selectSubSpeciesRandom = document.getElementById('select-subspecies-random-${dialogId}');
                   selectSubSpecies.value = null;
                   selectSubSpecies.innerHTML = '';
                   
@@ -107,8 +114,10 @@ export default class SpeciesChooser {
                           
                       }
                      selectSubSpeciesContainer.classList.remove('select-subspecies-no-subspecies');
+                     selectSubSpeciesRandom.classList.remove('select-subspecies-no-subspecies');
                   } else {
                      selectSubSpeciesContainer.classList.add('select-subspecies-no-subspecies'); 
+                     selectSubSpeciesRandom.classList.add('select-subspecies-no-subspecies'); 
                   }
                   
               }
@@ -120,6 +129,25 @@ export default class SpeciesChooser {
                   const randomSpeciesKey = getRandomValue(speciesKeys);
                   if (randomSpeciesKey != null) {
                       document.getElementById('select-species-${dialogId}').value = randomSpeciesKey;
+                  }
+              }
+          
+              function randomSubSpecies() {
+                    const subSpeciesKeys = \{
+                      ${Object.entries(subSpeciesMap)
+                        .map(
+                          ([key, value]) =>
+                            `"${key}": [${Object.keys(value)
+                              .map((subKey) => `"${subKey}"`)
+                              .join(',')}]`
+                        )
+                        .join(',')}
+                  \};
+                    const speciesKey = document.getElementById('select-species-${dialogId}').value;
+                                                  
+                  const randomSubSpeciesKey = getRandomValue(subSpeciesKeys[speciesKey]);
+                  if (randomSubSpeciesKey != null) {
+                      document.getElementById('select-subspecies-${dialogId}').value = randomSubSpeciesKey;
                   }
               }
               
