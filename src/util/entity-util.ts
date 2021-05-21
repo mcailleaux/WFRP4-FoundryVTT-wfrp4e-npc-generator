@@ -53,6 +53,7 @@ export default class EntityUtil {
     }
     const matchName = StringUtil.toDeburrLowerCase(name).trim();
     let findByVo = false;
+    let findByVoExactMatch = false;
     let result = entities.find((e: Item & any) =>
       StringUtil.equalsDeburrIgnoreCase(e.name.trim(), matchName)
     );
@@ -64,6 +65,7 @@ export default class EntityUtil {
         )
       );
       findByVo = result != null;
+      findByVoExactMatch = result != null;
     }
     if (result == null) {
       const simpleMatchName = StringUtil.toDeburrLowerCase(
@@ -88,7 +90,7 @@ export default class EntityUtil {
     if (result != null) {
       const data = duplicate(result.data);
       if (findByVo) {
-        if (name.includes('(')) {
+        if (!findByVoExactMatch && name.includes('(')) {
           const tradSimpleName = StringUtil.getSimpleName(data.name).trim();
           const groupName = StringUtil.getGroupName(name).trim();
           data.name = `${tradSimpleName} (${groupName})`;
