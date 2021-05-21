@@ -176,7 +176,7 @@ export default class SpeciesChooser {
               : null;
           if (subSpeciesKey != null) {
             speciesValue +=
-              ', ' + subSpeciesMap[speciesKey][subSpeciesKey].name;
+              ' (' + subSpeciesMap[speciesKey][subSpeciesKey].name + ')';
           }
           callback(speciesKey, speciesValue, <string>subSpeciesKey);
         }),
