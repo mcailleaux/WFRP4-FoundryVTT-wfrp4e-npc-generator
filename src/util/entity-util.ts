@@ -47,10 +47,7 @@ export default class EntityUtil {
     return result;
   }
 
-  public static find(name: string, entities: Item[]): Item | null {
-    if (name == null || entities?.length <= 0) {
-      return null;
-    }
+  public static find(name: string, entities: Item[]): Item {
     const matchName = StringUtil.toDeburrLowerCase(name).trim();
     let result = entities.find(
       (e: Item & any) =>
