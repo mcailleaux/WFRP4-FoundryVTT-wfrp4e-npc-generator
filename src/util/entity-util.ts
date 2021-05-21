@@ -52,33 +52,50 @@ export default class EntityUtil {
       return null;
     }
     const matchName = StringUtil.toDeburrLowerCase(name).trim();
-    let result = entities.find(
-      (e: Item & any) =>
-        StringUtil.equalsDeburrIgnoreCase(e.name.trim(), matchName) ||
+    let findByVo = false;
+    let result = entities.find((e: Item & any) =>
+      StringUtil.equalsDeburrIgnoreCase(e.name.trim(), matchName)
+    );
+    if (result == null) {
+      result = entities.find((e: Item & any) =>
         StringUtil.equalsDeburrIgnoreCase(
           e.data.originalName?.trim(),
           matchName
         )
-    );
+      );
+      findByVo = result != null;
+    }
     if (result == null) {
       const simpleMatchName = StringUtil.toDeburrLowerCase(
         StringUtil.getSimpleName(name)
       ).trim();
-      result = entities.find(
-        (e: Item & any) =>
-          StringUtil.equalsDeburrIgnoreCase(
-            StringUtil.getSimpleName(e.name).trim(),
-            simpleMatchName
-          ) ||
+      result = entities.find((e: Item & any) =>
+        StringUtil.equalsDeburrIgnoreCase(
+          StringUtil.getSimpleName(e.name).trim(),
+          simpleMatchName
+        )
+      );
+      if (result == null) {
+        result = entities.find((e: Item & any) =>
           StringUtil.equalsDeburrIgnoreCase(
             StringUtil.getSimpleName(e.data.originalName)?.trim(),
             simpleMatchName
           )
-      );
+        );
+        findByVo = result != null;
+      }
     }
     if (result != null) {
       const data = duplicate(result.data);
-      data.name = name;
+      if (findByVo) {
+        if (name.includes('(')) {
+          const tradSimpleName = StringUtil.getSimpleName(data.name).trim();
+          const groupName = StringUtil.getGroupName(name).trim();
+          data.name = `${tradSimpleName} (${groupName})`;
+        }
+      } else {
+        data.name = name;
+      }
       return data;
     }
     return null;
