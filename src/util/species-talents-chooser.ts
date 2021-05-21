@@ -17,11 +17,25 @@ export default class SpeciesTalentsChooser {
       for (let talent of ReferentialUtil.getSubSpeciesMap()[speciesKey][
         subSpeciesKey
       ].talents) {
-        const refTalent = await ReferentialUtil.findTalent(talent);
-        if (refTalent != null) {
-          subSpeciesTalents.push(refTalent.name);
+        if (talent.includes(',')) {
+          const splited = talent.split(',');
+          const result: string[] = [];
+          for (let t of splited) {
+            const refTalent = await ReferentialUtil.findTalent(t);
+            if (refTalent != null) {
+              result.push(refTalent.name);
+            } else {
+              result.push(talent);
+            }
+          }
+          subSpeciesTalents.push(result.join(', '));
         } else {
-          subSpeciesTalents.push(talent);
+          const refTalent = await ReferentialUtil.findTalent(talent);
+          if (refTalent != null) {
+            subSpeciesTalents.push(refTalent.name);
+          } else {
+            subSpeciesTalents.push(talent);
+          }
         }
       }
     }
