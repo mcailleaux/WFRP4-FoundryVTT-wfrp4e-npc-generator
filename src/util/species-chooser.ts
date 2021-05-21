@@ -6,10 +6,15 @@ export default class SpeciesChooser {
   public static async selectSpecies(
     initSpeciesKey: string,
     initSubSpeciesKey: string,
-    callback: (speciesKey: string, speciesValue: string) => void
+    callback: (
+      speciesKey: string,
+      speciesValue: string,
+      subSpeciesKey: string
+    ) => void
   ) {
     const dialogId = new Date().getTime();
     const speciesMap = ReferentialUtil.getSpeciesMap();
+    const subSpeciesMap = ReferentialUtil.getSubSpeciesMap();
     const defaultSpeciesKey = initSpeciesKey != null ? initSpeciesKey : 'human';
     const initSubSpeciesMap = ReferentialUtil.getSpeciesSubSpeciesMap(
       defaultSpeciesKey
@@ -23,7 +28,7 @@ export default class SpeciesChooser {
       }
     }
 
-    const initSubSpeciesClass =
+    const initSubSpeciesContainerClass =
       initSubSpeciesMap != null ? '' : 'select-subspecies-no-subspecies';
 
     new Dialog(
@@ -45,16 +50,14 @@ export default class SpeciesChooser {
                 'speciesChange()'
               )}
               </div>
-              <div class="form-group">
+              <div id="select-subspecies-container-${dialogId}" class="form-group ${initSubSpeciesContainerClass}">
               ${DialogUtil.getLabelScript(
                 'WFRP4NPCGEN.subspecies.select.label'
               )}
               ${DialogUtil.getSelectScript(
                 `select-subspecies-${dialogId}`,
                 initSubSpeciesLabelsMap,
-                initSubSpeciesKey,
-                undefined,
-                initSubSpeciesClass
+                initSubSpeciesKey
               )}
               </div>
           </form>
@@ -62,7 +65,7 @@ export default class SpeciesChooser {
           
                 function speciesChange() {
                   const subSpecies = \{
-                      ${Object.entries(ReferentialUtil.getSubSpeciesMap())
+                      ${Object.entries(subSpeciesMap)
                         .map(
                           ([key, value]) =>
                             `"${key}": {${Object.entries(value)
@@ -80,6 +83,7 @@ export default class SpeciesChooser {
                   
                   const speciesKey = document.getElementById('select-species-${dialogId}').value;
                   const selectSubSpecies = document.getElementById('select-subspecies-${dialogId}');
+                  const selectSubSpeciesContainer = document.getElementById('select-subspecies-container-${dialogId}');
                   selectSubSpecies.value = null;
                   selectSubSpecies.innerHTML = '';
                   
@@ -100,9 +104,9 @@ export default class SpeciesChooser {
                           selectSubSpecies.append(option);
                           
                       }
-                     selectSubSpecies.classList.remove('select-subspecies-no-subspecies');
+                     selectSubSpeciesContainer.classList.remove('select-subspecies-no-subspecies');
                   } else {
-                     selectSubSpecies.classList.add('select-subspecies-no-subspecies'); 
+                     selectSubSpeciesContainer.classList.add('select-subspecies-no-subspecies'); 
                   }
                   
               }
@@ -132,8 +136,15 @@ export default class SpeciesChooser {
           const speciesKey = <string>(
             html.find(`#select-species-${dialogId}`).val()
           );
-          const speciesValue = speciesMap[speciesKey];
-          callback(speciesKey, speciesValue);
+          let speciesValue = speciesMap[speciesKey];
+          const subSpeciesKey = <string>(
+            html.find(`#select-subspecies-${dialogId}`).val()
+          );
+          if (subSpeciesKey != null) {
+            speciesValue +=
+              ' (' + subSpeciesMap[speciesKey][subSpeciesKey] + ')';
+          }
+          callback(speciesKey, speciesValue, subSpeciesKey);
         }),
         default: 'yes',
       },

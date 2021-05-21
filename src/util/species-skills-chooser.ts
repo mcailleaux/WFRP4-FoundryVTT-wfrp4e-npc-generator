@@ -7,11 +7,19 @@ export default class SpeciesSkillsChooser {
     initMajors: string[],
     initMinors: string[],
     speciesKey: string,
+    subSpeciesKey: string,
     callback: (major: string[], minor: string[]) => void,
     undo: () => void
   ) {
     const dialogId = new Date().getTime();
-    const speciesSkillsMap = ReferentialUtil.getSpeciesSkillsMap();
+    const speciesSkillsMap =
+      subSpeciesKey != null
+        ? {
+            [speciesKey]: ReferentialUtil.getSubSpeciesMap()[speciesKey][
+              subSpeciesKey
+            ].skills,
+          }
+        : ReferentialUtil.getSpeciesSkillsMap();
     new Dialog(
       {
         title: game.i18n.localize('WFRP4NPCGEN.species.skills.select.title'),

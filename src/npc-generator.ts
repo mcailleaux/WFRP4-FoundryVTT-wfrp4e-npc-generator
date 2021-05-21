@@ -71,7 +71,7 @@ export default class NpcGenerator {
     await this.speciesChooser.selectSpecies(
       model.speciesKey,
       model.subSpeciesKey,
-      (key: string, value: string) => {
+      (key: string, value: string, subKey: string) => {
         if (model.speciesKey != null && model.speciesKey !== key) {
           model.speciesSkills = {
             major: [],
@@ -81,6 +81,7 @@ export default class NpcGenerator {
         }
         model.speciesKey = key;
         model.speciesValue = value;
+        model.subSpeciesKey = subKey;
 
         this.selectCareer(model, callback);
       }
@@ -113,6 +114,7 @@ export default class NpcGenerator {
       model.speciesSkills.major,
       model.speciesSkills.minor,
       model.speciesKey,
+      model.subSpeciesKey,
       (major: string[], minor: string[]) => {
         model.speciesSkills.major = major;
         model.speciesSkills.minor = minor;
@@ -131,6 +133,7 @@ export default class NpcGenerator {
     await this.speciesTalentsChooser.selectSpeciesTalents(
       model.speciesTalents,
       model.speciesKey,
+      model.subSpeciesKey,
       (talents: string[]) => {
         model.speciesTalents = talents;
         this.selectName(model, callback);

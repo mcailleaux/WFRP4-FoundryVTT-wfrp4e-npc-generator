@@ -6,11 +6,19 @@ export default class SpeciesTalentsChooser {
   public static async selectSpeciesTalents(
     initTalents: string[],
     speciesKey: string,
+    subSpeciesKey: string,
     callback: (speciesTalents: string[]) => void,
     undo: () => void
   ) {
     const dialogId = new Date().getTime();
-    const speciesTalentsMap = ReferentialUtil.getSpeciesTalentsMap();
+    const speciesTalentsMap =
+      subSpeciesKey != null
+        ? {
+            [speciesKey]: ReferentialUtil.getSubSpeciesMap()[speciesKey][
+              subSpeciesKey
+            ].talents,
+          }
+        : ReferentialUtil.getSpeciesTalentsMap();
     const speciesTalent: string[] = speciesTalentsMap[speciesKey].filter(
       (talent: string, index) =>
         index !== speciesTalentsMap[speciesKey].length - 1 &&
