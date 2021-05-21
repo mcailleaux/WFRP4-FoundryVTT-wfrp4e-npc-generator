@@ -115,10 +115,28 @@ export default class NpcGenerator {
       model.speciesSkills.minor,
       model.speciesKey,
       model.subSpeciesKey,
-      (major: string[], minor: string[]) => {
-        model.speciesSkills.major = major;
-        model.speciesSkills.minor = minor;
-        this.selectSpeciesTalents(model, callback);
+      async (major: string[], minor: string[]) => {
+        model.speciesSkills = {
+          major: [],
+          minor: [],
+        };
+        for (let skill of major) {
+          const refSkill = await ReferentialUtil.findSkill(skill);
+          if (refSkill != null) {
+            model.speciesSkills.major.push(refSkill.name);
+          } else {
+            model.speciesSkills.major.push(skill);
+          }
+        }
+        for (let skill of minor) {
+          const refSkill = await ReferentialUtil.findSkill(skill);
+          if (refSkill != null) {
+            model.speciesSkills.minor.push(refSkill.name);
+          } else {
+            model.speciesSkills.minor.push(skill);
+          }
+        }
+        await this.selectSpeciesTalents(model, callback);
       },
       () => {
         this.selectCareer(model, callback);
@@ -134,9 +152,18 @@ export default class NpcGenerator {
       model.speciesTalents,
       model.speciesKey,
       model.subSpeciesKey,
-      (talents: string[]) => {
+      async (talents: string[]) => {
+        model.speciesTalents = [];
+        for (let talent of talents) {
+          const refTalent = await ReferentialUtil.findTalent(talent);
+          if (refTalent != null) {
+            model.speciesTalents.push(refTalent.name);
+          } else {
+            model.speciesTalents.push(talent);
+          }
+        }
         model.speciesTalents = talents;
-        this.selectName(model, callback);
+        await this.selectName(model, callback);
       },
       () => {
         this.selectSpeciesSkills(model, callback);
