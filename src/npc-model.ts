@@ -4,6 +4,7 @@ export default class NpcModel {
   public speciesKey: string;
   public subSpeciesKey: string;
   public speciesValue: string;
+  public cityBorn: string;
   public selectedCareers: Item[] = [];
   public career: Item.Data;
   public status: string;

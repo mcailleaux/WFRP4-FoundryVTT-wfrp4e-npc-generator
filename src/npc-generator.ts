@@ -73,7 +73,8 @@ export default class NpcGenerator {
     await this.speciesChooser.selectSpecies(
       model.speciesKey,
       model.subSpeciesKey,
-      (key: string, value: string, subKey: string) => {
+      model.cityBorn,
+      (key: string, value: string, subKey: string, cityBorn: string) => {
         if (model.speciesKey != null && model.speciesKey !== key) {
           model.speciesSkills = {
             major: [],
@@ -84,6 +85,7 @@ export default class NpcGenerator {
         model.speciesKey = key;
         model.speciesValue = value;
         model.subSpeciesKey = subKey;
+        model.cityBorn = cityBorn;
 
         this.selectCareer(model, callback);
       }
@@ -206,6 +208,9 @@ export default class NpcGenerator {
 
         console.log('Prepare Native Tongue');
         await this.addNativeTongueSkill(model);
+
+        console.log('Prepare City Born');
+        await this.addCityBornSkill(model);
 
         console.log('Prepare Career Skills');
         await this.addCareerSkill(model);
@@ -478,6 +483,20 @@ export default class NpcGenerator {
       model,
       game.i18n.localize(`WFRP4NPCGEN.native.tongue.${model.speciesKey}`)
     );
+  }
+
+  private static async addCityBornSkill(model: NpcModel) {
+    const loreSkill = await ReferentialUtil.findSkill('Lore');
+    if (
+      model.cityBorn != null &&
+      model.cityBorn.length > 0 &&
+      loreSkill != null
+    ) {
+      await this.addSkill(
+        model,
+        `${StringUtil.getSimpleName(loreSkill.name)} (${model.cityBorn})`
+      );
+    }
   }
 
   private static async addSkills(model: NpcModel, names: string[]) {

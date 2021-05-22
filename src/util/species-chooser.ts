@@ -6,10 +6,12 @@ export default class SpeciesChooser {
   public static async selectSpecies(
     initSpeciesKey: string,
     initSubSpeciesKey: string,
+    initCityBorn: string,
     callback: (
       speciesKey: string,
       speciesValue: string,
-      subSpeciesKey: string
+      subSpeciesKey: string,
+      cityBorn: string
     ) => void
   ) {
     const dialogId = new Date().getTime();
@@ -66,6 +68,15 @@ export default class SpeciesChooser {
                 initSubSpeciesLabelsMap,
                 initSubSpeciesKey
               )}
+              </div>
+              <div class="form-group">
+              ${DialogUtil.getLabelScript('WFRP4NPCGEN.cityborn.select.label')}
+              ${DialogUtil.getInputScript({
+                id: `select-cityborn-${dialogId}`,
+                type: 'text',
+                initValue: initCityBorn,
+                name: 'select-cityborn',
+              })}
               </div>
           </form>
           <script>  
@@ -178,7 +189,15 @@ export default class SpeciesChooser {
             speciesValue +=
               ' (' + subSpeciesMap[speciesKey][subSpeciesKey].name + ')';
           }
-          callback(speciesKey, speciesValue, <string>subSpeciesKey);
+          const cityBorn = <string>(
+            html.find(`#select-cityborn-${dialogId}`).val()
+          );
+          callback(
+            speciesKey,
+            speciesValue,
+            <string>subSpeciesKey,
+            cityBorn?.trim()
+          );
         }),
         default: 'yes',
       },
