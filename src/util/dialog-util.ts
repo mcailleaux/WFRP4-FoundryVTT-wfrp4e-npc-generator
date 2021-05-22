@@ -387,6 +387,8 @@ export default class DialogUtil {
                     classes: `${options.id}-text`,
                     style: 'min-width: 80px; max-width: 80px;',
                   })
+                : options.withText
+                ? this.getLabelScript('', 'min-width: 80px; max-width: 80px;')
                 : ''
             }
             <button
@@ -451,6 +453,7 @@ export default class DialogUtil {
                 inputCount.style.minWidth = '80px';
             }
             let inputText = null;
+            let disabledText = null;
             if (withText && itemWithText) {
                 inputText = document.createElement('input');
                 inputText.id = id + '-' + key + '-text';
@@ -459,6 +462,10 @@ export default class DialogUtil {
                 inputText.classList.add(id + '-text');
                 inputText.style.maxWidth = '80px';
                 inputText.style.minWidth = '80px';
+            } else if (withText) {
+                disabledText = document.createElement('label');
+                disabledText.style.maxWidth = '80px';
+                disabledText.style.minWidth = '80px';
             }
             const button = document.createElement('button');
             button.value = key;
@@ -481,6 +488,9 @@ export default class DialogUtil {
             }
             if (inputText != null) {
                 div.append(inputText);
+            }
+            if (disabledText != null) {
+                div.append(disabledText);
             }
             div.append(button);
             
