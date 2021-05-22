@@ -222,14 +222,14 @@ export default class NpcAbilitiesChooser {
         buttons: DialogUtil.getDialogButtons(
           dialogId,
           (html: JQuery) => {
-            const skills: Item.Data[] = [];
-            const talents: Item.Data[] = [];
-            const traits: Item.Data[] = [];
+            const resultSkills: Item.Data[] = [];
+            const resultTalents: Item.Data[] = [];
+            const resultTraits: Item.Data[] = [];
 
             html.find(`.${traitsId}`).each((_i, r: HTMLInputElement) => {
               const key = r.value;
               const trait = <Item.Data & any>traits.find((t) => t._id === key);
-              traits.push(trait);
+              resultTraits.push(trait);
             });
 
             html.find(`.${skillsId}`).each((_i, r: HTMLInputElement) => {
@@ -241,7 +241,7 @@ export default class NpcAbilitiesChooser {
               });
               const skill = <Item.Data & any>skills.find((s) => s._id === key);
               skill.data.advances.value = count;
-              skills.push(skill);
+              resultSkills.push(skill);
             });
 
             html.find(`.${talentsId}`).each((_i, r: HTMLInputElement) => {
@@ -255,10 +255,10 @@ export default class NpcAbilitiesChooser {
                 talents.find((t) => t._id === key)
               );
               talent.data.advances.value = count;
-              talents.push(talent);
+              resultTalents.push(talent);
             });
 
-            callback(skills, talents, traits);
+            callback(resultSkills, resultTalents, resultTraits);
           },
           undo
         ),
