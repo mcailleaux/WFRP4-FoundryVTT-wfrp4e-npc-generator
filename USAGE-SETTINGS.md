@@ -1,6 +1,7 @@
 # Settings
 
 ![Settings](media/wfrp4e-npc-gen-settings.png)
+![Settings](media/wfrp4e-npc-gen-settings4.png)
 ![Settings](media/wfrp4e-npc-gen-settings2.png)
 ![Settings](media/wfrp4e-npc-gen-settings3.png)
 

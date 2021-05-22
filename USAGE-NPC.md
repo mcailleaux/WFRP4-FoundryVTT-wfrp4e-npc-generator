@@ -4,7 +4,7 @@
 
 ![Actor Sidebar button](media/wfrp4e-npc-gen-sidebar-button.png)
 
-### 1 you choose a species
+### 1 you choose a species and optional subspecies and Birth Place
 
 ![Species Chooser](./media/wfrp4e-species-chooser.png)
 
@@ -30,6 +30,7 @@
 
 - Include class trappings : check it if you want to include class trapping on generated NPC
 - Include career trappings : check it if you want to include career trapping (if founded) on generated NPC
+- Edit Abilities : check it if you want to add/remove skills/talents/traits before generation
 - Edit Trappings : check it if you want to add/remove trappings before generation
 - Add Spells and/or Prayers : check it if you want to add/remove spells and or prayers before generation
 - Add Mutations : check it if you want to add/remove mutations before generation
@@ -50,15 +51,20 @@
   - Image : The path for the generated NPC image
   - Token : The path for the generated NPC token image (random is set to true if a wildcard is present)
 
-### 7 (optional) you add/remove trappings
+### 7 (optional) you add/remove skills/talents/traits
+
+![Abilities Chooser](./media/wfrp4e-abilities-chooser.png)
+![Abilities Chooser](./media/wfrp4e-abilities-chooser2.png)
+
+### 8 (optional) you add/remove trappings
 
 ![Trappings Chooser](./media/wfrp4e-trappings-chooser.png)
 
-### 8 (optional) you add/remove spells and/or prayers
+### 9 (optional) you add/remove spells and/or prayers
 
 ![Magics Chooser](./media/wfrp4e-magics-chooser.png)
 
-### 9 (optional) you add/remove mutations
+### 10 (optional) you add/remove mutations
 
 ![Mutations Chooser](./media/wfrp4e-mutations-chooser.png)
 

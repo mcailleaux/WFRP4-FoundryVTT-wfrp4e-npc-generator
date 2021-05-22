@@ -64,7 +64,7 @@ Estimation :
   - If more than one career are selected during the career chooser step :
     - The career path is your selections of careers in the same order
 - All careers are completed and the last career of the career path is the current
-- Actor have all his career skills, species skills, native tongue skill and basic skills
+- Actor have all his career skills, species skills, native tongue skill, basic skills and Lore(Birth Place) if choosing
   - All career skills have 5 x career level advance
   - Majors species skill have 5 advance if not present in career
   - Minors species skill have 3 advance if not present in career
@@ -82,6 +82,8 @@ Estimation :
 - If active, actor can be linked to his token
 - If active, actor can be generated with random money
 - If active, actor can be generated with random weapons
+- If active, skills/talents/traits can be edited just before generation
+  - Advance and groups can be edited in this step
 - If active, Trappings can be edited just before generation
 - If active, Spells, Prayers and mutations can be added just before generation
 

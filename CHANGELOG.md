@@ -1,9 +1,13 @@
 ## In development
 
-- Add a select folder button
-- Add city born to first step
 - create a chat command
 - Manage other language
+
+## 1.6.1
+
+### New features
+
+- Deutsch support for 1.5.0
 
 ## 1.6.0
 
@@ -13,12 +17,7 @@
 - Select a subspecies on species choosing step (wfrp-core 3.6.0 +)
 - Use cache skills and Talents when find for npc generator
 - Add optional Step to edit specialisations after generation
-
-## 1.5.2
-
-### New features
-
-- Deutsch support for 1.5.0
+- Add city born to first step
 
 ## 1.5.1
 
