@@ -17,6 +17,7 @@ export default class NpcModel {
   public name: string;
   public skills: Item.Data[] = [];
   public talents: Item.Data[] = [];
+  public traits: Item.Data[] = [];
   public trappingsStr: string[] = [];
   public trappings: Item.Data[] = [];
   public spells: Item.Data[] = [];

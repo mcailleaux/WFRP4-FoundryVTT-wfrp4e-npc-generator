@@ -133,5 +133,8 @@
   "WFRP4NPCGEN.settings.defaultCreatureAddMutations.name": "Add Mutations (Creature)",
   "WFRP4NPCGEN.settings.defaultCreatureAddMutations.hint": "Default selected value for the option 'Add mutations' on the options generation chooser when you generate a Creature",
   "WFRP4NPCGEN.subspecies.select.title": "Choose an Ethnicity",
-  "WFRP4NPCGEN.subspecies.select.label": "Ethnicity"
+  "WFRP4NPCGEN.subspecies.select.label": "Ethnicity",
+  "WFRP4NPCGEN.settings.defaultEditAbilities.name": "Edit Abilities",
+  "WFRP4NPCGEN.settings.defaultEditAbilities.hint": "Default selected value for the option 'edit abilities' on the options generation chooser when you generate a NPC",
+  "WFRP4NPCGEN.options.select.editAbilities.label": "Edit Abilities"
 }

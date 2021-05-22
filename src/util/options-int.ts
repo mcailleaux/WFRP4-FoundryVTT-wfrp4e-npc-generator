@@ -12,6 +12,7 @@ export interface IOptions {
   genPath: string;
   imagePath: string | null;
   tokenPath: string | null;
+  editAbilities: boolean;
   editTrappings: boolean;
   addMagics: boolean;
   addMutations: boolean;

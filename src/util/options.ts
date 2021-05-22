@@ -53,6 +53,11 @@ export default class Options implements IOptions {
 
   public tokenPath: string | null = null;
 
+  public editAbilities = game.settings.get(
+    RegisterSettings.moduleName,
+    'defaultEditAbilities'
+  );
+
   public editTrappings = game.settings.get(
     RegisterSettings.moduleName,
     'defaultEditTrappings'

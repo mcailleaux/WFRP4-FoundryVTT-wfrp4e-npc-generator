@@ -82,6 +82,23 @@ export default class OptionsChooser {
               </div>
     `;
 
+    const editAbilities = forCreature
+      ? ''
+      : `
+              <div class="form-group">
+              ${DialogUtil.getLabelScript(
+                'WFRP4NPCGEN.options.select.editAbilities.label'
+              )}
+              ${DialogUtil.getInputScript({
+                id: `select-edit-abilities-${dialogId}`,
+                type: 'checkbox',
+                name: 'select-edit-abilities',
+                initValue: initOptions != null && initOptions.editAbilities,
+                checked: initOptions != null && initOptions.editAbilities,
+              })}
+              </div>       
+    `;
+
     const generateWeaponEffect = forCreature
       ? ''
       : `
@@ -137,7 +154,8 @@ export default class OptionsChooser {
         title: game.i18n.localize('WFRP4NPCGEN.options.select.title'),
         content: `<form>
               ${withClassTrappings}
-              ${withCareerTrappings}             
+              ${withCareerTrappings}                         
+              ${editAbilities}                         
               <div class="form-group">
               ${DialogUtil.getLabelScript(
                 'WFRP4NPCGEN.options.select.editTrappings.label'
@@ -303,6 +321,11 @@ export default class OptionsChooser {
               .find(`#select-with-career-trappings-${dialogId}`)
               .each((_i, r: HTMLInputElement) => {
                 options.withCareerTrappings = r.checked;
+              });
+            html
+              .find(`#select-edit-abilities-${dialogId}`)
+              .each((_i, r: HTMLInputElement) => {
+                options.editAbilities = r.checked;
               });
             html
               .find(`#select-edit-trappings-${dialogId}`)

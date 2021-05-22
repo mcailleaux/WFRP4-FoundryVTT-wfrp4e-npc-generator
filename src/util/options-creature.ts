@@ -40,6 +40,8 @@ export default class OptionsCreature implements IOptions {
 
   public tokenPath: string | null = null;
 
+  public editAbilities: boolean = false;
+
   public editTrappings = game.settings.get(
     RegisterSettings.moduleName,
     'defaultCreatureEditTrappings'

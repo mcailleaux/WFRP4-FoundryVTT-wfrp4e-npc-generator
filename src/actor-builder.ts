@@ -58,6 +58,9 @@ export class ActorBuilder {
     let actor: Actor = <Actor>await Actor.create(data);
     await actor.createOwnedItem(model.skills);
     await actor.createOwnedItem(model.talents);
+    if (model.traits.length > 0) {
+      await actor.createOwnedItem(model.traits);
+    }
     if (model.trappings.length > 0) {
       await actor.createOwnedItem(model.trappings);
     }

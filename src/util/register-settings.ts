@@ -176,6 +176,19 @@ export default class RegisterSettings {
       default: false,
     });
 
+    game.settings.register(moduleName, 'defaultEditAbilities', {
+      name: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultEditAbilities.name'
+      ),
+      hint: game.i18n.localize(
+        'WFRP4NPCGEN.settings.defaultEditAbilities.hint'
+      ),
+      scope: 'world',
+      config: true,
+      type: Boolean,
+      default: false,
+    });
+
     game.settings.register(moduleName, 'defaultEditTrappings', {
       name: game.i18n.localize(
         'WFRP4NPCGEN.settings.defaultEditTrappings.name'

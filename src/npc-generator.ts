@@ -18,6 +18,7 @@ import TrappingChooser from './util/trapping-chooser.js';
 import WaiterUtil from './util/waiter-util.js';
 import MagicsChooser from './util/magics-chooser.js';
 import MutationsChooser from './util/mutations-chooser.js';
+import NpcAbilitiesChooser from './util/npc-abilities-chooser.js';
 
 export default class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
@@ -30,6 +31,7 @@ export default class NpcGenerator {
   public static readonly referential = ReferentialUtil;
   public static readonly compendium = CompendiumUtil;
   public static readonly trapping = TrappingUtil;
+  public static readonly abilitiesChooser = NpcAbilitiesChooser;
   public static readonly trappingChooser = TrappingChooser;
   public static readonly magicsChooser = MagicsChooser;
   public static readonly mutationsChooser = MutationsChooser;
@@ -247,18 +249,46 @@ export default class NpcGenerator {
     );
   }
 
+  private static async editAbilities(
+    model: NpcModel,
+    callback: (model: NpcModel) => void
+  ) {
+    if (model.options.editAbilities) {
+      await WaiterUtil.hide(false);
+      await this.abilitiesChooser.selectNpcAbilities(
+        model.skills,
+        model.talents,
+        model.traits,
+        async (skills, talents, traits) => {
+          model.skills = skills;
+          model.talents = talents;
+          model.traits = traits;
+          await this.editTrappings(model, callback);
+        }
+      );
+    } else {
+      await this.editTrappings(model, callback);
+    }
+  }
+
   private static async editTrappings(
     model: NpcModel,
     callback: (model: NpcModel) => void
   ) {
     if (model.options.editTrappings) {
+      const undo = model.options.editAbilities
+        ? () => {
+            this.editAbilities(model, callback);
+          }
+        : undefined;
       await WaiterUtil.hide(false);
       await this.trappingChooser.selectTrappings(
         model.trappings,
         async (trappings) => {
           model.trappings = trappings;
           await this.editMagics(model, callback);
-        }
+        },
+        undo
       );
     } else {
       await this.editMagics(model, callback);
