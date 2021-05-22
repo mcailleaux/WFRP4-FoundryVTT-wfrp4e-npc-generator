@@ -1,5 +1,6 @@
 import StringUtil from './string-util.js';
 import deburr from './lodash/deburr.js';
+import RandomUtil from './random-util.js';
 
 export default class EntityUtil {
   public static match(item: any, ref: Item & any): boolean {
@@ -89,6 +90,7 @@ export default class EntityUtil {
     }
     if (result != null) {
       const data = duplicate(result.data);
+      data._id = RandomUtil.getRandomId();
       if (findByVo) {
         if (!findByVoExactMatch && name.includes('(')) {
           const tradSimpleName = StringUtil.getSimpleName(data.name).trim();
