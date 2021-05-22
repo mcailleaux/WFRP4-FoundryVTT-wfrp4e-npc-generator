@@ -104,4 +104,8 @@ export default class EntityUtil {
     }
     return null;
   }
+
+  public static hasGroupName(name: string): boolean {
+    return name?.includes('(') && name?.includes(')');
+  }
 }

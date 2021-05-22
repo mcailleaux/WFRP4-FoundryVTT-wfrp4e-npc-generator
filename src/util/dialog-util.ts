@@ -242,6 +242,8 @@ export default class DialogUtil {
       value: string;
       check?: boolean;
       count?: number;
+      withText?: boolean;
+      text?: string;
     }[];
     options?: { [key: string]: string };
     optionGroups?: { [group: string]: { [key: string]: string } };
@@ -254,6 +256,7 @@ export default class DialogUtil {
     withCheck?: boolean;
     withCount?: boolean;
     initCount?: number;
+    withText?: boolean;
   }): string {
     const flexRow =
       'display: flex; flex-direction: row; justify-content: space-between; align-items: stretch;';
@@ -291,7 +294,7 @@ export default class DialogUtil {
       options.withCheck != null && options.withCheck
     }, ${options.withCount != null && options.withCount}, ${
       options.initCount ?? 0
-    })"
+    }, ${options.withText != null && options.withText})"
         >
           <i style="pointer-events: none;" class="fas fa-plus"></i>
         </button>
@@ -316,6 +319,7 @@ export default class DialogUtil {
           item: item,
           withCheck: options.withCheck,
           withCount: options.withCount,
+          withText: options.withText,
         })}
         `
           )
@@ -327,9 +331,17 @@ export default class DialogUtil {
 
   public static getRemovableItemScript(options: {
     id: string;
-    item: { key: string; value: string; check?: boolean; count?: number };
+    item: {
+      key: string;
+      value: string;
+      check?: boolean;
+      count?: number;
+      withText?: boolean;
+      text?: string;
+    };
     withCheck?: boolean;
     withCount?: boolean;
+    withText?: boolean;
   }) {
     const flexRow =
       'display: flex; flex-direction: row; justify-content: space-between; align-items: stretch;';
@@ -366,6 +378,17 @@ export default class DialogUtil {
                   })
                 : ''
             }
+            ${
+              options.withText && options.item.withText
+                ? this.getInputScript({
+                    id: `${options.id}-${options.item.key}-text`,
+                    type: 'text',
+                    initValue: options.item.text,
+                    classes: `${options.id}-text`,
+                    style: 'min-width: 80px; max-width: 80px;',
+                  })
+                : ''
+            }
             <button
               value="${options.item.key}"
               style="max-width: 32px;"
@@ -380,10 +403,13 @@ export default class DialogUtil {
 
   public static getAddRemoveElementScript(): string {
     return `
-        function addElement(id, withCheck, withCount, initCount) {
+        function addElement(id, withCheck, withCount, initCount, withText) {
             const select = document.getElementById(id);
             const key = select.value;
             const value = select.querySelector('option[value="' + key + '"]').innerHTML;
+            
+            const itemWithText = value.includes('(') && value.includes(')');
+            const initText = itemWithText ? value.substring(value.indexOf('(') + 1, value.indexOf(')')).trim() : '';
             
             const idDiv = id + '-' + key + '-removable'; 
             
@@ -424,6 +450,16 @@ export default class DialogUtil {
                 inputCount.style.maxWidth = '80px';
                 inputCount.style.minWidth = '80px';
             }
+            let inputText = null;
+            if (withText && itemWithText) {
+                inputText = document.createElement('input');
+                inputText.id = id + '-' + key + '-text';
+                inputText.type = 'text';
+                inputText.value = initText;
+                inputText.classList.add(id + '-text');
+                inputText.style.maxWidth = '80px';
+                inputText.style.minWidth = '80px';
+            }
             const button = document.createElement('button');
             button.value = key;
             button.style.maxWidth = '32px';
@@ -442,6 +478,9 @@ export default class DialogUtil {
             }
             if (inputCount != null) {
                 div.append(inputCount);
+            }
+            if (inputText != null) {
+                div.append(inputText);
             }
             div.append(button);
             

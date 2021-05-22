@@ -1,7 +1,7 @@
 ## In development
 
-- Add a create button on folder
-- Add optional Step to edit specialisations after generation
+- Add a select folder button
+- Add city born to first step
 - create a chat command
 - Manage other language
 
@@ -12,6 +12,7 @@
 - Add optional Step to edit NPC abilities after generation
 - Select a subspecies on species choosing step (wfrp-core 3.6.0 +)
 - Use cache skills and Talents when find for npc generator
+- Add optional Step to edit specialisations after generation
 
 ## 1.5.2
 

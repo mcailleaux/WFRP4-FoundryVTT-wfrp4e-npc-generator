@@ -136,5 +136,6 @@
   "WFRP4NPCGEN.subspecies.select.label": "Ethnicity",
   "WFRP4NPCGEN.settings.defaultEditAbilities.name": "Edit Abilities",
   "WFRP4NPCGEN.settings.defaultEditAbilities.hint": "Default selected value for the option 'edit abilities' on the options generation chooser when you generate a NPC",
-  "WFRP4NPCGEN.options.select.editAbilities.label": "Edit Abilities"
+  "WFRP4NPCGEN.options.select.editAbilities.label": "Edit Abilities",
+  "WFRP4NPCGEN.creatures.abilities.select.group.label": "Specialisation"
 }

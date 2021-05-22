@@ -155,6 +155,10 @@ export default class NpcAbilitiesChooser {
               'WFRP4NPCGEN.creatures.abilities.select.advances.label',
               'max-width: 80px;'
             )}
+            ${DialogUtil.getLabelScript(
+              'WFRP4NPCGEN.creatures.abilities.select.group.label',
+              'max-width: 80px;'
+            )}
             ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
             `,
             options: EntityUtil.toSelectOption(skills),
@@ -163,9 +167,14 @@ export default class NpcAbilitiesChooser {
                 key: s._id,
                 value: s.displayName ?? s.name,
                 count: s.data.advances.value,
+                withText: EntityUtil.hasGroupName(s.displayName ?? s.name),
+                text: EntityUtil.hasGroupName(s.displayName ?? s.name)
+                  ? StringUtil.getGroupName(s.displayName ?? s.name)
+                  : '',
               };
             }),
             withCount: true,
+            withText: true,
           })}
           </div>
           <div class="form-group">
@@ -178,6 +187,10 @@ export default class NpcAbilitiesChooser {
               'WFRP4NPCGEN.creatures.abilities.select.advances.label',
               'max-width: 80px;'
             )}
+            ${DialogUtil.getLabelScript(
+              'WFRP4NPCGEN.creatures.abilities.select.group.label',
+              'max-width: 80px;'
+            )}
             ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
             `,
             options: EntityUtil.toSelectOption(talents),
@@ -186,10 +199,15 @@ export default class NpcAbilitiesChooser {
                 key: t._id,
                 value: t.displayName ?? t.name,
                 count: t.data.advances.value,
+                withText: EntityUtil.hasGroupName(t.displayName ?? t.name),
+                text: EntityUtil.hasGroupName(t.displayName ?? t.name)
+                  ? StringUtil.getGroupName(t.displayName ?? t.name)
+                  : '',
               };
             }),
             initCount: 1,
             withCount: true,
+            withText: true,
           })}
           </div>                                   
             <div class="form-group">
@@ -236,11 +254,20 @@ export default class NpcAbilitiesChooser {
               const id = r.id;
               const key = r.value;
               let count = 0;
+              let text = '';
               html.find(`#${id}-count`).each((_i1, r1: HTMLInputElement) => {
                 count = Number(r1.value);
               });
+              html.find(`#${id}-text`).each((_i1, r1: HTMLInputElement) => {
+                text = r1.value;
+              });
               const skill = <Item.Data & any>skills.find((s) => s._id === key);
               skill.data.advances.value = count;
+              if (text != null && text.length > 0) {
+                skill.name = `${StringUtil.getSimpleName(
+                  skill.name
+                )} (${text})`;
+              }
               resultSkills.push(skill);
             });
 
@@ -248,13 +275,22 @@ export default class NpcAbilitiesChooser {
               const id = r.id;
               const key = r.value;
               let count = 0;
+              let text = '';
               html.find(`#${id}-count`).each((_i1, r1: HTMLInputElement) => {
                 count = Number(r1.value);
+              });
+              html.find(`#${id}-text`).each((_i1, r1: HTMLInputElement) => {
+                text = r1.value;
               });
               const talent = <Item.Data & any>(
                 talents.find((t) => t._id === key)
               );
               talent.data.advances.value = count;
+              if (text != null && text.length > 0) {
+                talent.name = `${StringUtil.getSimpleName(
+                  talent.name
+                )} (${text})`;
+              }
               resultTalents.push(talent);
             });
 
