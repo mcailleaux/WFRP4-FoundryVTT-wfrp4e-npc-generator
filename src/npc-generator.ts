@@ -244,7 +244,7 @@ export default class NpcGenerator {
           await this.addTrappings(model);
         }
 
-        await this.editTrappings(model, callback);
+        await this.editAbilities(model, callback);
       }
     );
   }
@@ -254,6 +254,7 @@ export default class NpcGenerator {
     callback: (model: NpcModel) => void
   ) {
     if (model.options.editAbilities) {
+      await CompendiumUtil.getCompendiumActors();
       await WaiterUtil.hide(false);
       await this.abilitiesChooser.selectNpcAbilities(
         model.skills,
