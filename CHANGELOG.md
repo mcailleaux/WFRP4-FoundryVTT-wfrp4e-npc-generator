@@ -7,7 +7,7 @@
 
 ### New features
 
-- Deutsch support for 1.5.0
+- Deutsch support for 1.6.0
 
 ## 1.6.0
 
