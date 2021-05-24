@@ -583,19 +583,21 @@ export default class ReferentialUtil {
     for (let [_key, actors] of Object.entries(actorsMap)) {
       for (let actor of actors) {
         const data: any = actor.data;
-        const newSkills: Item.Data[] = data?.skills
-          ?.map(async (t: Item.Data) => {
-            try {
-              return await this.findSkill(t.name);
-            } catch (e) {
-              return t;
-            }
-          })
-          ?.filter(
-            (t: Item.Data) =>
-              !skillsNames.includes(EntityUtil.toMinimalName(t.name).trim()) &&
-              !t.name.trim().startsWith('(')
-          );
+        const actorSkills: Item.Data[] = [];
+        for (let skill of data.skills) {
+          try {
+            const compendiumSkill = await this.findSkill(skill.name);
+            actorSkills.push(compendiumSkill);
+          } catch (e) {
+            actorSkills.push(skill);
+          }
+        }
+
+        const newSkills: Item.Data[] = actorSkills?.filter(
+          (t: Item.Data) =>
+            !skillsNames.includes(EntityUtil.toMinimalName(t.name).trim()) &&
+            !t.name.trim().startsWith('(')
+        );
         if (newSkills != null && newSkills.length > 0) {
           skillsNames.push(
             ...newSkills.map((t) => EntityUtil.toMinimalName(t.name).trim())
@@ -618,19 +620,21 @@ export default class ReferentialUtil {
     for (let [_key, actors] of Object.entries(actorsMap)) {
       for (let actor of actors) {
         const data: any = actor.data;
-        const newTalents: Item.Data[] = data?.talents
-          ?.map(async (t: Item.Data) => {
-            try {
-              return await this.findTalent(t.name);
-            } catch (e) {
-              return t;
-            }
-          })
-          ?.filter(
-            (t: Item.Data) =>
-              !talentsNames.includes(EntityUtil.toMinimalName(t.name).trim()) &&
-              !t.name.trim().startsWith('(')
-          );
+        const actorTalents: Item.Data[] = [];
+        for (let talent of data.talents) {
+          try {
+            const compendiumTalent = await this.findTalent(talent.name);
+            actorTalents.push(compendiumTalent);
+          } catch (e) {
+            actorTalents.push(talent);
+          }
+        }
+
+        const newTalents: Item.Data[] = actorTalents?.filter(
+          (t: Item.Data) =>
+            !talentsNames.includes(EntityUtil.toMinimalName(t.name).trim()) &&
+            !t.name.trim().startsWith('(')
+        );
         if (newTalents != null && newTalents.length > 0) {
           talentsNames.push(
             ...newTalents.map((t) => EntityUtil.toMinimalName(t.name).trim())
