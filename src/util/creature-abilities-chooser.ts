@@ -46,7 +46,7 @@ export default class CreatureAbilitiesChooser {
             data._id = RandomUtil.getRandomId();
             return data;
           }),
-        ...(await ReferentialUtil.getCompendiumActorSkills())
+        ...(await ReferentialUtil.getCompendiumUsedSkills())
           .filter((s) => {
             return !StringUtil.arrayIncludesDeburrIgnoreCase(
               initSkillsNames,
@@ -81,7 +81,7 @@ export default class CreatureAbilitiesChooser {
             data._id = RandomUtil.getRandomId();
             return data;
           }),
-        ...(await ReferentialUtil.getCompendiumActorTalents())
+        ...(await ReferentialUtil.getCompendiumUsedTalents())
           .filter((t) => {
             return !StringUtil.arrayIncludesDeburrIgnoreCase(
               initTalentsNames,
@@ -125,7 +125,7 @@ export default class CreatureAbilitiesChooser {
             data._id = RandomUtil.getRandomId();
             return data;
           }),
-        ...(await ReferentialUtil.getCompendiumActorTraits())
+        ...(await ReferentialUtil.getCompendiumUsedTraits())
           .filter((t: any) => {
             return (
               !EntityUtil.match(t, swarm) &&

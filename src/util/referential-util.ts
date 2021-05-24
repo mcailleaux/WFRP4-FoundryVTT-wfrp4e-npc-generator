@@ -547,7 +547,7 @@ export default class ReferentialUtil {
     return Promise.resolve(mentalMutations);
   }
 
-  public static async getCompendiumActorTraits() {
+  public static async getCompendiumUsedTraits() {
     const compendiumActorTraits: Item.Data[] = [];
     const traits = await CompendiumUtil.getCompendiumTraits();
     const traitsNames = traits.map((t) =>
@@ -573,7 +573,7 @@ export default class ReferentialUtil {
     return Promise.resolve(compendiumActorTraits);
   }
 
-  public static async getCompendiumActorSkills() {
+  public static async getCompendiumUsedSkills() {
     const compendiumActorSkills: Item.Data[] = [];
     const skills = await CompendiumUtil.getCompendiumSkills();
     const skillsNames = skills.map((t) =>
@@ -583,11 +583,19 @@ export default class ReferentialUtil {
     for (let [_key, actors] of Object.entries(actorsMap)) {
       for (let actor of actors) {
         const data: any = actor.data;
-        const newSkills: Item.Data[] = data?.skills?.filter(
-          (t: Item.Data) =>
-            !skillsNames.includes(EntityUtil.toMinimalName(t.name).trim()) &&
-            !t.name.trim().startsWith('(')
-        );
+        const newSkills: Item.Data[] = data?.skills
+          ?.map(async (t: Item.Data) => {
+            try {
+              return await this.findSkill(t.name);
+            } catch (e) {
+              return t;
+            }
+          })
+          ?.filter(
+            (t: Item.Data) =>
+              !skillsNames.includes(EntityUtil.toMinimalName(t.name).trim()) &&
+              !t.name.trim().startsWith('(')
+          );
         if (newSkills != null && newSkills.length > 0) {
           skillsNames.push(
             ...newSkills.map((t) => EntityUtil.toMinimalName(t.name).trim())
@@ -600,7 +608,7 @@ export default class ReferentialUtil {
     return Promise.resolve(compendiumActorSkills);
   }
 
-  public static async getCompendiumActorTalents() {
+  public static async getCompendiumUsedTalents() {
     const compendiumActorTalents: Item.Data[] = [];
     const talents = await CompendiumUtil.getCompendiumTalents();
     const talentsNames = talents.map((t) =>
@@ -610,11 +618,19 @@ export default class ReferentialUtil {
     for (let [_key, actors] of Object.entries(actorsMap)) {
       for (let actor of actors) {
         const data: any = actor.data;
-        const newTalents: Item.Data[] = data?.talents?.filter(
-          (t: Item.Data) =>
-            !talentsNames.includes(EntityUtil.toMinimalName(t.name).trim()) &&
-            !t.name.trim().startsWith('(')
-        );
+        const newTalents: Item.Data[] = data?.talents
+          ?.map(async (t: Item.Data) => {
+            try {
+              return await this.findTalent(t.name);
+            } catch (e) {
+              return t;
+            }
+          })
+          ?.filter(
+            (t: Item.Data) =>
+              !talentsNames.includes(EntityUtil.toMinimalName(t.name).trim()) &&
+              !t.name.trim().startsWith('(')
+          );
         if (newTalents != null && newTalents.length > 0) {
           talentsNames.push(
             ...newTalents.map((t) => EntityUtil.toMinimalName(t.name).trim())
