@@ -3,15 +3,6 @@
 - create a chat command
 - Manage other language
 
-## 1.6.2
-
-### Improvement
-
-- Includes career talents and skills to in memory talents, skills and traits used on edit abilities step
-- After choosing a creature template, find all skills, talents and traits from in memory items to use translated items
-  if possible
-- Add native tongue chooser
-
 ## 1.6.1
 
 ### New features

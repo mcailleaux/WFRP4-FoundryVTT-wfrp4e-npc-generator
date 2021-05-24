@@ -45,7 +45,7 @@ export default class NpcAbilitiesChooser {
             data._id = RandomUtil.getRandomId();
             return data;
           }),
-        ...(await ReferentialUtil.getCompendiumUsedSkills())
+        ...(await ReferentialUtil.getCompendiumActorSkills())
           .filter((s) => {
             return !StringUtil.arrayIncludesDeburrIgnoreCase(
               initSkillsNames,
@@ -80,7 +80,7 @@ export default class NpcAbilitiesChooser {
             data._id = RandomUtil.getRandomId();
             return data;
           }),
-        ...(await ReferentialUtil.getCompendiumUsedTalents())
+        ...(await ReferentialUtil.getCompendiumActorTalents())
           .filter((t) => {
             return !StringUtil.arrayIncludesDeburrIgnoreCase(
               initTalentsNames,
@@ -116,7 +116,7 @@ export default class NpcAbilitiesChooser {
             data._id = RandomUtil.getRandomId();
             return data;
           }),
-        ...(await ReferentialUtil.getCompendiumUsedTraits())
+        ...(await ReferentialUtil.getCompendiumActorTraits())
           .filter((t: any) => {
             return !StringUtil.arrayIncludesDeburrIgnoreCase(
               initTraitsDisplayNames,
