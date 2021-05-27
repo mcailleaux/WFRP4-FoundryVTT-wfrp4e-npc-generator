@@ -55,8 +55,10 @@ export default class EntityUtil {
     const matchName = StringUtil.toDeburrLowerCase(name).trim();
     let findByVo = false;
     let findByVoExactMatch = false;
-    let result = entities.find((e: Item & any) =>
-      StringUtil.equalsDeburrIgnoreCase(e.name.trim(), matchName)
+    let result = entities.find(
+      (e: Item & any) =>
+        e.data.hasTranslation &&
+        StringUtil.equalsDeburrIgnoreCase(e.name.trim(), matchName)
     );
     if (result == null) {
       result = entities.find((e: Item & any) =>
@@ -72,11 +74,13 @@ export default class EntityUtil {
       const simpleMatchName = StringUtil.toDeburrLowerCase(
         StringUtil.getSimpleName(name)
       ).trim();
-      result = entities.find((e: Item & any) =>
-        StringUtil.equalsDeburrIgnoreCase(
-          StringUtil.getSimpleName(e.name).trim(),
-          simpleMatchName
-        )
+      result = entities.find(
+        (e: Item & any) =>
+          e.data.hasTranslation &&
+          StringUtil.equalsDeburrIgnoreCase(
+            StringUtil.getSimpleName(e.name).trim(),
+            simpleMatchName
+          )
       );
       if (result == null) {
         result = entities.find((e: Item & any) =>
