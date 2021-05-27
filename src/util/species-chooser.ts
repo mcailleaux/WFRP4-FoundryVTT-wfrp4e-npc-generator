@@ -49,7 +49,7 @@ export default class SpeciesChooser {
               ${DialogUtil.getSelectScript(
                 `select-species-${dialogId}`,
                 speciesMap,
-                initSpeciesKey,
+                defaultSpeciesKey,
                 'speciesChange()'
               )}
               </div>

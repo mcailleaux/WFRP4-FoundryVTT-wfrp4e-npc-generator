@@ -10,6 +10,8 @@
 - World First
 - Bug init existing profiles dont includes new species
 - Bug with Creature Order
+- Bug with Species Order
+- Init correct NPC size (Ogre)
 
 ## 1.6.1
 
