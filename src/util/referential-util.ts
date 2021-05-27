@@ -288,8 +288,16 @@ export default class ReferentialUtil {
         ' in compendum or world'
       );
     }
-    trait.name = name;
-    trait.displayName = name;
+    if (name.includes('(') && name.includes(')')) {
+      const simpleName = StringUtil.getSimpleName(name);
+      const groupedName = StringUtil.getGroupName(name);
+      trait.name = simpleName;
+      (<any>trait.data).specification.value = groupedName;
+    } else {
+      trait.name = name;
+      trait.displayName = name;
+    }
+
     return trait;
   }
 
