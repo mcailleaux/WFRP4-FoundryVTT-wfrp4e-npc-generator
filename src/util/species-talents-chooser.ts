@@ -26,11 +26,15 @@ export default class SpeciesTalentsChooser {
             const splited = talent.split(',');
             const result: string[] = [];
             for (let t of splited) {
-              const refTalent = await ReferentialUtil.findTalent(t);
-              if (refTalent != null) {
-                result.push(refTalent.name);
-              } else {
-                result.push(talent);
+              try {
+                const refTalent = await ReferentialUtil.findTalent(t);
+                if (refTalent != null) {
+                  result.push(refTalent.name);
+                } else {
+                  result.push(talent);
+                }
+              } catch (e) {
+                console.warn('Cant find Talent : ' + t);
               }
             }
             subSpeciesTalents.push(result.join(', '));

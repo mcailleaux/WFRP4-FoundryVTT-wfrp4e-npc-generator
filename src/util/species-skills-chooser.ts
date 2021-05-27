@@ -18,11 +18,15 @@ export default class SpeciesSkillsChooser {
       for (let skill of ReferentialUtil.getSubSpeciesMap()[speciesKey][
         subSpeciesKey
       ].skills) {
-        const refSkill = await ReferentialUtil.findSkill(skill);
-        if (refSkill != null) {
-          subSpeciesSkills.push(refSkill.name);
-        } else {
-          subSpeciesSkills.push(skill);
+        try {
+          const refSkill = await ReferentialUtil.findSkill(skill);
+          if (refSkill != null) {
+            subSpeciesSkills.push(refSkill.name);
+          } else {
+            subSpeciesSkills.push(skill);
+          }
+        } catch (e) {
+          console.warn('Cant find Skill : ' + skill);
         }
       }
     }
