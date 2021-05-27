@@ -275,6 +275,24 @@ export default class ReferentialUtil {
     return talent;
   }
 
+  public static async findTrait(name: string) {
+    const traits = [
+      ...(await this.getWorldEntities('trait')),
+      ...(await ReferentialUtil.getTraitEntities(false)),
+    ];
+    const trait: Item.Data & any = EntityUtil.find(name, traits);
+    if (trait == null) {
+      throw (
+        'Could not find trait (or specialization of) ' +
+        name +
+        ' in compendum or world'
+      );
+    }
+    trait.name = name;
+    trait.displayName = name;
+    return trait;
+  }
+
   public static async findTrappings(
     name: string,
     referentialTrappings?: Item[]

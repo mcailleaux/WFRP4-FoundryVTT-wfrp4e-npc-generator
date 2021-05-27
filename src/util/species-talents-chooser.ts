@@ -1,16 +1,20 @@
 import DialogUtil from './dialog-util.js';
 import RandomUtil from './random-util.js';
 import ReferentialUtil from './referential-util.js';
+import StringUtil from './string-util.js';
 
 export default class SpeciesTalentsChooser {
   public static async selectSpeciesTalents(
     initTalents: string[],
+    initTraits: string[],
     speciesKey: string,
     subSpeciesKey: string,
-    callback: (speciesTalents: string[]) => void,
+    callback: (speciesTalents: string[], speciesTraits: string[]) => void,
     undo: () => void
   ) {
     const dialogId = new Date().getTime();
+
+    const initTraitAndTalent: string[] = [...initTalents, ...initTraits];
 
     const subSpeciesTalents: any[] = [];
     if (subSpeciesKey != null) {
@@ -62,19 +66,19 @@ export default class SpeciesTalentsChooser {
     let initChoiceTalents: string[];
     let initRandomTalents: string[] = [];
     if (randomTalentsNbr > 0) {
-      const lastIndexOfChoice = initTalents.length - randomTalentsNbr;
+      const lastIndexOfChoice = initTraitAndTalent.length - randomTalentsNbr;
       if (lastIndexOfChoice >= 0) {
-        initChoiceTalents = initTalents.filter(
+        initChoiceTalents = initTraitAndTalent.filter(
           (_t, i) => i < lastIndexOfChoice
         );
-        initRandomTalents = initTalents.filter(
+        initRandomTalents = initTraitAndTalent.filter(
           (_t, i) => i >= lastIndexOfChoice
         );
       } else {
-        initChoiceTalents = initTalents;
+        initChoiceTalents = initTraitAndTalent;
       }
     } else {
-      initChoiceTalents = initTalents;
+      initChoiceTalents = initTraitAndTalent;
     }
 
     const choiceTalentsForm =
@@ -250,6 +254,7 @@ export default class SpeciesTalentsChooser {
           dialogId,
           (html: JQuery) => {
             const talents: string[] = [];
+            const traits: string[] = [];
             html
               .find(`.select-talent-left-${dialogId}`)
               .filter((_i, r: HTMLInputElement) => r.checked)
@@ -267,10 +272,21 @@ export default class SpeciesTalentsChooser {
                 .find(`.select-talent-random-${dialogId}`)
                 .filter((_i, r: HTMLInputElement) => r.checked)
                 .each((_i, r: HTMLInputElement) => {
-                  talents.push(r.value);
+                  const traitPrefix = game.i18n.localize('Trait');
+                  const value = r.value;
+                  if (
+                    StringUtil.toDeburrLowerCase(value).startsWith(
+                      StringUtil.toDeburrLowerCase(traitPrefix)
+                    ) &&
+                    value.includes('-')
+                  ) {
+                    traits.push(value);
+                  } else {
+                    talents.push(value);
+                  }
                 });
             }
-            callback(talents);
+            callback(talents, traits);
           },
           undo
         ),

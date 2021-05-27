@@ -136,10 +136,12 @@ export default class NpcGenerator {
   ) {
     await this.speciesTalentsChooser.selectSpeciesTalents(
       model.speciesTalents,
+      model.speciesTraits,
       model.speciesKey,
       model.subSpeciesKey,
-      (talents: string[]) => {
+      (talents: string[], traits: string[]) => {
         model.speciesTalents = talents;
+        model.speciesTraits = traits;
         this.selectName(model, callback);
       },
       () => {
@@ -223,6 +225,9 @@ export default class NpcGenerator {
 
         console.log('Prepare Career Talents');
         await this.addCareerTalents(model);
+
+        console.log('Prepare Species Traits');
+        await this.addSpeciesTraits(model);
 
         console.log('Prepare Basic Chars');
         await this.addBasicChars(model);
@@ -540,9 +545,11 @@ export default class NpcGenerator {
   }
 
   private static async addSpeciesTalents(model: NpcModel) {
+    const traitPrefix = game.i18n.localize('Trait');
     const speciesTalentsMap = this.referential.getSpeciesTalentsMap();
     const speciesTalent: string[] = speciesTalentsMap[model.speciesKey].filter(
       (talent: string, index) =>
+        !talent.startsWith(traitPrefix) &&
         index !== speciesTalentsMap[model.speciesKey].length - 1 &&
         !talent.includes(',')
     );
@@ -576,6 +583,56 @@ export default class NpcGenerator {
       }
     } catch (e) {
       console.warn('Cant find Talent : ' + name);
+    }
+  }
+
+  private static async addSpeciesTraits(model: NpcModel) {
+    const traitPrefix = game.i18n.localize('Trait');
+    const speciesTalentsMap = this.referential.getSpeciesTalentsMap();
+    const speciesTraits: string[] = speciesTalentsMap[model.speciesKey]
+      .filter(
+        (talent: string, index) =>
+          talent.startsWith(traitPrefix) &&
+          talent.includes('-') &&
+          index !== speciesTalentsMap[model.speciesKey].length - 1 &&
+          !talent.includes(',')
+      )
+      .map((trait) => trait.substr(trait.indexOf('-') + 1).trim());
+    await this.addTraits(model, speciesTraits);
+    await this.addTraits(
+      model,
+      model.speciesTraits.map((trait) =>
+        trait.substr(trait.indexOf('-') + 1).trim()
+      )
+    );
+  }
+
+  private static async addTraits(model: NpcModel, names: string[]) {
+    if (names == null || names.length === 0) {
+      return;
+    }
+    for (let name of names) {
+      await this.addTrait(model, name);
+    }
+  }
+
+  private static async addTrait(model: NpcModel, name: string) {
+    if (name == null || name.length === 0) {
+      return;
+    }
+
+    try {
+      const traitToAdd = await this.referential.findTrait(name);
+      if (
+        !StringUtil.arrayIncludesDeburrIgnoreCase(
+          model.traits.map((ms) => ms.name),
+          traitToAdd.name
+        )
+      ) {
+        model.traits.push(traitToAdd);
+      }
+    } catch (e) {
+      console.warn('Cant find Trait : ' + name);
     }
   }
 

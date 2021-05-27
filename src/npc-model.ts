@@ -15,6 +15,7 @@ export default class NpcModel {
     minor: [],
   };
   public speciesTalents: string[] = [];
+  public speciesTraits: string[] = [];
   public name: string;
   public skills: Item.Data[] = [];
   public talents: Item.Data[] = [];
