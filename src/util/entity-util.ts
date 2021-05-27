@@ -55,9 +55,10 @@ export default class EntityUtil {
     const matchName = StringUtil.toDeburrLowerCase(name).trim();
     let findByVo = false;
     let findByVoExactMatch = false;
+    const hasBabele = game?.babele?.modules?.length > 0 ?? false;
     let result = entities.find(
       (e: Item & any) =>
-        e.data.hasTranslation &&
+        (!hasBabele || e.data.hasTranslation) &&
         StringUtil.equalsDeburrIgnoreCase(e.name.trim(), matchName)
     );
     if (result == null) {
@@ -76,7 +77,7 @@ export default class EntityUtil {
       ).trim();
       result = entities.find(
         (e: Item & any) =>
-          e.data.hasTranslation &&
+          (!hasBabele || e.data.hasTranslation) &&
           StringUtil.equalsDeburrIgnoreCase(
             StringUtil.getSimpleName(e.name).trim(),
             simpleMatchName
