@@ -54,7 +54,43 @@ export default class ReferentialUtil {
       };
     };
   } {
-    return game.wfrp4e.config.subspecies;
+    const result: {
+      [key: string]: {
+        [subKey: string]: {
+          name: string;
+          skills: string[];
+          talents: any[];
+        };
+      };
+    } = {};
+    for (let [key, value] of Object.entries(game.wfrp4e.config.subspecies)) {
+      for (let [subKey, subValue] of Object.entries(
+        <
+          {
+            [subKey: string]: {
+              name: string;
+              skills: string[];
+              talents: any[];
+            };
+          }
+        >value
+      )) {
+        const content = {
+          name: subValue.name,
+          skills:
+            subValue.skills != null
+              ? subValue.skills
+              : this.getSpeciesSkillsMap()[key],
+          talents:
+            subValue.talents != null
+              ? subValue.talents
+              : this.getSpeciesTalentsMap()[key],
+        };
+        result[key] = {};
+        result[key][subKey] = content;
+      }
+    }
+    return result;
   }
 
   public static getSpeciesSubSpeciesMap(
