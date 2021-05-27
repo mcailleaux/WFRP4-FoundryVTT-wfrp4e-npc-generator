@@ -39,9 +39,12 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
       }
       const speciesMap = ReferentialUtil.getSpeciesMap();
       Object.entries(speciesMap).forEach(([key, label]) => {
-        if (profiles[key] != null) {
-          profiles[key].species = label;
+        if (profiles[key] == null) {
+          profiles[key] = {
+            profiles: [],
+          };
         }
+        profiles[key].species = label;
       });
       if (profiles.creature != null) {
         profiles.creature.species = game.i18n.localize(
