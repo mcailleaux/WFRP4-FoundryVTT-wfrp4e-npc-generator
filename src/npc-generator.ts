@@ -549,8 +549,8 @@ export default class NpcGenerator {
     const speciesTalentsMap = this.referential.getSpeciesTalentsMap();
     const speciesTalent: string[] = speciesTalentsMap[model.speciesKey].filter(
       (talent: string, index) =>
-        !talent.startsWith(traitPrefix) &&
         index !== speciesTalentsMap[model.speciesKey].length - 1 &&
+        !talent.startsWith(traitPrefix) &&
         !talent.includes(',')
     );
     await this.addTalents(model, speciesTalent);
@@ -592,9 +592,9 @@ export default class NpcGenerator {
     const speciesTraits: string[] = speciesTalentsMap[model.speciesKey]
       .filter(
         (talent: string, index) =>
+          index !== speciesTalentsMap[model.speciesKey].length - 1 &&
           talent.startsWith(traitPrefix) &&
           talent.includes('-') &&
-          index !== speciesTalentsMap[model.speciesKey].length - 1 &&
           !talent.includes(',')
       )
       .map((trait) => trait.substr(trait.indexOf('-') + 1).trim());
