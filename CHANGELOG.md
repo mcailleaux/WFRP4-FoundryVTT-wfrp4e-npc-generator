@@ -3,6 +3,14 @@
 - create a chat command
 - Manage other language
 
+## 1.6.2
+
+### Bugfix
+
+- World First
+- Bug init existing profiles dont includes new species
+- Bug with Creature Order
+
 ## 1.6.1
 
 ### New features
