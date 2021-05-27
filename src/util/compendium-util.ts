@@ -96,9 +96,36 @@ export default class CompendiumUtil {
   public static async getCompendiumActors() {
     if (this.compendiumActors == null) {
       this.compendiumActors = {};
-      const actorsPacks = game.packs.filter(
-        (p) => p.metadata.entity === 'Actor'
-      );
+
+      const moduleOrder = [
+        'wfrp4e-core',
+        'wfrp4e-starter-set',
+        'wfrp4e-ua1',
+        'wfrp4e-rnhd',
+        'wfrp4e-eis',
+        'wfrp4e-dotr',
+        'wfrp4e-middenheim',
+        'wfrp4e-archives1',
+        'wfrp4e-unofficial-grimoire',
+        'nations-of-mankind-wfrp4e',
+        'ogre-kingdom-wfrp4e',
+        'the-dwarf-empire-wfrp4e',
+        'others',
+      ];
+
+      const packSort = (a: any, b: any) => {
+        const g1 = a?.metadata?.package;
+        const g2 = b?.metadata?.package;
+        const key1 = moduleOrder.includes(g1) ? g1 : 'others';
+        const key2 = moduleOrder.includes(g2) ? g2 : 'others';
+
+        return moduleOrder.indexOf(key1) - moduleOrder.indexOf(key2);
+      };
+
+      const actorsPacks = game.packs
+        .filter((p) => p.metadata.entity === 'Actor')
+        .sort(packSort);
+
       const packLoader = (pack: any) => {
         return new Promise(async (resolve) => {
           const module = game.modules.get(pack.metadata.package);
