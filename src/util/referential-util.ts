@@ -175,6 +175,7 @@ export default class ReferentialUtil {
 
   public static async getTrappingEntities(withWorld = true): Promise<Item[]> {
     const trappings: Item[] = await CompendiumUtil.getCompendiumTrappings();
+    const finalTrappings: Item[] = [];
     if (withWorld) {
       const trappingCategories = CompendiumUtil.getTrappingCategories();
       const worldTrappings = game.items?.entities?.filter(
@@ -185,10 +186,11 @@ export default class ReferentialUtil {
           )
       );
       if (worldTrappings != null && worldTrappings.length > 0) {
-        trappings.push(...worldTrappings);
+        finalTrappings.push(...worldTrappings);
       }
     }
-    return Promise.resolve(trappings);
+    finalTrappings.push(...trappings);
+    return Promise.resolve(finalTrappings);
   }
 
   public static async getRandomSpeciesCareers(
