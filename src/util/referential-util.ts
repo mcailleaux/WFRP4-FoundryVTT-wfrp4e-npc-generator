@@ -86,7 +86,9 @@ export default class ReferentialUtil {
               ? subValue.talents
               : this.getSpeciesTalentsMap()[key],
         };
-        result[key] = {};
+        if (result[key] == null) {
+          result[key] = {};
+        }
         result[key][subKey] = content;
       }
     }
