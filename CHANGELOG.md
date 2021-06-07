@@ -2,6 +2,15 @@
 
 - create a chat command
 - Manage other language
+- Manage trappings pack
+- Migrate with handlebar
+- Add otpion to creature generation to dont random carac and keep origin tamplate carac
+- Migrate to 8.x
+
+## 1.6.3
+
+- Correct Random Career with subSpecies
+- Correct Halfling Native Tongue FR
 
 ## 1.6.2
 

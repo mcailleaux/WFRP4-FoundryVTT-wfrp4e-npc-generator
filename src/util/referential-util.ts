@@ -238,7 +238,13 @@ export default class ReferentialUtil {
       return [];
     }
     const randomCareers: string[] = game.wfrp4e.tables.career.rows
-      .filter((row: any) => row?.range[speciesKey]?.length > 0)
+      .filter((row: any) => {
+        let result = row?.range[speciesKey]?.length > 0;
+        if (!result && speciesKey === 'human') {
+          result = row?.range['human-reiklander']?.length > 0;
+        }
+        return result;
+      })
       .map((row: any) => row.name);
 
     const careers = await this.getCareerEntities(false);
