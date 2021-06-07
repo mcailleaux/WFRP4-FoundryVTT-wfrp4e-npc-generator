@@ -2,15 +2,12 @@
   "name": "wfrp4-wfrp4e-npc-generator",
   "title": "[WFRP4] NPC generator",
   "description": "Functions to generate NPC",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "minimumCoreVersion": "0.7.9",
-  "compatibleCoreVersion": "0.7.9",
+  "compatibleCoreVersion": "0.7.10",
   "author": "Skeroujvapluvit",
+  "systems": ["wfrp4e"],
   "dependencies": [
-    {
-      "name": "wfrp4e",
-      "type": "system"
-    },
     {
       "name": "wfrp4e-core",
       "type": "module"

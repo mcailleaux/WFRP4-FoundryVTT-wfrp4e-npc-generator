@@ -2,7 +2,7 @@
   "name": "wfrp4e-npc-generator-beta",
   "title": "[WFRP4] NPC generator BETA version",
   "description": "Functions to generate NPC",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "minimumCoreVersion": "0.7.9",
   "compatibleCoreVersion": "0.7.10",
   "author": "Skeroujvapluvit",
