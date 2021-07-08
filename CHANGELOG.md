@@ -7,6 +7,11 @@
 - Add otpion to creature generation to dont random carac and keep origin tamplate carac
 - Migrate to 8.x
 
+## 2.0.0
+
+- Foundry 0.8+ compatibility
+- WHFRP system 4+ compatibility
+
 ## 1.6.3
 
 - Correct Random Career with subSpecies

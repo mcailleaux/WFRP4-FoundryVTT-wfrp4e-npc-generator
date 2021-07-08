@@ -2,9 +2,9 @@
   "name": "wfrp4e-npc-generator-beta",
   "title": "[WFRP4] NPC generator BETA version",
   "description": "Functions to generate NPC",
-  "version": "1.6.4",
-  "minimumCoreVersion": "0.7.9",
-  "compatibleCoreVersion": "0.7.10",
+  "version": "2.0.0",
+  "minimumCoreVersion": "0.8.0",
+  "compatibleCoreVersion": "0.8.8",
   "author": "Skeroujvapluvit",
   "systems": ["wfrp4e"],
   "dependencies": [
@@ -32,9 +32,9 @@
     }
   ],
   "styles": ["./styles/main.css", "./styles/generation-profiles.css"],
-  "url": "https://github.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/tree/dist-beta",
-  "download": "https://github.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/blob/dist-beta/dist/wfrp4e-npc-generator.zip?raw=true",
-  "manifest": "https://raw.githubusercontent.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/dist-beta/module-beta.json",
-  "readme": "https://raw.githubusercontent.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/dist-beta/README.md",
-  "changelog": "https://raw.githubusercontent.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/dist-beta/CHANGELOG.md"
+  "url": "https://github.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/tree/dist-beta-v4",
+  "download": "https://github.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/blob/dist-beta-v4/dist/wfrp4e-npc-generator.zip?raw=true",
+  "manifest": "https://raw.githubusercontent.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/dist-beta-v4/module-beta.json",
+  "readme": "https://raw.githubusercontent.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/dist-beta-v4/README.md",
+  "changelog": "https://raw.githubusercontent.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/dist-beta-v4/CHANGELOG.md"
 }

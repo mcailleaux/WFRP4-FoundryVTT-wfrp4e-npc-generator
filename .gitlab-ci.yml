@@ -60,9 +60,9 @@ deploy:
     - git config --global user.email "$GIT_USER_EMAIL"
     - git config --global user.name "$GIT_USER_NAME"
     - git add -f dist/wfrp4e-npc-generator.zip
-    - git commit -m "push artifact on dist branch"
+    - git commit -m "push artifact on dist-v4 branch"
     - git remote set-url origin $GIT_SSH_URL
-    - git push -f origin HEAD:dist
+    - git push -f origin HEAD:dist-v4
   only:
     - master
 
@@ -72,9 +72,9 @@ deploy_beta:
     - git config --global user.email "$GIT_USER_EMAIL"
     - git config --global user.name "$GIT_USER_NAME"
     - git add -f dist/wfrp4e-npc-generator.zip
-    - git commit -m "push artifact on dist-beta branch"
+    - git commit -m "push artifact on dist-beta-v4 branch"
     - git remote set-url origin $GIT_SSH_URL
-    - git push -f origin HEAD:dist-beta
+    - git push -f origin HEAD:dist-beta-v4
   rules:
     - if: '$CI_COMMIT_BRANCH =~ /^(dev)\/.*$/'
       when: on_success
