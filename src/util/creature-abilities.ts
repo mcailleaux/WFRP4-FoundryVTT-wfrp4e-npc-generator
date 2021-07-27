@@ -13,7 +13,7 @@ export default class CreatureAbilities {
   public armourValue: string;
   public speciesKey: string = 'none';
 
-  public traits: (ItemData & Record<string, unknown>)[] = [];
-  public talents: (ItemData & Record<string, unknown>)[] = [];
-  public skills: (ItemData & Record<string, unknown>)[] = [];
+  public traits: ItemData[] = [];
+  public talents: ItemData[] = [];
+  public skills: ItemData[] = [];
 }

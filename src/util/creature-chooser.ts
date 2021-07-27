@@ -17,11 +17,12 @@ export default class CreatureChooser {
     for (let [groupeKey, actors] of Object.entries(creatures)) {
       creaturesMap[groupeKey] = {};
       for (let actor of actors) {
-        creaturesMap[groupeKey][actor.id] = actor.name;
-        allCreaturesMap[actor.id] = actor.name;
+        const id: string = actor.id ?? '';
+        creaturesMap[groupeKey][id] = actor.name ?? '';
+        allCreaturesMap[id] = actor.name ?? '';
         allCreaturesImgs.push({
-          _id: actor.id,
-          img: actor.img,
+          _id: id,
+          img: actor.img ?? '',
         });
       }
     }
@@ -87,10 +88,10 @@ export default class CreatureChooser {
           const creaturesKey = <string>(
             html.find(`#select-creatures-${dialogId}`).val()
           );
-          let creature = null;
+          let creature: Actor | null = null;
           for (let [_groupeKey, actors] of Object.entries(creatures)) {
             if (creature == null) {
-              creature = actors.find((c) => c._id === creaturesKey);
+              creature = actors.find((c) => c._id === creaturesKey) ?? null;
             }
           }
           if (creature != null) {

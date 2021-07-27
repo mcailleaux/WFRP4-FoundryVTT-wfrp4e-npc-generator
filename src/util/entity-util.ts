@@ -107,12 +107,16 @@ export default class EntityUtil {
       } else {
         data.name = name;
       }
-      return data;
+      return <ItemData>(<unknown>data);
     }
     return null;
   }
 
   public static hasGroupName(name: string): boolean {
     return name?.includes('(') && name?.includes(')');
+  }
+
+  public static toRecords(arrays: any[]): Record<string, unknown>[] {
+    return <Record<string, unknown>[]>arrays;
   }
 }

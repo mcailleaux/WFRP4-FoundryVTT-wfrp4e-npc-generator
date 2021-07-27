@@ -3,6 +3,7 @@ import { GenerateEffectOptionEnum } from './util/generate-effect-option.enum.js'
 import FolderUtil from './util/folder-util.js';
 import TrappingUtil from './util/trapping-util.js';
 import { i18n } from './constant.js';
+import EntityUtil from './util/entity-util.js';
 
 export class ActorBuilder {
   public static async buildActorData(model: NpcModel, type: string) {
@@ -57,30 +58,48 @@ export class ActorBuilder {
     }
 
     let actor: Actor = <Actor>await Actor.create(data);
-    await actor.createEmbeddedDocuments(Item.metadata.name, model.skills);
-    await actor.createEmbeddedDocuments(Item.metadata.name, model.talents);
+    await actor.createEmbeddedDocuments(
+      Item.metadata.name,
+      EntityUtil.toRecords(model.skills)
+    );
+    await actor.createEmbeddedDocuments(
+      Item.metadata.name,
+      EntityUtil.toRecords(model.talents)
+    );
     if (model.traits.length > 0) {
-      await actor.createEmbeddedDocuments(Item.metadata.name, model.traits);
+      await actor.createEmbeddedDocuments(
+        Item.metadata.name,
+        EntityUtil.toRecords(model.traits)
+      );
     }
     if (model.trappings.length > 0) {
-      await actor.createEmbeddedDocuments(Item.metadata.name, model.trappings);
+      await actor.createEmbeddedDocuments(
+        Item.metadata.name,
+        EntityUtil.toRecords(model.trappings)
+      );
     }
     if (model.spells.length > 0) {
-      await actor.createEmbeddedDocuments(Item.metadata.name, model.spells);
+      await actor.createEmbeddedDocuments(
+        Item.metadata.name,
+        EntityUtil.toRecords(model.spells)
+      );
     }
     if (model.prayers.length > 0) {
-      await actor.createEmbeddedDocuments(Item.metadata.name, model.prayers);
+      await actor.createEmbeddedDocuments(
+        Item.metadata.name,
+        EntityUtil.toRecords(model.prayers)
+      );
     }
     if (model.physicalMutations.length > 0) {
       await actor.createEmbeddedDocuments(
         Item.metadata.name,
-        model.physicalMutations
+        EntityUtil.toRecords(model.physicalMutations)
       );
     }
     if (model.mentalMutations.length > 0) {
       await actor.createEmbeddedDocuments(
         Item.metadata.name,
-        model.mentalMutations
+        EntityUtil.toRecords(model.mentalMutations)
       );
     }
 

@@ -39,7 +39,7 @@ export default class NpcAbilitiesChooser {
           .filter((s) => {
             return !StringUtil.arrayIncludesDeburrIgnoreCase(
               initSkillsNames,
-              s.name
+              s.name ?? ''
             );
           })
           .map((s) => {
@@ -74,7 +74,7 @@ export default class NpcAbilitiesChooser {
           .filter((t) => {
             return !StringUtil.arrayIncludesDeburrIgnoreCase(
               initTalentsNames,
-              t.name
+              t.name ?? ''
             );
           })
           .map((t) => {
@@ -110,7 +110,7 @@ export default class NpcAbilitiesChooser {
           .filter((t) => {
             return !StringUtil.arrayIncludesDeburrIgnoreCase(
               initTraitsNames,
-              t.name
+              t.name ?? ''
             );
           })
           .map((t) => {

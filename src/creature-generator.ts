@@ -18,7 +18,7 @@ import MagicsChooser from './util/magics-chooser.js';
 import MutationsChooser from './util/mutations-chooser.js';
 import CreatureBuilder from './creature-builder.js';
 import RandomUtil from './util/random-util.js';
-import { i18n } from './constant.js';
+import { i18n, notifications } from './constant.js';
 import {
   ActorData,
   ItemData,
@@ -43,7 +43,7 @@ export default class CreatureGenerator {
       await this.generateCreatureModel(async (model) => {
         const actorData = await CreatureBuilder.buildCreatureData(model);
         const actor = await CreatureBuilder.createCreature(model, actorData);
-        ui.notifications.info(
+        notifications.info(
           i18n.format('WFRP4NPCGEN.notification.creature.created', {
             name: actor.name,
           })

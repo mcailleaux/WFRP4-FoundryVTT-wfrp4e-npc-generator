@@ -40,7 +40,7 @@ export default class CreatureAbilitiesChooser {
           .filter((s) => {
             return !StringUtil.arrayIncludesDeburrIgnoreCase(
               initSkillsNames,
-              s.name
+              s.name ?? ''
             );
           })
           .map((s) => {
@@ -75,7 +75,7 @@ export default class CreatureAbilitiesChooser {
           .filter((t) => {
             return !StringUtil.arrayIncludesDeburrIgnoreCase(
               initTalentsNames,
-              t.name
+              t.name ?? ''
             );
           })
           .map((t) => {
@@ -117,7 +117,10 @@ export default class CreatureAbilitiesChooser {
               !EntityUtil.match(t, armour) &&
               !EntityUtil.match(t, ranged) &&
               !EntityUtil.match(t, size) &&
-              !StringUtil.arrayIncludesDeburrIgnoreCase(initTraitsNames, t.name)
+              !StringUtil.arrayIncludesDeburrIgnoreCase(
+                initTraitsNames,
+                t.name ?? ''
+              )
             );
           })
           .map((t) => {

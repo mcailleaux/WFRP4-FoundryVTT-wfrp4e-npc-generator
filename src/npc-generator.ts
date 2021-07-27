@@ -99,7 +99,7 @@ export default class NpcGenerator {
     callback: (model: NpcModel) => void
   ) {
     await this.careerChooser.selectCareer(
-      model.selectedCareers?.map((c) => c.name),
+      model.selectedCareers?.map((c) => c.name ?? ''),
       model.speciesKey,
       (careers: Item[]) => {
         model.selectedCareers = careers;
@@ -772,10 +772,10 @@ export default class NpcGenerator {
       for (let trapping of trappings) {
         if (
           trapping != null &&
-          !trappingIds.includes(trapping._id) &&
+          !trappingIds.includes(trapping._id ?? '') &&
           trapping.type !== 'money'
         ) {
-          trappingIds.push(trapping._id);
+          trappingIds.push(trapping._id ?? '');
           model.trappings.push(trapping);
         }
       }

@@ -9,10 +9,10 @@ export default class CreatureModel {
   public move: string;
   public creatureTemplate: CreatureTemplate = new CreatureTemplate();
   public abilities: CreatureAbilities = new CreatureAbilities();
-  public trappings: (ItemData & Record<string, unknown>)[] = [];
-  public spells: (ItemData & Record<string, unknown>)[] = [];
-  public prayers: (ItemData & Record<string, unknown>)[] = [];
-  public physicalMutations: (ItemData & Record<string, unknown>)[] = [];
-  public mentalMutations: (ItemData & Record<string, unknown>)[] = [];
+  public trappings: ItemData[] = [];
+  public spells: ItemData[] = [];
+  public prayers: ItemData[] = [];
+  public physicalMutations: ItemData[] = [];
+  public mentalMutations: ItemData[] = [];
   public options = new OptionsCreature();
 }

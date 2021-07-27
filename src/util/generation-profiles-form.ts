@@ -12,7 +12,10 @@ export default class GenerationProfilesForm extends FormApplication<
 > {
   private data: any;
 
-  constructor(object: GenerationProfiles, options: Partial<Options> = {}) {
+  constructor(
+    object: GenerationProfiles,
+    options: Partial<FormApplication.Options> = {}
+  ) {
     super(object, options);
   }
 

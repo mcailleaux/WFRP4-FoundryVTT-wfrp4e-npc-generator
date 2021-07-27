@@ -6,8 +6,6 @@
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "rootDir": "src/",
@@ -17,7 +15,7 @@
     "sourceMap": true,
     "inlineSources": true,
     "sourceRoot": "scr",
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "target": "es6",
     "types": ["@league-of-foundry-developers/foundry-vtt-types"]
   },

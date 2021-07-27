@@ -6,6 +6,7 @@ import CompendiumUtil from './util/compendium-util.js';
 import StringUtil from './util/string-util.js';
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 import { i18n } from './constant.js';
+import EntityUtil from './util/entity-util.js';
 
 export default class CreatureBuilder {
   public static async buildCreatureData(model: CreatureModel) {
@@ -71,19 +72,19 @@ export default class CreatureBuilder {
     if (model.abilities.skills.length > 0) {
       await actor.createEmbeddedDocuments(
         Item.metadata.name,
-        model.abilities.skills
+        EntityUtil.toRecords(model.abilities.skills)
       );
     }
     if (model.abilities.talents.length > 0) {
       await actor.createEmbeddedDocuments(
         Item.metadata.name,
-        model.abilities.talents
+        EntityUtil.toRecords(model.abilities.talents)
       );
     }
     if (model.abilities.traits.length > 0) {
       await actor.createEmbeddedDocuments(
         Item.metadata.name,
-        model.abilities.traits
+        EntityUtil.toRecords(model.abilities.traits)
       );
     }
     const weapon = await CompendiumUtil.getCompendiumWeaponTrait();
@@ -99,13 +100,13 @@ export default class CreatureBuilder {
             (at: ItemData & any) => at.name === weapon.name
           );
         } else if (
-          StringUtil.getSimpleName(ranged.name) ===
+          StringUtil.getSimpleName(ranged.name ?? '') ===
           StringUtil.getSimpleName(t.name)
         ) {
           actorTrait = (<any>actor.data).traits.find(
             (at: ItemData & any) =>
               StringUtil.getSimpleName(at.name) ===
-              StringUtil.getSimpleName(ranged.name)
+              StringUtil.getSimpleName(ranged.name ?? '')
           );
         } else if (swarm.name === t.name) {
           actorTrait = (<any>actor.data).traits.find(
@@ -128,24 +129,33 @@ export default class CreatureBuilder {
       });
     }
     if (model.trappings.length > 0) {
-      await actor.createEmbeddedDocuments(Item.metadata.name, model.trappings);
+      await actor.createEmbeddedDocuments(
+        Item.metadata.name,
+        EntityUtil.toRecords(model.trappings)
+      );
     }
     if (model.spells.length > 0) {
-      await actor.createEmbeddedDocuments(Item.metadata.name, model.spells);
+      await actor.createEmbeddedDocuments(
+        Item.metadata.name,
+        EntityUtil.toRecords(model.spells)
+      );
     }
     if (model.prayers.length > 0) {
-      await actor.createEmbeddedDocuments(Item.metadata.name, model.prayers);
+      await actor.createEmbeddedDocuments(
+        Item.metadata.name,
+        EntityUtil.toRecords(model.prayers)
+      );
     }
     if (model.physicalMutations.length > 0) {
       await actor.createEmbeddedDocuments(
         Item.metadata.name,
-        model.physicalMutations
+        EntityUtil.toRecords(model.physicalMutations)
       );
     }
     if (model.mentalMutations.length > 0) {
       await actor.createEmbeddedDocuments(
         Item.metadata.name,
-        model.mentalMutations
+        EntityUtil.toRecords(model.mentalMutations)
       );
     }
 

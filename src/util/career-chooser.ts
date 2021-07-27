@@ -42,7 +42,7 @@ export default class CareerChooser {
                 name: 'select-career',
                 onInput: 'check()',
                 dataListId: `select-career-list-${dialogId}`,
-                options: careers.map((c) => c.name),
+                options: careers.map((c) => c.name ?? ''),
               })}
               </div>
               ${initCareers
@@ -153,7 +153,7 @@ export default class CareerChooser {
         buttons: DialogUtil.getDialogButtons(
           dialogId,
           (html: JQuery) => {
-            let resultCareers = [];
+            let resultCareers: Item[] = [];
             const careerName = html.find(`#select-career-${dialogId}`).val();
             const career = careers.find((c) => c.name === careerName);
             if (career != null) {

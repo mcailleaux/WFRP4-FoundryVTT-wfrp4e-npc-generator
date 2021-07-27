@@ -3,6 +3,7 @@ import StringUtil from './string-util.js';
 import RandomUtil from './random-util.js';
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 import { i18n, wfrp4e } from '../constant.js';
+import EntityUtil from './entity-util.js';
 
 export default class TrappingUtil {
   public static readonly UPDATE_QUANTITY_KEY = 'data.quantity.value';
@@ -23,7 +24,7 @@ export default class TrappingUtil {
     const tierStr = actorStatus?.split(' ')[1];
     let tier: number =
       tierStr != null && Number.isNumeric(tierStr) ? Number(tierStr) : -1;
-    let statusKey = null;
+    let statusKey: string | null = null;
     Object.entries(statusTiers)?.forEach(([key, value]) => {
       if (value === status) {
         statusKey = key;
@@ -44,13 +45,13 @@ export default class TrappingUtil {
 
     if (statusKey === 'g') {
       gold = tier;
-      silver = new Roll('5d10').roll().total;
-      brass = new Roll('10d10').roll().total;
+      silver = new Roll('5d10').roll().total ?? 0;
+      brass = new Roll('10d10').roll().total ?? 0;
     } else if (statusKey === 's') {
-      silver = new Roll(`${tier}d10`).roll().total;
-      brass = new Roll('10d10').roll().total;
+      silver = new Roll(`${tier}d10`).roll().total ?? 0;
+      brass = new Roll('10d10').roll().total ?? 0;
     } else {
-      brass = new Roll(`${2 * tier}d10`).roll().total;
+      brass = new Roll(`${2 * tier}d10`).roll().total ?? 0;
     }
 
     const moneyItems = await ReferentialUtil.getAllMoneyItems();
@@ -70,7 +71,10 @@ export default class TrappingUtil {
     if (gold > 0 || isGoldCreate) {
       if (isGoldCreate) {
         (<any>createGCoin.data).quantity.value = gold;
-        await actor.createEmbeddedDocuments(Item.metadata.name, [createGCoin]);
+        await actor.createEmbeddedDocuments(
+          Item.metadata.name,
+          EntityUtil.toRecords([createGCoin])
+        );
       } else {
         await actor.updateEmbeddedDocuments(Item.metadata.name, [
           {
@@ -84,7 +88,10 @@ export default class TrappingUtil {
     if (silver > 0 || isSilverCreate) {
       if (isSilverCreate) {
         (<any>createSCoin.data).quantity.value = silver;
-        await actor.createEmbeddedDocuments(Item.metadata.name, [createSCoin]);
+        await actor.createEmbeddedDocuments(
+          Item.metadata.name,
+          EntityUtil.toRecords([createSCoin])
+        );
       } else {
         await actor.updateEmbeddedDocuments(Item.metadata.name, [
           {
@@ -98,7 +105,10 @@ export default class TrappingUtil {
     if (brass > 0 || isBrassCreate) {
       if (isBrassCreate) {
         (<any>createBCoin.data).quantity.value = brass;
-        await actor.createEmbeddedDocuments(Item.metadata.name, [createBCoin]);
+        await actor.createEmbeddedDocuments(
+          Item.metadata.name,
+          EntityUtil.toRecords([createBCoin])
+        );
       } else {
         await actor.updateEmbeddedDocuments(Item.metadata.name, [
           {

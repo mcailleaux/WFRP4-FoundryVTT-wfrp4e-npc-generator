@@ -142,7 +142,7 @@ export default class CompendiumUtil {
 
           const actors: Actor[] = (await pack.getContent()).sort(
             (c1: Actor, c2: Actor) => {
-              return c1.name.localeCompare(c2.name);
+              return c1.name?.localeCompare(c2.name ?? '');
             }
           );
 
@@ -152,7 +152,7 @@ export default class CompendiumUtil {
 
           console.info(`End to load ${key} compendium`);
 
-          resolve();
+          resolve(true);
         });
       };
       const loaders: Promise<any>[] = [];

@@ -84,7 +84,7 @@ export default class TranslateErrorDetect {
 
       if (cs.length !== 4) {
         const strictCareer = careers.find((c) =>
-          StringUtil.equalsDeburrIgnoreCase(c.name, rc)
+          StringUtil.equalsDeburrIgnoreCase(c.name ?? '', rc)
         );
         if (strictCareer != null) {
           cs = careers.filter((c) =>
@@ -98,7 +98,7 @@ export default class TranslateErrorDetect {
 
       if (cs.length !== 4) {
         errors.push('Random : ' + rc);
-        errors.push(...cs.map((c) => c.name));
+        errors.push(...cs.map((c) => c.name ?? ''));
       }
     });
     callback(errors);

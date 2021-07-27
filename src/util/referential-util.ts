@@ -260,7 +260,7 @@ export default class ReferentialUtil {
 
       if (cs.length !== 4) {
         const strictCareer = careers.find((c) =>
-          StringUtil.equalsDeburrIgnoreCase(c.name, rc)
+          StringUtil.equalsDeburrIgnoreCase(c.name ?? '', rc)
         );
         if (strictCareer != null) {
           cs = careers.filter((c) =>
@@ -273,7 +273,7 @@ export default class ReferentialUtil {
       }
 
       if (cs.length === 4) {
-        result.push(...cs.map((c) => c.name));
+        result.push(...cs.map((c) => c.name ?? ''));
       }
     });
 
@@ -404,7 +404,7 @@ export default class ReferentialUtil {
     name: string,
     referentialTrappings?: Item[]
   ) {
-    const trappings = [];
+    const trappings: ItemData[] = [];
     if (name != null && name.length > 0) {
       const words = name
         .split(' ')
@@ -438,24 +438,24 @@ export default class ReferentialUtil {
         : name;
     let trapping =
       searchTrappings.find((t) =>
-        StringUtil.equalsDeburrIgnoreCase(name, t.name)
+        StringUtil.equalsDeburrIgnoreCase(name, t.name ?? '')
       ) ??
       searchTrappings.find((t) =>
-        StringUtil.equalsDeburrIgnoreCase(t.name, simpleName)
+        StringUtil.equalsDeburrIgnoreCase(t.name ?? '', simpleName)
       ) ??
       searchTrappings.find((t) =>
-        StringUtil.includesDeburrIgnoreCase(t.name, name)
+        StringUtil.includesDeburrIgnoreCase(t.name ?? '', name)
       ) ??
       searchTrappings.find((t) =>
-        StringUtil.includesDeburrIgnoreCase(t.name, simpleName)
+        StringUtil.includesDeburrIgnoreCase(t.name ?? '', simpleName)
       );
 
     if (trapping == null && !fromWord) {
       trapping = searchTrappings
         .sort((t1, t2) => {
-          return t2.name.length - t1.name.length;
+          return (t2.name ?? '').length - (t1.name ?? '').length;
         })
-        .find((t) => StringUtil.includesDeburrIgnoreCase(name, t.name));
+        .find((t) => StringUtil.includesDeburrIgnoreCase(name, t.name ?? ''));
     }
 
     if (trapping == null) {
@@ -464,7 +464,7 @@ export default class ReferentialUtil {
           simpleName !== name ? `or ${simpleName}` : ''
         }`
       );
-    } else if (!StringUtil.equalsDeburrIgnoreCase(trapping.name, name)) {
+    } else if (!StringUtil.equalsDeburrIgnoreCase(trapping.name ?? '', name)) {
       console.warn(`Trapping ${name} is resolved by ${trapping.name}`);
     }
 
@@ -479,11 +479,8 @@ export default class ReferentialUtil {
     return await wfrp4e.utility.speciesMovement(speciesKey);
   }
 
-  public static async getAllMoneyItems(): Promise<
-    (ItemData & Record<string, unknown>)[]
-  > {
-    let moneyItems: (ItemData & Record<string, unknown>)[] =
-      (await wfrp4e.utility.allMoneyItems()) ?? [];
+  public static async getAllMoneyItems(): Promise<ItemData[]> {
+    let moneyItems: ItemData[] = (await wfrp4e.utility.allMoneyItems()) ?? [];
     moneyItems = moneyItems
       .map((mi) => {
         (<any>mi.data).quantity.value = 0;
@@ -624,7 +621,7 @@ export default class ReferentialUtil {
     const compendiumActorTraits: ItemData[] = [];
     const traits = await CompendiumUtil.getCompendiumTraits();
     const traitsNames = traits.map((t) =>
-      EntityUtil.toMinimalName(t.name).trim()
+      EntityUtil.toMinimalName(t.name ?? '').trim()
     );
     const actorsMap = await this.getActorsEntities();
     for (let [_key, actors] of Object.entries(actorsMap)) {
@@ -650,7 +647,7 @@ export default class ReferentialUtil {
     const compendiumActorSkills: ItemData[] = [];
     const skills = await CompendiumUtil.getCompendiumSkills();
     const skillsNames = skills.map((t) =>
-      EntityUtil.toMinimalName(t.name).trim()
+      EntityUtil.toMinimalName(t.name ?? '').trim()
     );
     const actorsMap = await this.getActorsEntities();
     for (let [_key, actors] of Object.entries(actorsMap)) {
@@ -677,7 +674,7 @@ export default class ReferentialUtil {
     const compendiumActorTalents: ItemData[] = [];
     const talents = await CompendiumUtil.getCompendiumTalents();
     const talentsNames = talents.map((t) =>
-      EntityUtil.toMinimalName(t.name).trim()
+      EntityUtil.toMinimalName(t.name ?? '').trim()
     );
     const actorsMap = await this.getActorsEntities();
     for (let [_key, actors] of Object.entries(actorsMap)) {
