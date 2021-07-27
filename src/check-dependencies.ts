@@ -1,15 +1,17 @@
+import { i18n, modules } from './constant.js';
+
 export default class CheckDependencies {
   public static check(callback: (canRun: boolean) => void) {
-    const active = game.modules?.get('wfrp4e-core')?.active ?? false;
+    const active = modules?.get('wfrp4e-core')?.active ?? false;
     if (active) {
       callback(true);
     } else {
       new Dialog({
-        title: game.i18n.localize('WFRP4NPCGEN.dependencies.miss.title'),
+        title: i18n.localize('WFRP4NPCGEN.dependencies.miss.title'),
         content: `<form>
               <div class="form-group">
               <label>
-                  ${game.i18n.localize(
+                  ${i18n.localize(
                     'WFRP4NPCGEN.dependencies.miss.label'
                   )}          
               </label> 
@@ -19,7 +21,7 @@ export default class CheckDependencies {
         buttons: {
           yes: {
             icon: "<i class='fas fa-check'></i>",
-            label: game.i18n.localize('WFRP4NPCGEN.common.button.OK'),
+            label: i18n.localize('WFRP4NPCGEN.common.button.OK'),
             callback: () => {
               callback(false);
             },

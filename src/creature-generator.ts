@@ -18,6 +18,11 @@ import MagicsChooser from './util/magics-chooser.js';
 import MutationsChooser from './util/mutations-chooser.js';
 import CreatureBuilder from './creature-builder.js';
 import RandomUtil from './util/random-util.js';
+import { i18n } from './constant.js';
+import {
+  ActorData,
+  ItemData,
+} from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 
 export default class CreatureGenerator {
   public static readonly creatureChooser = CreatureChooser;
@@ -39,7 +44,7 @@ export default class CreatureGenerator {
         const actorData = await CreatureBuilder.buildCreatureData(model);
         const actor = await CreatureBuilder.createCreature(model, actorData);
         ui.notifications.info(
-          game.i18n.format('WFRP4NPCGEN.notification.creature.created', {
+          i18n.format('WFRP4NPCGEN.notification.creature.created', {
             name: actor.name,
           })
         );
@@ -68,7 +73,7 @@ export default class CreatureGenerator {
   ) {
     await this.creatureChooser.selectCreature(
       model.creatureTemplate.creatureData?._id,
-      async (creature: Actor.Data & any) => {
+      async (creature: ActorData & any) => {
         model.creatureTemplate = new CreatureTemplate();
         model.abilities = new CreatureAbilities();
         model.trappings = [];
@@ -214,38 +219,38 @@ export default class CreatureGenerator {
         const mentals = await ReferentialUtil.getMentalMutationEntities();
 
         model.spells = [
-          ...creature.petty.map((p: Item.Data) => {
+          ...creature.petty.map((p: ItemData) => {
             const spell = spells.find((s) => s.name === p.name);
             return spell != null ? duplicate(spell.data) : p;
           }),
-          ...creature.grimoire.map((g: Item.Data) => {
+          ...creature.grimoire.map((g: ItemData) => {
             const spell = spells.find((s) => s.name === g.name);
             return spell != null ? duplicate(spell.data) : g;
           }),
         ];
         model.prayers = [
-          ...creature.blessings.map((b: Item.Data) => {
+          ...creature.blessings.map((b: ItemData) => {
             const prayer = prayers.find((p) => p.name === b.name);
             return prayer != null ? duplicate(prayer.data) : b;
           }),
-          ...creature.miracles.map((m: Item.Data) => {
+          ...creature.miracles.map((m: ItemData) => {
             const prayer = prayers.find((p) => p.name === m.name);
             return prayer != null ? duplicate(prayer.data) : m;
           }),
         ];
         model.physicalMutations = creature.mutations
           .filter(
-            (m: Item.Data) => (<any>m.data).mutationType.value === 'physical'
+            (m: ItemData) => (<any>m.data).mutationType.value === 'physical'
           )
-          .map((m: Item.Data) => {
+          .map((m: ItemData) => {
             const mutation = physicals.find((p) => p.name === m.name);
             return mutation != null ? duplicate(mutation.data) : m;
           });
         model.mentalMutations = creature.mutations
           .filter(
-            (m: Item.Data) => (<any>m.data).mutationType.value === 'mental'
+            (m: ItemData) => (<any>m.data).mutationType.value === 'mental'
           )
-          .map((m: Item.Data) => {
+          .map((m: ItemData) => {
             const mutation = mentals.find((p) => p.name === m.name);
             return mutation != null ? duplicate(mutation.data) : m;
           });
@@ -497,7 +502,7 @@ export default class CreatureGenerator {
   }
 
   private static async addSwarm(model: CreatureModel) {
-    const swarm: Item.Data & any = duplicate(
+    const swarm: ItemData & any = duplicate(
       (await this.compendium.getCompendiumSwarmTrait()).data
     );
     if (model.abilities.isSwarm) {
@@ -510,7 +515,7 @@ export default class CreatureGenerator {
   }
 
   private static async addSize(model: CreatureModel) {
-    const size: Item.Data & any = duplicate(
+    const size: ItemData & any = duplicate(
       (await this.compendium.getCompendiumSizeTrait()).data
     );
     (<any>size.data).specification.value = this.compendium.getSizes()[
@@ -521,7 +526,7 @@ export default class CreatureGenerator {
   }
 
   private static async addWeapon(model: CreatureModel) {
-    const weapon: Item.Data & any = duplicate(
+    const weapon: ItemData & any = duplicate(
       (await this.compendium.getCompendiumWeaponTrait()).data
     );
     if (model.abilities.hasWeaponTrait) {
@@ -546,7 +551,7 @@ export default class CreatureGenerator {
   }
 
   private static async addRanged(model: CreatureModel) {
-    const ranged: Item.Data & any = duplicate(
+    const ranged: ItemData & any = duplicate(
       (await this.compendium.getCompendiumRangedTrait()).data
     );
     const defaultRange = StringUtil.getGroupName(ranged.name);
@@ -585,7 +590,7 @@ export default class CreatureGenerator {
   }
 
   private static async addArmour(model: CreatureModel) {
-    const armour: Item.Data & any = duplicate(
+    const armour: ItemData & any = duplicate(
       (await this.compendium.getCompendiumArmourTrait()).data
     );
     if (model.abilities.hasArmourTrait) {

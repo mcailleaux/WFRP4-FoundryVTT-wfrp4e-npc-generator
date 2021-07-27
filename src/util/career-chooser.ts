@@ -1,6 +1,7 @@
 import DialogUtil from './dialog-util.js';
 import RandomUtil from './random-util.js';
 import ReferentialUtil from './referential-util.js';
+import { i18n } from '../constant.js';
 
 export default class CareerChooser {
   public static async selectCareer(
@@ -16,7 +17,7 @@ export default class CareerChooser {
     );
     new Dialog(
       {
-        title: game.i18n.localize('WFRP4NPCGEN.career.select.title'),
+        title: i18n.localize('WFRP4NPCGEN.career.select.title'),
         content: `<form id="select-career-form-${dialogId}">
               <div class="form-group">
                       ${DialogUtil.getButtonScript(
@@ -26,9 +27,9 @@ export default class CareerChooser {
               </div>
               <div class="form-group">
                       ${DialogUtil.getButtonScript(
-                        `${game.i18n.localize(
-                          'WFRP4NPCGEN.common.button.Random'
-                        )} ${ReferentialUtil.getSpeciesMap()[speciesKey]}`,
+                        `${i18n.localize('WFRP4NPCGEN.common.button.Random')} ${
+                          ReferentialUtil.getSpeciesMap()[speciesKey]
+                        }`,
                         'randomSpecies()'
                       )}
               </div>

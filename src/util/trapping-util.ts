@@ -1,6 +1,8 @@
 import ReferentialUtil from './referential-util.js';
 import StringUtil from './string-util.js';
 import RandomUtil from './random-util.js';
+import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import { i18n, wfrp4e } from '../constant.js';
 
 export default class TrappingUtil {
   public static readonly UPDATE_QUANTITY_KEY = 'data.quantity.value';
@@ -68,42 +70,48 @@ export default class TrappingUtil {
     if (gold > 0 || isGoldCreate) {
       if (isGoldCreate) {
         (<any>createGCoin.data).quantity.value = gold;
-        await actor.createOwnedItem(createGCoin);
+        await actor.createEmbeddedDocuments(Item.metadata.name, [createGCoin]);
       } else {
-        await actor.updateOwnedItem({
-          _id: gCoin._id,
-          [this.UPDATE_QUANTITY_KEY]: gold + gCoin.data.quantity.value,
-        });
+        await actor.updateEmbeddedDocuments(Item.metadata.name, [
+          {
+            _id: gCoin._id,
+            [this.UPDATE_QUANTITY_KEY]: gold + gCoin.data.quantity.value,
+          },
+        ]);
       }
     }
 
     if (silver > 0 || isSilverCreate) {
       if (isSilverCreate) {
         (<any>createSCoin.data).quantity.value = silver;
-        await actor.createOwnedItem(createSCoin);
+        await actor.createEmbeddedDocuments(Item.metadata.name, [createSCoin]);
       } else {
-        await actor.updateOwnedItem({
-          _id: sCoin._id,
-          [this.UPDATE_QUANTITY_KEY]: silver + sCoin.data.quantity.value,
-        });
+        await actor.updateEmbeddedDocuments(Item.metadata.name, [
+          {
+            _id: sCoin._id,
+            [this.UPDATE_QUANTITY_KEY]: silver + sCoin.data.quantity.value,
+          },
+        ]);
       }
     }
 
     if (brass > 0 || isBrassCreate) {
       if (isBrassCreate) {
         (<any>createBCoin.data).quantity.value = brass;
-        await actor.createOwnedItem(createBCoin);
+        await actor.createEmbeddedDocuments(Item.metadata.name, [createBCoin]);
       } else {
-        await actor.updateOwnedItem({
-          _id: bCoin._id,
-          [this.UPDATE_QUANTITY_KEY]: brass + bCoin.data.quantity.value,
-        });
+        await actor.updateEmbeddedDocuments(Item.metadata.name, [
+          {
+            _id: bCoin._id,
+            [this.UPDATE_QUANTITY_KEY]: brass + bCoin.data.quantity.value,
+          },
+        ]);
       }
     }
 
     let money = duplicate((<any>actor.data)?.money?.coins);
-    money = game.wfrp4e.market.consolidateMoney(money);
-    await actor.updateOwnedItem(money);
+    money = wfrp4e.market.consolidateMoney(money);
+    await actor.updateEmbeddedDocuments(Item.metadata.name, money);
   }
 
   public static async generateWeapons(actor: Actor) {
@@ -113,9 +121,9 @@ export default class TrappingUtil {
 
     const groups: string[] = [];
 
-    const weaponSkills: Item.Data[] = (<any>actor.data)?.skills
+    const weaponSkills: ItemData[] = (<any>actor.data)?.skills
       ?.filter(
-        (i: Item.Data) =>
+        (i: ItemData) =>
           i.name.includes('(') &&
           (StringUtil.includesDeburrIgnoreCase(
             i.name,
@@ -126,14 +134,14 @@ export default class TrappingUtil {
               ReferentialUtil.getWeaponTypes().ranged
             ))
       )
-      .sort((s1: Item.Data, s2: Item.Data) => {
+      .sort((s1: ItemData, s2: ItemData) => {
         const s1HaveAny = StringUtil.includesDeburrIgnoreCase(
           s1.name,
-          game.i18n.localize('WFRP4NPCGEN.item.any')
+          i18n.localize('WFRP4NPCGEN.item.any')
         );
         const s2HaveAny = StringUtil.includesDeburrIgnoreCase(
           s2.name,
-          game.i18n.localize('WFRP4NPCGEN.item.any')
+          i18n.localize('WFRP4NPCGEN.item.any')
         );
         if (s1HaveAny && s2HaveAny) {
           return 0;
@@ -190,14 +198,16 @@ export default class TrappingUtil {
       if (!ignore && !groups.includes(group)) {
         groups.push(group);
         if (replaceSkill) {
-          await actor.updateOwnedItem({
-            _id: skill._id,
-            [this.UPDATE_SKILL_NAME_KEY]: `${
-              isMelee
-                ? ReferentialUtil.getWeaponTypes().melee
-                : ReferentialUtil.getWeaponTypes().ranged
-            } (${group})`,
-          });
+          await actor.updateEmbeddedDocuments(Item.metadata.name, [
+            {
+              _id: skill._id,
+              [this.UPDATE_SKILL_NAME_KEY]: `${
+                isMelee
+                  ? ReferentialUtil.getWeaponTypes().melee
+                  : ReferentialUtil.getWeaponTypes().ranged
+              } (${group})`,
+            },
+          ]);
         }
       }
     }
@@ -216,7 +226,9 @@ export default class TrappingUtil {
           )
         );
 
-        await actor.createOwnedItem(randomWeapon.data);
+        await actor.createEmbeddedDocuments(Item.metadata.name, [
+          <any>randomWeapon.data,
+        ]);
       }
     }
 
@@ -241,7 +253,9 @@ export default class TrappingUtil {
             if (quantity != null && quantity < 10) {
               (<any>randomAmmunition.data.data).quantity.value = 10;
             }
-            await actor.createOwnedItem(randomAmmunition.data);
+            await actor.createEmbeddedDocuments(Item.metadata.name, [
+              <any>randomAmmunition.data,
+            ]);
           }
         }
       }

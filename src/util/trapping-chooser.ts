@@ -1,11 +1,13 @@
 import DialogUtil from './dialog-util.js';
 import ReferentialUtil from './referential-util.js';
 import EntityUtil from './entity-util.js';
+import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import { i18n, wfrp4e } from '../constant.js';
 
 export default class TrappingChooser {
   public static async selectTrappings(
-    initTrappings: Item.Data[],
-    callback: (trappings: Item.Data[]) => void,
+    initTrappings: ItemData[],
+    callback: (trappings: ItemData[]) => void,
     undo?: () => void
   ) {
     const dialogId = new Date().getTime();
@@ -16,10 +18,10 @@ export default class TrappingChooser {
       return t1.name.localeCompare(t2.name);
     });
 
-    const trappingsMap: { [group: string]: Item.Data[] } = {};
+    const trappingsMap: { [group: string]: ItemData[] } = {};
     for (let trapping of trappings) {
       const type = (<any>trapping.data)?.trappingType?.value ?? trapping.type;
-      const categorie = game.wfrp4e.config.trappingCategories[type];
+      const categorie = wfrp4e.config.trappingCategories[type];
       if (trappingsMap[categorie] == null) {
         trappingsMap[categorie] = [];
       }
@@ -27,7 +29,7 @@ export default class TrappingChooser {
     }
 
     const trappingsCategorieEntries = Object.entries(
-      <{ [key: string]: string }>game.wfrp4e.config.trappingCategories
+      <{ [key: string]: string }>wfrp4e.config.trappingCategories
     );
 
     const trappingsSortList = [
@@ -69,7 +71,7 @@ export default class TrappingChooser {
 
     new Dialog(
       {
-        title: game.i18n.localize('WFRP4NPCGEN.select.trappings.title'),
+        title: i18n.localize('WFRP4NPCGEN.select.trappings.title'),
         content: `<form>
             <div class="form-group">
           ${DialogUtil.getSelectAddRemoveScript({
@@ -84,7 +86,7 @@ export default class TrappingChooser {
             `,
             optionGroups: EntityUtil.toSelectOptionGroup(trappingsMap),
             sort: trappingsSort,
-            initValues: initTrappings?.map((s: Item.Data & any) => {
+            initValues: initTrappings?.map((s: ItemData & any) => {
               return {
                 key: s._id,
                 value: s.displayName ?? s.name,
@@ -105,7 +107,7 @@ export default class TrappingChooser {
         buttons: DialogUtil.getDialogButtons(
           dialogId,
           (html: JQuery) => {
-            const resultTrappings: Item.Data[] = [];
+            const resultTrappings: ItemData[] = [];
             html.find(`.${trappingsId}`).each((_i, r: HTMLInputElement) => {
               const id = r.id;
               const key = r.value;
@@ -113,7 +115,7 @@ export default class TrappingChooser {
               html.find(`#${id}-count`).each((_i1, r1: HTMLInputElement) => {
                 count = Number(r1.value);
               });
-              const trapping = <Item.Data & any>(
+              const trapping = <ItemData & any>(
                 trappings.find((t) => t._id === key)
               );
               trapping.data.quantity.value = count;

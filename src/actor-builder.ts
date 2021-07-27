@@ -2,6 +2,7 @@ import NpcModel from './npc-model.js';
 import { GenerateEffectOptionEnum } from './util/generate-effect-option.enum.js';
 import FolderUtil from './util/folder-util.js';
 import TrappingUtil from './util/trapping-util.js';
+import { i18n } from './constant.js';
 
 export class ActorBuilder {
   public static async buildActorData(model: NpcModel, type: string) {
@@ -56,25 +57,31 @@ export class ActorBuilder {
     }
 
     let actor: Actor = <Actor>await Actor.create(data);
-    await actor.createOwnedItem(model.skills);
-    await actor.createOwnedItem(model.talents);
+    await actor.createEmbeddedDocuments(Item.metadata.name, model.skills);
+    await actor.createEmbeddedDocuments(Item.metadata.name, model.talents);
     if (model.traits.length > 0) {
-      await actor.createOwnedItem(model.traits);
+      await actor.createEmbeddedDocuments(Item.metadata.name, model.traits);
     }
     if (model.trappings.length > 0) {
-      await actor.createOwnedItem(model.trappings);
+      await actor.createEmbeddedDocuments(Item.metadata.name, model.trappings);
     }
     if (model.spells.length > 0) {
-      await actor.createOwnedItem(model.spells);
+      await actor.createEmbeddedDocuments(Item.metadata.name, model.spells);
     }
     if (model.prayers.length > 0) {
-      await actor.createOwnedItem(model.prayers);
+      await actor.createEmbeddedDocuments(Item.metadata.name, model.prayers);
     }
     if (model.physicalMutations.length > 0) {
-      await actor.createOwnedItem(model.physicalMutations);
+      await actor.createEmbeddedDocuments(
+        Item.metadata.name,
+        model.physicalMutations
+      );
     }
     if (model.mentalMutations.length > 0) {
-      await actor.createOwnedItem(model.mentalMutations);
+      await actor.createEmbeddedDocuments(
+        Item.metadata.name,
+        model.mentalMutations
+      );
     }
 
     if (model?.options?.withInitialMoney) {
@@ -149,7 +156,7 @@ export class ActorBuilder {
   ) {
     const generateEffect: any = {
       icon: icon,
-      label: game.i18n.localize(label),
+      label: i18n.localize(label),
       disabled: disabled,
     };
     generateEffect['flags.wfrp4e.effectApplication'] = 'actor';

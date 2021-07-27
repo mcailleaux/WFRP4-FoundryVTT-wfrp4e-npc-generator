@@ -19,6 +19,8 @@ import WaiterUtil from './util/waiter-util.js';
 import MagicsChooser from './util/magics-chooser.js';
 import MutationsChooser from './util/mutations-chooser.js';
 import NpcAbilitiesChooser from './util/npc-abilities-chooser.js';
+import { i18n, notifications } from './constant.js';
+import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 
 export default class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
@@ -44,8 +46,8 @@ export default class NpcGenerator {
       await this.generateNpcModel(async (model) => {
         const actorData = await ActorBuilder.buildActorData(model, 'npc');
         const actor = await ActorBuilder.createActor(model, actorData);
-        ui.notifications.info(
-          game.i18n.format('WFRP4NPCGEN.notification.actor.created', {
+        notifications.info(
+          i18n.format('WFRP4NPCGEN.notification.actor.created', {
             name: actor.name,
           })
         );
@@ -376,7 +378,7 @@ export default class NpcGenerator {
 
   private static async addCareerPath(model: NpcModel) {
     const careers: Item[] = await this.referential.getCareerEntities();
-    let career: Item.Data;
+    let career: ItemData;
     const lastCareer = model.selectedCareers[model.selectedCareers.length - 1];
     if (lastCareer?.data != null) {
       career = lastCareer.data;
@@ -402,7 +404,7 @@ export default class NpcGenerator {
     } else if (careerData?.careergroup?.value != null) {
       model.careerPath = careers
         .map((c: Item) => c.data)
-        .filter((c: Item.Data) => {
+        .filter((c: ItemData) => {
           const data: any = c?.data;
           const levelStr = data?.level?.value;
           const selectLevelStr = careerData?.level?.value;
@@ -436,7 +438,7 @@ export default class NpcGenerator {
       }
     });
 
-    const careerSkillsMap: { [group: string]: Item.Data } = {};
+    const careerSkillsMap: { [group: string]: ItemData } = {};
     for (let career of model.careerPath) {
       const data: any = career.data;
       const level = data?.level?.value ?? 0;
@@ -486,7 +488,7 @@ export default class NpcGenerator {
   private static async addNativeTongueSkill(model: NpcModel) {
     await this.addSkill(
       model,
-      game.i18n.localize(`WFRP4NPCGEN.native.tongue.${model.speciesKey}`)
+      i18n.localize(`WFRP4NPCGEN.native.tongue.${model.speciesKey}`)
     );
   }
 
@@ -527,7 +529,7 @@ export default class NpcGenerator {
         (skillToAdd.name.includes('(') &&
           StringUtil.includesDeburrIgnoreCase(
             skillToAdd.name,
-            game.i18n.localize('WFRP4NPCGEN.item.any')
+            i18n.localize('WFRP4NPCGEN.item.any')
           ))
       ) {
         model.skills.push(skillToAdd);
@@ -545,7 +547,7 @@ export default class NpcGenerator {
   }
 
   private static async addSpeciesTalents(model: NpcModel) {
-    const traitPrefix = game.i18n.localize('Trait');
+    const traitPrefix = i18n.localize('Trait');
     const speciesTalentsMap = this.referential.getSpeciesTalentsMap();
     const speciesTalent: string[] = speciesTalentsMap[model.speciesKey].filter(
       (talent: string, index) =>
@@ -587,7 +589,7 @@ export default class NpcGenerator {
   }
 
   private static async addSpeciesTraits(model: NpcModel) {
-    const traitPrefix = game.i18n.localize('Trait');
+    const traitPrefix = i18n.localize('Trait');
     const speciesTalentsMap = this.referential.getSpeciesTalentsMap();
     const speciesTraits: string[] = speciesTalentsMap[model.speciesKey]
       .filter(

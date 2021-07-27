@@ -17,9 +17,9 @@
     "sourceMap": true,
     "inlineSources": true,
     "sourceRoot": "scr",
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "target": "es6",
-    "types": ["foundry-pc-types"]
+    "types": ["@league-of-foundry-developers/foundry-vtt-types"]
   },
   "include": ["src/**/*"]
 }

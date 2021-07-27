@@ -4,21 +4,22 @@ import GenerationProfiles, {
 import RegisterSettings from './register-settings.js';
 import ReferentialUtil from './referential-util.js';
 import NameChooser from './name-chooser.js';
+import { i18n, settings } from '../constant.js';
 
-export default class GenerationProfilesForm extends FormApplication<GenerationProfiles> {
+export default class GenerationProfilesForm extends FormApplication<
+  FormApplication.Options,
+  GenerationProfiles
+> {
   private data: any;
 
-  constructor(
-    object: GenerationProfiles,
-    options: FormApplication.Options = {}
-  ) {
+  constructor(object: GenerationProfiles, options: Partial<Options> = {}) {
     super(object, options);
   }
 
   public static get defaultOptions(): FormApplication.Options {
     return mergeObject(super.defaultOptions, {
       id: 'generation-profiles',
-      title: game.i18n.localize('WFRP4NPCGEN.settings.generationProfiles.name'),
+      title: i18n.localize('WFRP4NPCGEN.settings.generationProfiles.name'),
       template: `modules/${RegisterSettings.moduleName}/templates/generation-profiles.html`,
       width: 800,
       height: 'auto',
@@ -30,7 +31,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
   public getData(): any {
     if (this.data == null) {
       const profiles: { [key: string]: any } = duplicate(
-        game.settings.get(RegisterSettings.moduleName, 'generationProfiles')
+        settings.get(RegisterSettings.moduleName, 'generationProfiles')
       );
       if (profiles.creature == null) {
         profiles.creature = <GenerationProfile>{
@@ -47,7 +48,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
         profiles[key].species = label;
       });
       if (profiles.creature != null) {
-        profiles.creature.species = game.i18n.localize(
+        profiles.creature.species = i18n.localize(
           'WFRP4NPCGEN.options.select.profiles.creature.label'
         );
       }
@@ -82,7 +83,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
             idImagePath: `${species}-${name}-imagePath`,
             idTokenPath: `${species}-${name}-tokenPath`,
             name: name,
-            genPath: game.settings.get(
+            genPath: settings.get(
               RegisterSettings.moduleName,
               species === 'creature'
                 ? 'defaultCreatureGenPath'
@@ -171,7 +172,7 @@ export default class GenerationProfilesForm extends FormApplication<GenerationPr
       });
     });
 
-    await game.settings.set(
+    await settings.set(
       RegisterSettings.moduleName,
       'generationProfiles',
       generationProfiles

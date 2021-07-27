@@ -1,6 +1,7 @@
 import DialogUtil from './dialog-util.js';
 import RandomUtil from './random-util.js';
 import ReferentialUtil from './referential-util.js';
+import { i18n } from '../constant.js';
 
 export default class SpeciesSkillsChooser {
   public static async selectSpeciesSkills(
@@ -40,7 +41,7 @@ export default class SpeciesSkillsChooser {
 
     new Dialog(
       {
-        title: game.i18n.localize('WFRP4NPCGEN.species.skills.select.title'),
+        title: i18n.localize('WFRP4NPCGEN.species.skills.select.title'),
         content: `<form>
                 <div class="form-group">
                       ${DialogUtil.getButtonScript(

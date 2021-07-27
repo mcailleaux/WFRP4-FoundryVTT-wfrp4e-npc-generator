@@ -2,12 +2,14 @@ import ReferentialUtil from './referential-util.js';
 import DialogUtil from './dialog-util.js';
 import EntityUtil from './entity-util.js';
 import StringUtil from './string-util.js';
+import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import { i18n, wfrp4e } from '../constant.js';
 
 export default class MagicsChooser {
   public static async selectMagics(
-    initSpells: Item.Data[],
-    initPrayers: Item.Data[],
-    callback: (spells: Item.Data[], prayers: Item.Data[]) => void,
+    initSpells: ItemData[],
+    initPrayers: ItemData[],
+    callback: (spells: ItemData[], prayers: ItemData[]) => void,
     undo?: () => void
   ) {
     const dialogId = new Date().getTime();
@@ -18,16 +20,16 @@ export default class MagicsChooser {
       return t1.name.localeCompare(t2.name);
     });
 
-    const spellsMap: { [group: string]: Item.Data[] } = {};
+    const spellsMap: { [group: string]: ItemData[] } = {};
     for (let spell of spells) {
       const lore = StringUtil.toDeburrLowerCase(
         (<any>spell.data)?.lore?.value ?? ''
       );
       const loreLabel =
         lore == null || lore?.trim() == ''
-          ? game.i18n.localize('WFRP4NPCGEN.select.magics.no.lore.label')
-          : game.wfrp4e.config.magicLores[lore] ??
-            game.wfrp4e.config.magicLores[this.getCorrectedLore(lore)] ??
+          ? i18n.localize('WFRP4NPCGEN.select.magics.no.lore.label')
+          : wfrp4e.config.magicLores[lore] ??
+            wfrp4e.config.magicLores[this.getCorrectedLore(lore)] ??
             this.getCorrectedLore(lore);
       if (spellsMap[loreLabel] == null) {
         spellsMap[loreLabel] = [];
@@ -36,13 +38,13 @@ export default class MagicsChooser {
     }
 
     const spellsLoreEntries = Object.entries(
-      <{ [key: string]: string }>game.wfrp4e.config.magicLores
+      <{ [key: string]: string }>wfrp4e.config.magicLores
     );
     spellsLoreEntries.push(['undivided', 'Chaos']);
     spellsLoreEntries.push(['warp', 'Skaven']);
     spellsLoreEntries.push([
       'none',
-      game.i18n.localize('WFRP4NPCGEN.select.magics.no.lore.label'),
+      i18n.localize('WFRP4NPCGEN.select.magics.no.lore.label'),
     ]);
 
     const spellsLoreSortList = [
@@ -90,14 +92,14 @@ export default class MagicsChooser {
       return t1.name.localeCompare(t2.name);
     });
 
-    const prayersMap: { [group: string]: Item.Data[] } = {};
+    const prayersMap: { [group: string]: ItemData[] } = {};
     for (let prayer of prayers) {
       const type = (<any>prayer.data)?.type?.value;
       const god = (<any>prayer.data)?.god?.value;
       const key =
         type === 'blessing'
-          ? game.wfrp4e.config.prayerTypes[type]
-          : `${game.wfrp4e.config.prayerTypes[type]} - ${god}`;
+          ? wfrp4e.config.prayerTypes[type]
+          : `${wfrp4e.config.prayerTypes[type]} - ${god}`;
       if (prayersMap[key] == null) {
         prayersMap[key] = [];
       }
@@ -105,17 +107,17 @@ export default class MagicsChooser {
     }
 
     const prayersGodSortList = [
-      `${game.wfrp4e.config.prayerTypes.blessing}`,
-      `${game.wfrp4e.config.prayerTypes.miracle} - Manann`,
-      `${game.wfrp4e.config.prayerTypes.miracle} - Morr`,
-      `${game.wfrp4e.config.prayerTypes.miracle} - Myrmidia`,
-      `${game.wfrp4e.config.prayerTypes.miracle} - Ranald`,
-      `${game.wfrp4e.config.prayerTypes.miracle} - Rhya`,
-      `${game.wfrp4e.config.prayerTypes.miracle} - Shallya`,
-      `${game.wfrp4e.config.prayerTypes.miracle} - Sigmar`,
-      `${game.wfrp4e.config.prayerTypes.miracle} - Taal`,
-      `${game.wfrp4e.config.prayerTypes.miracle} - Ulric`,
-      `${game.wfrp4e.config.prayerTypes.miracle} - Verena`,
+      `${wfrp4e.config.prayerTypes.blessing}`,
+      `${wfrp4e.config.prayerTypes.miracle} - Manann`,
+      `${wfrp4e.config.prayerTypes.miracle} - Morr`,
+      `${wfrp4e.config.prayerTypes.miracle} - Myrmidia`,
+      `${wfrp4e.config.prayerTypes.miracle} - Ranald`,
+      `${wfrp4e.config.prayerTypes.miracle} - Rhya`,
+      `${wfrp4e.config.prayerTypes.miracle} - Shallya`,
+      `${wfrp4e.config.prayerTypes.miracle} - Sigmar`,
+      `${wfrp4e.config.prayerTypes.miracle} - Taal`,
+      `${wfrp4e.config.prayerTypes.miracle} - Ulric`,
+      `${wfrp4e.config.prayerTypes.miracle} - Verena`,
     ];
 
     const prayersSort = (
@@ -133,7 +135,7 @@ export default class MagicsChooser {
 
     new Dialog(
       {
-        title: game.i18n.localize('WFRP4NPCGEN.select.magics.title'),
+        title: i18n.localize('WFRP4NPCGEN.select.magics.title'),
         content: `<form>
             <div class="form-group">
             ${DialogUtil.getSelectAddRemoveScript({
@@ -147,7 +149,7 @@ export default class MagicsChooser {
             `,
               optionGroups: EntityUtil.toSelectOptionGroup(spellsMap),
               sort: spellsSort,
-              initValues: initSpells?.map((s: Item.Data & any) => {
+              initValues: initSpells?.map((s: ItemData & any) => {
                 return {
                   key: s._id,
                   value: s.displayName ?? s.name,
@@ -167,7 +169,7 @@ export default class MagicsChooser {
             `,
             optionGroups: EntityUtil.toSelectOptionGroup(prayersMap),
             sort: prayersSort,
-            initValues: initPrayers?.map((s: Item.Data & any) => {
+            initValues: initPrayers?.map((s: ItemData & any) => {
               return {
                 key: s._id,
                 value: s.displayName ?? s.name,
@@ -185,21 +187,19 @@ export default class MagicsChooser {
         buttons: DialogUtil.getDialogButtons(
           dialogId,
           (html: JQuery) => {
-            const resultSpells: Item.Data[] = [];
+            const resultSpells: ItemData[] = [];
             html.find(`.${spellsId}`).each((_i, r: HTMLInputElement) => {
               const key = r.value;
 
-              const spell = <Item.Data & any>spells.find((t) => t._id === key);
+              const spell = <ItemData & any>spells.find((t) => t._id === key);
               resultSpells.push(spell);
             });
 
-            const resultPrayers: Item.Data[] = [];
+            const resultPrayers: ItemData[] = [];
             html.find(`.${prayersId}`).each((_i, r: HTMLInputElement) => {
               const key = r.value;
 
-              const prayer = <Item.Data & any>(
-                prayers.find((t) => t._id === key)
-              );
+              const prayer = <ItemData & any>prayers.find((t) => t._id === key);
               resultPrayers.push(prayer);
             });
             callback(resultSpells, resultPrayers);

@@ -1,10 +1,15 @@
+import {
+  ActorData,
+  ItemData,
+} from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+
 export default class CreatureTemplate {
-  public creatureData: Actor.Data & any;
+  public creatureData: ActorData & any;
   public size: string;
-  public swarm: Item.Data & any;
-  public weapon: Item.Data & any;
-  public ranged: Item.Data & any;
-  public armour: Item.Data & any;
+  public swarm: ItemData & any;
+  public weapon: ItemData & any;
+  public ranged: ItemData & any;
+  public armour: ItemData & any;
   public isSwarm: boolean = false;
   public hasWeaponTrait: boolean = false;
   public hasArmourTrait: boolean = false;

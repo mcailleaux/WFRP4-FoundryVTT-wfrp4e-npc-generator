@@ -1,6 +1,8 @@
 import StringUtil from './string-util.js';
 import CompendiumUtil from './compendium-util.js';
 import EntityUtil from './entity-util.js';
+import { actors, i18n, items, wfrp4e, world } from '../constant.js';
+import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 
 export default class ReferentialUtil {
   public static readonly sortedSize = [
@@ -15,25 +17,22 @@ export default class ReferentialUtil {
 
   public static getClassTrappings(): { [key: string]: string } {
     const voClassTraping: { [key: string]: string } =
-      game.wfrp4e.config.classTrappings;
+      wfrp4e.config.classTrappings;
     const resolvedClassTrapping: { [key: string]: string } = {};
     Object.entries(voClassTraping).forEach(([key]) => {
       let useKey = key;
-      if (
-        (<any>game.i18n.translations)[useKey] == null &&
-        useKey.endsWith('s')
-      ) {
+      if ((<any>i18n.translations)[useKey] == null && useKey.endsWith('s')) {
         useKey = useKey.substring(0, useKey.length - 1);
       }
-      const localKey = game.i18n.localize(useKey);
-      resolvedClassTrapping[localKey] = game.i18n.localize(
+      const localKey = i18n.localize(useKey);
+      resolvedClassTrapping[localKey] = i18n.localize(
         `WFRP4NPCGEN.trappings.class.${key}`
       );
     });
     return resolvedClassTrapping;
   }
 
-  public static getClassKeyFromCareer(career: Item.Data) {
+  public static getClassKeyFromCareer(career: ItemData) {
     const careerClass = (<any>career.data)?.class?.value;
     const keys = Object.keys(this.getClassTrappings());
     return keys.find((k) =>
@@ -42,7 +41,7 @@ export default class ReferentialUtil {
   }
 
   public static getSpeciesMap(): { [key: string]: string } {
-    return game.wfrp4e.config.species;
+    return wfrp4e.config.species;
   }
 
   public static getSubSpeciesMap(): {
@@ -63,7 +62,7 @@ export default class ReferentialUtil {
         };
       };
     } = {};
-    for (let [key, value] of Object.entries(game.wfrp4e.config.subspecies)) {
+    for (let [key, value] of Object.entries(wfrp4e.config.subspecies)) {
       for (let [subKey, subValue] of Object.entries(
         <
           {
@@ -109,33 +108,33 @@ export default class ReferentialUtil {
   }
 
   public static getSpeciesSkillsMap(): { [key: string]: string[] } {
-    return game.wfrp4e.config.speciesSkills;
+    return wfrp4e.config.speciesSkills;
   }
 
   public static getSpeciesTalentsMap(): { [key: string]: any[] } {
-    return game.wfrp4e.config.speciesTalents;
+    return wfrp4e.config.speciesTalents;
   }
 
   public static getRandomTalents(): string[] {
-    return game.wfrp4e.tables.talents.rows.map((row: any) => row.name);
+    return wfrp4e.tables.talents.rows.map((row: any) => row.name);
   }
 
   public static getWeaponTypes(): { melee: string; ranged: string } {
     return {
-      melee: game.i18n.localize('WFRP4NPCGEN.trappings.weapon.skill.melee'),
-      ranged: game.i18n.localize('WFRP4NPCGEN.trappings.weapon.skill.ranged'),
+      melee: i18n.localize('WFRP4NPCGEN.trappings.weapon.skill.melee'),
+      ranged: i18n.localize('WFRP4NPCGEN.trappings.weapon.skill.ranged'),
     };
   }
 
   public static getWeaponGroups(): string[] {
-    return Object.values(game.wfrp4e.config.weaponGroups);
+    return Object.values(wfrp4e.config.weaponGroups);
   }
 
   public static getWeaponGroupsKey(group: string): string {
-    for (let key of Object.keys(game.wfrp4e.config.weaponGroups)) {
+    for (let key of Object.keys(wfrp4e.config.weaponGroups)) {
       if (
         StringUtil.equalsDeburrIgnoreCase(
-          game.wfrp4e.config.weaponGroups[key],
+          wfrp4e.config.weaponGroups[key],
           group
         )
       ) {
@@ -146,7 +145,7 @@ export default class ReferentialUtil {
   }
 
   public static getMeleeWeaponGroups(): string[] {
-    const groups = game.wfrp4e.config.weaponGroups;
+    const groups = wfrp4e.config.weaponGroups;
     return [
       groups.basic,
       groups.brawling,
@@ -160,7 +159,7 @@ export default class ReferentialUtil {
   }
 
   public static getRangedWeaponGroups(): string[] {
-    const groups = game.wfrp4e.config.weaponGroups;
+    const groups = wfrp4e.config.weaponGroups;
     return [
       groups.blackpowder,
       groups.bow,
@@ -174,7 +173,7 @@ export default class ReferentialUtil {
   }
 
   public static getBasicWeaponGroups(): string {
-    return game.wfrp4e.config.weaponGroups.basic;
+    return wfrp4e.config.weaponGroups.basic;
   }
 
   public static async getCareerEntities(withWorld = true): Promise<Item[]> {
@@ -190,7 +189,7 @@ export default class ReferentialUtil {
 
   public static async getWorldCareers(): Promise<Item[]> {
     const careersGroups = await CompendiumUtil.getCompendiumCareersGroups();
-    const worldCareers = game.items?.entities?.filter((item) => {
+    const worldCareers = items?.entities?.filter((item: any) => {
       const group = (<any>item?.data?.data)?.careergroup?.value;
       return item.type === 'career' && !careersGroups.includes(group);
     });
@@ -198,14 +197,14 @@ export default class ReferentialUtil {
   }
 
   public static async getWorldEntities(type: string): Promise<Item[]> {
-    const worldEntities = game.items?.entities?.filter((item) => {
+    const worldEntities = items?.entities?.filter((item: any) => {
       return item.type === type;
     });
     return Promise.resolve(worldEntities);
   }
 
   public static async getWorldActorEntities(type?: string): Promise<Actor[]> {
-    const worldEntities = game.actors?.filter((actor) => {
+    const worldEntities = actors?.filter((actor: any) => {
       return type != null ? actor.data?.type === type : true;
     });
     return Promise.resolve(worldEntities);
@@ -216,8 +215,8 @@ export default class ReferentialUtil {
     const finalTrappings: Item[] = [];
     if (withWorld) {
       const trappingCategories = CompendiumUtil.getTrappingCategories();
-      const worldTrappings = game.items?.entities?.filter(
-        (item) =>
+      const worldTrappings = items?.entities?.filter(
+        (item: any) =>
           trappingCategories.includes(item.type) ||
           trappingCategories.includes(
             (<any>item?.data?.data)?.trappingType?.value
@@ -237,7 +236,7 @@ export default class ReferentialUtil {
     if (speciesKey == null) {
       return [];
     }
-    const randomCareers: string[] = game.wfrp4e.tables.career.rows
+    const randomCareers: string[] = wfrp4e.tables.career.rows
       .filter((row: any) => {
         let result = row?.range[speciesKey]?.length > 0;
         if (!result && speciesKey === 'human') {
@@ -282,14 +281,14 @@ export default class ReferentialUtil {
   }
 
   public static getStatusTiers() {
-    return game.wfrp4e.config.statusTiers;
+    return wfrp4e.config.statusTiers;
   }
 
   public static async getAllBasicSkills() {
-    return await game.wfrp4e.utility.allBasicSkills();
+    return await wfrp4e.utility.allBasicSkills();
   }
 
-  public static async findSkill(name: string): Promise<Item.Data> {
+  public static async findSkill(name: string): Promise<ItemData> {
     const skills = [
       ...(await this.getWorldEntities('skill')),
       ...(await this.getSkillEntities(false)),
@@ -326,7 +325,7 @@ export default class ReferentialUtil {
       ...(await this.getWorldEntities('trait')),
       ...(await ReferentialUtil.getTraitEntities(false)),
     ];
-    const trait: Item.Data & any = EntityUtil.find(name, traits);
+    const trait: ItemData & any = EntityUtil.find(name, traits);
     if (trait == null) {
       throw (
         'Could not find trait (or specialization of) ' +
@@ -350,9 +349,9 @@ export default class ReferentialUtil {
   public static async findTrappings(
     name: string,
     referentialTrappings?: Item[]
-  ): Promise<Item.Data[]> {
+  ): Promise<ItemData[]> {
     let searchName = StringUtil.toDeburrLowerCase(name);
-    const trappings: Item.Data[] = [];
+    const trappings: ItemData[] = [];
     let trapping = await this.findTrapping(searchName, referentialTrappings);
     while (trapping != null) {
       trappings.push(trapping);
@@ -379,8 +378,8 @@ export default class ReferentialUtil {
         const words = trapping.name
           .trim()
           .split(' ')
-          .map((word) => word.trim())
-          .filter((word) => word.length > 3);
+          .map((word: any) => word.trim())
+          .filter((word: any) => word.length > 3);
         for (let word of words) {
           searchName = searchName
             .replace(StringUtil.toDeburrLowerCase(word), '')
@@ -430,7 +429,7 @@ export default class ReferentialUtil {
     name: string,
     referentialTrappings?: Item[],
     fromWord = false
-  ): Promise<Item.Data | null> {
+  ): Promise<ItemData | null> {
     const searchTrappings =
       referentialTrappings ?? (await this.getTrappingEntities(true));
     const simpleName =
@@ -473,16 +472,18 @@ export default class ReferentialUtil {
   }
 
   public static async getSpeciesCharacteristics(speciesKey: string) {
-    return await game.wfrp4e.utility.speciesCharacteristics(speciesKey, true);
+    return await wfrp4e.utility.speciesCharacteristics(speciesKey, true);
   }
 
   public static async getSpeciesMovement(speciesKey: string) {
-    return await game.wfrp4e.utility.speciesMovement(speciesKey);
+    return await wfrp4e.utility.speciesMovement(speciesKey);
   }
 
-  public static async getAllMoneyItems(): Promise<Item.Data[]> {
-    let moneyItems: Item.Data[] =
-      (await game.wfrp4e.utility.allMoneyItems()) ?? [];
+  public static async getAllMoneyItems(): Promise<
+    (ItemData & Record<string, unknown>)[]
+  > {
+    let moneyItems: (ItemData & Record<string, unknown>)[] =
+      (await wfrp4e.utility.allMoneyItems()) ?? [];
     moneyItems = moneyItems
       .map((mi) => {
         (<any>mi.data).quantity.value = 0;
@@ -507,7 +508,7 @@ export default class ReferentialUtil {
     if (withWorld) {
       const worldActors = await this.getWorldActorEntities();
       if (worldActors != null && worldActors.length > 0) {
-        actors[game.world.title] = worldActors;
+        actors[world.title] = worldActors;
       }
     }
     return Promise.resolve(actors);
@@ -524,7 +525,7 @@ export default class ReferentialUtil {
     if (withWorld) {
       const worldActors = await this.getWorldActorEntities('creature');
       if (worldActors != null && worldActors.length > 0) {
-        bestiary[game.world.title] = worldActors;
+        bestiary[world.title] = worldActors;
       }
     }
     return Promise.resolve(bestiary);
@@ -620,7 +621,7 @@ export default class ReferentialUtil {
   }
 
   public static async getCompendiumActorTraits() {
-    const compendiumActorTraits: Item.Data[] = [];
+    const compendiumActorTraits: ItemData[] = [];
     const traits = await CompendiumUtil.getCompendiumTraits();
     const traitsNames = traits.map((t) =>
       EntityUtil.toMinimalName(t.name).trim()
@@ -629,8 +630,8 @@ export default class ReferentialUtil {
     for (let [_key, actors] of Object.entries(actorsMap)) {
       for (let actor of actors) {
         const data: any = actor.data;
-        const newTraits: Item.Data[] = data?.traits?.filter(
-          (t: Item.Data) =>
+        const newTraits: ItemData[] = data?.traits?.filter(
+          (t: ItemData) =>
             !traitsNames.includes(EntityUtil.toMinimalName(t.name).trim())
         );
         if (newTraits != null && newTraits.length > 0) {
@@ -646,7 +647,7 @@ export default class ReferentialUtil {
   }
 
   public static async getCompendiumActorSkills() {
-    const compendiumActorSkills: Item.Data[] = [];
+    const compendiumActorSkills: ItemData[] = [];
     const skills = await CompendiumUtil.getCompendiumSkills();
     const skillsNames = skills.map((t) =>
       EntityUtil.toMinimalName(t.name).trim()
@@ -655,8 +656,8 @@ export default class ReferentialUtil {
     for (let [_key, actors] of Object.entries(actorsMap)) {
       for (let actor of actors) {
         const data: any = actor.data;
-        const newSkills: Item.Data[] = data?.skills?.filter(
-          (t: Item.Data) =>
+        const newSkills: ItemData[] = data?.skills?.filter(
+          (t: ItemData) =>
             !skillsNames.includes(EntityUtil.toMinimalName(t.name).trim()) &&
             !t.name.trim().startsWith('(')
         );
@@ -673,7 +674,7 @@ export default class ReferentialUtil {
   }
 
   public static async getCompendiumActorTalents() {
-    const compendiumActorTalents: Item.Data[] = [];
+    const compendiumActorTalents: ItemData[] = [];
     const talents = await CompendiumUtil.getCompendiumTalents();
     const talentsNames = talents.map((t) =>
       EntityUtil.toMinimalName(t.name).trim()
@@ -682,8 +683,8 @@ export default class ReferentialUtil {
     for (let [_key, actors] of Object.entries(actorsMap)) {
       for (let actor of actors) {
         const data: any = actor.data;
-        const newTalents: Item.Data[] = data?.talents?.filter(
-          (t: Item.Data) =>
+        const newTalents: ItemData[] = data?.talents?.filter(
+          (t: ItemData) =>
             !talentsNames.includes(EntityUtil.toMinimalName(t.name).trim()) &&
             !t.name.trim().startsWith('(')
         );

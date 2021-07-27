@@ -1,4 +1,5 @@
 import DialogUtil from './dialog-util.js';
+import { i18n } from '../constant.js';
 
 export default class NameChooser {
   public static async selectName(
@@ -21,7 +22,7 @@ export default class NameChooser {
       : '';
     new Dialog(
       {
-        title: game.i18n.localize('WFRP4NPCGEN.name.select.title'),
+        title: i18n.localize('WFRP4NPCGEN.name.select.title'),
         content: `<form>
               ${randomButton}            
               <div class="form-group">

@@ -1,3 +1,5 @@
+import { folders } from '../constant.js';
+
 export default class FolderUtil {
   public static async createNamedFolder(
     name: string,
@@ -22,8 +24,8 @@ export default class FolderUtil {
       }
     } else {
       folder =
-        game.folders.find(
-          (f) =>
+        folders.find(
+          (f: any) =>
             (<any>f.data).name === name &&
             (<any>f.data).parent === ((<any>parent?.data)?._id ?? null)
         ) ?? <Folder>await Folder.create({

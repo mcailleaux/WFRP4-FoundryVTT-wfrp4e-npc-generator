@@ -1,11 +1,13 @@
 import ReferentialUtil from './referential-util.js';
 import DialogUtil from './dialog-util.js';
 import RandomUtil from './random-util.js';
+import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import { i18n } from '../constant.js';
 
 export default class CreatureChooser {
   public static async selectCreature(
     initCreature: string,
-    callback: (creature: Actor.Data) => void
+    callback: (creature: ActorData) => void
   ) {
     const dialogId = new Date().getTime();
     const creatures = await ReferentialUtil.getBestiaryEntities();
@@ -15,10 +17,10 @@ export default class CreatureChooser {
     for (let [groupeKey, actors] of Object.entries(creatures)) {
       creaturesMap[groupeKey] = {};
       for (let actor of actors) {
-        creaturesMap[groupeKey][actor._id] = actor.name;
-        allCreaturesMap[actor._id] = actor.name;
+        creaturesMap[groupeKey][actor.id] = actor.name;
+        allCreaturesMap[actor.id] = actor.name;
         allCreaturesImgs.push({
-          _id: actor._id,
+          _id: actor.id,
           img: actor.img,
         });
       }
@@ -26,7 +28,7 @@ export default class CreatureChooser {
 
     new Dialog(
       {
-        title: game.i18n.localize('WFRP4NPCGEN.creatures.select.title'),
+        title: i18n.localize('WFRP4NPCGEN.creatures.select.title'),
         content: `<form class="creature-chooser">
               <div class="form-group">
               ${DialogUtil.getButtonScript(

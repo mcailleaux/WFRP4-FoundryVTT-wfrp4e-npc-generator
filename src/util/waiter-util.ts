@@ -1,4 +1,5 @@
 import DialogUtil from './dialog-util.js';
+import { i18n } from '../constant.js';
 
 export default class WaiterUtil {
   private static dialogInstance: Dialog | null = null;
@@ -11,8 +12,8 @@ export default class WaiterUtil {
     if (this.dialogInstance != null) {
       await this.hide(false);
     }
-    this.dialogInstance = new Dialog(<DialogData & any>{
-      title: game.i18n.localize(title),
+    this.dialogInstance = new Dialog(<Dialog.Data & any>{
+      title: i18n.localize(title),
       content: `<form> 
               <div class="form-group">
               ${DialogUtil.getLabelScript(msg)}

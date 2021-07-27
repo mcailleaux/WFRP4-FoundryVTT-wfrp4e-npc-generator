@@ -1,6 +1,8 @@
 import StringUtil from './string-util.js';
 import deburr from './lodash/deburr.js';
 import RandomUtil from './random-util.js';
+import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import { babele } from '../constant.js';
 
 export default class EntityUtil {
   public static match(item: any, ref: Item & any): boolean {
@@ -13,7 +15,7 @@ export default class EntityUtil {
   }
 
   public static toSelectOption(
-    items: (Item.Data & any)[]
+    items: (ItemData & any)[]
   ): { [key: string]: string } {
     if (items == null) {
       return {};
@@ -28,7 +30,7 @@ export default class EntityUtil {
   }
 
   public static toSelectOptionGroup(items: {
-    [group: string]: (Item.Data & any)[];
+    [group: string]: (ItemData & any)[];
   }): { [group: string]: { [key: string]: string } } {
     if (items == null) {
       return {};
@@ -48,14 +50,14 @@ export default class EntityUtil {
     return result;
   }
 
-  public static find(name: string, entities: Item[]): Item.Data | null {
+  public static find(name: string, entities: Item[]): ItemData | null {
     if (name == null || entities?.length <= 0) {
       return null;
     }
     const matchName = StringUtil.toDeburrLowerCase(name).trim();
     let findByVo = false;
     let findByVoExactMatch = false;
-    const hasBabele = game?.babele?.modules?.length > 0 ?? false;
+    const hasBabele = babele?.modules?.length > 0 ?? false;
     let result = entities.find(
       (e: Item & any) =>
         (!hasBabele || e.data.hasTranslation) &&

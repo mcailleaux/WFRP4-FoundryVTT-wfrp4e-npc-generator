@@ -3,22 +3,24 @@ import EntityUtil from './entity-util.js';
 import DialogUtil from './dialog-util.js';
 import StringUtil from './string-util.js';
 import RandomUtil from './random-util.js';
+import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import { i18n } from '../constant.js';
 
 export default class NpcAbilitiesChooser {
   public static async selectNpcAbilities(
-    initSkills: Item.Data[],
-    initTalents: Item.Data[],
-    initTraits: Item.Data[],
+    initSkills: ItemData[],
+    initTalents: ItemData[],
+    initTraits: ItemData[],
     callback: (
-      skills: Item.Data[],
-      talents: Item.Data[],
-      traits: Item.Data[]
+      skills: ItemData[],
+      talents: ItemData[],
+      traits: ItemData[]
     ) => void,
     undo?: () => void
   ) {
     const dialogId = new Date().getTime();
 
-    const correctDataName = (data: Item.Data & any, key: string = 'name') => {
+    const correctDataName = (data: ItemData & any, key: string = 'name') => {
       if (data[key].includes('*')) {
         data[key] = data[key].replace(/\*/g, '');
       }
@@ -100,7 +102,7 @@ export default class NpcAbilitiesChooser {
     const initTraitsNames = initTraits.map((t) => t.name);
     const initTraitsDisplayNames = initTraits.map((t: any) => t.displayName);
     const traits = [
-      ...initTraits.sort((t1: Item.Data & any, t2: Item.Data & any) => {
+      ...initTraits.sort((t1: ItemData & any, t2: ItemData & any) => {
         return t1.displayName.localeCompare(t2.displayName);
       }),
       ...[
@@ -141,9 +143,7 @@ export default class NpcAbilitiesChooser {
 
     new Dialog(
       {
-        title: game.i18n.localize(
-          'WFRP4NPCGEN.creatures.abilities.select.title'
-        ),
+        title: i18n.localize('WFRP4NPCGEN.creatures.abilities.select.title'),
         content: `<form>     
             <div class="form-group">
           ${DialogUtil.getSelectAddRemoveScript({
@@ -162,7 +162,7 @@ export default class NpcAbilitiesChooser {
             ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
             `,
             options: EntityUtil.toSelectOption(skills),
-            initValues: initSkills?.map((s: Item.Data & any) => {
+            initValues: initSkills?.map((s: ItemData & any) => {
               return {
                 key: s._id,
                 value: s.displayName ?? s.name,
@@ -194,7 +194,7 @@ export default class NpcAbilitiesChooser {
             ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
             `,
             options: EntityUtil.toSelectOption(talents),
-            initValues: initTalents?.map((t: Item.Data & any) => {
+            initValues: initTalents?.map((t: ItemData & any) => {
               return {
                 key: t._id,
                 value: t.displayName ?? t.name,
@@ -219,7 +219,7 @@ export default class NpcAbilitiesChooser {
                 ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
                             `,
               options: EntityUtil.toSelectOption(traits),
-              initValues: initTraits?.map((t: Item.Data & any) => {
+              initValues: initTraits?.map((t: ItemData & any) => {
                 return {
                   key: t._id,
                   value: t.displayName ?? t.name,
@@ -240,13 +240,13 @@ export default class NpcAbilitiesChooser {
         buttons: DialogUtil.getDialogButtons(
           dialogId,
           (html: JQuery) => {
-            const resultSkills: Item.Data[] = [];
-            const resultTalents: Item.Data[] = [];
-            const resultTraits: Item.Data[] = [];
+            const resultSkills: ItemData[] = [];
+            const resultTalents: ItemData[] = [];
+            const resultTraits: ItemData[] = [];
 
             html.find(`.${traitsId}`).each((_i, r: HTMLInputElement) => {
               const key = r.value;
-              const trait = <Item.Data & any>traits.find((t) => t._id === key);
+              const trait = <ItemData & any>traits.find((t) => t._id === key);
               resultTraits.push(trait);
             });
 
@@ -261,7 +261,7 @@ export default class NpcAbilitiesChooser {
               html.find(`#${id}-text`).each((_i1, r1: HTMLInputElement) => {
                 text = r1.value;
               });
-              const skill = <Item.Data & any>skills.find((s) => s._id === key);
+              const skill = <ItemData & any>skills.find((s) => s._id === key);
               skill.data.advances.value = count;
               if (text != null && text.length > 0) {
                 skill.name = `${StringUtil.getSimpleName(
@@ -282,9 +282,7 @@ export default class NpcAbilitiesChooser {
               html.find(`#${id}-text`).each((_i1, r1: HTMLInputElement) => {
                 text = r1.value;
               });
-              const talent = <Item.Data & any>(
-                talents.find((t) => t._id === key)
-              );
+              const talent = <ItemData & any>talents.find((t) => t._id === key);
               talent.data.advances.value = count;
               if (text != null && text.length > 0) {
                 talent.name = `${StringUtil.getSimpleName(

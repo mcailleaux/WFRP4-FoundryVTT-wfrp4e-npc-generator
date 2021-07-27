@@ -1,3 +1,5 @@
+import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+
 export default class CreatureAbilities {
   public includeBasicSkills: boolean = false;
   public sizeKey: string = 'avg';
@@ -11,7 +13,7 @@ export default class CreatureAbilities {
   public armourValue: string;
   public speciesKey: string = 'none';
 
-  public traits: Item.Data[] = [];
-  public talents: Item.Data[] = [];
-  public skills: Item.Data[] = [];
+  public traits: (ItemData & Record<string, unknown>)[] = [];
+  public talents: (ItemData & Record<string, unknown>)[] = [];
+  public skills: (ItemData & Record<string, unknown>)[] = [];
 }

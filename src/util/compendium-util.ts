@@ -1,4 +1,5 @@
 import WaiterUtil from './waiter-util.js';
+import { modules, packs, wfrp4e } from '../constant.js';
 
 export default class CompendiumUtil {
   private static compendiumItems: Item[];
@@ -80,7 +81,7 @@ export default class CompendiumUtil {
   public static async getCompendiumItems() {
     if (this.compendiumItems == null) {
       this.compendiumItems = [];
-      const itemsPacks = game.packs.filter((p) => p.metadata.entity === 'Item');
+      const itemsPacks = packs.filter((p: any) => p.metadata.entity === 'Item');
       const loaders: Promise<any>[] = [];
       for (let pack of itemsPacks) {
         loaders.push(pack.getContent());
@@ -122,13 +123,13 @@ export default class CompendiumUtil {
         return moduleOrder.indexOf(key1) - moduleOrder.indexOf(key2);
       };
 
-      const actorsPacks = game.packs
-        .filter((p) => p.metadata.entity === 'Actor')
+      const actorsPacks = packs
+        .filter((p: any) => p.metadata.entity === 'Actor')
         .sort(packSort);
 
       const packLoader = (pack: any) => {
         return new Promise(async (resolve) => {
-          const module = game.modules.get(pack.metadata.package);
+          const module = modules.get(pack.metadata.package);
           let key = pack.metadata.label;
 
           if (key === pack.metadata.name) {
@@ -190,7 +191,7 @@ export default class CompendiumUtil {
   }
 
   public static getTrappingCategories(): string[] {
-    return Object.keys(game.wfrp4e.config.trappingCategories);
+    return Object.keys(wfrp4e.config.trappingCategories);
   }
 
   public static async getCompendiumTrappings() {
@@ -324,7 +325,7 @@ export default class CompendiumUtil {
   }
 
   public static getSizes(): { [key: string]: string } {
-    return game.wfrp4e.config.actorSizes;
+    return wfrp4e.config.actorSizes;
   }
 
   public static async getCompendiumSpells() {

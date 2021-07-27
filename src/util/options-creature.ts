@@ -4,12 +4,13 @@ import {
   getGenerateEffectOptionEnum,
 } from './generate-effect-option.enum.js';
 import RegisterSettings from './register-settings.js';
+import { settings } from '../constant.js';
 
 export default class OptionsCreature implements IOptions {
   public withClassTrappings: boolean = false;
   public withCareerTrappings: boolean = false;
   public generateMoneyEffect: GenerateEffectOptionEnum = getGenerateEffectOptionEnum(
-    game.settings.get(
+    settings.get(
       RegisterSettings.moduleName,
       'defaultCreatureGenerateMoneyEffect'
     )
@@ -19,19 +20,19 @@ export default class OptionsCreature implements IOptions {
 
   public withGenPathCareerName = false;
 
-  public withLinkedToken = game.settings.get(
+  public withLinkedToken = settings.get(
     RegisterSettings.moduleName,
     'defaultCreatureWithLinkedToken'
   );
 
-  public withInitialMoney = game.settings.get(
+  public withInitialMoney = settings.get(
     RegisterSettings.moduleName,
     'defaultCreatureWithInitialMoney'
   );
 
   public withInitialWeapons = false;
 
-  public genPath: string = game.settings.get(
+  public genPath: string = settings.get(
     RegisterSettings.moduleName,
     'defaultCreatureGenPath'
   );
@@ -42,17 +43,17 @@ export default class OptionsCreature implements IOptions {
 
   public editAbilities: boolean = false;
 
-  public editTrappings = game.settings.get(
+  public editTrappings = settings.get(
     RegisterSettings.moduleName,
     'defaultCreatureEditTrappings'
   );
 
-  public addMagics = game.settings.get(
+  public addMagics = settings.get(
     RegisterSettings.moduleName,
     'defaultCreatureAddMagics'
   );
 
-  public addMutations = game.settings.get(
+  public addMutations = settings.get(
     RegisterSettings.moduleName,
     'defaultCreatureAddMutations'
   );

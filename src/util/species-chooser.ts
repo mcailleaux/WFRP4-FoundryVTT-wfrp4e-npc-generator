@@ -1,6 +1,7 @@
 import RandomUtil from './random-util.js';
 import DialogUtil from './dialog-util.js';
 import ReferentialUtil from './referential-util.js';
+import { i18n } from '../constant.js';
 
 export default class SpeciesChooser {
   public static async selectSpecies(
@@ -36,7 +37,7 @@ export default class SpeciesChooser {
 
     new Dialog(
       {
-        title: game.i18n.localize('WFRP4NPCGEN.species.select.title'),
+        title: i18n.localize('WFRP4NPCGEN.species.select.title'),
         content: `<form>
               <div class="form-group">
               ${DialogUtil.getButtonScript(
@@ -89,7 +90,7 @@ export default class SpeciesChooser {
                             `"${key}": {${Object.entries(value)
                               .map(
                                 ([subKey, subValue]) =>
-                                  `"${subKey}": "${game.i18n.localize(
+                                  `"${subKey}": "${i18n.localize(
                                     subValue.name
                                   )}"`
                               )

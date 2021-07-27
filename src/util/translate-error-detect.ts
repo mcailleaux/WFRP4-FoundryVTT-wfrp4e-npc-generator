@@ -1,6 +1,7 @@
 import ReferentialUtil from './referential-util.js';
 import StringUtil from './string-util.js';
 import CompendiumUtil from './compendium-util.js';
+import { wfrp4e } from '../constant.js';
 
 export default class TranslateErrorDetect {
   public static async findActorBySkillIncludes(name: string): Promise<Actor[]> {
@@ -65,7 +66,7 @@ export default class TranslateErrorDetect {
   public static async detectRandomCareerTranslateError(
     callback: (errors: string[]) => void
   ) {
-    const randomCareers: string[] = game.wfrp4e.tables.career.rows.map(
+    const randomCareers: string[] = wfrp4e.tables.career.rows.map(
       (row: any) => row.name
     );
 

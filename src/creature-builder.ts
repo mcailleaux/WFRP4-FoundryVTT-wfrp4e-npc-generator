@@ -4,6 +4,8 @@ import TrappingUtil from './util/trapping-util.js';
 import { GenerateEffectOptionEnum } from './util/generate-effect-option.enum.js';
 import CompendiumUtil from './util/compendium-util.js';
 import StringUtil from './util/string-util.js';
+import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import { i18n } from './constant.js';
 
 export default class CreatureBuilder {
   public static async buildCreatureData(model: CreatureModel) {
@@ -62,51 +64,60 @@ export default class CreatureBuilder {
         .split('/')
         .filter((p) => p != null && p.length > 0);
       const folder = await FolderUtil.createNamedFolder(genPaths.join('/'));
-      data.folder = folder?._id;
+      data.folder = folder?.id;
     }
 
     let actor: Actor = <Actor>await Actor.create(data);
     if (model.abilities.skills.length > 0) {
-      await actor.createOwnedItem(model.abilities.skills);
+      await actor.createEmbeddedDocuments(
+        Item.metadata.name,
+        model.abilities.skills
+      );
     }
     if (model.abilities.talents.length > 0) {
-      await actor.createOwnedItem(model.abilities.talents);
+      await actor.createEmbeddedDocuments(
+        Item.metadata.name,
+        model.abilities.talents
+      );
     }
     if (model.abilities.traits.length > 0) {
-      await actor.createOwnedItem(model.abilities.traits);
+      await actor.createEmbeddedDocuments(
+        Item.metadata.name,
+        model.abilities.traits
+      );
     }
     const weapon = await CompendiumUtil.getCompendiumWeaponTrait();
     const ranged = await CompendiumUtil.getCompendiumRangedTrait();
     const swarm = await CompendiumUtil.getCompendiumSwarmTrait();
     const armour = await CompendiumUtil.getCompendiumArmourTrait();
     const excludedTraitIds = model.abilities.traits
-      .filter((t: Item.Data & any) => !t.included)
-      .map((t: Item.Data & any) => {
+      .filter((t: ItemData & any) => !t.included)
+      .map((t: ItemData & any) => {
         let actorTrait;
         if (weapon.name === t.name) {
           actorTrait = (<any>actor.data).traits.find(
-            (at: Item.Data & any) => at.name === weapon.name
+            (at: ItemData & any) => at.name === weapon.name
           );
         } else if (
           StringUtil.getSimpleName(ranged.name) ===
           StringUtil.getSimpleName(t.name)
         ) {
           actorTrait = (<any>actor.data).traits.find(
-            (at: Item.Data & any) =>
+            (at: ItemData & any) =>
               StringUtil.getSimpleName(at.name) ===
               StringUtil.getSimpleName(ranged.name)
           );
         } else if (swarm.name === t.name) {
           actorTrait = (<any>actor.data).traits.find(
-            (at: Item.Data & any) => at.name === swarm.name
+            (at: ItemData & any) => at.name === swarm.name
           );
         } else if (armour.name === t.name) {
           actorTrait = (<any>actor.data).traits.find(
-            (at: Item.Data & any) => at.name === armour.name
+            (at: ItemData & any) => at.name === armour.name
           );
         } else {
           actorTrait = (<any>actor.data).traits.find(
-            (at: Item.Data & any) => at.displayName === t.displayName
+            (at: ItemData & any) => at.displayName === t.displayName
           );
         }
         return actorTrait?._id ?? t._id;
@@ -117,19 +128,25 @@ export default class CreatureBuilder {
       });
     }
     if (model.trappings.length > 0) {
-      await actor.createOwnedItem(model.trappings);
+      await actor.createEmbeddedDocuments(Item.metadata.name, model.trappings);
     }
     if (model.spells.length > 0) {
-      await actor.createOwnedItem(model.spells);
+      await actor.createEmbeddedDocuments(Item.metadata.name, model.spells);
     }
     if (model.prayers.length > 0) {
-      await actor.createOwnedItem(model.prayers);
+      await actor.createEmbeddedDocuments(Item.metadata.name, model.prayers);
     }
     if (model.physicalMutations.length > 0) {
-      await actor.createOwnedItem(model.physicalMutations);
+      await actor.createEmbeddedDocuments(
+        Item.metadata.name,
+        model.physicalMutations
+      );
     }
     if (model.mentalMutations.length > 0) {
-      await actor.createOwnedItem(model.mentalMutations);
+      await actor.createEmbeddedDocuments(
+        Item.metadata.name,
+        model.mentalMutations
+      );
     }
 
     if (model?.options?.withInitialMoney) {
@@ -186,10 +203,13 @@ export default class CreatureBuilder {
   ) {
     const generateEffect: any = {
       icon: icon,
-      label: game.i18n.localize(label),
+      label: i18n.localize(label),
       disabled: disabled,
     };
     generateEffect['flags.wfrp4e.effectApplication'] = 'actor';
-    await (<any>actor).createEmbeddedEntity('ActiveEffect', generateEffect);
+    await actor.createEmbeddedDocuments(
+      ActiveEffect.metadata.name,
+      generateEffect
+    );
   }
 }

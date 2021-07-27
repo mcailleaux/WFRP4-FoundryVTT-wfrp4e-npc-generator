@@ -1,12 +1,14 @@
 import ReferentialUtil from './referential-util.js';
 import DialogUtil from './dialog-util.js';
 import EntityUtil from './entity-util.js';
+import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import { i18n } from '../constant.js';
 
 export default class MutationsChooser {
   public static async selectMutations(
-    initPhysicals: Item.Data[],
-    initMentals: Item.Data[],
-    callback: (physicals: Item.Data[], mentals: Item.Data[]) => void,
+    initPhysicals: ItemData[],
+    initMentals: ItemData[],
+    callback: (physicals: ItemData[], mentals: ItemData[]) => void,
     undo?: () => void
   ) {
     const dialogId = new Date().getTime();
@@ -32,7 +34,7 @@ export default class MutationsChooser {
 
     new Dialog(
       {
-        title: game.i18n.localize('WFRP4NPCGEN.select.mutations.title'),
+        title: i18n.localize('WFRP4NPCGEN.select.mutations.title'),
         content: `<form>
             <div class="form-group">
             ${DialogUtil.getSelectAddRemoveScript({
@@ -45,7 +47,7 @@ export default class MutationsChooser {
             ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
             `,
               options: EntityUtil.toSelectOption(physicals),
-              initValues: initPhysicals?.map((s: Item.Data & any) => {
+              initValues: initPhysicals?.map((s: ItemData & any) => {
                 return {
                   key: s._id,
                   value: s.displayName ?? s.name,
@@ -64,7 +66,7 @@ export default class MutationsChooser {
             ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
             `,
             options: EntityUtil.toSelectOption(mentals),
-            initValues: initMentals?.map((s: Item.Data & any) => {
+            initValues: initMentals?.map((s: ItemData & any) => {
               return {
                 key: s._id,
                 value: s.displayName ?? s.name,
@@ -82,23 +84,21 @@ export default class MutationsChooser {
         buttons: DialogUtil.getDialogButtons(
           dialogId,
           (html: JQuery) => {
-            const resultPhysicals: Item.Data[] = [];
+            const resultPhysicals: ItemData[] = [];
             html.find(`.${physicalsId}`).each((_i, r: HTMLInputElement) => {
               const key = r.value;
 
-              const physical = <Item.Data & any>(
+              const physical = <ItemData & any>(
                 physicals.find((t) => t._id === key)
               );
               resultPhysicals.push(physical);
             });
 
-            const resultMentals: Item.Data[] = [];
+            const resultMentals: ItemData[] = [];
             html.find(`.${mentalsId}`).each((_i, r: HTMLInputElement) => {
               const key = r.value;
 
-              const mental = <Item.Data & any>(
-                mentals.find((t) => t._id === key)
-              );
+              const mental = <ItemData & any>mentals.find((t) => t._id === key);
               resultMentals.push(mental);
             });
             callback(resultPhysicals, resultMentals);

@@ -5,6 +5,7 @@ import { GenerationProfile } from './generation-profiles.js';
 import { IOptions } from './options-int.js';
 import OptionsCreature from './options-creature.js';
 import Options from './options.js';
+import { i18n, settings } from '../constant.js';
 
 export default class OptionsChooser {
   public static async selectOptions(
@@ -16,7 +17,7 @@ export default class OptionsChooser {
   ) {
     const dialogId = new Date().getTime();
     const speciesProfiles: { [key: string]: any } = duplicate(
-      game.settings.get(RegisterSettings.moduleName, 'generationProfiles')
+      settings.get(RegisterSettings.moduleName, 'generationProfiles')
     );
     let profilesChooser = '';
     let profileNames: any[] = [];
@@ -151,7 +152,7 @@ export default class OptionsChooser {
 
     new Dialog(
       {
-        title: game.i18n.localize('WFRP4NPCGEN.options.select.title'),
+        title: i18n.localize('WFRP4NPCGEN.options.select.title'),
         content: `<form>
               ${withClassTrappings}
               ${withCareerTrappings}                         

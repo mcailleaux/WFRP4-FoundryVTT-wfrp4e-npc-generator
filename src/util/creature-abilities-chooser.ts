@@ -5,6 +5,8 @@ import CompendiumUtil from './compendium-util.js';
 import DialogUtil from './dialog-util.js';
 import StringUtil from './string-util.js';
 import RandomUtil from './random-util.js';
+import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import { i18n } from '../constant.js';
 
 export default class CreatureAbilitiesChooser {
   public static async selectCreatureAbilities(
@@ -19,7 +21,7 @@ export default class CreatureAbilitiesChooser {
     const ranged: Item & any = await CompendiumUtil.getCompendiumRangedTrait();
     const size: Item & any = await CompendiumUtil.getCompendiumSizeTrait();
 
-    const correctDataName = (data: Item.Data & any, key: string = 'name') => {
+    const correctDataName = (data: ItemData & any, key: string = 'name') => {
       if (data[key].includes('*')) {
         data[key] = data[key].replace(/\*/g, '');
       }
@@ -103,11 +105,9 @@ export default class CreatureAbilitiesChooser {
       (t: any) => t.displayName
     );
     const traits = [
-      ...initAbilities.traits.sort(
-        (t1: Item.Data & any, t2: Item.Data & any) => {
-          return t1.displayName.localeCompare(t2.displayName);
-        }
-      ),
+      ...initAbilities.traits.sort((t1: ItemData & any, t2: ItemData & any) => {
+        return t1.displayName.localeCompare(t2.displayName);
+      }),
       ...[
         ...(await ReferentialUtil.getTraitEntities(true))
           .filter((t) => {
@@ -160,9 +160,7 @@ export default class CreatureAbilitiesChooser {
 
     new Dialog(
       {
-        title: game.i18n.localize(
-          'WFRP4NPCGEN.creatures.abilities.select.title'
-        ),
+        title: i18n.localize('WFRP4NPCGEN.creatures.abilities.select.title'),
         content: `<form>
               
               <div class="form-group">
@@ -289,7 +287,7 @@ export default class CreatureAbilitiesChooser {
                 ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
                             `,
               options: EntityUtil.toSelectOption(traits),
-              initValues: initAbilities?.traits?.map((t: Item.Data & any) => {
+              initValues: initAbilities?.traits?.map((t: ItemData & any) => {
                 return {
                   key: t._id,
                   value: t.displayName ?? t.name,
@@ -313,7 +311,7 @@ export default class CreatureAbilitiesChooser {
             ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
             `,
             options: EntityUtil.toSelectOption(skills),
-            initValues: initAbilities?.skills?.map((s: Item.Data & any) => {
+            initValues: initAbilities?.skills?.map((s: ItemData & any) => {
               return {
                 key: s._id,
                 value: s.displayName ?? s.name,
@@ -336,7 +334,7 @@ export default class CreatureAbilitiesChooser {
             ${DialogUtil.getLabelScript('', 'max-width: 38px;')}
             `,
             options: EntityUtil.toSelectOption(talents),
-            initValues: initAbilities?.talents?.map((t: Item.Data & any) => {
+            initValues: initAbilities?.talents?.map((t: ItemData & any) => {
               return {
                 key: t._id,
                 value: t.displayName ?? t.name,
@@ -411,7 +409,7 @@ export default class CreatureAbilitiesChooser {
               html.find(`#${id}-check`).each((_i1, r1: HTMLInputElement) => {
                 included = r1.checked;
               });
-              const trait = <Item.Data & any>traits.find((t) => t._id === key);
+              const trait = <ItemData & any>traits.find((t) => t._id === key);
               trait.included = included;
               abilities.traits.push(trait);
             });
@@ -423,7 +421,7 @@ export default class CreatureAbilitiesChooser {
               html.find(`#${id}-count`).each((_i1, r1: HTMLInputElement) => {
                 count = Number(r1.value);
               });
-              const skill = <Item.Data & any>skills.find((s) => s._id === key);
+              const skill = <ItemData & any>skills.find((s) => s._id === key);
               skill.data.advances.value = count;
               abilities.skills.push(skill);
             });
@@ -435,9 +433,7 @@ export default class CreatureAbilitiesChooser {
               html.find(`#${id}-count`).each((_i1, r1: HTMLInputElement) => {
                 count = Number(r1.value);
               });
-              const talent = <Item.Data & any>(
-                talents.find((t) => t._id === key)
-              );
+              const talent = <ItemData & any>talents.find((t) => t._id === key);
               talent.data.advances.value = count;
               abilities.talents.push(talent);
             });
