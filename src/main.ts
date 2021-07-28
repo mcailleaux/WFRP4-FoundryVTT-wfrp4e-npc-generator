@@ -24,7 +24,7 @@ Hooks.on('renderActorDirectory', (_app: ActorSheet, html: JQuery) => {
 
 Hooks.on('createToken', async (token: any) => {
   const scene = token.parent;
-  const actor: Actor = actors()?.tokens[token._id];
+  const actor: Actor = actors()?.tokens[token.id];
   if (token?.actorLink || actor == null) {
     return;
   }
@@ -49,7 +49,7 @@ Hooks.on('createToken', async (token: any) => {
   }
 
   if (updateScene) {
-    await scene.updateEmbeddedEntity('Token', actor);
+    await scene.updateEmbeddedDocuments(Token.embeddedName, [actor]);
   }
 });
 

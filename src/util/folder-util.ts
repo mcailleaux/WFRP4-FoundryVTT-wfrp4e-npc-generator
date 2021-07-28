@@ -31,7 +31,7 @@ export default class FolderUtil {
         ) ?? <Folder>await Folder.create({
           name: name,
           type: 'Actor',
-          parent: parent?._id ?? null,
+          parent: parent?.id ?? null,
         });
     }
     return folder;

@@ -381,8 +381,7 @@ export default class NpcGenerator {
     if (lastCareer?.data != null) {
       career = lastCareer.data;
     } else {
-      career = (<Item>careers.find((c: Item) => c.id === lastCareer?._id))
-        ?.data;
+      career = (<Item>careers.find((c: Item) => c.id === lastCareer?.id))?.data;
     }
     model.career = career;
 
@@ -394,7 +393,7 @@ export default class NpcGenerator {
           model.careerPath.push(customCareerPath?.data);
         } else {
           model.careerPath.push(
-            (<Item>careers.find((c: Item) => c.id === customCareerPath?._id))
+            (<Item>careers.find((c: Item) => c.id === customCareerPath?.id))
               ?.data
           );
         }

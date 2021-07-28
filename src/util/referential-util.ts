@@ -189,7 +189,7 @@ export default class ReferentialUtil {
 
   public static async getWorldCareers(): Promise<Item[]> {
     const careersGroups = await CompendiumUtil.getCompendiumCareersGroups();
-    const worldCareers = items()?.entities?.filter((item: any) => {
+    const worldCareers = items()?.contents?.filter((item: any) => {
       const group = (<any>item?.data?.data)?.careergroup?.value;
       return item.type === 'career' && !careersGroups.includes(group);
     });
@@ -197,7 +197,7 @@ export default class ReferentialUtil {
   }
 
   public static async getWorldEntities(type: string): Promise<Item[]> {
-    const worldEntities = items()?.entities?.filter((item: any) => {
+    const worldEntities = items()?.contents?.filter((item: any) => {
       return item.type === type;
     });
     return Promise.resolve(worldEntities);
@@ -215,7 +215,7 @@ export default class ReferentialUtil {
     const finalTrappings: Item[] = [];
     if (withWorld) {
       const trappingCategories = CompendiumUtil.getTrappingCategories();
-      const worldTrappings = items()?.entities?.filter(
+      const worldTrappings = items()?.contents?.filter(
         (item: any) =>
           trappingCategories.includes(item.type) ||
           trappingCategories.includes(
@@ -484,7 +484,6 @@ export default class ReferentialUtil {
     moneyItems = moneyItems
       .map((mi) => {
         (<any>mi.data).quantity.value = 0;
-        (<any>mi).effects = [];
         return mi;
       })
       .sort((a, b) => {

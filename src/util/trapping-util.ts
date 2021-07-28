@@ -45,13 +45,13 @@ export default class TrappingUtil {
 
     if (statusKey === 'g') {
       gold = tier;
-      silver = new Roll('5d10').roll().total ?? 0;
-      brass = new Roll('10d10').roll().total ?? 0;
+      silver = new Roll('5d10').roll({ async: false }).total ?? 0;
+      brass = new Roll('10d10').roll({ async: false }).total ?? 0;
     } else if (statusKey === 's') {
-      silver = new Roll(`${tier}d10`).roll().total ?? 0;
-      brass = new Roll('10d10').roll().total ?? 0;
+      silver = new Roll(`${tier}d10`).roll({ async: false }).total ?? 0;
+      brass = new Roll('10d10').roll({ async: false }).total ?? 0;
     } else {
-      brass = new Roll(`${2 * tier}d10`).roll().total ?? 0;
+      brass = new Roll(`${2 * tier}d10`).roll({ async: false }).total ?? 0;
     }
 
     const moneyItems = await ReferentialUtil.getAllMoneyItems();
@@ -77,7 +77,7 @@ export default class TrappingUtil {
       } else {
         await actor.updateEmbeddedDocuments(Item.metadata.name, [
           {
-            _id: gCoin._id,
+            _id: gCoin.id,
             [this.UPDATE_QUANTITY_KEY]: gold + gCoin.data.data.quantity.value,
           },
         ]);
@@ -91,7 +91,7 @@ export default class TrappingUtil {
       } else {
         await actor.updateEmbeddedDocuments(Item.metadata.name, [
           {
-            _id: sCoin._id,
+            _id: sCoin.id,
             [this.UPDATE_QUANTITY_KEY]: silver + sCoin.data.data.quantity.value,
           },
         ]);
@@ -105,7 +105,7 @@ export default class TrappingUtil {
       } else {
         await actor.updateEmbeddedDocuments(Item.metadata.name, [
           {
-            _id: bCoin._id,
+            _id: bCoin.id,
             [this.UPDATE_QUANTITY_KEY]: brass + bCoin.data.data.quantity.value,
           },
         ]);

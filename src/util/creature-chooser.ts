@@ -91,7 +91,7 @@ export default class CreatureChooser {
           let creature: Actor | null = null;
           for (let [_groupeKey, actors] of Object.entries(creatures)) {
             if (creature == null) {
-              creature = actors.find((c) => c._id === creaturesKey) ?? null;
+              creature = actors.find((c) => c.id === creaturesKey) ?? null;
             }
           }
           if (creature != null) {

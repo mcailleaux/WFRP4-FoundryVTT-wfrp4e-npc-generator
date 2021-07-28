@@ -3,6 +3,7 @@ import deburr from './lodash/deburr.js';
 import RandomUtil from './random-util.js';
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 import { babele } from '../constant.js';
+import { DocumentData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/module.mjs.js';
 
 export default class EntityUtil {
   public static match(item: any, ref: Item & any): boolean {
@@ -116,7 +117,9 @@ export default class EntityUtil {
     return name?.includes('(') && name?.includes(')');
   }
 
-  public static toRecords(arrays: any[]): Record<string, unknown>[] {
-    return <Record<string, unknown>[]>arrays;
+  public static toRecords<E, F extends object>(
+    arrays: (DocumentData<E, F> & any)[]
+  ): Record<string, unknown>[] {
+    return arrays.map((d) => (d.toObject != null ? d.toObject() : d));
   }
 }

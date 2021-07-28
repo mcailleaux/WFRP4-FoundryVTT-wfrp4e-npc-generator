@@ -86,7 +86,7 @@ export default class CompendiumUtil {
       );
       const loaders: Promise<any>[] = [];
       for (let pack of itemsPacks) {
-        loaders.push(pack.getContent());
+        loaders.push(pack.getDocuments());
       }
       const contents = await Promise.all(loaders);
       for (let items of contents) {
@@ -142,7 +142,7 @@ export default class CompendiumUtil {
 
           console.info(`Start to load ${key} compendium`);
 
-          const actors: Actor[] = (await pack.getContent()).sort(
+          const actors: Actor[] = (await pack.getDocuments()).sort(
             (c1: Actor, c2: Actor) => {
               return c1.name?.localeCompare(c2.name ?? '');
             }

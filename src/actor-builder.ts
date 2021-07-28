@@ -179,9 +179,8 @@ export class ActorBuilder {
       disabled: disabled,
     };
     generateEffect['flags.wfrp4e.effectApplication'] = 'actor';
-    await actor.createEmbeddedDocuments(
-      ActiveEffect.metadata.name,
-      EntityUtil.toRecords([generateEffect])
-    );
+    await actor.createEmbeddedDocuments(ActiveEffect.metadata.name, [
+      generateEffect,
+    ]);
   }
 }
