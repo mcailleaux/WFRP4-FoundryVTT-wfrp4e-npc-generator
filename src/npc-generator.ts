@@ -251,10 +251,8 @@ export default class NpcGenerator {
           console.log('Prepare Career Trappings');
           await this.prepareCareerTrappings(model);
         }
-        if (model.trappingsStr.length > 0) {
-          console.log('Prepare Trappings');
-          await this.addTrappings(model);
-        }
+        console.log('Prepare Trappings');
+        await this.addTrappings(model);
 
         await this.editAbilities(model, callback);
       }

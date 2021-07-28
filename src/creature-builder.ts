@@ -219,7 +219,7 @@ export default class CreatureBuilder {
     generateEffect['flags.wfrp4e.effectApplication'] = 'actor';
     await actor.createEmbeddedDocuments(
       ActiveEffect.metadata.name,
-      generateEffect
+      EntityUtil.toRecords([generateEffect])
     );
   }
 }

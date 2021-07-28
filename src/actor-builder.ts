@@ -54,7 +54,7 @@ export class ActorBuilder {
         genPaths.push(careerData?.careergroup?.value);
       }
       const folder = await FolderUtil.createNamedFolder(genPaths.join('/'));
-      data.folder = folder?._id;
+      data.folder = folder?.id;
     }
 
     let actor: Actor = <Actor>await Actor.create(data);
@@ -179,6 +179,9 @@ export class ActorBuilder {
       disabled: disabled,
     };
     generateEffect['flags.wfrp4e.effectApplication'] = 'actor';
-    await (<any>actor).createEmbeddedEntity('ActiveEffect', generateEffect);
+    await actor.createEmbeddedDocuments(
+      ActiveEffect.metadata.name,
+      EntityUtil.toRecords([generateEffect])
+    );
   }
 }
