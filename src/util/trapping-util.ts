@@ -55,10 +55,10 @@ export default class TrappingUtil {
     }
 
     const moneyItems = await ReferentialUtil.getAllMoneyItems();
-    let coins = (<any>actor).itemCategories?.money?.coins;
-    let gCoin = coins.find((c: any) => c.data?.coinValue?.value === 240);
-    let sCoin = coins.find((c: any) => c.data?.coinValue?.value === 12);
-    let bCoin = coins.find((c: any) => c.data?.coinValue?.value === 1);
+    let coins = (<any>actor).itemCategories?.money;
+    let gCoin = coins.find((c: any) => c.data?.data?.coinValue?.value === 240);
+    let sCoin = coins.find((c: any) => c.data?.data?.coinValue?.value === 12);
+    let bCoin = coins.find((c: any) => c.data?.data?.coinValue?.value === 1);
 
     const isGoldCreate = gCoin == null;
     const isSilverCreate = sCoin == null;
