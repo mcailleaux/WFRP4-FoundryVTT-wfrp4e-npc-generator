@@ -22,7 +22,7 @@ export default class NameChooser {
       : '';
     new Dialog(
       {
-        title: i18n.localize('WFRP4NPCGEN.name.select.title'),
+        title: i18n().localize('WFRP4NPCGEN.name.select.title'),
         content: `<form>
               ${randomButton}            
               <div class="form-group">

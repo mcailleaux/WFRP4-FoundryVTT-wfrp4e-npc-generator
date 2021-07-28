@@ -7,42 +7,42 @@ import { IOptions } from './options-int.js';
 import { settings } from '../constant.js';
 
 export default class Options implements IOptions {
-  public withClassTrappings: boolean = settings.get(
+  public withClassTrappings: boolean = settings().get(
     RegisterSettings.moduleName,
     'defaultWithClassTrappings'
   );
-  public withCareerTrappings: boolean = settings.get(
+  public withCareerTrappings: boolean = settings().get(
     RegisterSettings.moduleName,
     'defaultWithCareerTrappings'
   );
   public generateMoneyEffect: GenerateEffectOptionEnum = getGenerateEffectOptionEnum(
-    settings.get(RegisterSettings.moduleName, 'defaultGenerateMoneyEffect')
+    settings().get(RegisterSettings.moduleName, 'defaultGenerateMoneyEffect')
   );
   public generateWeaponEffect: GenerateEffectOptionEnum = getGenerateEffectOptionEnum(
-    settings.get(RegisterSettings.moduleName, 'defaultGenerateWeaponEffect')
+    settings().get(RegisterSettings.moduleName, 'defaultGenerateWeaponEffect')
   );
 
-  public withGenPathCareerName = settings.get(
+  public withGenPathCareerName = settings().get(
     RegisterSettings.moduleName,
     'defaultWithGenPathCareerName'
   );
 
-  public withLinkedToken = settings.get(
+  public withLinkedToken = settings().get(
     RegisterSettings.moduleName,
     'defaultWithLinkedToken'
   );
 
-  public withInitialMoney = settings.get(
+  public withInitialMoney = settings().get(
     RegisterSettings.moduleName,
     'defaultWithInitialMoney'
   );
 
-  public withInitialWeapons = settings.get(
+  public withInitialWeapons = settings().get(
     RegisterSettings.moduleName,
     'defaultWithInitialWeapons'
   );
 
-  public genPath: string = settings.get(
+  public genPath: string = settings().get(
     RegisterSettings.moduleName,
     'defaultGenPath'
   );
@@ -51,22 +51,22 @@ export default class Options implements IOptions {
 
   public tokenPath: string | null = null;
 
-  public editAbilities = settings.get(
+  public editAbilities = settings().get(
     RegisterSettings.moduleName,
     'defaultEditAbilities'
   );
 
-  public editTrappings = settings.get(
+  public editTrappings = settings().get(
     RegisterSettings.moduleName,
     'defaultEditTrappings'
   );
 
-  public addMagics = settings.get(
+  public addMagics = settings().get(
     RegisterSettings.moduleName,
     'defaultAddMagics'
   );
 
-  public addMutations = settings.get(
+  public addMutations = settings().get(
     RegisterSettings.moduleName,
     'defaultAddMutations'
   );

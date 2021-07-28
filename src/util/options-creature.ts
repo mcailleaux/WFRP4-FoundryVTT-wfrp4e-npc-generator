@@ -10,7 +10,7 @@ export default class OptionsCreature implements IOptions {
   public withClassTrappings: boolean = false;
   public withCareerTrappings: boolean = false;
   public generateMoneyEffect: GenerateEffectOptionEnum = getGenerateEffectOptionEnum(
-    settings.get(
+    settings().get(
       RegisterSettings.moduleName,
       'defaultCreatureGenerateMoneyEffect'
     )
@@ -20,19 +20,19 @@ export default class OptionsCreature implements IOptions {
 
   public withGenPathCareerName = false;
 
-  public withLinkedToken = settings.get(
+  public withLinkedToken = settings().get(
     RegisterSettings.moduleName,
     'defaultCreatureWithLinkedToken'
   );
 
-  public withInitialMoney = settings.get(
+  public withInitialMoney = settings().get(
     RegisterSettings.moduleName,
     'defaultCreatureWithInitialMoney'
   );
 
   public withInitialWeapons = false;
 
-  public genPath: string = settings.get(
+  public genPath: string = settings().get(
     RegisterSettings.moduleName,
     'defaultCreatureGenPath'
   );
@@ -43,17 +43,17 @@ export default class OptionsCreature implements IOptions {
 
   public editAbilities: boolean = false;
 
-  public editTrappings = settings.get(
+  public editTrappings = settings().get(
     RegisterSettings.moduleName,
     'defaultCreatureEditTrappings'
   );
 
-  public addMagics = settings.get(
+  public addMagics = settings().get(
     RegisterSettings.moduleName,
     'defaultCreatureAddMagics'
   );
 
-  public addMutations = settings.get(
+  public addMutations = settings().get(
     RegisterSettings.moduleName,
     'defaultCreatureAddMutations'
   );

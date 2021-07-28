@@ -17,7 +17,7 @@ export default class CareerChooser {
     );
     new Dialog(
       {
-        title: i18n.localize('WFRP4NPCGEN.career.select.title'),
+        title: i18n().localize('WFRP4NPCGEN.career.select.title'),
         content: `<form id="select-career-form-${dialogId}">
               <div class="form-group">
                       ${DialogUtil.getButtonScript(
@@ -27,9 +27,9 @@ export default class CareerChooser {
               </div>
               <div class="form-group">
                       ${DialogUtil.getButtonScript(
-                        `${i18n.localize('WFRP4NPCGEN.common.button.Random')} ${
-                          ReferentialUtil.getSpeciesMap()[speciesKey]
-                        }`,
+                        `${i18n().localize(
+                          'WFRP4NPCGEN.common.button.Random'
+                        )} ${ReferentialUtil.getSpeciesMap()[speciesKey]}`,
                         'randomSpecies()'
                       )}
               </div>

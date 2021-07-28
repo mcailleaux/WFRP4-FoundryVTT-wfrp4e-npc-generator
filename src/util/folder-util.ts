@@ -24,7 +24,7 @@ export default class FolderUtil {
       }
     } else {
       folder =
-        folders.find(
+        folders().find(
           (f: any) =>
             (<any>f.data).name === name &&
             (<any>f.data).parent === ((<any>parent?.data)?._id ?? null)

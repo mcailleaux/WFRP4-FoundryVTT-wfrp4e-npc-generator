@@ -171,7 +171,7 @@ export default class SpeciesTalentsChooser {
 
     new Dialog(
       {
-        title: i18n.localize('WFRP4NPCGEN.species.talents.select.title'),
+        title: i18n().localize('WFRP4NPCGEN.species.talents.select.title'),
         content: `<form>   
               ${choiceTalentsForm}
               ${randomTalentsForm}      
@@ -277,7 +277,7 @@ export default class SpeciesTalentsChooser {
                 .find(`.select-talent-random-${dialogId}`)
                 .filter((_i, r: HTMLInputElement) => r.checked)
                 .each((_i, r: HTMLInputElement) => {
-                  const traitPrefix = i18n.localize('Trait');
+                  const traitPrefix = i18n().localize('Trait');
                   const value = r.value;
                   if (
                     StringUtil.toDeburrLowerCase(value).startsWith(

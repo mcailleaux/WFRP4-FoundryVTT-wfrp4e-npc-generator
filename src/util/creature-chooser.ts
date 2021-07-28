@@ -29,7 +29,7 @@ export default class CreatureChooser {
 
     new Dialog(
       {
-        title: i18n.localize('WFRP4NPCGEN.creatures.select.title'),
+        title: i18n().localize('WFRP4NPCGEN.creatures.select.title'),
         content: `<form class="creature-chooser">
               <div class="form-group">
               ${DialogUtil.getButtonScript(

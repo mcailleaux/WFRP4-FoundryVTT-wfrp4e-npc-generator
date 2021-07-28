@@ -43,8 +43,8 @@ export default class CreatureGenerator {
       await this.generateCreatureModel(async (model) => {
         const actorData = await CreatureBuilder.buildCreatureData(model);
         const actor = await CreatureBuilder.createCreature(model, actorData);
-        notifications.info(
-          i18n.format('WFRP4NPCGEN.notification.creature.created', {
+        notifications().info(
+          i18n().format('WFRP4NPCGEN.notification.creature.created', {
             name: actor.name,
           })
         );

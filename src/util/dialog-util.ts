@@ -10,7 +10,7 @@ export default class DialogUtil {
     const buttons: any = {
       yes: {
         icon: `<i class="fas fa-check" id="yes-icon-${id}"></i>`,
-        label: i18n.localize('WFRP4NPCGEN.common.button.OK'),
+        label: i18n().localize('WFRP4NPCGEN.common.button.OK'),
         callback: (html: JQuery) => {
           if (yesCallback != null) {
             yesCallback(html);
@@ -19,13 +19,13 @@ export default class DialogUtil {
       },
       no: {
         icon: `<i class="fas fa-times" id="no-icon-${id}"></i>`,
-        label: i18n.localize('WFRP4NPCGEN.common.button.Cancel'),
+        label: i18n().localize('WFRP4NPCGEN.common.button.Cancel'),
       },
     };
     if (previousCallback != null) {
       buttons.undo = {
         icon: `<i class="fas fa-undo" id="undo-icon-${id}"></i>`,
-        label: i18n.localize('WFRP4NPCGEN.common.button.Undo'),
+        label: i18n().localize('WFRP4NPCGEN.common.button.Undo'),
         callback: (html: JQuery) => {
           previousCallback(html);
         },
@@ -37,7 +37,7 @@ export default class DialogUtil {
   public static getButtonScript(label: string, onclick: string): string {
     return `
         <button type="button" onclick="${onclick}">
-            ${i18n.localize(label)} 
+            ${i18n().localize(label)} 
         </button>
         `;
   }
@@ -49,7 +49,7 @@ export default class DialogUtil {
     const styleStr = style != null ? ` style="${style}"` : '';
     return `
         <label${styleStr}>
-            ${i18n.localize(label)}          
+            ${i18n().localize(label)}          
         </label> 
         `;
   }
@@ -73,7 +73,7 @@ export default class DialogUtil {
               .map(([key, value]) => {
                 const selected =
                   finalInitValue === key ? ' selected="selected"' : '';
-                return `<option${selected} id="${id}-${key}" value="${key}">${i18n.localize(
+                return `<option${selected} id="${id}-${key}" value="${key}">${i18n().localize(
                   value
                 )}</option>`;
               })
@@ -114,7 +114,7 @@ export default class DialogUtil {
                   .map(([key, value]) => {
                     const selected =
                       finalInitValue === key ? ' selected="selected"' : '';
-                    return `<option${selected} id="${id}-${key}" value="${key}">${i18n.localize(
+                    return `<option${selected} id="${id}-${key}" value="${key}">${i18n().localize(
                       value
                     )}</option>`;
                   })

@@ -175,7 +175,7 @@ export class ActorBuilder {
   ) {
     const generateEffect: any = {
       icon: icon,
-      label: i18n.localize(label),
+      label: i18n().localize(label),
       disabled: disabled,
     };
     generateEffect['flags.wfrp4e.effectApplication'] = 'actor';

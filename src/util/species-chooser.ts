@@ -37,7 +37,7 @@ export default class SpeciesChooser {
 
     new Dialog(
       {
-        title: i18n.localize('WFRP4NPCGEN.species.select.title'),
+        title: i18n().localize('WFRP4NPCGEN.species.select.title'),
         content: `<form>
               <div class="form-group">
               ${DialogUtil.getButtonScript(
@@ -90,7 +90,7 @@ export default class SpeciesChooser {
                             `"${key}": {${Object.entries(value)
                               .map(
                                 ([subKey, subValue]) =>
-                                  `"${subKey}": "${i18n.localize(
+                                  `"${subKey}": "${i18n().localize(
                                     subValue.name
                                   )}"`
                               )

@@ -41,7 +41,7 @@ export default class SpeciesSkillsChooser {
 
     new Dialog(
       {
-        title: i18n.localize('WFRP4NPCGEN.species.skills.select.title'),
+        title: i18n().localize('WFRP4NPCGEN.species.skills.select.title'),
         content: `<form>
                 <div class="form-group">
                       ${DialogUtil.getButtonScript(

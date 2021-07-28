@@ -16,16 +16,16 @@ export default class ReferentialUtil {
   ];
 
   public static getClassTrappings(): { [key: string]: string } {
-    const voClassTraping: { [key: string]: string } =
-      wfrp4e.config.classTrappings;
+    const voClassTraping: { [key: string]: string } = wfrp4e().config
+      .classTrappings;
     const resolvedClassTrapping: { [key: string]: string } = {};
     Object.entries(voClassTraping).forEach(([key]) => {
       let useKey = key;
-      if ((<any>i18n.translations)[useKey] == null && useKey.endsWith('s')) {
+      if ((<any>i18n().translations)[useKey] == null && useKey.endsWith('s')) {
         useKey = useKey.substring(0, useKey.length - 1);
       }
-      const localKey = i18n.localize(useKey);
-      resolvedClassTrapping[localKey] = i18n.localize(
+      const localKey = i18n().localize(useKey);
+      resolvedClassTrapping[localKey] = i18n().localize(
         `WFRP4NPCGEN.trappings.class.${key}`
       );
     });
@@ -41,7 +41,7 @@ export default class ReferentialUtil {
   }
 
   public static getSpeciesMap(): { [key: string]: string } {
-    return wfrp4e.config.species;
+    return wfrp4e().config.species;
   }
 
   public static getSubSpeciesMap(): {
@@ -62,7 +62,7 @@ export default class ReferentialUtil {
         };
       };
     } = {};
-    for (let [key, value] of Object.entries(wfrp4e.config.subspecies)) {
+    for (let [key, value] of Object.entries(wfrp4e().config.subspecies)) {
       for (let [subKey, subValue] of Object.entries(
         <
           {
@@ -108,33 +108,33 @@ export default class ReferentialUtil {
   }
 
   public static getSpeciesSkillsMap(): { [key: string]: string[] } {
-    return wfrp4e.config.speciesSkills;
+    return wfrp4e().config.speciesSkills;
   }
 
   public static getSpeciesTalentsMap(): { [key: string]: any[] } {
-    return wfrp4e.config.speciesTalents;
+    return wfrp4e().config.speciesTalents;
   }
 
   public static getRandomTalents(): string[] {
-    return wfrp4e.tables.talents.rows.map((row: any) => row.name);
+    return wfrp4e().tables.talents.rows.map((row: any) => row.name);
   }
 
   public static getWeaponTypes(): { melee: string; ranged: string } {
     return {
-      melee: i18n.localize('WFRP4NPCGEN.trappings.weapon.skill.melee'),
-      ranged: i18n.localize('WFRP4NPCGEN.trappings.weapon.skill.ranged'),
+      melee: i18n().localize('WFRP4NPCGEN.trappings.weapon.skill.melee'),
+      ranged: i18n().localize('WFRP4NPCGEN.trappings.weapon.skill.ranged'),
     };
   }
 
   public static getWeaponGroups(): string[] {
-    return Object.values(wfrp4e.config.weaponGroups);
+    return Object.values(wfrp4e().config.weaponGroups);
   }
 
   public static getWeaponGroupsKey(group: string): string {
-    for (let key of Object.keys(wfrp4e.config.weaponGroups)) {
+    for (let key of Object.keys(wfrp4e().config.weaponGroups)) {
       if (
         StringUtil.equalsDeburrIgnoreCase(
-          wfrp4e.config.weaponGroups[key],
+          wfrp4e().config.weaponGroups[key],
           group
         )
       ) {
@@ -145,7 +145,7 @@ export default class ReferentialUtil {
   }
 
   public static getMeleeWeaponGroups(): string[] {
-    const groups = wfrp4e.config.weaponGroups;
+    const groups = wfrp4e().config.weaponGroups;
     return [
       groups.basic,
       groups.brawling,
@@ -159,7 +159,7 @@ export default class ReferentialUtil {
   }
 
   public static getRangedWeaponGroups(): string[] {
-    const groups = wfrp4e.config.weaponGroups;
+    const groups = wfrp4e().config.weaponGroups;
     return [
       groups.blackpowder,
       groups.bow,
@@ -173,7 +173,7 @@ export default class ReferentialUtil {
   }
 
   public static getBasicWeaponGroups(): string {
-    return wfrp4e.config.weaponGroups.basic;
+    return wfrp4e().config.weaponGroups.basic;
   }
 
   public static async getCareerEntities(withWorld = true): Promise<Item[]> {
@@ -189,7 +189,7 @@ export default class ReferentialUtil {
 
   public static async getWorldCareers(): Promise<Item[]> {
     const careersGroups = await CompendiumUtil.getCompendiumCareersGroups();
-    const worldCareers = items?.entities?.filter((item: any) => {
+    const worldCareers = items()?.entities?.filter((item: any) => {
       const group = (<any>item?.data?.data)?.careergroup?.value;
       return item.type === 'career' && !careersGroups.includes(group);
     });
@@ -197,14 +197,14 @@ export default class ReferentialUtil {
   }
 
   public static async getWorldEntities(type: string): Promise<Item[]> {
-    const worldEntities = items?.entities?.filter((item: any) => {
+    const worldEntities = items()?.entities?.filter((item: any) => {
       return item.type === type;
     });
     return Promise.resolve(worldEntities);
   }
 
   public static async getWorldActorEntities(type?: string): Promise<Actor[]> {
-    const worldEntities = actors?.filter((actor: any) => {
+    const worldEntities = actors()?.filter((actor: any) => {
       return type != null ? actor.data?.type === type : true;
     });
     return Promise.resolve(worldEntities);
@@ -215,7 +215,7 @@ export default class ReferentialUtil {
     const finalTrappings: Item[] = [];
     if (withWorld) {
       const trappingCategories = CompendiumUtil.getTrappingCategories();
-      const worldTrappings = items?.entities?.filter(
+      const worldTrappings = items()?.entities?.filter(
         (item: any) =>
           trappingCategories.includes(item.type) ||
           trappingCategories.includes(
@@ -236,8 +236,8 @@ export default class ReferentialUtil {
     if (speciesKey == null) {
       return [];
     }
-    const randomCareers: string[] = wfrp4e.tables.career.rows
-      .filter((row: any) => {
+    const randomCareers: string[] = wfrp4e()
+      .tables.career.rows.filter((row: any) => {
         let result = row?.range[speciesKey]?.length > 0;
         if (!result && speciesKey === 'human') {
           result = row?.range['human-reiklander']?.length > 0;
@@ -281,11 +281,11 @@ export default class ReferentialUtil {
   }
 
   public static getStatusTiers() {
-    return wfrp4e.config.statusTiers;
+    return wfrp4e().config.statusTiers;
   }
 
   public static async getAllBasicSkills() {
-    return await wfrp4e.utility.allBasicSkills();
+    return await wfrp4e().utility.allBasicSkills();
   }
 
   public static async findSkill(name: string): Promise<ItemData> {
@@ -472,15 +472,15 @@ export default class ReferentialUtil {
   }
 
   public static async getSpeciesCharacteristics(speciesKey: string) {
-    return await wfrp4e.utility.speciesCharacteristics(speciesKey, true);
+    return await wfrp4e().utility.speciesCharacteristics(speciesKey, true);
   }
 
   public static async getSpeciesMovement(speciesKey: string) {
-    return await wfrp4e.utility.speciesMovement(speciesKey);
+    return await wfrp4e().utility.speciesMovement(speciesKey);
   }
 
   public static async getAllMoneyItems(): Promise<ItemData[]> {
-    let moneyItems: ItemData[] = (await wfrp4e.utility.allMoneyItems()) ?? [];
+    let moneyItems: ItemData[] = (await wfrp4e().utility.allMoneyItems()) ?? [];
     moneyItems = moneyItems
       .map((mi) => {
         (<any>mi.data).quantity.value = 0;
@@ -505,7 +505,7 @@ export default class ReferentialUtil {
     if (withWorld) {
       const worldActors = await this.getWorldActorEntities();
       if (worldActors != null && worldActors.length > 0) {
-        actors[world.title] = worldActors;
+        actors[world().title] = worldActors;
       }
     }
     return Promise.resolve(actors);
@@ -522,7 +522,7 @@ export default class ReferentialUtil {
     if (withWorld) {
       const worldActors = await this.getWorldActorEntities('creature');
       if (worldActors != null && worldActors.length > 0) {
-        bestiary[world.title] = worldActors;
+        bestiary[world().title] = worldActors;
       }
     }
     return Promise.resolve(bestiary);

@@ -57,7 +57,7 @@ export default class EntityUtil {
     const matchName = StringUtil.toDeburrLowerCase(name).trim();
     let findByVo = false;
     let findByVoExactMatch = false;
-    const hasBabele = babele?.modules?.length > 0 ?? false;
+    const hasBabele = babele()?.modules?.length > 0 ?? false;
     let result = entities.find(
       (e: Item & any) =>
         (!hasBabele || e.data.hasTranslation) &&

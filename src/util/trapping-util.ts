@@ -120,7 +120,7 @@ export default class TrappingUtil {
     }
 
     let money = duplicate((<any>actor.data)?.money?.coins);
-    money = wfrp4e.market.consolidateMoney(money);
+    money = wfrp4e().market.consolidateMoney(money);
     await actor.updateEmbeddedDocuments(Item.metadata.name, money);
   }
 
@@ -147,11 +147,11 @@ export default class TrappingUtil {
       .sort((s1: ItemData, s2: ItemData) => {
         const s1HaveAny = StringUtil.includesDeburrIgnoreCase(
           s1.name,
-          i18n.localize('WFRP4NPCGEN.item.any')
+          i18n().localize('WFRP4NPCGEN.item.any')
         );
         const s2HaveAny = StringUtil.includesDeburrIgnoreCase(
           s2.name,
-          i18n.localize('WFRP4NPCGEN.item.any')
+          i18n().localize('WFRP4NPCGEN.item.any')
         );
         if (s1HaveAny && s2HaveAny) {
           return 0;

@@ -13,7 +13,7 @@ export default class WaiterUtil {
       await this.hide(false);
     }
     this.dialogInstance = new Dialog(<Dialog.Data & any>{
-      title: i18n.localize(title),
+      title: i18n().localize(title),
       content: `<form> 
               <div class="form-group">
               ${DialogUtil.getLabelScript(msg)}

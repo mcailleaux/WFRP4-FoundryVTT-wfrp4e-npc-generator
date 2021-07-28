@@ -163,7 +163,7 @@ export default class CreatureAbilitiesChooser {
 
     new Dialog(
       {
-        title: i18n.localize('WFRP4NPCGEN.creatures.abilities.select.title'),
+        title: i18n().localize('WFRP4NPCGEN.creatures.abilities.select.title'),
         content: `<form>
               
               <div class="form-group">

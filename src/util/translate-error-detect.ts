@@ -66,7 +66,7 @@ export default class TranslateErrorDetect {
   public static async detectRandomCareerTranslateError(
     callback: (errors: string[]) => void
   ) {
-    const randomCareers: string[] = wfrp4e.tables.career.rows.map(
+    const randomCareers: string[] = wfrp4e().tables.career.rows.map(
       (row: any) => row.name
     );
 

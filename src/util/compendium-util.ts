@@ -81,7 +81,9 @@ export default class CompendiumUtil {
   public static async getCompendiumItems() {
     if (this.compendiumItems == null) {
       this.compendiumItems = [];
-      const itemsPacks = packs.filter((p: any) => p.metadata.entity === 'Item');
+      const itemsPacks = packs().filter(
+        (p: any) => p.metadata.entity === 'Item'
+      );
       const loaders: Promise<any>[] = [];
       for (let pack of itemsPacks) {
         loaders.push(pack.getContent());
@@ -123,13 +125,13 @@ export default class CompendiumUtil {
         return moduleOrder.indexOf(key1) - moduleOrder.indexOf(key2);
       };
 
-      const actorsPacks = packs
+      const actorsPacks = packs()
         .filter((p: any) => p.metadata.entity === 'Actor')
         .sort(packSort);
 
       const packLoader = (pack: any) => {
         return new Promise(async (resolve) => {
-          const module = modules.get(pack.metadata.package);
+          const module = modules().get(pack.metadata.package);
           let key = pack.metadata.label;
 
           if (key === pack.metadata.name) {
@@ -191,7 +193,7 @@ export default class CompendiumUtil {
   }
 
   public static getTrappingCategories(): string[] {
-    return Object.keys(wfrp4e.config.trappingCategories);
+    return Object.keys(wfrp4e().config.trappingCategories);
   }
 
   public static async getCompendiumTrappings() {
@@ -325,7 +327,7 @@ export default class CompendiumUtil {
   }
 
   public static getSizes(): { [key: string]: string } {
-    return wfrp4e.config.actorSizes;
+    return wfrp4e().config.actorSizes;
   }
 
   public static async getCompendiumSpells() {

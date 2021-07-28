@@ -27,9 +27,9 @@ export default class MagicsChooser {
       );
       const loreLabel =
         lore == null || lore?.trim() == ''
-          ? i18n.localize('WFRP4NPCGEN.select.magics.no.lore.label')
-          : wfrp4e.config.magicLores[lore] ??
-            wfrp4e.config.magicLores[this.getCorrectedLore(lore)] ??
+          ? i18n().localize('WFRP4NPCGEN.select.magics.no.lore.label')
+          : wfrp4e().config.magicLores[lore] ??
+            wfrp4e().config.magicLores[this.getCorrectedLore(lore)] ??
             this.getCorrectedLore(lore);
       if (spellsMap[loreLabel] == null) {
         spellsMap[loreLabel] = [];
@@ -38,13 +38,13 @@ export default class MagicsChooser {
     }
 
     const spellsLoreEntries = Object.entries(
-      <{ [key: string]: string }>wfrp4e.config.magicLores
+      <{ [key: string]: string }>wfrp4e().config.magicLores
     );
     spellsLoreEntries.push(['undivided', 'Chaos']);
     spellsLoreEntries.push(['warp', 'Skaven']);
     spellsLoreEntries.push([
       'none',
-      i18n.localize('WFRP4NPCGEN.select.magics.no.lore.label'),
+      i18n().localize('WFRP4NPCGEN.select.magics.no.lore.label'),
     ]);
 
     const spellsLoreSortList = [
@@ -98,8 +98,8 @@ export default class MagicsChooser {
       const god = (<any>prayer.data)?.god?.value;
       const key =
         type === 'blessing'
-          ? wfrp4e.config.prayerTypes[type]
-          : `${wfrp4e.config.prayerTypes[type]} - ${god}`;
+          ? wfrp4e().config.prayerTypes[type]
+          : `${wfrp4e().config.prayerTypes[type]} - ${god}`;
       if (prayersMap[key] == null) {
         prayersMap[key] = [];
       }
@@ -107,17 +107,17 @@ export default class MagicsChooser {
     }
 
     const prayersGodSortList = [
-      `${wfrp4e.config.prayerTypes.blessing}`,
-      `${wfrp4e.config.prayerTypes.miracle} - Manann`,
-      `${wfrp4e.config.prayerTypes.miracle} - Morr`,
-      `${wfrp4e.config.prayerTypes.miracle} - Myrmidia`,
-      `${wfrp4e.config.prayerTypes.miracle} - Ranald`,
-      `${wfrp4e.config.prayerTypes.miracle} - Rhya`,
-      `${wfrp4e.config.prayerTypes.miracle} - Shallya`,
-      `${wfrp4e.config.prayerTypes.miracle} - Sigmar`,
-      `${wfrp4e.config.prayerTypes.miracle} - Taal`,
-      `${wfrp4e.config.prayerTypes.miracle} - Ulric`,
-      `${wfrp4e.config.prayerTypes.miracle} - Verena`,
+      `${wfrp4e().config.prayerTypes.blessing}`,
+      `${wfrp4e().config.prayerTypes.miracle} - Manann`,
+      `${wfrp4e().config.prayerTypes.miracle} - Morr`,
+      `${wfrp4e().config.prayerTypes.miracle} - Myrmidia`,
+      `${wfrp4e().config.prayerTypes.miracle} - Ranald`,
+      `${wfrp4e().config.prayerTypes.miracle} - Rhya`,
+      `${wfrp4e().config.prayerTypes.miracle} - Shallya`,
+      `${wfrp4e().config.prayerTypes.miracle} - Sigmar`,
+      `${wfrp4e().config.prayerTypes.miracle} - Taal`,
+      `${wfrp4e().config.prayerTypes.miracle} - Ulric`,
+      `${wfrp4e().config.prayerTypes.miracle} - Verena`,
     ];
 
     const prayersSort = (
@@ -135,7 +135,7 @@ export default class MagicsChooser {
 
     new Dialog(
       {
-        title: i18n.localize('WFRP4NPCGEN.select.magics.title'),
+        title: i18n().localize('WFRP4NPCGEN.select.magics.title'),
         content: `<form>
             <div class="form-group">
             ${DialogUtil.getSelectAddRemoveScript({

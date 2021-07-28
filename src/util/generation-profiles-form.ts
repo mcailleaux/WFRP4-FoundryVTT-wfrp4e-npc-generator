@@ -22,7 +22,7 @@ export default class GenerationProfilesForm extends FormApplication<
   public static get defaultOptions(): FormApplication.Options {
     return mergeObject(super.defaultOptions, {
       id: 'generation-profiles',
-      title: i18n.localize('WFRP4NPCGEN.settings.generationProfiles.name'),
+      title: i18n().localize('WFRP4NPCGEN.settings.generationProfiles.name'),
       template: `modules/${RegisterSettings.moduleName}/templates/generation-profiles.html`,
       width: 800,
       height: 'auto',
@@ -34,7 +34,7 @@ export default class GenerationProfilesForm extends FormApplication<
   public getData(): any {
     if (this.data == null) {
       const profiles: { [key: string]: any } = duplicate(
-        settings.get(RegisterSettings.moduleName, 'generationProfiles')
+        settings().get(RegisterSettings.moduleName, 'generationProfiles')
       );
       if (profiles.creature == null) {
         profiles.creature = <GenerationProfile>{
@@ -51,7 +51,7 @@ export default class GenerationProfilesForm extends FormApplication<
         profiles[key].species = label;
       });
       if (profiles.creature != null) {
-        profiles.creature.species = i18n.localize(
+        profiles.creature.species = i18n().localize(
           'WFRP4NPCGEN.options.select.profiles.creature.label'
         );
       }
@@ -86,7 +86,7 @@ export default class GenerationProfilesForm extends FormApplication<
             idImagePath: `${species}-${name}-imagePath`,
             idTokenPath: `${species}-${name}-tokenPath`,
             name: name,
-            genPath: settings.get(
+            genPath: settings().get(
               RegisterSettings.moduleName,
               species === 'creature'
                 ? 'defaultCreatureGenPath'
@@ -175,7 +175,7 @@ export default class GenerationProfilesForm extends FormApplication<
       });
     });
 
-    await settings.set(
+    await settings().set(
       RegisterSettings.moduleName,
       'generationProfiles',
       generationProfiles

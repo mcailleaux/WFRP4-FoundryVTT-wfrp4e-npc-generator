@@ -21,7 +21,7 @@ export default class TrappingChooser {
     const trappingsMap: { [group: string]: ItemData[] } = {};
     for (let trapping of trappings) {
       const type = (<any>trapping.data)?.trappingType?.value ?? trapping.type;
-      const categorie = wfrp4e.config.trappingCategories[type];
+      const categorie = wfrp4e().config.trappingCategories[type];
       if (trappingsMap[categorie] == null) {
         trappingsMap[categorie] = [];
       }
@@ -29,7 +29,7 @@ export default class TrappingChooser {
     }
 
     const trappingsCategorieEntries = Object.entries(
-      <{ [key: string]: string }>wfrp4e.config.trappingCategories
+      <{ [key: string]: string }>wfrp4e().config.trappingCategories
     );
 
     const trappingsSortList = [
@@ -71,7 +71,7 @@ export default class TrappingChooser {
 
     new Dialog(
       {
-        title: i18n.localize('WFRP4NPCGEN.select.trappings.title'),
+        title: i18n().localize('WFRP4NPCGEN.select.trappings.title'),
         content: `<form>
             <div class="form-group">
           ${DialogUtil.getSelectAddRemoveScript({

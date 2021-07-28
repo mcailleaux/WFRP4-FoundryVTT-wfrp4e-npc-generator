@@ -17,7 +17,7 @@ export default class OptionsChooser {
   ) {
     const dialogId = new Date().getTime();
     const speciesProfiles: { [key: string]: any } = duplicate(
-      settings.get(RegisterSettings.moduleName, 'generationProfiles')
+      settings().get(RegisterSettings.moduleName, 'generationProfiles')
     );
     let profilesChooser = '';
     let profileNames: any[] = [];
@@ -152,7 +152,7 @@ export default class OptionsChooser {
 
     new Dialog(
       {
-        title: i18n.localize('WFRP4NPCGEN.options.select.title'),
+        title: i18n().localize('WFRP4NPCGEN.options.select.title'),
         content: `<form>
               ${withClassTrappings}
               ${withCareerTrappings}                         

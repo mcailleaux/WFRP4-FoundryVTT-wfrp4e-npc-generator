@@ -46,8 +46,8 @@ export default class NpcGenerator {
       await this.generateNpcModel(async (model) => {
         const actorData = await ActorBuilder.buildActorData(model, 'npc');
         const actor = await ActorBuilder.createActor(model, actorData);
-        notifications.info(
-          i18n.format('WFRP4NPCGEN.notification.actor.created', {
+        notifications().info(
+          i18n().format('WFRP4NPCGEN.notification.actor.created', {
             name: actor.name,
           })
         );
@@ -488,7 +488,7 @@ export default class NpcGenerator {
   private static async addNativeTongueSkill(model: NpcModel) {
     await this.addSkill(
       model,
-      i18n.localize(`WFRP4NPCGEN.native.tongue.${model.speciesKey}`)
+      i18n().localize(`WFRP4NPCGEN.native.tongue.${model.speciesKey}`)
     );
   }
 
@@ -529,7 +529,7 @@ export default class NpcGenerator {
         (skillToAdd.name.includes('(') &&
           StringUtil.includesDeburrIgnoreCase(
             skillToAdd.name,
-            i18n.localize('WFRP4NPCGEN.item.any')
+            i18n().localize('WFRP4NPCGEN.item.any')
           ))
       ) {
         model.skills.push(skillToAdd);
@@ -547,7 +547,7 @@ export default class NpcGenerator {
   }
 
   private static async addSpeciesTalents(model: NpcModel) {
-    const traitPrefix = i18n.localize('Trait');
+    const traitPrefix = i18n().localize('Trait');
     const speciesTalentsMap = this.referential.getSpeciesTalentsMap();
     const speciesTalent: string[] = speciesTalentsMap[model.speciesKey].filter(
       (talent: string, index) =>
@@ -589,7 +589,7 @@ export default class NpcGenerator {
   }
 
   private static async addSpeciesTraits(model: NpcModel) {
-    const traitPrefix = i18n.localize('Trait');
+    const traitPrefix = i18n().localize('Trait');
     const speciesTalentsMap = this.referential.getSpeciesTalentsMap();
     const speciesTraits: string[] = speciesTalentsMap[model.speciesKey]
       .filter(

@@ -34,7 +34,7 @@ export default class MutationsChooser {
 
     new Dialog(
       {
-        title: i18n.localize('WFRP4NPCGEN.select.mutations.title'),
+        title: i18n().localize('WFRP4NPCGEN.select.mutations.title'),
         content: `<form>
             <div class="form-group">
             ${DialogUtil.getSelectAddRemoveScript({
