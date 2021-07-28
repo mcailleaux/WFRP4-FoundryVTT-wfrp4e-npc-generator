@@ -484,6 +484,7 @@ export default class ReferentialUtil {
     moneyItems = moneyItems
       .map((mi) => {
         (<any>mi.data).quantity.value = 0;
+        (<any>mi).effects = [];
         return mi;
       })
       .sort((a, b) => {

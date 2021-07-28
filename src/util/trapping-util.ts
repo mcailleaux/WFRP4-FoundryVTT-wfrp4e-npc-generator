@@ -68,18 +68,17 @@ export default class TrappingUtil {
     const createSCoin = moneyItems[1];
     const createBCoin = moneyItems[2];
 
+    const coinsToCreates: ItemData[] = [];
+
     if (gold > 0 || isGoldCreate) {
       if (isGoldCreate) {
         (<any>createGCoin.data).quantity.value = gold;
-        await actor.createEmbeddedDocuments(
-          Item.metadata.name,
-          EntityUtil.toRecords([createGCoin])
-        );
+        coinsToCreates.push(createGCoin);
       } else {
         await actor.updateEmbeddedDocuments(Item.metadata.name, [
           {
             _id: gCoin._id,
-            [this.UPDATE_QUANTITY_KEY]: gold + gCoin.data.quantity.value,
+            [this.UPDATE_QUANTITY_KEY]: gold + gCoin.data.data.quantity.value,
           },
         ]);
       }
@@ -88,15 +87,12 @@ export default class TrappingUtil {
     if (silver > 0 || isSilverCreate) {
       if (isSilverCreate) {
         (<any>createSCoin.data).quantity.value = silver;
-        await actor.createEmbeddedDocuments(
-          Item.metadata.name,
-          EntityUtil.toRecords([createSCoin])
-        );
+        coinsToCreates.push(createSCoin);
       } else {
         await actor.updateEmbeddedDocuments(Item.metadata.name, [
           {
             _id: sCoin._id,
-            [this.UPDATE_QUANTITY_KEY]: silver + sCoin.data.quantity.value,
+            [this.UPDATE_QUANTITY_KEY]: silver + sCoin.data.data.quantity.value,
           },
         ]);
       }
@@ -105,23 +101,29 @@ export default class TrappingUtil {
     if (brass > 0 || isBrassCreate) {
       if (isBrassCreate) {
         (<any>createBCoin.data).quantity.value = brass;
-        await actor.createEmbeddedDocuments(
-          Item.metadata.name,
-          EntityUtil.toRecords([createBCoin])
-        );
+        coinsToCreates.push(createBCoin);
       } else {
         await actor.updateEmbeddedDocuments(Item.metadata.name, [
           {
             _id: bCoin._id,
-            [this.UPDATE_QUANTITY_KEY]: brass + bCoin.data.quantity.value,
+            [this.UPDATE_QUANTITY_KEY]: brass + bCoin.data.data.quantity.value,
           },
         ]);
       }
     }
 
-    let money = duplicate((<any>actor).itemCategories?.money?.coins);
-    money = wfrp4e().market.consolidateMoney(money);
-    await actor.updateEmbeddedDocuments(Item.metadata.name, money);
+    if (coinsToCreates.length > 0) {
+      await actor.createEmbeddedDocuments(
+        Item.metadata.name,
+        EntityUtil.toRecords(coinsToCreates)
+      );
+    }
+
+    const money = (<any>actor).getItemTypes('money');
+    const newMoney = wfrp4e().market.consolidateMoney(
+      money.map((i) => i.toObject())
+    );
+    await actor.updateEmbeddedDocuments(Item.metadata.name, newMoney);
   }
 
   public static async generateWeapons(actor: Actor) {
@@ -131,7 +133,7 @@ export default class TrappingUtil {
 
     const groups: string[] = [];
 
-    const weaponSkills: ItemData[] = (<any>actor.data)?.skills
+    const weaponSkills: ItemData[] = (<any>actor).itemCategories?.skill
       ?.filter(
         (i: ItemData) =>
           i.name.includes('(') &&
@@ -193,11 +195,10 @@ export default class TrappingUtil {
         replaceSkill = true;
       }
 
-      const existingCount = (<any>(
-        actor
-      )).itemCategories?.weapons?.filter((w: any) =>
-        StringUtil.equalsDeburrIgnoreCase(w.weaponGroup, group)
-      )?.length;
+      const existingCount =
+        (<any>actor).itemCategories?.weapon?.filter((w: any) =>
+          StringUtil.equalsDeburrIgnoreCase(w.weaponGroup?.value, group)
+        )?.length ?? 0;
 
       const ignore =
         (StringUtil.equalsDeburrIgnoreCase(
@@ -223,6 +224,10 @@ export default class TrappingUtil {
         }
       }
     }
+
+    const itemsToCreate: ItemData[] = [];
+    const addWeapons: Item[] = [];
+
     if (groups.length > 0) {
       const weapons = (await ReferentialUtil.getTrappingEntities(true)).filter(
         (w) => w.type === 'weapon'
@@ -238,19 +243,24 @@ export default class TrappingUtil {
           )
         );
 
-        await actor.createEmbeddedDocuments(Item.metadata.name, [
-          <any>randomWeapon.data,
-        ]);
+        addWeapons.push(randomWeapon);
+        itemsToCreate.push(randomWeapon.data);
       }
     }
 
-    if ((<any>actor).itemCategories?.weapons?.length > 0) {
+    const allWeapons = [
+      ...((<any>actor).itemCategories?.weapon ?? []),
+      ...addWeapons,
+    ];
+
+    if (allWeapons.length > 0) {
       const ammunitions = (
         await ReferentialUtil.getTrappingEntities(true)
       ).filter((w) => w.type === 'ammunition');
 
-      for (let weapons of (<any>actor).itemCategories?.weapons) {
-        const ammunitionGroup = (<any>weapons.data)?.ammunitionGroup?.value;
+      for (let weapons of allWeapons) {
+        const ammunitionGroup = (<any>weapons.data?.data)?.ammunitionGroup
+          ?.value;
         if (ammunitionGroup != null) {
           const randomAmmunition = RandomUtil.getRandomValue(
             ammunitions.filter((w) =>
@@ -265,12 +275,17 @@ export default class TrappingUtil {
             if (quantity != null && quantity < 10) {
               (<any>randomAmmunition.data.data).quantity.value = 10;
             }
-            await actor.createEmbeddedDocuments(Item.metadata.name, [
-              <any>randomAmmunition.data,
-            ]);
+            itemsToCreate.push(randomAmmunition.data);
           }
         }
       }
+    }
+
+    if (itemsToCreate.length > 0) {
+      await actor.createEmbeddedDocuments(
+        Item.metadata.name,
+        EntityUtil.toRecords(itemsToCreate)
+      );
     }
   }
 }
