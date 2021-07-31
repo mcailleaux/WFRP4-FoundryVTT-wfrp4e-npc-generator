@@ -51,6 +51,7 @@ export default class CreatureBuilder {
           },
         },
       },
+      items: [],
       img: model.options.imagePath,
     };
     return Promise.resolve(actorData);
@@ -123,6 +124,15 @@ export default class CreatureBuilder {
         EntityUtil.toRecords(model.mentalMutations)
       );
     }
+    if (model.others.length > 0) {
+      await actor.createEmbeddedDocuments(
+        Item.metadata.name,
+        EntityUtil.toRecords(model.others)
+      );
+    }
+
+    await TrappingUtil.generateMoney(actor);
+    await TrappingUtil.initMoney(actor);
 
     if (model?.options?.withInitialMoney) {
       await TrappingUtil.generateMoney(actor);

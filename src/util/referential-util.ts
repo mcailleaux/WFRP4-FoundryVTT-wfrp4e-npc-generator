@@ -340,7 +340,7 @@ export default class ReferentialUtil {
       (<any>trait.data).specification.value = groupedName;
     } else {
       trait.name = name;
-      trait.displayName = name;
+      trait.DisplayName = name;
     }
 
     return trait;

@@ -178,14 +178,14 @@ export default class CreatureGenerator {
             compendiumTraits.find(
               (t: Item & any) =>
                 t.data.name === trait.name ||
-                t.data.name === trait.displayName ||
+                t.data.name === trait.DisplayName ||
                 t.data.originalName === trait.name ||
-                t.data.originalName === trait.displayName
+                t.data.originalName === trait.DisplayName
             )?.data ?? trait.data
           );
-          finalTrait.displayName = trait.displayName ?? trait.name;
+          finalTrait.DisplayName = trait.DisplayName ?? trait.name;
           if (excludedTraits.includes(trait._id)) {
-            model.abilities.excludedTraits.push(finalTrait.displayName);
+            model.abilities.excludedTraits.push(finalTrait.DisplayName);
           }
           model.abilities.traits.push(finalTrait);
         }
@@ -195,26 +195,28 @@ export default class CreatureGenerator {
         });
         const compendiumSkills = await ReferentialUtil.getSkillEntities(true);
         for (let skill of skills) {
-          const finalSkill =
+          const finalSkill = duplicate(
             compendiumSkills.find(
               (s: Item & any) =>
                 s.data.name === skill.name || s.data.originalName === skill.name
-            )?.data ?? skill.data;
+            )?.data ?? skill.data
+          );
           finalSkill.data.advances.value = skill.data.data.advances.value;
-          model.abilities.skills.push(duplicate(finalSkill));
+          model.abilities.skills.push(finalSkill);
         }
 
         const talents = creature.itemCategories.talent;
         const compendiumTalents = await ReferentialUtil.getTalentEntities(true);
         for (let talent of talents) {
-          const finalTalent =
+          const finalTalent = duplicate(
             compendiumTalents.find(
               (t: Item & any) =>
                 t.data.name === talent.name ||
                 t.data.originalName === talent.name
-            )?.data ?? talent.data;
+            )?.data ?? talent.data
+          );
           finalTalent.data.advances.value = talent.data.data.advances.value;
-          model.abilities.talents.push(duplicate(finalTalent));
+          model.abilities.talents.push(finalTalent);
         }
 
         const allInventory = [
@@ -226,7 +228,7 @@ export default class CreatureGenerator {
           ...creature.getItemTypes('money'),
           ...creature.getItemTypes('container'),
         ];
-        model.trappings.push(...allInventory);
+        model.trappings.push(...allInventory.map((trapping) => trapping.data));
 
         const spells = await ReferentialUtil.getSpellEntities();
         const prayers = await ReferentialUtil.getPrayerEntities();
@@ -262,6 +264,14 @@ export default class CreatureGenerator {
             const mutation = mentals.find((p) => p.name === m.name);
             return mutation != null ? duplicate(mutation.data) : m;
           });
+
+        const others = [
+          ...creature.getItemTypes('critical'),
+          ...creature.getItemTypes('disease'),
+          ...creature.getItemTypes('injury'),
+          ...creature.getItemTypes('psychology'),
+        ];
+        model.others.push(...others.map((other) => other.data));
 
         await this.selectCreatureAbilities(model, callback);
       }

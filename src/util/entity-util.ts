@@ -24,7 +24,11 @@ export default class EntityUtil {
     const map: { [key: string]: string } = {};
     for (let item of items) {
       if (map[item._id] == null) {
-        map[item._id] = item.displayName ?? item.name;
+        try {
+          map[item._id] = item.displayName ?? item.DisplayName ?? item.name;
+        } catch (e) {
+          map[item._id] = item.displayName ?? item.name;
+        }
       }
     }
     return map;

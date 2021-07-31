@@ -100,10 +100,10 @@ export default class NpcAbilitiesChooser {
       }),
     ];
     const initTraitsNames = initTraits.map((t) => t.name);
-    const initTraitsDisplayNames = initTraits.map((t: any) => t.displayName);
+    const initTraitsDisplayNames = initTraits.map((t: any) => t.DisplayName);
     const traits = [
       ...initTraits.sort((t1: ItemData & any, t2: ItemData & any) => {
-        return t1.displayName.localeCompare(t2.displayName);
+        return t1.DisplayName.localeCompare(t2.DisplayName);
       }),
       ...[
         ...(await ReferentialUtil.getTraitEntities(true))
@@ -122,13 +122,13 @@ export default class NpcAbilitiesChooser {
           .filter((t: any) => {
             return !StringUtil.arrayIncludesDeburrIgnoreCase(
               initTraitsDisplayNames,
-              t.displayName
+              t.DisplayName
             );
           })
           .map((t) => {
             const data = duplicate(t);
             correctDataName(data);
-            correctDataName(data, 'displayName');
+            correctDataName(data, 'DisplayName');
             data._id = RandomUtil.getRandomId();
             return data;
           }),
@@ -222,7 +222,7 @@ export default class NpcAbilitiesChooser {
               initValues: initTraits?.map((t: ItemData & any) => {
                 return {
                   key: t._id,
-                  value: t.displayName ?? t.name,
+                  value: t.DisplayName ?? t.name,
                 };
               }),
             })}

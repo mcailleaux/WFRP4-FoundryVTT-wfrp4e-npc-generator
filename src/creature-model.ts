@@ -14,5 +14,6 @@ export default class CreatureModel {
   public prayers: ItemData[] = [];
   public physicalMutations: ItemData[] = [];
   public mentalMutations: ItemData[] = [];
+  public others: ItemData[] = [];
   public options = new OptionsCreature();
 }

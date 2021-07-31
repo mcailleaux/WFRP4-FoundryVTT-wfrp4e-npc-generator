@@ -115,9 +115,12 @@ export default class TrappingChooser {
               html.find(`#${id}-count`).each((_i1, r1: HTMLInputElement) => {
                 count = Number(r1.value);
               });
-              const trapping = <ItemData & any>(
-                trappings.find((t) => t._id === key)
+              let trapping = <ItemData & any>(
+                initTrappings.find((t) => t._id === key)
               );
+              if (trapping == null) {
+                trapping = <ItemData & any>trappings.find((t) => t._id === key);
+              }
               trapping.data.quantity.value = count;
               resultTrappings.push(trapping);
             });
