@@ -142,6 +142,7 @@ export default class SpeciesChooser {
                   if (randomSpeciesKey != null) {
                       document.getElementById('select-species-${dialogId}').value = randomSpeciesKey;
                   }
+                  speciesChange();
               }
           
               function randomSubSpecies() {

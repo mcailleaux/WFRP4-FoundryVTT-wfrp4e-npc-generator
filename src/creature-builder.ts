@@ -2,9 +2,6 @@ import CreatureModel from './creature-model.js';
 import FolderUtil from './util/folder-util.js';
 import TrappingUtil from './util/trapping-util.js';
 import { GenerateEffectOptionEnum } from './util/generate-effect-option.enum.js';
-import CompendiumUtil from './util/compendium-util.js';
-import StringUtil from './util/string-util.js';
-import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 import { i18n } from './constant.js';
 import EntityUtil from './util/entity-util.js';
 
@@ -87,45 +84,13 @@ export default class CreatureBuilder {
         EntityUtil.toRecords(model.abilities.traits)
       );
     }
-    const weapon = await CompendiumUtil.getCompendiumWeaponTrait();
-    const ranged = await CompendiumUtil.getCompendiumRangedTrait();
-    const swarm = await CompendiumUtil.getCompendiumSwarmTrait();
-    const armour = await CompendiumUtil.getCompendiumArmourTrait();
-    const excludedTraitIds = model.abilities.traits
-      .filter((t: ItemData & any) => !t.included)
-      .map((t: ItemData & any) => {
-        let actorTrait;
-        if (weapon.name === t.name) {
-          actorTrait = (<any>actor.data).traits.find(
-            (at: ItemData & any) => at.name === weapon.name
-          );
-        } else if (
-          StringUtil.getSimpleName(ranged.name ?? '') ===
-          StringUtil.getSimpleName(t.name)
-        ) {
-          actorTrait = (<any>actor.data).traits.find(
-            (at: ItemData & any) =>
-              StringUtil.getSimpleName(at.name) ===
-              StringUtil.getSimpleName(ranged.name ?? '')
-          );
-        } else if (swarm.name === t.name) {
-          actorTrait = (<any>actor.data).traits.find(
-            (at: ItemData & any) => at.name === swarm.name
-          );
-        } else if (armour.name === t.name) {
-          actorTrait = (<any>actor.data).traits.find(
-            (at: ItemData & any) => at.name === armour.name
-          );
-        } else {
-          actorTrait = (<any>actor.data).traits.find(
-            (at: ItemData & any) => at.displayName === t.displayName
-          );
-        }
-        return actorTrait?._id ?? t._id;
-      });
-    if (excludedTraitIds.length > 0) {
+    const excludedTraitNames = model.abilities.excludedTraits;
+    if (excludedTraitNames.length > 0) {
       actor = <Actor>await actor.update({
-        'data.excludedTraits': excludedTraitIds,
+        'data.excludedTraits': excludedTraitNames.map((name) => {
+          return (<any>actor).itemCategories.trait.find((t) => t.name === name)
+            ?._id;
+        }),
       });
     }
     if (model.trappings.length > 0) {

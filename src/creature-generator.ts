@@ -73,7 +73,8 @@ export default class CreatureGenerator {
   ) {
     await this.creatureChooser.selectCreature(
       model.creatureTemplate.creatureData?._id,
-      async (creature: ActorData & any) => {
+      async (creature: Actor & any) => {
+        const creatureData: ActorData & any = creature?.data;
         model.creatureTemplate = new CreatureTemplate();
         model.abilities = new CreatureAbilities();
         model.trappings = [];
@@ -81,7 +82,10 @@ export default class CreatureGenerator {
         model.prayers = [];
         model.physicalMutations = [];
         model.mentalMutations = [];
-        model.creatureTemplate.creatureData = creature;
+        model.creatureTemplate.creatureData = creatureData;
+
+        const excludedTraits: string[] = duplicate(creature.excludedTraits);
+        model.creatureTemplate.excludedTraits = excludedTraits;
 
         const swarm: Item &
           any = await this.compendium.getCompendiumSwarmTrait();
@@ -93,36 +97,35 @@ export default class CreatureGenerator {
           any = await this.compendium.getCompendiumRangedTrait();
         const size: Item & any = await this.compendium.getCompendiumSizeTrait();
 
-        model.creatureTemplate.size = creature.data?.details?.size?.value;
+        model.creatureTemplate.size = creatureData.data?.details?.size?.value;
         model.creatureTemplate.swarm = duplicate(
-          creature.traits
+          creature.itemCategories.trait
         )?.find((t: any) => EntityUtil.match(t, swarm));
         model.creatureTemplate.isSwarm =
           model.creatureTemplate.swarm != null &&
-          model.creatureTemplate.swarm.included;
+          !excludedTraits.includes(model.creatureTemplate.swarm._id);
 
         model.creatureTemplate.weapon = duplicate(
-          creature.traits
+          creature.itemCategories.trait
         )?.find((t: any) => EntityUtil.match(t, weapon));
         model.creatureTemplate.hasWeaponTrait =
           model.creatureTemplate.weapon != null &&
-          model.creatureTemplate.weapon.included;
+          !excludedTraits.includes(model.creatureTemplate.weapon._id);
 
         model.creatureTemplate.armour = duplicate(
-          creature.traits
+          creature.itemCategories.trait
         )?.find((t: any) => EntityUtil.match(t, armour));
         model.creatureTemplate.hasArmourTrait =
           model.creatureTemplate.armour != null &&
-          model.creatureTemplate.armour.included;
+          !excludedTraits.includes(model.creatureTemplate.armour._id);
 
         model.creatureTemplate.ranged = duplicate(
-          creature.traits
+          creature.itemCategories.trait
         )?.find((t: any) => EntityUtil.match(t, ranged));
 
         if (model.creatureTemplate.armour != null) {
-          model.creatureTemplate.armourValue = StringUtil.getGroupName(
-            model.creatureTemplate.armour.displayName
-          );
+          model.creatureTemplate.armourValue =
+            model.creatureTemplate.armour.data.specification.value;
         }
 
         if (model.creatureTemplate.weapon != null) {
@@ -144,22 +147,23 @@ export default class CreatureGenerator {
           }
         }
 
-        model.abilities.includeBasicSkills = creature.basicSkills?.length > 0;
-        model.abilities.sizeKey = creature.data?.details?.size?.value;
+        model.abilities.includeBasicSkills =
+          creature.itemCategories.skill.filter(
+            (s) => s.data.data.advanced.value === 'bsc'
+          )?.length > 0;
+        model.abilities.sizeKey = creatureData.data?.details?.size?.value;
         model.abilities.isSwarm = model.creatureTemplate.isSwarm;
         model.abilities.hasWeaponTrait = model.creatureTemplate.hasWeaponTrait;
-        model.abilities.hasArmourTrait =
-          model.creatureTemplate.armour != null &&
-          model.creatureTemplate.armour.included;
+        model.abilities.hasArmourTrait = model.creatureTemplate.hasArmourTrait;
         model.abilities.hasRangedTrait =
           model.creatureTemplate.ranged != null &&
-          model.creatureTemplate.ranged.included;
+          !excludedTraits.includes(model.creatureTemplate.ranged._id);
         model.abilities.weaponDamage = model.creatureTemplate.weaponDamage;
         model.abilities.rangedRange = model.creatureTemplate.rangedRange;
         model.abilities.rangedDamage = model.creatureTemplate.rangedDamage;
         model.abilities.armourValue = model.creatureTemplate.armourValue;
 
-        const traits = creature.traits.filter((t: any) => {
+        const traits = creature.itemCategories.trait.filter((t: any) => {
           return (
             !EntityUtil.match(t, swarm) &&
             !EntityUtil.match(t, weapon) &&
@@ -173,17 +177,21 @@ export default class CreatureGenerator {
           const finalTrait = duplicate(
             compendiumTraits.find(
               (t: Item & any) =>
+                t.data.name === trait.name ||
                 t.data.name === trait.displayName ||
+                t.data.originalName === trait.name ||
                 t.data.originalName === trait.displayName
-            )?.data ?? trait
+            )?.data ?? trait.data
           );
-          finalTrait.displayName = trait.displayName;
-          finalTrait.included = trait.included;
+          finalTrait.displayName = trait.displayName ?? trait.name;
+          if (excludedTraits.includes(trait._id)) {
+            model.abilities.excludedTraits.push(finalTrait.displayName);
+          }
           model.abilities.traits.push(finalTrait);
         }
 
-        const skills = creature.skills.filter((s: any) => {
-          return s.data.advances.value > 0;
+        const skills = creature.itemCategories.skill.filter((s: any) => {
+          return s.data.data.advances.value > 0;
         });
         const compendiumSkills = await ReferentialUtil.getSkillEntities(true);
         for (let skill of skills) {
@@ -191,12 +199,12 @@ export default class CreatureGenerator {
             compendiumSkills.find(
               (s: Item & any) =>
                 s.data.name === skill.name || s.data.originalName === skill.name
-            )?.data ?? skill;
-          finalSkill.data.advances.value = skill.data.advances.value;
+            )?.data ?? skill.data;
+          finalSkill.data.advances.value = skill.data.data.advances.value;
           model.abilities.skills.push(duplicate(finalSkill));
         }
 
-        const talents = creature.talents;
+        const talents = creature.itemCategories.talent;
         const compendiumTalents = await ReferentialUtil.getTalentEntities(true);
         for (let talent of talents) {
           const finalTalent =
@@ -204,14 +212,21 @@ export default class CreatureGenerator {
               (t: Item & any) =>
                 t.data.name === talent.name ||
                 t.data.originalName === talent.name
-            )?.data ?? talent;
-          finalTalent.data.advances.value = talent.data.advances.value;
+            )?.data ?? talent.data;
+          finalTalent.data.advances.value = talent.data.data.advances.value;
           model.abilities.talents.push(duplicate(finalTalent));
         }
 
-        for (let inventory of Object.values(creature.inventory)) {
-          model.trappings.push(...(<any>inventory).items);
-        }
+        const allInventory = [
+          ...creature.getItemTypes('weapon'),
+          ...creature.getItemTypes('armour'),
+          ...creature.getItemTypes('ammunition'),
+          ...creature.getItemTypes('trapping'),
+          ...creature.getItemTypes('cargo'),
+          ...creature.getItemTypes('money'),
+          ...creature.getItemTypes('container'),
+        ];
+        model.trappings.push(...allInventory);
 
         const spells = await ReferentialUtil.getSpellEntities();
         const prayers = await ReferentialUtil.getPrayerEntities();
@@ -219,36 +234,29 @@ export default class CreatureGenerator {
         const mentals = await ReferentialUtil.getMentalMutationEntities();
 
         model.spells = [
-          ...creature.petty.map((p: ItemData) => {
+          ...creature.itemCategories.spell.map((p: ItemData) => {
             const spell = spells.find((s) => s.name === p.name);
             return spell != null ? duplicate(spell.data) : p;
           }),
-          ...creature.grimoire.map((g: ItemData) => {
-            const spell = spells.find((s) => s.name === g.name);
-            return spell != null ? duplicate(spell.data) : g;
-          }),
         ];
         model.prayers = [
-          ...creature.blessings.map((b: ItemData) => {
+          ...creature.itemCategories.prayer.map((b: ItemData) => {
             const prayer = prayers.find((p) => p.name === b.name);
             return prayer != null ? duplicate(prayer.data) : b;
           }),
-          ...creature.miracles.map((m: ItemData) => {
-            const prayer = prayers.find((p) => p.name === m.name);
-            return prayer != null ? duplicate(prayer.data) : m;
-          }),
         ];
-        model.physicalMutations = creature.mutations
+        model.physicalMutations = creature.itemCategories.mutation
           .filter(
-            (m: ItemData) => (<any>m.data).mutationType.value === 'physical'
+            (m: ItemData) =>
+              (<any>m.data).data.mutationType.value === 'physical'
           )
           .map((m: ItemData) => {
             const mutation = physicals.find((p) => p.name === m.name);
             return mutation != null ? duplicate(mutation.data) : m;
           });
-        model.mentalMutations = creature.mutations
+        model.mentalMutations = creature.itemCategories.mutation
           .filter(
-            (m: ItemData) => (<any>m.data).mutationType.value === 'mental'
+            (m: ItemData) => (<any>m.data).data.mutationType.value === 'mental'
           )
           .map((m: ItemData) => {
             const mutation = mentals.find((p) => p.name === m.name);
@@ -507,10 +515,14 @@ export default class CreatureGenerator {
     );
     if (model.abilities.isSwarm) {
       model.abilities.traits.push(swarm);
-      swarm.included = true;
+      model.abilities.excludedTraits = model.abilities.excludedTraits.filter(
+        (name) => name !== swarm.name
+      );
     } else if (model.creatureTemplate.swarm != null) {
-      swarm.included = false;
       model.abilities.traits.push(swarm);
+      if (!model.abilities.excludedTraits.includes(swarm.name)) {
+        model.abilities.excludedTraits.push(swarm.name);
+      }
     }
   }
 
@@ -521,7 +533,9 @@ export default class CreatureGenerator {
     (<any>size.data).specification.value = this.compendium.getSizes()[
       model.abilities.sizeKey
     ];
-    size.included = true;
+    model.abilities.excludedTraits = model.abilities.excludedTraits.filter(
+      (name) => name !== size.name
+    );
     model.abilities.traits.push(size);
   }
 
@@ -535,7 +549,9 @@ export default class CreatureGenerator {
       )
         ? Number(model.abilities.weaponDamage)
         : 0;
-      weapon.included = true;
+      model.abilities.excludedTraits = model.abilities.excludedTraits.filter(
+        (name) => name !== weapon.name
+      );
       model.abilities.traits.push(weapon);
     } else if (model.creatureTemplate.weapon != null) {
       (<any>weapon.data).specification.value = Number.isNumeric(
@@ -545,7 +561,9 @@ export default class CreatureGenerator {
         : Number.isNumeric(model.creatureTemplate.weaponDamage)
         ? Number(model.creatureTemplate.weaponDamage)
         : 0;
-      weapon.included = false;
+      if (!model.abilities.excludedTraits.includes(weapon.name)) {
+        model.abilities.excludedTraits.push(weapon.name);
+      }
       model.abilities.traits.push(weapon);
     }
   }
@@ -567,7 +585,9 @@ export default class CreatureGenerator {
         ranged.name
       ).trim()} (${range})`;
       ranged.data.specification.value = damage;
-      ranged.included = true;
+      model.abilities.excludedTraits = model.abilities.excludedTraits.filter(
+        (name) => name !== ranged.name
+      );
       model.abilities.traits.push(ranged);
     } else if (model.creatureTemplate.ranged != null) {
       const range = Number.isNumeric(model.abilities.rangedRange)
@@ -584,7 +604,9 @@ export default class CreatureGenerator {
         ranged.name
       ).trim()} (${range})`;
       ranged.data.specification.value = damage;
-      ranged.included = false;
+      if (!model.abilities.excludedTraits.includes(ranged.name)) {
+        model.abilities.excludedTraits.push(ranged.name);
+      }
       model.abilities.traits.push(ranged);
     }
   }
@@ -599,7 +621,9 @@ export default class CreatureGenerator {
       )
         ? Number(model.abilities.armourValue)
         : 1;
-      armour.included = true;
+      model.abilities.excludedTraits = model.abilities.excludedTraits.filter(
+        (name) => name !== armour.name
+      );
       model.abilities.traits.push(armour);
     } else if (model.creatureTemplate.armour != null) {
       armour.data.specification.value = Number.isNumeric(
@@ -609,7 +633,9 @@ export default class CreatureGenerator {
         : Number.isNumeric(model.creatureTemplate.armourValue)
         ? Number(model.creatureTemplate.armourValue)
         : 0;
-      armour.included = false;
+      if (!model.abilities.excludedTraits.includes(armour.name)) {
+        model.abilities.excludedTraits.push(armour.name);
+      }
       model.abilities.traits.push(armour);
     }
   }

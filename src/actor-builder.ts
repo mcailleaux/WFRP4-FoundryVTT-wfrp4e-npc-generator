@@ -103,6 +103,17 @@ export class ActorBuilder {
       );
     }
 
+    for (const career of (<any>actor).itemCategories?.career) {
+      await actor.updateEmbeddedDocuments(Item.metadata.name, [
+        {
+          _id: career.id,
+          'data.complete.value': true,
+        },
+      ]);
+    }
+
+    await TrappingUtil.initMoney(actor);
+
     if (model?.options?.withInitialMoney) {
       await TrappingUtil.generateMoney(actor);
     }

@@ -1,13 +1,12 @@
 import ReferentialUtil from './referential-util.js';
 import DialogUtil from './dialog-util.js';
 import RandomUtil from './random-util.js';
-import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 import { i18n } from '../constant.js';
 
 export default class CreatureChooser {
   public static async selectCreature(
     initCreature: string,
-    callback: (creature: ActorData) => void
+    callback: (creature: Actor) => void
   ) {
     const dialogId = new Date().getTime();
     const creatures = await ReferentialUtil.getBestiaryEntities();
@@ -95,7 +94,7 @@ export default class CreatureChooser {
             }
           }
           if (creature != null) {
-            callback(creature?.data);
+            callback(creature);
           }
         }),
         default: 'yes',

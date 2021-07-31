@@ -20,6 +20,7 @@ export default class CreatureAbilitiesChooser {
     const armour: Item & any = await CompendiumUtil.getCompendiumArmourTrait();
     const ranged: Item & any = await CompendiumUtil.getCompendiumRangedTrait();
     const size: Item & any = await CompendiumUtil.getCompendiumSizeTrait();
+    const excludedTraits: string[] = initAbilities.excludedTraits;
 
     const correctDataName = (data: ItemData & any, key: string = 'name') => {
       if (data[key].includes('*')) {
@@ -294,7 +295,7 @@ export default class CreatureAbilitiesChooser {
                 return {
                   key: t._id,
                   value: t.displayName ?? t.name,
-                  check: t.included,
+                  check: !excludedTraits.includes(t.displayName ?? t.name),
                 };
               }),
               withCheck: true,
@@ -413,7 +414,13 @@ export default class CreatureAbilitiesChooser {
                 included = r1.checked;
               });
               const trait = <ItemData & any>traits.find((t) => t._id === key);
-              trait.included = included;
+              if (included) {
+                abilities.excludedTraits = abilities.excludedTraits.filter(
+                  (name) => trait.name !== name
+                );
+              } else if (!abilities.excludedTraits.includes(trait.name)) {
+                abilities.excludedTraits.push(trait.name);
+              }
               abilities.traits.push(trait);
             });
 

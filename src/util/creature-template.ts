@@ -17,4 +17,5 @@ export default class CreatureTemplate {
   public rangedRange: string;
   public rangedDamage: string;
   public armourValue: string;
+  public excludedTraits: string[] = [];
 }

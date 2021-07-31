@@ -16,4 +16,6 @@ export default class CreatureAbilities {
   public traits: ItemData[] = [];
   public talents: ItemData[] = [];
   public skills: ItemData[] = [];
+
+  public excludedTraits: string[] = [];
 }

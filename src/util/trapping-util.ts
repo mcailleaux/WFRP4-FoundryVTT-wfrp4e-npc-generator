@@ -9,6 +9,44 @@ export default class TrappingUtil {
   public static readonly UPDATE_QUANTITY_KEY = 'data.quantity.value';
   public static readonly UPDATE_SKILL_NAME_KEY = 'name';
 
+  public static async initMoney(actor: Actor) {
+    if (actor == null) {
+      return;
+    }
+
+    const coins = (<any>actor).itemCategories?.money;
+    let gCoin = coins.find((c: any) => c.data?.data?.coinValue?.value === 240);
+    let sCoin = coins.find((c: any) => c.data?.data?.coinValue?.value === 12);
+    let bCoin = coins.find((c: any) => c.data?.data?.coinValue?.value === 1);
+
+    if (gCoin != null) {
+      await actor.updateEmbeddedDocuments(Item.metadata.name, [
+        {
+          _id: gCoin.id,
+          [this.UPDATE_QUANTITY_KEY]: 0,
+        },
+      ]);
+    }
+
+    if (sCoin != null) {
+      await actor.updateEmbeddedDocuments(Item.metadata.name, [
+        {
+          _id: sCoin.id,
+          [this.UPDATE_QUANTITY_KEY]: 0,
+        },
+      ]);
+    }
+
+    if (bCoin != null) {
+      await actor.updateEmbeddedDocuments(Item.metadata.name, [
+        {
+          _id: bCoin.id,
+          [this.UPDATE_QUANTITY_KEY]: 0,
+        },
+      ]);
+    }
+  }
+
   public static async generateMoney(actor: Actor) {
     if (actor == null) {
       return;
