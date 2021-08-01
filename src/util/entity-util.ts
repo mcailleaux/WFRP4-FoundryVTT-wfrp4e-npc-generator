@@ -11,7 +11,7 @@ export default class EntityUtil {
       StringUtil.getSimpleName(item.name) ===
         StringUtil.getSimpleName(ref.name) ||
       StringUtil.getSimpleName(item.name) ===
-        StringUtil.getSimpleName(ref.data.originalName)
+        StringUtil.getSimpleName(ref.data?.flags?.babele?.originalName)
     );
   }
 
@@ -65,13 +65,13 @@ export default class EntityUtil {
     const hasBabele = babele()?.modules?.length > 0 ?? false;
     let result = entities.find(
       (e: Item & any) =>
-        (!hasBabele || e.data.hasTranslation) &&
+        (!hasBabele || e.data?.flags?.babele?.hasTranslation) &&
         StringUtil.equalsDeburrIgnoreCase(e.name.trim(), matchName)
     );
     if (result == null) {
       result = entities.find((e: Item & any) =>
         StringUtil.equalsDeburrIgnoreCase(
-          e.data.originalName?.trim(),
+          e.data?.flags?.babele?.originalName?.trim(),
           matchName
         )
       );
@@ -84,7 +84,7 @@ export default class EntityUtil {
       ).trim();
       result = entities.find(
         (e: Item & any) =>
-          (!hasBabele || e.data.hasTranslation) &&
+          (!hasBabele || e.data?.flags?.babele?.hasTranslation) &&
           StringUtil.equalsDeburrIgnoreCase(
             StringUtil.getSimpleName(e.name).trim(),
             simpleMatchName
@@ -93,7 +93,9 @@ export default class EntityUtil {
       if (result == null) {
         result = entities.find((e: Item & any) =>
           StringUtil.equalsDeburrIgnoreCase(
-            StringUtil.getSimpleName(e.data.originalName)?.trim(),
+            StringUtil.getSimpleName(
+              e.data?.flags?.babele?.originalName
+            )?.trim(),
             simpleMatchName
           )
         );

@@ -270,7 +270,8 @@ export default class CompendiumUtil {
       this.compendiumSizeTrait = <Item>(
         (await this.getCompendiumTraits()).find(
           (t: Item & any) =>
-            t.data.name === 'Size' || t.data.originalName === 'Size'
+            t.data.name === 'Size' ||
+            t.data?.flags?.babele?.originalName === 'Size'
         )
       );
     }
@@ -282,7 +283,8 @@ export default class CompendiumUtil {
       this.compendiumSwarmTrait = <Item>(
         (await this.getCompendiumTraits()).find(
           (t: Item & any) =>
-            t.data.name === 'Swarm' || t.data.originalName === 'Swarm'
+            t.data.name === 'Swarm' ||
+            t.data?.flags?.babele?.originalName === 'Swarm'
         )
       );
     }
@@ -294,7 +296,8 @@ export default class CompendiumUtil {
       this.compendiumWeaponTrait = <Item>(
         (await this.getCompendiumTraits()).find(
           (t: Item & any) =>
-            t.data.name === 'Weapon' || t.data.originalName === 'Weapon'
+            t.data.name === 'Weapon' ||
+            t.data?.flags?.babele?.originalName === 'Weapon'
         )
       );
     }
@@ -306,7 +309,8 @@ export default class CompendiumUtil {
       this.compendiumArmorTrait = <Item>(
         (await this.getCompendiumTraits()).find(
           (t: Item & any) =>
-            t.data.name === 'Armour' || t.data.originalName === 'Armour'
+            t.data.name === 'Armour' ||
+            t.data?.flags?.babele?.originalName === 'Armour'
         )
       );
     }
@@ -319,7 +323,7 @@ export default class CompendiumUtil {
         (await this.getCompendiumTraits()).find(
           (t: Item & any) =>
             t.data.name.startsWith('Ranged') ||
-            t.data.originalName?.startsWith('Ranged')
+            t.data?.flags?.babele?.originalName?.startsWith('Ranged')
         )
       );
     }

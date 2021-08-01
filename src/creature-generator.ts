@@ -179,8 +179,8 @@ export default class CreatureGenerator {
               (t: Item & any) =>
                 t.data.name === trait.name ||
                 t.data.name === trait.DisplayName ||
-                t.data.originalName === trait.name ||
-                t.data.originalName === trait.DisplayName
+                t.data?.flags?.babele?.originalName === trait.name ||
+                t.data?.flags?.babele?.originalName === trait.DisplayName
             )?.data ?? trait.data
           );
           finalTrait.DisplayName = trait.DisplayName ?? trait.name;
@@ -198,7 +198,8 @@ export default class CreatureGenerator {
           const finalSkill = duplicate(
             compendiumSkills.find(
               (s: Item & any) =>
-                s.data.name === skill.name || s.data.originalName === skill.name
+                s.data.name === skill.name ||
+                s.data?.flags?.babele?.originalName === skill.name
             )?.data ?? skill.data
           );
           finalSkill.data.advances.value = skill.data.data.advances.value;
@@ -212,7 +213,7 @@ export default class CreatureGenerator {
             compendiumTalents.find(
               (t: Item & any) =>
                 t.data.name === talent.name ||
-                t.data.originalName === talent.name
+                t.data?.flags?.babele?.originalName === talent.name
             )?.data ?? talent.data
           );
           finalTalent.data.advances.value = talent.data.data.advances.value;
