@@ -156,7 +156,7 @@ Weapons are added to token data during creation with this rules :
 
 ## Module link
 
-https://raw.githubusercontent.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/dist/module.json
+https://raw.githubusercontent.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/dist-v4/module.json
 
 ## Module Beta link
 
