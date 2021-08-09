@@ -139,5 +139,6 @@
   "WFRP4NPCGEN.settings.defaultEditAbilities.hint": "Valeur sélectionné par défaut pour l'option 'éditer les capacitées' lors de l'étape de choix des options à la génération d'un PNJ",
   "WFRP4NPCGEN.options.select.editAbilities.label": "Éditer les Capacitées",
   "WFRP4NPCGEN.creatures.abilities.select.group.label": "Spécialisation",
-  "WFRP4NPCGEN.cityborn.select.label": "Lieu de Naissance"
+  "WFRP4NPCGEN.cityborn.select.label": "Lieu de Naissance",
+  "WFRP4NPCGEN.notification.compendium.load.error": "Impossible de charger les données du Compendium {title} de la collection {collection}"
 }

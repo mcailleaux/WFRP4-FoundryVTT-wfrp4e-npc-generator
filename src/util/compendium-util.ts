@@ -1,5 +1,5 @@
 import WaiterUtil from './waiter-util.js';
-import { modules, packs, wfrp4e } from '../constant.js';
+import { i18n, modules, notifications, packs, wfrp4e } from '../constant.js';
 
 export default class CompendiumUtil {
   private static compendiumItems: Item[];
@@ -86,7 +86,7 @@ export default class CompendiumUtil {
       );
       const loaders: Promise<any>[] = [];
       for (let pack of itemsPacks) {
-        loaders.push(pack.getDocuments());
+        loaders.push(this.loadCompendiumDocuments(pack));
       }
       const contents = await Promise.all(loaders);
       for (let items of contents) {
@@ -142,11 +142,11 @@ export default class CompendiumUtil {
 
           console.info(`Start to load ${key} compendium`);
 
-          const actors: Actor[] = (await pack.getDocuments()).sort(
-            (c1: Actor, c2: Actor) => {
-              return c1.name?.localeCompare(c2.name ?? '');
-            }
-          );
+          const actors: Actor[] = (
+            await this.loadCompendiumDocuments(pack)
+          ).sort((c1: Actor, c2: Actor) => {
+            return c1.name?.localeCompare(c2.name ?? '');
+          });
 
           if (actors.length > 0) {
             this.compendiumActors[key] = actors;
@@ -384,5 +384,25 @@ export default class CompendiumUtil {
       );
     }
     return Promise.resolve(this.compendiumMentalMutations);
+  }
+
+  private static loadCompendiumDocuments(pack: any): Promise<any> {
+    return new Promise(async (resolve) => {
+      try {
+        const docs = (await pack?.getDocuments()) ?? [];
+        resolve(docs);
+      } catch (e) {
+        console.error(e);
+        const title = pack.title;
+        const collection = pack.collection;
+        notifications().warn(
+          i18n().format('WFRP4NPCGEN.notification.compendium.load.error', {
+            title: title,
+            collection: collection,
+          })
+        );
+        resolve([]);
+      }
+    });
   }
 }

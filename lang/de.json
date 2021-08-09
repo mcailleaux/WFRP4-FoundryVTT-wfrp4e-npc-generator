@@ -139,5 +139,6 @@
   "WFRP4NPCGEN.settings.defaultEditAbilities.hint": "Standardmäßig ausgewählter Wert für die Option 'Fähigkeiten bearbeiten' in der Optionsauswahl bei der Generierung eines NSC",
   "WFRP4NPCGEN.options.select.editAbilities.label": "Fähigkeiten bearbeiten",
   "WFRP4NPCGEN.creatures.abilities.select.group.label": "Spezialisierung",
-  "WFRP4NPCGEN.cityborn.select.label": "Geburtsort"
+  "WFRP4NPCGEN.cityborn.select.label": "Geburtsort",
+  "WFRP4NPCGEN.notification.compendium.load.error": "Kompendium {title} können nicht aus Sammlung {collection} geladen werden"
 }
