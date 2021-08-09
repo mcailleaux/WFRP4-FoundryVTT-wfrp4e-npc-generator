@@ -395,12 +395,15 @@ export default class CompendiumUtil {
         console.error(e);
         const title = pack.title;
         const collection = pack.collection;
-        notifications().warn(
-          i18n().format('WFRP4NPCGEN.notification.compendium.load.error', {
+        const message = i18n().format(
+          'WFRP4NPCGEN.notification.compendium.load.error',
+          {
             title: title,
             collection: collection,
-          })
+          }
         );
+        console.warn(message);
+        notifications().warn(message);
         resolve([]);
       }
     });
