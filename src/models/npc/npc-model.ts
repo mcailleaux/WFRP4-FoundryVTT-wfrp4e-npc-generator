@@ -4,4 +4,5 @@ export class NpcModel extends ActorModel {
   public speciesKey: string;
   public subSpeciesKey: string;
   public cityBorn: string;
+  public careers: string[];
 }

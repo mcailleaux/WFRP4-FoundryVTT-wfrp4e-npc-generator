@@ -7,13 +7,15 @@ export default class CareerChooser {
   public static async selectCareer(
     initCareers: string[],
     speciesKey: string,
+    subSpeciesKey: string,
     callback: (item: Item[]) => void,
     undo: () => void
   ) {
     const dialogId = new Date().getTime();
     const careers = await ReferentialUtil.getCareerEntities();
     const randomCareers = await ReferentialUtil.getRandomSpeciesCareers(
-      speciesKey
+      speciesKey,
+      subSpeciesKey
     );
     new Dialog(
       {

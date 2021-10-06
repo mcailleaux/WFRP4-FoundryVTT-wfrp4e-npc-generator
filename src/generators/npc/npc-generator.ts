@@ -4,10 +4,12 @@ import CheckDependencies from '../../check-dependencies.js';
 import { NpcModel } from '../../models/npc/npc-model.js';
 import CompendiumUtil from '../../util/compendium-util.js';
 import { SpeciesChooser } from '../../components/species-chooser.js';
+import { CareerChooser } from '../../components/career-chooser.js';
 
 export class NpcGenerator {
   public static readonly compendium = CompendiumUtil;
   public static readonly speciesChooser = SpeciesChooser;
+  public static readonly careerChooser = CareerChooser;
 
   public static async generateNpc(
     _callback?: (model: NpcModel, actorData: any, actor: any) => void
@@ -58,9 +60,28 @@ export class NpcGenerator {
         model.subSpeciesKey = subKey;
         model.cityBorn = cityBorn;
 
-        this.selectSpecies(model, callback);
+        this.selectCareer(model, callback);
+      }
+    );
+  }
 
-        // this.selectCareer(model, callback);
+  private static async selectCareer(
+    model: NpcModel,
+    callback: (model: NpcModel) => void
+  ) {
+    await this.careerChooser.selectCareer(
+      model.careers,
+      model.speciesKey,
+      model.subSpeciesKey,
+      (careers: string[]) => {
+        model.careers = careers;
+
+        this.selectCareer(model, callback);
+
+        // this.selectSpeciesSkills(model, callback);
+      },
+      () => {
+        this.selectSpecies(model, callback);
       }
     );
   }

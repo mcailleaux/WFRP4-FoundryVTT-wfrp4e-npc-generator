@@ -20,17 +20,20 @@ export abstract class AbstractChooser<DATA, MODEL = {}> extends FormApplication<
   FormApplication.Data<DATA, FormApplication.Options>
 > {
   protected model = this.getInitModel();
+  protected previousCallback: (() => void) | null;
 
   protected constructor(
     object: DATA,
-    withPrevious = false,
+    previousCallback: (() => void) | null = null,
     options: Partial<FormApplication.Options> = {}
   ) {
     super(object, options);
+    this.model.data = this.object;
+    this.previousCallback = previousCallback;
     this.model.id = new Date().getTime();
     this.model.buttonsTemplate = () =>
       `modules/${RegisterSettings.moduleName}/templates/chooser-action.html`;
-    if (withPrevious) {
+    if (previousCallback != null) {
       this.model.actions.push({
         name: 'previous',
         label: 'WFRP4NPCGEN.common.button.Undo',
@@ -53,17 +56,27 @@ export abstract class AbstractChooser<DATA, MODEL = {}> extends FormApplication<
     return await super.close(options ?? { submit: false, force: true });
   }
 
+  protected async _onSubmit(
+    event: Event,
+    options?: FormApplication.OnSubmitOptions
+  ): Promise<Partial<Record<string, unknown>>> {
+    event.preventDefault();
+    if (this.isValid(this.model.data)) {
+      await super._onSubmit(event, options);
+      this.yes(this.model.data);
+    }
+    return Promise.resolve({});
+  }
+
   protected _getSubmitData(_updateData?: object): any {
     return this.model.data;
   }
 
+  public getData(): any {
+    return this.model;
+  }
+
   public activateListeners(html: JQuery) {
-    this.handleClick(html, `#${this.model.id}-yes`, async (_event) => {
-      if (this.isValid(this.model.data)) {
-        await this.close();
-        this.yes(this.model.data);
-      }
-    });
     this.handleClick(html, `#${this.model.id}-no`, async (_event) => {
       await this.close();
       this.no();
@@ -105,7 +118,11 @@ export abstract class AbstractChooser<DATA, MODEL = {}> extends FormApplication<
     return Promise.resolve();
   }
 
-  protected previous() {}
+  protected previous() {
+    if (this.previousCallback != null) {
+      this.previousCallback();
+    }
+  }
 
   protected no() {}
 
@@ -121,7 +138,7 @@ export abstract class AbstractChooser<DATA, MODEL = {}> extends FormApplication<
           name: 'yes',
           label: 'WFRP4NPCGEN.common.button.OK',
           icon: 'fa-check',
-          type: 'button',
+          type: 'submit',
           callback: this.yes,
         },
         {

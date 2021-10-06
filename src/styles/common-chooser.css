@@ -8,3 +8,7 @@
 .chooser-actions-button {
   flex: 1;
 }
+
+.chooser-form-button {
+  max-width: 32px;
+}

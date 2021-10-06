@@ -1,4 +1,4 @@
-<form autocomplete="off" onsubmit="event.preventDefault()">
+<form autocomplete="off">
   <div class="form-group">
     <button id="randomSpeciesButton" type="button">
       {{localize 'WFRP4NPCGEN.common.button.Random'}}
@@ -14,12 +14,13 @@
       {{/if}} {{/each}}
     </select>
   </div>
-  <div id="randomSubSpeciesButtonContainer" class="form-group">
+  {{#if showSubSpecies}}
+  <div class="form-group">
     <button id="randomSubSpeciesButton" type="button">
       {{localize 'WFRP4NPCGEN.common.button.Random'}}
     </button>
   </div>
-  <div id="subSpeciesSelectContainer" class="form-group">
+  <div class="form-group">
     <label> {{localize 'WFRP4NPCGEN.subspecies.select.label'}} </label>
     <select id="subSpeciesSelect">
       {{#each subSpecies}} {{#if selected}}
@@ -29,6 +30,7 @@
       {{/if}} {{/each}}
     </select>
   </div>
+  {{/if}}
   <div class="form-group">
     <label> {{localize 'WFRP4NPCGEN.cityborn.select.label'}} </label>
     <input

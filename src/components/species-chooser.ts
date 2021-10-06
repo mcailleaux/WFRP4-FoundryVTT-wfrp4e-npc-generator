@@ -22,6 +22,7 @@ export class SpeciesChooser extends AbstractChooser<
   {
     species: SelectModel[];
     subSpecies: SelectModel[];
+    showSubSpecies: boolean;
   }
 > {
   private speciesKeys = Object.keys(ReferentialUtil.getSpeciesMap());
@@ -40,13 +41,10 @@ export class SpeciesChooser extends AbstractChooser<
       subSpeciesKey: string | null,
       cityBorn: string | null
     ) => void,
-    withPrevious = false,
     options?: Partial<FormApplication.Options>
   ) {
-    super(object, withPrevious, options);
+    super(object, null, options);
     this.callback = callback;
-
-    this.model.data = this.object;
 
     // Init species
     this.initSpecies(this.model.data?.speciesKey);
@@ -81,10 +79,6 @@ export class SpeciesChooser extends AbstractChooser<
       new Model(initSpeciesKey, initSubSpeciesKey, initCityBorn),
       callback
     ).render(true);
-  }
-
-  public getData(): any {
-    return this.model;
   }
 
   public activateListeners(html: JQuery) {
@@ -167,6 +161,7 @@ export class SpeciesChooser extends AbstractChooser<
       );
     });
     this.model.subSpecies = subSpecies;
+    this.model.showSubSpecies = subSpecies.length > 0;
   }
 
   private selectSpecies(speciesKey: string) {

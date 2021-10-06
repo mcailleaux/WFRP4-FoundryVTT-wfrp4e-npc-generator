@@ -1,0 +1,66 @@
+<form autocomplete="off">
+  <div class="form-group">
+    <button id="randomCareerButton" type="button">
+      {{localize 'WFRP4NPCGEN.common.button.Random'}}
+    </button>
+  </div>
+  <div class="form-group">
+    <button id="randomSpeciesCareerButton" type="button">
+      {{localize 'WFRP4NPCGEN.common.button.Random'}} {{speciesName}}
+    </button>
+  </div>
+  <div class="form-group">
+    <label>{{localize 'WFRP4NPCGEN.career.select.label'}}</label>
+    <datalist id="select-career-list-{{id}}">
+      {{#each careers}}
+      <option value="{{this}}"></option>
+      {{/each}}
+    </datalist>
+    <input
+      list="select-career-list-{{id}}"
+      value=""
+      id="selectCareerInput"
+      type="text"
+      name="select-career"
+    />
+    <button id="addCareerButton" type="button" class="chooser-form-button">
+      <i class="fas fa-plus"></i>
+    </button>
+  </div>
+  <div class="form-group">
+    <label
+      >{{localize 'WFRP4NPCGEN.career.select.label'}} {{speciesName}}</label
+    >
+    <datalist id="select-species-career-list-{{id}}">
+      {{#each speciesCareers}}
+      <option value="{{this}}"></option>
+      {{/each}}
+    </datalist>
+    <input
+      list="select-species-career-list-{{id}}"
+      value=""
+      id="selectSpeciesCareerInput"
+      type="text"
+      name="select-species-career"
+    />
+    <button
+      id="addSpeciesCareerButton"
+      type="button"
+      class="chooser-form-button"
+    >
+      <i class="fas fa-plus"></i>
+    </button>
+  </div>
+  {{#each data.careers}}
+  <div class="form-group">
+    <label>{{this}}</label>
+    <button
+      class="remove-career-button chooser-form-button"
+      type="button"
+      value="{{this}}"
+    >
+      <i class="fas fa-trash-alt"></i>
+    </button>
+  </div>
+  {{/each}} {{> (buttonsTemplate)}}
+</form>

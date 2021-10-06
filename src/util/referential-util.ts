@@ -187,6 +187,15 @@ export default class ReferentialUtil {
     return Promise.resolve(careers);
   }
 
+  public static async getCareerEntitieNames(
+    withWorld = true
+  ): Promise<string[]> {
+    const names = (await this.getCareerEntities(withWorld)).map(
+      (c) => c.name ?? ''
+    );
+    return Promise.resolve(names);
+  }
+
   public static async getWorldCareers(): Promise<Item[]> {
     const careersGroups = await CompendiumUtil.getCompendiumCareersGroups();
     const worldCareers = items()?.contents?.filter((item: any) => {
@@ -231,20 +240,36 @@ export default class ReferentialUtil {
   }
 
   public static async getRandomSpeciesCareers(
-    speciesKey: string
+    speciesKey: string,
+    subSpeciesKey?: string
   ): Promise<string[]> {
     if (speciesKey == null) {
       return [];
     }
+    const concatKey =
+      subSpeciesKey != null ? `${speciesKey}-${subSpeciesKey}` : speciesKey;
+    const humanDefaultKey = 'human-reiklander';
     const randomCareers: string[] = wfrp4e()
       .tables.career.rows.filter((row: any) => {
-        let result = row?.range[speciesKey]?.length > 0;
+        let result = row?.range[concatKey]?.length > 0;
+        if (!result) {
+          result = row?.range[speciesKey]?.length > 0;
+        }
         if (!result && speciesKey === 'human') {
-          result = row?.range['human-reiklander']?.length > 0;
+          result = row?.range[humanDefaultKey]?.length > 0;
         }
         return result;
       })
-      .map((row: any) => row.name);
+      .map((row: any) => {
+        let result = row[concatKey]?.name;
+        if (result == null) {
+          result = row[speciesKey]?.name;
+        }
+        if (result == null && speciesKey === 'human') {
+          result = row[humanDefaultKey]?.name;
+        }
+        return result;
+      });
 
     const careers = await this.getCareerEntities(false);
 
