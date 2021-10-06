@@ -201,57 +201,57 @@ export default class NpcGenerator {
       'WFRP4NPCGEN.npc.generation.inprogress.title',
       'WFRP4NPCGEN.npc.generation.inprogress.hint',
       async () => {
-        console.log('Prepare Career Path');
+        console.info('Prepare Career Path');
         await this.addCareerPath(model);
 
-        console.log('Prepare Status');
+        console.info('Prepare Status');
         await this.addStatus(model);
 
-        console.log('Prepare Basic skills');
+        console.info('Prepare Basic skills');
         await this.addBasicSkill(model);
 
-        console.log('Prepare Native Tongue');
+        console.info('Prepare Native Tongue');
         await this.addNativeTongueSkill(model);
 
-        console.log('Prepare City Born');
+        console.info('Prepare City Born');
         await this.addCityBornSkill(model);
 
-        console.log('Prepare Career Skills');
+        console.info('Prepare Career Skills');
         await this.addCareerSkill(model);
 
-        console.log('Prepare Species Skills');
+        console.info('Prepare Species Skills');
         await this.addSpeciesSkill(model);
 
-        console.log('Prepare Species Talents');
+        console.info('Prepare Species Talents');
         await this.addSpeciesTalents(model);
 
-        console.log('Prepare Career Talents');
+        console.info('Prepare Career Talents');
         await this.addCareerTalents(model);
 
-        console.log('Prepare Species Traits');
+        console.info('Prepare Species Traits');
         await this.addSpeciesTraits(model);
 
-        console.log('Prepare Basic Chars');
+        console.info('Prepare Basic Chars');
         await this.addBasicChars(model);
 
-        console.log('Prepare Movement');
+        console.info('Prepare Movement');
         await this.addMovement(model);
 
-        console.log('Prepare Skills Advances');
+        console.info('Prepare Skills Advances');
         await this.addAdvanceSkills(model);
 
-        console.log('Prepare Chars Advances');
+        console.info('Prepare Chars Advances');
         await this.addAdvanceChars(model);
 
         if (model.options.withClassTrappings) {
-          console.log('Prepare Class Trappings');
+          console.info('Prepare Class Trappings');
           await this.prepareClassTrappings(model);
         }
         if (model.options.withCareerTrappings) {
-          console.log('Prepare Career Trappings');
+          console.info('Prepare Career Trappings');
           await this.prepareCareerTrappings(model);
         }
-        console.log('Prepare Trappings');
+        console.info('Prepare Trappings');
         await this.addTrappings(model);
 
         await this.editAbilities(model, callback);

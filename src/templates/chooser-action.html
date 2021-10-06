@@ -1,0 +1,12 @@
+<footer class="chooser-actions-footer">
+  {{#each actions}}
+  <button
+    type="{{type}}"
+    id="{{../id}}-{{name}}"
+    class="chooser-actions-button"
+  >
+    <i class="fas {{icon}}"></i>
+    {{localize label}}
+  </button>
+  {{/each}}
+</footer>

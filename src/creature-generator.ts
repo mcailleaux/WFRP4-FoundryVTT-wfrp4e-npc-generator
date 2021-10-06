@@ -351,25 +351,25 @@ export default class CreatureGenerator {
       'WFRP4NPCGEN.creature.generation.inprogress.title',
       'WFRP4NPCGEN.creature.generation.inprogress.hint',
       async () => {
-        console.log('Prepare Basic skills');
+        console.info('Prepare Basic skills');
         await this.addBasicSkill(model);
 
-        console.log('Prepare Basic Chars');
+        console.info('Prepare Basic Chars');
         await this.addBasicChars(model);
 
-        console.log('Prepare Swarm');
+        console.info('Prepare Swarm');
         await this.addSwarm(model);
 
-        console.log('Prepare Size');
+        console.info('Prepare Size');
         await this.addSize(model);
 
-        console.log('Prepare Weapon');
+        console.info('Prepare Weapon');
         await this.addWeapon(model);
 
-        console.log('Prepare Ranged');
+        console.info('Prepare Ranged');
         await this.addRanged(model);
 
-        console.log('Prepare Armour');
+        console.info('Prepare Armour');
         await this.addArmour(model);
 
         await this.editTrappings(model, callback);

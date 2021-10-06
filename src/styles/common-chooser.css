@@ -1,0 +1,10 @@
+.chooser-actions-footer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.chooser-actions-button {
+  flex: 1;
+}

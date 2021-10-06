@@ -1,0 +1,42 @@
+<form autocomplete="off" onsubmit="event.preventDefault()">
+  <div class="form-group">
+    <button id="randomSpeciesButton" type="button">
+      {{localize 'WFRP4NPCGEN.common.button.Random'}}
+    </button>
+  </div>
+  <div class="form-group">
+    <label> {{localize 'WFRP4NPCGEN.species.select.label'}} </label>
+    <select id="speciesSelect">
+      {{#each species}} {{#if selected}}
+      <option value="{{key}}" selected="selected">{{localize value}}</option>
+      {{else}}
+      <option value="{{key}}">{{localize value}}</option>
+      {{/if}} {{/each}}
+    </select>
+  </div>
+  <div id="randomSubSpeciesButtonContainer" class="form-group">
+    <button id="randomSubSpeciesButton" type="button">
+      {{localize 'WFRP4NPCGEN.common.button.Random'}}
+    </button>
+  </div>
+  <div id="subSpeciesSelectContainer" class="form-group">
+    <label> {{localize 'WFRP4NPCGEN.subspecies.select.label'}} </label>
+    <select id="subSpeciesSelect">
+      {{#each subSpecies}} {{#if selected}}
+      <option value="{{key}}" selected="selected">{{localize value}}</option>
+      {{else}}
+      <option value="{{key}}">{{localize value}}</option>
+      {{/if}} {{/each}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label> {{localize 'WFRP4NPCGEN.cityborn.select.label'}} </label>
+    <input
+      id="cityBornInput"
+      name="cityborn"
+      type="text"
+      value="{{data.cityBorn}}"
+    />
+  </div>
+  {{> (buttonsTemplate)}}
+</form>

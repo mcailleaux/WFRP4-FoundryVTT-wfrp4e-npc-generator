@@ -10,3 +10,4 @@ export const settings = () => (<any>game).settings;
 export const items = () => (<any>game).items;
 export const world = () => (<any>game).world;
 export const notifications = () => (<any>ui).notifications;
+export const initTemplates = (paths: string[]) => loadTemplates(paths);
