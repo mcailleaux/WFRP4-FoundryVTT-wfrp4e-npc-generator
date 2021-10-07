@@ -1,0 +1,24 @@
+.species-skills-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.species-skills-row-label {
+  word-break: break-all;
+  flex: 40%;
+}
+
+.species-skills-radio-row {
+  flex: 60%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: stretch;
+}
+
+.species-skills-radio-row-label,
+.species-skills-radio-row-radio {
+  flex: 25%;
+}

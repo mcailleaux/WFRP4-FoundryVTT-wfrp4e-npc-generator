@@ -5,11 +5,13 @@ import { NpcModel } from '../../models/npc/npc-model.js';
 import CompendiumUtil from '../../util/compendium-util.js';
 import { SpeciesChooser } from '../../components/species-chooser.js';
 import { CareerChooser } from '../../components/career-chooser.js';
+import { SpeciesSkillsChooser } from '../../components/species-skills-chooser.js';
 
 export class NpcGenerator {
   public static readonly compendium = CompendiumUtil;
   public static readonly speciesChooser = SpeciesChooser;
   public static readonly careerChooser = CareerChooser;
+  public static readonly speciesSkillsChooser = SpeciesSkillsChooser;
 
   public static async generateNpc(
     _callback?: (model: NpcModel, actorData: any, actor: any) => void
@@ -50,10 +52,8 @@ export class NpcGenerator {
       model.cityBorn,
       (key: string, subKey: string, cityBorn: string) => {
         if (model.speciesKey != null && model.speciesKey !== key) {
-          // model.speciesSkills = {
-          //     major: [],
-          //     minor: [],
-          // };
+          model.speciesSkills.majors = [];
+          model.speciesSkills.minors = [];
           // model.speciesTalents = [];
         }
         model.speciesKey = key;
@@ -76,12 +76,33 @@ export class NpcGenerator {
       (careers: string[]) => {
         model.careers = careers;
 
-        this.selectCareer(model, callback);
-
-        // this.selectSpeciesSkills(model, callback);
+        this.selectSpeciesSkills(model, callback);
       },
       () => {
         this.selectSpecies(model, callback);
+      }
+    );
+  }
+
+  private static async selectSpeciesSkills(
+    model: NpcModel,
+    callback: (model: NpcModel) => void
+  ) {
+    await this.speciesSkillsChooser.selectSpeciesSkills(
+      model.speciesSkills.majors,
+      model.speciesSkills.minors,
+      model.speciesKey,
+      model.subSpeciesKey,
+      (majors: string[], minors: string[]) => {
+        model.speciesSkills.majors = majors;
+        model.speciesSkills.minors = minors;
+
+        this.selectSpeciesSkills(model, callback);
+
+        // this.selectSpeciesTalents(model, callback);
+      },
+      () => {
+        this.selectCareer(model, callback);
       }
     );
   }

@@ -34,7 +34,8 @@
   "styles": [
     "./styles/main.css",
     "./styles/generation-profiles.css",
-    "./styles/common-chooser.css"
+    "./styles/common-chooser.css",
+    "./styles/species-skills-chooser.css"
   ],
   "url": "https://github.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator",
   "download": "https://github.com/mcailleaux/WFRP4-FoundryVTT-wfrp4e-npc-generator/blob/dist-v4/dist/wfrp4e-npc-generator.zip?raw=true",

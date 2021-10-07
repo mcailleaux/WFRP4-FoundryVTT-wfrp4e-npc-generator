@@ -1,0 +1,48 @@
+<form autocomplete="off">
+  <div class="form-group">
+    <button id="randomSpeciesSkillsButton" type="button">
+      {{localize 'WFRP4NPCGEN.common.button.Random'}}
+    </button>
+  </div>
+  {{#each skills}}
+  <div class="form-group species-skills-row">
+    <label class="species-skills-row-label"> {{label}} </label>
+    <div class="species-skills-radio-row">
+      <label class="species-skills-radio-row-label">+5</label>
+      {{#if major}}
+      <input
+        class="species-skills-radio-row-radio species-skill-major-radio"
+        value="{{label}}"
+        type="radio"
+        name="select-skill-{{label}}"
+        checked
+      />
+      {{else}}
+      <input
+        class="species-skills-radio-row-radio species-skill-major-radio"
+        value="{{label}}"
+        type="radio"
+        name="select-skill-{{label}}"
+      />
+      {{/if}}
+      <label class="species-skills-radio-row-label">+3</label>
+      {{#if minor}}
+      <input
+        class="species-skills-radio-row-radio species-skill-minor-radio"
+        value="{{label}}"
+        type="radio"
+        name="select-skill-{{label}}"
+        checked
+      />
+      {{else}}
+      <input
+        class="species-skills-radio-row-radio species-skill-minor-radio"
+        value="{{label}}"
+        type="radio"
+        name="select-skill-{{label}}"
+      />
+      {{/if}}
+    </div>
+  </div>
+  {{/each}} {{> (buttonsTemplate)}}
+</form>
