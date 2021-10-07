@@ -58,7 +58,7 @@ export default class SpeciesTalentsChooser {
         ? {
             [speciesKey]: subSpeciesTalents,
           }
-        : ReferentialUtil.getSpeciesTalentsMap();
+        : ReferentialUtil.getOldSpeciesTalentsMap();
     const speciesTalent: string[] = speciesTalentsMap[speciesKey].filter(
       (talent: string, index) =>
         index !== speciesTalentsMap[speciesKey].length - 1 &&

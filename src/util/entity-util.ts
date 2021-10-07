@@ -2,7 +2,7 @@ import StringUtil from './string-util.js';
 import deburr from './lodash/deburr.js';
 import RandomUtil from './random-util.js';
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
-import { babele } from '../constant.js';
+import { babele, i18n } from '../constant.js';
 import { DocumentData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/module.mjs.js';
 
 export default class EntityUtil {
@@ -102,14 +102,39 @@ export default class EntityUtil {
         findByVo = result != null;
       }
     }
+    if (result == null) {
+      result = entities.find(
+        (e: Item & any) =>
+          hasBabele &&
+          !e.data?.flags?.babele?.hasTranslation &&
+          StringUtil.equalsDeburrIgnoreCase(e.name.trim(), matchName)
+      );
+      findByVo = result != null;
+      findByVoExactMatch = result != null;
+    }
+    if (result == null) {
+      const simpleMatchName = StringUtil.toDeburrLowerCase(
+        StringUtil.getSimpleName(name)
+      ).trim();
+      result = entities.find(
+        (e: Item & any) =>
+          hasBabele &&
+          !e.data?.flags?.babele?.hasTranslation &&
+          StringUtil.equalsDeburrIgnoreCase(
+            StringUtil.getSimpleName(e.name).trim(),
+            simpleMatchName
+          )
+      );
+      findByVo = result != null;
+    }
     if (result != null) {
       const data = duplicate(result.data);
       data._id = RandomUtil.getRandomId();
       if (findByVo) {
         if (!findByVoExactMatch && name.includes('(')) {
           const tradSimpleName = StringUtil.getSimpleName(data.name).trim();
-          const groupName = StringUtil.getGroupName(name).trim();
-          data.name = `${tradSimpleName} (${groupName})`;
+          let groupName = StringUtil.getGroupName(name).trim();
+          data.name = `${tradSimpleName} (${i18n().localize(groupName)})`;
         }
       } else {
         data.name = name;

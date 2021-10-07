@@ -3,6 +3,13 @@ import CompendiumUtil from './compendium-util.js';
 import EntityUtil from './entity-util.js';
 import { actors, i18n, items, wfrp4e, world } from '../constant.js';
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import {
+  speciesPsychologies,
+  speciesSkills,
+  speciesTalents,
+  speciesTraits,
+} from '../referential/species-referential.js';
+import WaiterUtil from './waiter-util.js';
 
 export default class ReferentialUtil {
   public static readonly sortedSize = [
@@ -14,6 +21,52 @@ export default class ReferentialUtil {
     'enor',
     'mnst',
   ];
+
+  private static speciesSkillsMap: { [key: string]: string[] };
+  private static speciesTalentsMap: { [key: string]: any[] };
+  private static speciesTraitsMap: { [key: string]: any[] };
+  private static speciesPsychologiesMap: { [key: string]: any[] };
+
+  private static referentialLoaded = false;
+  private static creatureReferentialLoaded = false;
+
+  public static async initReferential(
+    callback: () => void,
+    forCreatures = false
+  ) {
+    await CompendiumUtil.initCompendium(async () => {
+      if (!this.referentialLoaded || !this.creatureReferentialLoaded) {
+        await WaiterUtil.show(
+          'WFRP4NPCGEN.compendium.load.title',
+          'WFRP4NPCGEN.compendium.load.hint',
+          async () => {
+            if (forCreatures) {
+            } else {
+              await Promise.all([
+                this.getSpeciesSkillsMap(),
+                this.getSpeciesTalentsMap(),
+                this.getSpeciesTraitsMap(),
+                this.getSpeciesPsychologiesMap(),
+              ]);
+            }
+
+            if (!this.referentialLoaded || !this.creatureReferentialLoaded) {
+              await WaiterUtil.hide();
+            }
+            if (forCreatures) {
+              this.creatureReferentialLoaded = true;
+            } else {
+              this.referentialLoaded = true;
+            }
+
+            callback();
+          }
+        );
+      } else {
+        callback();
+      }
+    }, forCreatures);
+  }
 
   public static getClassTrappings(): { [key: string]: string } {
     const voClassTraping: { [key: string]: string } = wfrp4e().config
@@ -79,11 +132,11 @@ export default class ReferentialUtil {
           skills:
             subValue.skills != null
               ? subValue.skills
-              : this.getSpeciesSkillsMap()[key],
+              : this.getOldSpeciesSkillsMap()[key],
           talents:
             subValue.talents != null
               ? subValue.talents
-              : this.getSpeciesTalentsMap()[key],
+              : this.getOldSpeciesTalentsMap()[key],
         };
         if (result[key] == null) {
           result[key] = {};
@@ -107,11 +160,11 @@ export default class ReferentialUtil {
     return subSpecies != null ? subSpecies[speciesKey] : null;
   }
 
-  public static getSpeciesSkillsMap(): { [key: string]: string[] } {
+  public static getOldSpeciesSkillsMap(): { [key: string]: string[] } {
     return wfrp4e().config.speciesSkills;
   }
 
-  public static getSpeciesTalentsMap(): { [key: string]: any[] } {
+  public static getOldSpeciesTalentsMap(): { [key: string]: any[] } {
     return wfrp4e().config.speciesTalents;
   }
 
@@ -345,10 +398,26 @@ export default class ReferentialUtil {
     return talent;
   }
 
-  public static async findTrait(name: string) {
+  public static async findPsychology(name: string) {
+    const psychologies = [
+      ...(await this.getWorldEntities('psychology')),
+      ...(await this.getPsychologyEntities(false)),
+    ];
+    const psychology = EntityUtil.find(name, psychologies);
+    if (psychology == null) {
+      throw (
+        'Could not find psychology (or specialization of) ' +
+        name +
+        ' in compendum or world'
+      );
+    }
+    return psychology;
+  }
+
+  public static async findTrait(name: string, onlyRefTrait = false) {
     const traits = [
       ...(await this.getWorldEntities('trait')),
-      ...(await ReferentialUtil.getTraitEntities(false)),
+      ...(await this.getTraitEntities(false)),
     ];
     const trait: ItemData & any = EntityUtil.find(name, traits);
     if (trait == null) {
@@ -358,14 +427,21 @@ export default class ReferentialUtil {
         ' in compendum or world'
       );
     }
+    if (onlyRefTrait) {
+      return trait;
+    }
     if (name.includes('(') && name.includes(')')) {
-      const simpleName = StringUtil.getSimpleName(name);
-      const groupedName = StringUtil.getGroupName(name);
+      const simpleName = StringUtil.getSimpleName(trait.name ?? name);
+      const groupedName =
+        StringUtil.getGroupName(trait.name ?? name) ??
+        StringUtil.getGroupName(name);
       trait.name = simpleName;
       (<any>trait.data).specification.value = groupedName;
     } else {
-      trait.name = name;
-      trait.DisplayName = name;
+      if (trait.name == null) {
+        trait.name = name;
+      }
+      trait.DisplayName = trait.name;
     }
 
     return trait;
@@ -575,6 +651,17 @@ export default class ReferentialUtil {
     return Promise.resolve(talents);
   }
 
+  public static async getPsychologyEntities(withWorld = true): Promise<Item[]> {
+    const psychologies: Item[] = await CompendiumUtil.getCompendiumPsychologies();
+    if (withWorld) {
+      const worldPsychologies = await this.getWorldEntities('psychology');
+      if (worldPsychologies != null && worldPsychologies.length > 0) {
+        psychologies.push(...worldPsychologies);
+      }
+    }
+    return Promise.resolve(psychologies);
+  }
+
   public static async getTraitEntities(withWorld = true): Promise<Item[]> {
     const traits: Item[] = await CompendiumUtil.getCompendiumTraits();
     if (withWorld) {
@@ -720,5 +807,162 @@ export default class ReferentialUtil {
     }
 
     return Promise.resolve(compendiumActorTalents);
+  }
+
+  public static async getSpeciesSkillsMap(): Promise<{
+    [key: string]: string[];
+  }> {
+    if (this.speciesSkillsMap == null) {
+      this.speciesSkillsMap = {};
+      const coreMap = wfrp4e().config.speciesSkills;
+      for (let key of Object.keys(coreMap)) {
+        const moduleSkills: string[] = speciesSkills[key];
+        if (moduleSkills == null) {
+          console.warn(`Cant find fixed sub species skills map for ${key}`);
+        }
+        const skills: string[] =
+          moduleSkills != null ? moduleSkills : coreMap[key];
+        for (let skill of skills) {
+          try {
+            const refSkill = await ReferentialUtil.findSkill(skill);
+            if (refSkill != null) {
+              if (this.speciesSkillsMap[key] == null) {
+                this.speciesSkillsMap[key] = [];
+              }
+              this.speciesSkillsMap[key].push(refSkill.name);
+            }
+          } catch (e) {
+            console.warn(`Cant find Species ${key} Skill: ${skill}`);
+          }
+        }
+      }
+    }
+    return Promise.resolve(this.speciesSkillsMap);
+  }
+
+  public static async getSpeciesSkills(key: string): Promise<string[]> {
+    return Promise.resolve((await this.getSpeciesSkillsMap())[key] ?? []);
+  }
+
+  public static async getSpeciesTalentsMap(): Promise<{
+    [key: string]: any[];
+  }> {
+    if (this.speciesTalentsMap == null) {
+      this.speciesTalentsMap = {};
+      await this.initSpeciesEntities(
+        this.speciesTalentsMap,
+        'speciesTalents',
+        speciesTalents,
+        (name) => this.findTalent(name),
+        'Talent'
+      );
+    }
+    return Promise.resolve(this.speciesTalentsMap);
+  }
+
+  public static async getSpeciesTalents(key: string): Promise<string[]> {
+    return Promise.resolve((await this.getSpeciesTalentsMap())[key] ?? []);
+  }
+
+  public static async getSpeciesTraitsMap(): Promise<{
+    [key: string]: any[];
+  }> {
+    if (this.speciesTraitsMap == null) {
+      this.speciesTraitsMap = {};
+      await this.initSpeciesEntities(
+        this.speciesTraitsMap,
+        'speciesTalents',
+        speciesTraits,
+        (name) => this.findTrait(name, true),
+        'Trait',
+        true
+      );
+    }
+    return Promise.resolve(this.speciesTraitsMap);
+  }
+
+  public static async getSpeciesTraits(key: string): Promise<string[]> {
+    return Promise.resolve((await this.getSpeciesTraitsMap())[key] ?? []);
+  }
+
+  public static async getSpeciesPsychologiesMap(): Promise<{
+    [key: string]: any[];
+  }> {
+    if (this.speciesPsychologiesMap == null) {
+      this.speciesPsychologiesMap = {};
+      await this.initSpeciesEntities(
+        this.speciesPsychologiesMap,
+        'speciesTalents',
+        speciesPsychologies,
+        (name) => this.findPsychology(name),
+        'Psychology',
+        true
+      );
+    }
+    return Promise.resolve(this.speciesPsychologiesMap);
+  }
+
+  public static async getSpeciesPsychologies(key: string): Promise<string[]> {
+    return Promise.resolve((await this.getSpeciesPsychologiesMap())[key] ?? []);
+  }
+
+  private static async initSpeciesEntities(
+    targetMap: { [key: string]: any[] },
+    configKey: string,
+    moduleMap: { [key: string]: any[] },
+    search: (name: string) => Promise<ItemData>,
+    logType: string,
+    onlyModule = false
+  ) {
+    const coreMap = wfrp4e().config[configKey];
+    for (let key of Object.keys(coreMap)) {
+      const moduleEntities: any[] = moduleMap[key];
+      if (moduleEntities == null) {
+        console.warn(`Cant find fixed sub species ${logType} map for ${key}`);
+        if (onlyModule) {
+          continue;
+        }
+      }
+      const entities: any[] =
+        moduleEntities != null ? moduleEntities : coreMap[key];
+      for (let entity of entities) {
+        try {
+          if (typeof entity === 'number') {
+            if (targetMap[key] == null) {
+              targetMap[key] = [];
+            }
+            targetMap[key].push(entity);
+          } else if (entity.includes(',')) {
+            const multiEntities = entity.split(',').map((t) => t.trim());
+            let finalMultiEntity = '';
+            for (let multiEntity of multiEntities) {
+              const refEntity = await search(multiEntity);
+              if (refEntity != null) {
+                if (finalMultiEntity.length > 0) {
+                  finalMultiEntity += ', ';
+                }
+                finalMultiEntity += refEntity.name;
+              }
+            }
+            if (finalMultiEntity.length > 0) {
+              if (targetMap[key] == null) {
+                targetMap[key] = [];
+              }
+              targetMap[key].push(finalMultiEntity);
+            }
+          } else {
+            const refTalent = await search(entity);
+            if (refTalent != null) {
+              if (targetMap[key] == null) {
+                targetMap[key] = [];
+              }
+              targetMap[key].push(refTalent.name);
+            }
+          }
+        } catch (e) {
+          console.warn(`Cant find Species ${key} ${logType}: ${entity}`);
+        }
+      }
+    }
   }
 }

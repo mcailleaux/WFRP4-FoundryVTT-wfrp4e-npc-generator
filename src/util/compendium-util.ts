@@ -11,6 +11,7 @@ export default class CompendiumUtil {
   private static compendiumSkills: Item[];
   private static compendiumTalents: Item[];
   private static compendiumTraits: Item[];
+  private static compendiumPsychologies: Item[];
   private static compendiumSizeTrait: Item;
   private static compendiumSwarmTrait: Item;
   private static compendiumWeaponTrait: Item;
@@ -263,6 +264,18 @@ export default class CompendiumUtil {
       );
     }
     return Promise.resolve(this.compendiumTraits);
+  }
+
+  public static async getCompendiumPsychologies() {
+    if (this.compendiumPsychologies == null) {
+      this.compendiumPsychologies = [];
+      this.compendiumPsychologies.push(
+        ...(await this.getCompendiumItems()).filter(
+          (c: Item) => c.type === 'psychology'
+        )
+      );
+    }
+    return Promise.resolve(this.compendiumPsychologies);
   }
 
   public static async getCompendiumSizeTrait() {

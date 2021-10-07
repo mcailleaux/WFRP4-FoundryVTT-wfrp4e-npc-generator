@@ -37,7 +37,7 @@ export default class SpeciesSkillsChooser {
         ? {
             [speciesKey]: subSpeciesSkills,
           }
-        : ReferentialUtil.getSpeciesSkillsMap();
+        : await ReferentialUtil.getSpeciesSkillsMap();
 
     new Dialog(
       {

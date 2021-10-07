@@ -140,5 +140,8 @@
   "WFRP4NPCGEN.options.select.editAbilities.label": "Éditer les Capacitées",
   "WFRP4NPCGEN.creatures.abilities.select.group.label": "Spécialisation",
   "WFRP4NPCGEN.cityborn.select.label": "Lieu de Naissance",
-  "WFRP4NPCGEN.notification.compendium.load.error": "Impossible de charger les données du Compendium {title} de la collection {collection}"
+  "WFRP4NPCGEN.notification.compendium.load.error": "Impossible de charger les données du Compendium {title} de la collection {collection}",
+  "WFRP4NPCGEN.sight": "Vue",
+  "WFRP4NPCGEN.taste": "Goût",
+  "WFRP4NPCGEN.smell": "Odorat"
 }

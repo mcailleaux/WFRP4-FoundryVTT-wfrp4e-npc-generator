@@ -76,7 +76,7 @@ export class SpeciesSkillsChooser extends AbstractChooser<
     const skills =
       subSpeciesKey != null
         ? ReferentialUtil.getSubSpeciesMap()[speciesKey][subSpeciesKey].skills
-        : ReferentialUtil.getSpeciesSkillsMap()[speciesKey];
+        : await ReferentialUtil.getSpeciesSkills(speciesKey);
     for (let skill of skills) {
       try {
         const refSkill = await ReferentialUtil.findSkill(skill);

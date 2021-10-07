@@ -4,7 +4,6 @@ import CreatureModel from './creature-model.js';
 import CreatureChooser from './util/creature-chooser.js';
 import NameChooser from './util/name-chooser.js';
 import ReferentialUtil from './util/referential-util.js';
-import TranslateErrorDetect from './util/translate-error-detect.js';
 import StringUtil from './util/string-util.js';
 import EntityUtil from './util/entity-util.js';
 import CreatureAbilitiesChooser from './util/creature-abilities-chooser.js';
@@ -34,12 +33,11 @@ export default class CreatureGenerator {
   public static readonly mutationsChooser = MutationsChooser;
   public static readonly referential = ReferentialUtil;
   public static readonly compendium = CompendiumUtil;
-  public static readonly translateErrorDetect = TranslateErrorDetect;
 
   public static async generateCreature(
     callback?: (model: CreatureModel, actorData: any, actor: any) => void
   ) {
-    await this.compendium.initCompendium(async () => {
+    await this.referential.initReferential(async () => {
       await this.generateCreatureModel(async (model) => {
         const actorData = await CreatureBuilder.buildCreatureData(model);
         const actor = await CreatureBuilder.createCreature(model, actorData);

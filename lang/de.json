@@ -140,5 +140,8 @@
   "WFRP4NPCGEN.options.select.editAbilities.label": "Fähigkeiten bearbeiten",
   "WFRP4NPCGEN.creatures.abilities.select.group.label": "Spezialisierung",
   "WFRP4NPCGEN.cityborn.select.label": "Geburtsort",
-  "WFRP4NPCGEN.notification.compendium.load.error": "Kompendium {title} können nicht aus Sammlung {collection} geladen werden"
+  "WFRP4NPCGEN.notification.compendium.load.error": "Kompendium {title} können nicht aus Sammlung {collection} geladen werden",
+  "WFRP4NPCGEN.sight": "Sicht",
+  "WFRP4NPCGEN.taste": "Geschmack",
+  "WFRP4NPCGEN.smell": "Geruch"
 }

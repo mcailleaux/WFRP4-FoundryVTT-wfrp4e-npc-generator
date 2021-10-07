@@ -8,7 +8,6 @@ import NameChooser from './util/name-chooser.js';
 import RandomUtil from './util/random-util.js';
 import { ActorBuilder } from './actor-builder.js';
 import StringUtil from './util/string-util.js';
-import TranslateErrorDetect from './util/translate-error-detect.js';
 import ReferentialUtil from './util/referential-util.js';
 import TrappingUtil from './util/trapping-util.js';
 import OptionsChooser from './util/options.chooser.js';
@@ -37,12 +36,11 @@ export default class NpcGenerator {
   public static readonly trappingChooser = TrappingChooser;
   public static readonly magicsChooser = MagicsChooser;
   public static readonly mutationsChooser = MutationsChooser;
-  public static readonly translateErrorDetect = TranslateErrorDetect;
 
   public static async generateNpc(
     callback?: (model: NpcModel, actorData: any, actor: any) => void
   ) {
-    await this.compendium.initCompendium(async () => {
+    await this.referential.initReferential(async () => {
       await this.generateNpcModel(async (model) => {
         const actorData = await ActorBuilder.buildActorData(model, 'npc');
         const actor = await ActorBuilder.createActor(model, actorData);
@@ -546,7 +544,7 @@ export default class NpcGenerator {
 
   private static async addSpeciesTalents(model: NpcModel) {
     const traitPrefix = i18n().localize('Trait');
-    const speciesTalentsMap = this.referential.getSpeciesTalentsMap();
+    const speciesTalentsMap = this.referential.getOldSpeciesTalentsMap();
     const speciesTalent: string[] = speciesTalentsMap[model.speciesKey].filter(
       (talent: string, index) =>
         index !== speciesTalentsMap[model.speciesKey].length - 1 &&
@@ -588,7 +586,7 @@ export default class NpcGenerator {
 
   private static async addSpeciesTraits(model: NpcModel) {
     const traitPrefix = i18n().localize('Trait');
-    const speciesTalentsMap = this.referential.getSpeciesTalentsMap();
+    const speciesTalentsMap = this.referential.getOldSpeciesTalentsMap();
     const speciesTraits: string[] = speciesTalentsMap[model.speciesKey]
       .filter(
         (talent: string, index) =>

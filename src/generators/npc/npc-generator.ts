@@ -6,9 +6,11 @@ import CompendiumUtil from '../../util/compendium-util.js';
 import { SpeciesChooser } from '../../components/species-chooser.js';
 import { CareerChooser } from '../../components/career-chooser.js';
 import { SpeciesSkillsChooser } from '../../components/species-skills-chooser.js';
+import ReferentialUtil from '../../util/referential-util.js';
 
 export class NpcGenerator {
   public static readonly compendium = CompendiumUtil;
+  public static readonly referential = ReferentialUtil;
   public static readonly speciesChooser = SpeciesChooser;
   public static readonly careerChooser = CareerChooser;
   public static readonly speciesSkillsChooser = SpeciesSkillsChooser;
@@ -16,7 +18,7 @@ export class NpcGenerator {
   public static async generateNpc(
     _callback?: (model: NpcModel, actorData: any, actor: any) => void
   ) {
-    await this.compendium.initCompendium(async () => {
+    await this.referential.initReferential(async () => {
       await this.generateNpcModel(async (_model) => {
         // const actorData = await ActorBuilder.buildActorData(model, 'npc');
         // const actor = await ActorBuilder.createActor(model, actorData);
