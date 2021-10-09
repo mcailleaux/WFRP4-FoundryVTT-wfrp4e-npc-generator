@@ -4,10 +4,16 @@ import EntityUtil from './entity-util.js';
 import { actors, i18n, items, wfrp4e, world } from '../constant.js';
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 import {
-  speciesPsychologies,
+  origin,
+  psychologyPrefix,
+  randomTalent,
+  speciesOrigin,
+  speciesOthers,
   speciesSkills,
-  speciesTalents,
-  speciesTraits,
+  subSpeciesOrigins,
+  subSpeciesOthers,
+  subSpeciesSkills,
+  traitPrefix,
 } from '../referential/species-referential.js';
 import WaiterUtil from './waiter-util.js';
 
@@ -23,9 +29,35 @@ export default class ReferentialUtil {
   ];
 
   private static speciesSkillsMap: { [key: string]: string[] };
-  private static speciesTalentsMap: { [key: string]: any[] };
-  private static speciesTraitsMap: { [key: string]: any[] };
-  private static speciesPsychologiesMap: { [key: string]: any[] };
+  private static speciesOthersMap: { [key: string]: any[] };
+  private static speciesOriginsMap: {
+    [key: string]: {
+      [origin: string]: any[];
+    };
+  };
+
+  private static subSpeciesSkillsMap: {
+    [key: string]: {
+      [subKey: string]: string[];
+    };
+  };
+  private static subSpeciesOthersMap: {
+    [key: string]: {
+      [subKey: string]: any[];
+    };
+  };
+  private static subSpeciesNamesMap: {
+    [key: string]: {
+      [subKey: string]: string;
+    };
+  };
+  private static subSpeciesOriginsMap: {
+    [key: string]: {
+      [subKey: string]: {
+        [origin: string]: any[];
+      };
+    };
+  };
 
   private static referentialLoaded = false;
   private static creatureReferentialLoaded = false;
@@ -44,9 +76,13 @@ export default class ReferentialUtil {
             } else {
               await Promise.all([
                 this.getSpeciesSkillsMap(),
-                this.getSpeciesTalentsMap(),
-                this.getSpeciesTraitsMap(),
-                this.getSpeciesPsychologiesMap(),
+                this.getSpeciesOthersMap(),
+              ]);
+              await Promise.all([
+                this.getSubSpeciesSkillsMap(),
+                this.getSubSpeciesOthersMap(),
+                this.getSpeciesOriginsMap(),
+                this.getSubSpeciesOriginsMap(),
               ]);
             }
 
@@ -371,7 +407,10 @@ export default class ReferentialUtil {
       ...(await this.getWorldEntities('skill')),
       ...(await this.getSkillEntities(false)),
     ];
-    const skill = EntityUtil.find(name, skills);
+    const skill = EntityUtil.find(
+      name,
+      skills.map((i) => i.data)
+    );
     if (skill == null) {
       throw (
         'Could not find skill (or specialization of) ' +
@@ -387,7 +426,10 @@ export default class ReferentialUtil {
       ...(await this.getWorldEntities('talent')),
       ...(await this.getTalentEntities(false)),
     ];
-    const talent = EntityUtil.find(name, talents);
+    const talent = EntityUtil.find(
+      name,
+      talents.map((i) => i.data)
+    );
     if (talent == null) {
       throw (
         'Could not find talent (or specialization of) ' +
@@ -403,7 +445,10 @@ export default class ReferentialUtil {
       ...(await this.getWorldEntities('psychology')),
       ...(await this.getPsychologyEntities(false)),
     ];
-    const psychology = EntityUtil.find(name, psychologies);
+    const psychology = EntityUtil.find(
+      name,
+      psychologies.map((i) => i.data)
+    );
     if (psychology == null) {
       throw (
         'Could not find psychology (or specialization of) ' +
@@ -419,7 +464,10 @@ export default class ReferentialUtil {
       ...(await this.getWorldEntities('trait')),
       ...(await this.getTraitEntities(false)),
     ];
-    const trait: ItemData & any = EntityUtil.find(name, traits);
+    const trait: ItemData & any = EntityUtil.find(
+      name,
+      traits.map((i) => i.data)
+    );
     if (trait == null) {
       throw (
         'Could not find trait (or specialization of) ' +
@@ -818,7 +866,7 @@ export default class ReferentialUtil {
       for (let key of Object.keys(coreMap)) {
         const moduleSkills: string[] = speciesSkills[key];
         if (moduleSkills == null) {
-          console.warn(`Cant find fixed sub species skills map for ${key}`);
+          console.warn(`Cant find fixed species skills map for ${key}`);
         }
         const skills: string[] =
           moduleSkills != null ? moduleSkills : coreMap[key];
@@ -844,77 +892,223 @@ export default class ReferentialUtil {
     return Promise.resolve((await this.getSpeciesSkillsMap())[key] ?? []);
   }
 
-  public static async getSpeciesTalentsMap(): Promise<{
+  public static async getSubSpeciesSkillsMap(): Promise<{
+    [key: string]: {
+      [subKey: string]: string[];
+    };
+  }> {
+    if (this.subSpeciesSkillsMap == null) {
+      this.subSpeciesSkillsMap = {};
+      const coreMap = wfrp4e().config.subspecies;
+      for (let key of Object.keys(coreMap)) {
+        for (let subKey of Object.keys(coreMap[key])) {
+          const moduleSkills: string[] =
+            subSpeciesSkills[key] != null
+              ? subSpeciesSkills[key][subKey]
+              : null;
+          if (moduleSkills == null) {
+            console.warn(
+              `Cant find fixed sub species skills map for ${key} - ${subKey}`
+            );
+          }
+          const coreSkills =
+            coreMap[key][subKey].skills ??
+            speciesSkills[key] ??
+            wfrp4e().config.speciesSkills[key];
+          const skills: string[] =
+            moduleSkills != null ? moduleSkills : coreSkills;
+          for (let skill of skills) {
+            try {
+              const refSkill = await ReferentialUtil.findSkill(skill);
+              if (refSkill != null) {
+                if (this.subSpeciesSkillsMap[key] == null) {
+                  this.subSpeciesSkillsMap[key] = {};
+                }
+                if (this.subSpeciesSkillsMap[key][subKey] == null) {
+                  this.subSpeciesSkillsMap[key][subKey] = [];
+                }
+                this.subSpeciesSkillsMap[key][subKey].push(refSkill.name);
+              }
+            } catch (e) {
+              console.warn(
+                `Cant find sub Species ${key} - ${subKey} Skill: ${skill}`
+              );
+            }
+          }
+        }
+      }
+    }
+    return Promise.resolve(this.subSpeciesSkillsMap);
+  }
+
+  public static async getSubSpeciesSkills(
+    key: string,
+    subKey: string
+  ): Promise<string[]> {
+    return Promise.resolve(
+      (await this.getSubSpeciesSkillsMap())[key][subKey] ?? []
+    );
+  }
+
+  public static async getSpeciesOthersMap(): Promise<{
     [key: string]: any[];
   }> {
-    if (this.speciesTalentsMap == null) {
-      this.speciesTalentsMap = {};
+    if (this.speciesOthersMap == null) {
+      this.speciesOthersMap = {};
       await this.initSpeciesEntities(
-        this.speciesTalentsMap,
-        'speciesTalents',
-        speciesTalents,
-        (name) => this.findTalent(name),
+        this.speciesOthersMap,
+        wfrp4e().config.speciesTalents,
+        speciesOthers,
         'Talent'
       );
     }
-    return Promise.resolve(this.speciesTalentsMap);
+    return Promise.resolve(this.speciesOthersMap);
   }
 
-  public static async getSpeciesTalents(key: string): Promise<string[]> {
-    return Promise.resolve((await this.getSpeciesTalentsMap())[key] ?? []);
+  public static async getSpeciesOthers(key: string): Promise<any[]> {
+    return Promise.resolve((await this.getSpeciesOthersMap())[key] ?? []);
   }
 
-  public static async getSpeciesTraitsMap(): Promise<{
-    [key: string]: any[];
+  public static async getSubSpeciesOthersMap(): Promise<{
+    [key: string]: {
+      [subKey: string]: any[];
+    };
   }> {
-    if (this.speciesTraitsMap == null) {
-      this.speciesTraitsMap = {};
-      await this.initSpeciesEntities(
-        this.speciesTraitsMap,
-        'speciesTalents',
-        speciesTraits,
-        (name) => this.findTrait(name, true),
-        'Trait',
-        true
-      );
+    if (this.subSpeciesOthersMap == null) {
+      this.subSpeciesOthersMap = {};
+
+      for (let key of Object.keys(this.getSpeciesMap())) {
+        if (wfrp4e().config.subspecies[key] != null) {
+          const coreMap: { [key: string]: any[] } = {};
+          for (let subKey of Object.keys(wfrp4e().config.subspecies[key])) {
+            if (wfrp4e().config.subspecies[key][subKey].talents != null) {
+              coreMap[subKey] = wfrp4e().config.subspecies[key][subKey].talents;
+            } else {
+              coreMap[subKey] = await this.getSpeciesOthers(key);
+            }
+          }
+          const currentSubSpeciesMap: { [key: string]: any[] } = {};
+          await this.initSpeciesEntities(
+            currentSubSpeciesMap,
+            coreMap,
+            subSpeciesOthers[key],
+            'Talent'
+          );
+          this.subSpeciesOthersMap[key] = currentSubSpeciesMap;
+        }
+      }
     }
-    return Promise.resolve(this.speciesTraitsMap);
+    return Promise.resolve(this.subSpeciesOthersMap);
   }
 
-  public static async getSpeciesTraits(key: string): Promise<string[]> {
-    return Promise.resolve((await this.getSpeciesTraitsMap())[key] ?? []);
+  public static async getSubSpeciesOthers(
+    key: string,
+    subKey: string
+  ): Promise<any[]> {
+    return Promise.resolve(
+      (await this.getSubSpeciesOthersMap())[key][subKey] ?? []
+    );
   }
 
-  public static async getSpeciesPsychologiesMap(): Promise<{
-    [key: string]: any[];
+  public static getSubSpeciesNamesMap() {
+    if (this.subSpeciesNamesMap == null) {
+      this.subSpeciesNamesMap = {};
+      const coreMap = wfrp4e().config.subspecies;
+      for (let key of Object.keys(coreMap)) {
+        this.subSpeciesNamesMap[key] = {};
+        for (let subKey of Object.keys(coreMap[key])) {
+          this.subSpeciesNamesMap[key][subKey] = coreMap[key][subKey].name;
+        }
+      }
+    }
+    return this.subSpeciesNamesMap;
+  }
+
+  public static getSubSpeciesNames(key: string, subKey: string): string {
+    return this.getSubSpeciesNamesMap()[key][subKey] ?? '';
+  }
+
+  public static async getSpeciesOriginsMap(): Promise<{
+    [key: string]: {
+      [origin: string]: any[];
+    };
   }> {
-    if (this.speciesPsychologiesMap == null) {
-      this.speciesPsychologiesMap = {};
-      await this.initSpeciesEntities(
-        this.speciesPsychologiesMap,
-        'speciesTalents',
-        speciesPsychologies,
-        (name) => this.findPsychology(name),
-        'Psychology',
-        true
-      );
+    if (this.speciesOriginsMap == null) {
+      this.speciesOriginsMap = {};
+      for (let key of Object.keys(this.getSpeciesMap())) {
+        if (speciesOrigin[key] != null) {
+          const currentOriginsMap: { [key: string]: any[] } = {};
+          await this.initSpeciesEntities(
+            currentOriginsMap,
+            speciesOrigin[key],
+            speciesOrigin[key],
+            'Origin'
+          );
+          this.speciesOriginsMap[key] = currentOriginsMap;
+        }
+      }
     }
-    return Promise.resolve(this.speciesPsychologiesMap);
+    return Promise.resolve(this.speciesOriginsMap);
   }
 
-  public static async getSpeciesPsychologies(key: string): Promise<string[]> {
-    return Promise.resolve((await this.getSpeciesPsychologiesMap())[key] ?? []);
+  public static async getSpeciesOrigins(
+    key: string,
+    origin: string
+  ): Promise<any[]> {
+    return Promise.resolve(
+      (await this.getSpeciesOriginsMap())[key][origin] ?? []
+    );
+  }
+
+  public static async getSubSpeciesOriginsMap(): Promise<{
+    [key: string]: {
+      [subKey: string]: {
+        [origin: string]: any[];
+      };
+    };
+  }> {
+    if (this.subSpeciesOriginsMap == null) {
+      this.subSpeciesOriginsMap = {};
+      for (let key of Object.keys(this.getSpeciesMap())) {
+        if (subSpeciesOrigins[key] != null) {
+          for (let subKey of Object.keys(wfrp4e().config.subspecies[key])) {
+            if (subSpeciesOrigins[key][subKey] != null) {
+              const currentOriginsMap: { [key: string]: any[] } = {};
+              await this.initSpeciesEntities(
+                currentOriginsMap,
+                subSpeciesOrigins[key][subKey],
+                subSpeciesOrigins[key][subKey],
+                'Origin'
+              );
+              if (this.subSpeciesOriginsMap[key] == null) {
+                this.subSpeciesOriginsMap[key] = {};
+              }
+              this.subSpeciesOriginsMap[key][subKey] = currentOriginsMap;
+            }
+          }
+        }
+      }
+    }
+    return Promise.resolve(this.subSpeciesOriginsMap);
+  }
+
+  public static async getSubSpeciesOrigins(
+    key: string,
+    subKey: string,
+    origin: string
+  ): Promise<any[]> {
+    return Promise.resolve(
+      (await this.getSpeciesOriginsMap())[key][subKey][origin] ?? []
+    );
   }
 
   private static async initSpeciesEntities(
     targetMap: { [key: string]: any[] },
-    configKey: string,
+    coreMap: { [key: string]: any[] },
     moduleMap: { [key: string]: any[] },
-    search: (name: string) => Promise<ItemData>,
     logType: string,
     onlyModule = false
   ) {
-    const coreMap = wfrp4e().config[configKey];
     for (let key of Object.keys(coreMap)) {
       const moduleEntities: any[] = moduleMap[key];
       if (moduleEntities == null) {
@@ -926,22 +1120,38 @@ export default class ReferentialUtil {
       const entities: any[] =
         moduleEntities != null ? moduleEntities : coreMap[key];
       for (let entity of entities) {
+        const isNumber = typeof entity === 'number';
+        const search = isNumber ? null : this.resolveSearch(entity);
+        const finalEntity = isNumber ? entity : this.resolveName(entity);
+        const prefix = isNumber ? '' : this.resolvePrefix(entity);
         try {
-          if (typeof entity === 'number') {
+          if (isNumber) {
             if (targetMap[key] == null) {
               targetMap[key] = [];
             }
-            targetMap[key].push(entity);
-          } else if (entity.includes(',')) {
-            const multiEntities = entity.split(',').map((t) => t.trim());
+            targetMap[key].push(finalEntity);
+          } else if (finalEntity.includes(',')) {
+            const multiEntities = finalEntity.split(',').map((t) => t.trim());
             let finalMultiEntity = '';
             for (let multiEntity of multiEntities) {
-              const refEntity = await search(multiEntity);
+              const multiSearch = this.resolveSearch(multiEntity);
+              const multiFinalEntity = this.resolveName(multiEntity);
+              const multiPrefix = this.resolvePrefix(multiEntity);
+              const refEntity =
+                multiSearch != null
+                  ? await multiSearch(multiFinalEntity)
+                  : null;
               if (refEntity != null) {
                 if (finalMultiEntity.length > 0) {
                   finalMultiEntity += ', ';
                 }
-                finalMultiEntity += refEntity.name;
+                finalMultiEntity += `${multiPrefix}${refEntity.name}`;
+              }
+              if (refEntity == null && multiPrefix.length > 0) {
+                if (finalMultiEntity.length > 0) {
+                  finalMultiEntity += ', ';
+                }
+                finalMultiEntity += `${multiEntity}`;
               }
             }
             if (finalMultiEntity.length > 0) {
@@ -950,13 +1160,15 @@ export default class ReferentialUtil {
               }
               targetMap[key].push(finalMultiEntity);
             }
+          } else if (search == null && prefix.length > 0) {
+            targetMap[key].push(entity);
           } else {
-            const refTalent = await search(entity);
+            const refTalent = search != null ? await search(finalEntity) : null;
             if (refTalent != null) {
               if (targetMap[key] == null) {
                 targetMap[key] = [];
               }
-              targetMap[key].push(refTalent.name);
+              targetMap[key].push(`${prefix}${refTalent.name}`);
             }
           }
         } catch (e) {
@@ -964,5 +1176,40 @@ export default class ReferentialUtil {
         }
       }
     }
+  }
+
+  private static resolveName(name: string): string {
+    if (name?.startsWith(traitPrefix)) {
+      return name.replace(traitPrefix, '');
+    } else if (name?.startsWith(psychologyPrefix)) {
+      return name.replace(psychologyPrefix, '');
+    }
+    return name;
+  }
+
+  private static resolvePrefix(name: string): string {
+    if (name?.startsWith(traitPrefix)) {
+      return traitPrefix;
+    } else if (name?.startsWith(psychologyPrefix)) {
+      return psychologyPrefix;
+    } else if (name?.startsWith(randomTalent)) {
+      return randomTalent;
+    } else if (name?.startsWith(origin)) {
+      return origin;
+    }
+    return '';
+  }
+
+  private static resolveSearch(
+    name: string
+  ): ((searchValue: string) => Promise<ItemData>) | null {
+    if (name?.startsWith(traitPrefix)) {
+      return (searchValue) => this.findTrait(searchValue, true);
+    } else if (name?.startsWith(psychologyPrefix)) {
+      return (searchValue) => this.findPsychology(searchValue);
+    } else if (name?.startsWith(randomTalent) || name?.startsWith(origin)) {
+      return null;
+    }
+    return (searchValue) => this.findTalent(searchValue);
   }
 }

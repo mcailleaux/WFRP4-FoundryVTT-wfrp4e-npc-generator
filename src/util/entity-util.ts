@@ -55,7 +55,7 @@ export default class EntityUtil {
     return result;
   }
 
-  public static find(name: string, entities: Item[]): ItemData | null {
+  public static find(name: string, entities: ItemData[]): ItemData | null {
     if (name == null || entities?.length <= 0) {
       return null;
     }
@@ -64,14 +64,14 @@ export default class EntityUtil {
     let findByVoExactMatch = false;
     const hasBabele = babele()?.modules?.length > 0 ?? false;
     let result = entities.find(
-      (e: Item & any) =>
-        (!hasBabele || e.data?.flags?.babele?.hasTranslation) &&
+      (e: ItemData & any) =>
+        (!hasBabele || e.flags?.babele?.hasTranslation) &&
         StringUtil.equalsDeburrIgnoreCase(e.name.trim(), matchName)
     );
     if (result == null) {
-      result = entities.find((e: Item & any) =>
+      result = entities.find((e: ItemData & any) =>
         StringUtil.equalsDeburrIgnoreCase(
-          e.data?.flags?.babele?.originalName?.trim(),
+          e.flags?.babele?.originalName?.trim(),
           matchName
         )
       );
@@ -83,19 +83,17 @@ export default class EntityUtil {
         StringUtil.getSimpleName(name)
       ).trim();
       result = entities.find(
-        (e: Item & any) =>
-          (!hasBabele || e.data?.flags?.babele?.hasTranslation) &&
+        (e: ItemData & any) =>
+          (!hasBabele || e.flags?.babele?.hasTranslation) &&
           StringUtil.equalsDeburrIgnoreCase(
             StringUtil.getSimpleName(e.name).trim(),
             simpleMatchName
           )
       );
       if (result == null) {
-        result = entities.find((e: Item & any) =>
+        result = entities.find((e: ItemData & any) =>
           StringUtil.equalsDeburrIgnoreCase(
-            StringUtil.getSimpleName(
-              e.data?.flags?.babele?.originalName
-            )?.trim(),
+            StringUtil.getSimpleName(e.flags?.babele?.originalName)?.trim(),
             simpleMatchName
           )
         );
@@ -104,9 +102,9 @@ export default class EntityUtil {
     }
     if (result == null) {
       result = entities.find(
-        (e: Item & any) =>
+        (e: ItemData & any) =>
           hasBabele &&
-          !e.data?.flags?.babele?.hasTranslation &&
+          !e.flags?.babele?.hasTranslation &&
           StringUtil.equalsDeburrIgnoreCase(e.name.trim(), matchName)
       );
       findByVo = result != null;
@@ -117,9 +115,9 @@ export default class EntityUtil {
         StringUtil.getSimpleName(name)
       ).trim();
       result = entities.find(
-        (e: Item & any) =>
+        (e: ItemData & any) =>
           hasBabele &&
-          !e.data?.flags?.babele?.hasTranslation &&
+          !e.flags?.babele?.hasTranslation &&
           StringUtil.equalsDeburrIgnoreCase(
             StringUtil.getSimpleName(e.name).trim(),
             simpleMatchName
@@ -128,9 +126,20 @@ export default class EntityUtil {
       findByVo = result != null;
     }
     if (result != null) {
-      const data = duplicate(result.data);
+      const data = duplicate(result);
+      const originalName = (<any>result.flags?.babele)?.originalName?.trim();
+      const originalSimpleName =
+        originalName != null && name.includes('(')
+          ? StringUtil.getSimpleName(originalName)
+          : null;
       data._id = RandomUtil.getRandomId();
-      if (findByVo) {
+      const simpleVoSameHasTranslate =
+        originalSimpleName != null &&
+        StringUtil.equalsDeburrIgnoreCase(
+          originalSimpleName,
+          StringUtil.getSimpleName(data.name)
+        );
+      if (findByVo || simpleVoSameHasTranslate) {
         if (!findByVoExactMatch && name.includes('(')) {
           const tradSimpleName = StringUtil.getSimpleName(data.name).trim();
           let groupName = StringUtil.getGroupName(name).trim();
