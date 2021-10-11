@@ -1,0 +1,19 @@
+.species-others-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.species-others-radio-row {
+  flex: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: stretch;
+}
+
+.species-others-radio-row-label,
+.species-others-radio-row-radio {
+  flex-grow: 1;
+}

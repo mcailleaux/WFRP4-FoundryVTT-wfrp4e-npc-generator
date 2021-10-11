@@ -88,7 +88,7 @@ export class SpeciesChooser extends AbstractChooser<
       this.selectSpecies(randomSpeciesKey);
       this.render();
     });
-    this.handleClick(html, '#randomSubSpeciesButtonContainer', (_event) => {
+    this.handleClick(html, '#randomSubSpeciesButton', (_event) => {
       const randomSubSpeciesKey = RandomUtil.getRandomValue(
         this.subSpeciesKeys.filter((key) => key !== 'none')
       );
@@ -115,7 +115,7 @@ export class SpeciesChooser extends AbstractChooser<
   protected yes(data: Model) {
     this.callback(
       data?.speciesKey ?? 'human',
-      data?.subSpeciesKey,
+      data?.subSpeciesKey !== 'none' ? data.subSpeciesKey : null,
       data?.cityBorn
     );
   }

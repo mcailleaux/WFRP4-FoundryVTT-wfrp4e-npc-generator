@@ -965,8 +965,16 @@ export default class ReferentialUtil {
     return Promise.resolve(this.speciesOthersMap);
   }
 
-  public static async getSpeciesOthers(key: string): Promise<any[]> {
-    return Promise.resolve((await this.getSpeciesOthersMap())[key] ?? []);
+  public static async getSpeciesOthers(
+    key: string,
+    onlyToChoose = false,
+    onlyAuto = false
+  ): Promise<any[]> {
+    return Promise.resolve(
+      (await this.getSpeciesOthersMap())[key]?.filter(
+        this.speciesRefFilter(onlyToChoose, onlyAuto)
+      ) ?? []
+    );
   }
 
   public static async getSubSpeciesOthersMap(): Promise<{
@@ -1003,10 +1011,14 @@ export default class ReferentialUtil {
 
   public static async getSubSpeciesOthers(
     key: string,
-    subKey: string
+    subKey: string,
+    onlyToChoose = false,
+    onlyAuto = false
   ): Promise<any[]> {
     return Promise.resolve(
-      (await this.getSubSpeciesOthersMap())[key][subKey] ?? []
+      (await this.getSubSpeciesOthersMap())[key][subKey]?.filter(
+        this.speciesRefFilter(onlyToChoose, onlyAuto)
+      ) ?? []
     );
   }
 
@@ -1053,10 +1065,29 @@ export default class ReferentialUtil {
 
   public static async getSpeciesOrigins(
     key: string,
-    origin: string
+    onlyToChoose = false,
+    onlyAuto = false
+  ): Promise<{ [origin: string]: any[] }> {
+    const map = (await this.getSpeciesOriginsMap())[key] ?? {};
+    const result = {};
+    for (let origin of Object.keys(map)) {
+      result[origin] =
+        map[origin]?.filter(this.speciesRefFilter(onlyToChoose, onlyAuto)) ??
+        [];
+    }
+    return Promise.resolve(result);
+  }
+
+  public static async getSpeciesOrigin(
+    key: string,
+    origin: string,
+    onlyToChoose = false,
+    onlyAuto = false
   ): Promise<any[]> {
     return Promise.resolve(
-      (await this.getSpeciesOriginsMap())[key][origin] ?? []
+      (await this.getSpeciesOriginsMap())[key][origin]?.filter(
+        this.speciesRefFilter(onlyToChoose, onlyAuto)
+      ) ?? []
     );
   }
 
@@ -1095,10 +1126,30 @@ export default class ReferentialUtil {
   public static async getSubSpeciesOrigins(
     key: string,
     subKey: string,
-    origin: string
+    onlyToChoose = false,
+    onlyAuto = false
+  ): Promise<{ [origin: string]: any[] }> {
+    const map = (await this.getSubSpeciesOriginsMap())[key][subKey] ?? {};
+    const result = {};
+    for (let origin of Object.keys(map)) {
+      result[origin] =
+        map[origin]?.filter(this.speciesRefFilter(onlyToChoose, onlyAuto)) ??
+        [];
+    }
+    return Promise.resolve(result);
+  }
+
+  public static async getSubSpeciesOrigin(
+    key: string,
+    subKey: string,
+    origin: string,
+    onlyToChoose = false,
+    onlyAuto = false
   ): Promise<any[]> {
     return Promise.resolve(
-      (await this.getSpeciesOriginsMap())[key][subKey][origin] ?? []
+      (await this.getSubSpeciesOriginsMap())[key][subKey][origin]?.filter(
+        this.speciesRefFilter(onlyToChoose, onlyAuto)
+      ) ?? []
     );
   }
 
@@ -1178,7 +1229,7 @@ export default class ReferentialUtil {
     }
   }
 
-  private static resolveName(name: string): string {
+  public static resolveName(name: string): string {
     if (name?.startsWith(traitPrefix)) {
       return name.replace(traitPrefix, '');
     } else if (name?.startsWith(psychologyPrefix)) {
@@ -1211,5 +1262,19 @@ export default class ReferentialUtil {
       return null;
     }
     return (searchValue) => this.findTalent(searchValue);
+  }
+
+  private static speciesRefFilter(onlyToChoose: boolean, onlyAuto: boolean) {
+    return (sso) => {
+      const strSoo = String(sso);
+      const toChooseCondition =
+        typeof sso === 'number' || strSoo.includes(',') || sso === origin;
+      if (onlyToChoose) {
+        return toChooseCondition;
+      } else if (onlyAuto) {
+        return !toChooseCondition;
+      }
+      return true;
+    };
   }
 }

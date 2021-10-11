@@ -1,0 +1,34 @@
+<form autocomplete="off">
+  <div class="form-group">
+    <button id="randomSpeciesOthersButton" type="button">
+      {{localize 'WFRP4NPCGEN.common.button.Random'}}
+    </button>
+  </div>
+  {{#each others.model}}
+  <div class="form-group species-others-row">
+    {{#each this.model}}
+    <div class="species-others-radio-row">
+      <label class="species-others-radio-row-label">{{value}}</label>
+      {{#if selected}}
+      <input
+        class="species-others-radio-row-radio species-other-radio"
+        value="{{key}}"
+        data-id="{{../id}}"
+        type="radio"
+        name="select-others-{{key}}"
+        checked
+      />
+      {{else}}
+      <input
+        class="species-others-radio-row-radio species-other-radio"
+        value="{{key}}"
+        data-id="{{../id}}"
+        type="radio"
+        name="select-others-{{key}}"
+      />
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+  {{/each}} {{> (buttonsTemplate)}}
+</form>

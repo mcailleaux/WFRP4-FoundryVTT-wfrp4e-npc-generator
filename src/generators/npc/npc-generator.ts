@@ -7,6 +7,9 @@ import { SpeciesChooser } from '../../components/species-chooser.js';
 import { CareerChooser } from '../../components/career-chooser.js';
 import { SpeciesSkillsChooser } from '../../components/species-skills-chooser.js';
 import ReferentialUtil from '../../util/referential-util.js';
+import { SpeciesOthersChooser } from '../../components/species-others-chooser.js';
+import { SpeciesOthers } from '../../models/npc/species-others.js';
+import { SpeciesSkills } from '../../models/npc/species-skills.js';
 
 export class NpcGenerator {
   public static readonly compendium = CompendiumUtil;
@@ -14,6 +17,7 @@ export class NpcGenerator {
   public static readonly speciesChooser = SpeciesChooser;
   public static readonly careerChooser = CareerChooser;
   public static readonly speciesSkillsChooser = SpeciesSkillsChooser;
+  public static readonly speciesOthersChooser = SpeciesOthersChooser;
 
   public static async generateNpc(
     _callback?: (model: NpcModel, actorData: any, actor: any) => void
@@ -53,10 +57,9 @@ export class NpcGenerator {
       model.subSpeciesKey,
       model.cityBorn,
       (key: string, subKey: string, cityBorn: string) => {
-        if (model.speciesKey != null && model.speciesKey !== key) {
-          model.speciesSkills.majors = [];
-          model.speciesSkills.minors = [];
-          // model.speciesTalents = [];
+        if (model.speciesKey !== key || model.subSpeciesKey !== subKey) {
+          model.speciesSkills = new SpeciesSkills();
+          model.speciesOthers = new SpeciesOthers();
         }
         model.speciesKey = key;
         model.subSpeciesKey = subKey;
@@ -99,12 +102,45 @@ export class NpcGenerator {
         model.speciesSkills.majors = majors;
         model.speciesSkills.minors = minors;
 
-        this.selectSpeciesSkills(model, callback);
-
-        // this.selectSpeciesTalents(model, callback);
+        this.selectSpeciesOthers(model, callback);
       },
       () => {
         this.selectCareer(model, callback);
+      }
+    );
+  }
+
+  private static async selectSpeciesOthers(
+    model: NpcModel,
+    callback: (model: NpcModel) => void
+  ) {
+    await this.speciesOthersChooser.selectSpeciesOthers(
+      model.speciesOthers.others,
+      model.speciesOthers.randomTalents,
+      model.speciesOthers.originKey,
+      model.speciesOthers.origin,
+      model.speciesOthers.randomOriginTalents,
+      model.speciesKey,
+      model.subSpeciesKey,
+      (
+        others: string[],
+        randomTalents: string[],
+        originKey: string,
+        origin: string[],
+        randomOriginTalents: string[]
+      ) => {
+        model.speciesOthers.others = others;
+        model.speciesOthers.randomTalents = randomTalents;
+        model.speciesOthers.originKey = originKey;
+        model.speciesOthers.origin = origin;
+        model.speciesOthers.randomOriginTalents = randomOriginTalents;
+
+        this.selectSpeciesOthers(model, callback);
+
+        // this.selectName(model, callback);
+      },
+      () => {
+        this.selectSpeciesSkills(model, callback);
       }
     );
   }
