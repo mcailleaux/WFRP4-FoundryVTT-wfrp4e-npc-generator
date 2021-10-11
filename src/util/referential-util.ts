@@ -1117,6 +1117,8 @@ export default class ReferentialUtil {
               this.subSpeciesOriginsMap[key][subKey] = currentOriginsMap;
             }
           }
+        } else {
+          this.subSpeciesOriginsMap[key] = {};
         }
       }
     }

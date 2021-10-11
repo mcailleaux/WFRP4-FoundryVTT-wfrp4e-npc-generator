@@ -72,27 +72,14 @@ export class SpeciesSkillsChooser extends AbstractChooser<
     callback: (major: string[], minor: string[]) => void,
     undo: () => void
   ) {
-    const speciesSkills: string[] = [];
     const skills =
       subSpeciesKey != null
-        ? ReferentialUtil.getSubSpeciesMap()[speciesKey][subSpeciesKey].skills
+        ? await ReferentialUtil.getSubSpeciesSkills(speciesKey, subSpeciesKey)
         : await ReferentialUtil.getSpeciesSkills(speciesKey);
-    for (let skill of skills) {
-      try {
-        const refSkill = await ReferentialUtil.findSkill(skill);
-        if (refSkill != null) {
-          speciesSkills.push(refSkill.name);
-        } else {
-          speciesSkills.push(skill);
-        }
-      } catch (e) {
-        console.warn('Cant find Skill : ' + skill);
-      }
-    }
 
     new SpeciesSkillsChooser(
       new Model(initMajors ?? [], initMinors ?? []),
-      speciesSkills,
+      skills,
       callback,
       undo
     ).render(true);

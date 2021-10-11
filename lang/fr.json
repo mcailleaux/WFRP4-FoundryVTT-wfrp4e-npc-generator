@@ -182,5 +182,18 @@
   "WFRP4NPCGEN.ironskintribe": "Tribu des Peaux de Fer",
   "WFRP4NPCGEN.thelazarghs": "Les Lazarghs",
   "WFRP4NPCGEN.mountaineaterstribe": "Tribu des Mangeurs de Montagnes",
-  "WFRP4NPCGEN.eyebitertribe": "Tribu des Mordeurs d’Yeux"
+  "WFRP4NPCGEN.eyebitertribe": "Tribu des Mordeurs d’Yeux",
+  "WFRP4NPCGEN.origin.human.arabyan-nom.label": "Trait de Cité-Etat",
+  "WFRP4NPCGEN.origin.human.breton-noble-nom.label": "Trait de Duché",
+  "WFRP4NPCGEN.origin.human.breton-lowborn-nom.label": "Trait de Duché",
+  "WFRP4NPCGEN.origin.human.cathayan-nom.label": "Trait Provincial",
+  "WFRP4NPCGEN.origin.human.estalian-nom.label": "Trait de Région",
+  "WFRP4NPCGEN.origin.human.indan-nom.label": "Trait de Royaume",
+  "WFRP4NPCGEN.origin.human.gospodar-nom.label": "Trait Provincial",
+  "WFRP4NPCGEN.origin.human.ungol-nom.label": "Trait Provincial",
+  "WFRP4NPCGEN.origin.human.nipponese-nom.label": "Trait de Clan",
+  "WFRP4NPCGEN.origin.human.norscan-nom.label": "Trait de Tribu",
+  "WFRP4NPCGEN.origin.human.southlander-nom.label": "Trait de Tribu",
+  "WFRP4NPCGEN.origin.human.tilean-nom.label": "Trait de Cité-Etat",
+  "WFRP4NPCGEN.origin.ogre.label": "Trait de Tribu"
 }

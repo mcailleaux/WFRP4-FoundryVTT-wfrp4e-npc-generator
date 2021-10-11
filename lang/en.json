@@ -182,5 +182,18 @@
   "WFRP4NPCGEN.ironskintribe": "Ironskin Tribe",
   "WFRP4NPCGEN.thelazarghs": "The Lazarghs",
   "WFRP4NPCGEN.mountaineaterstribe": "Mountaineaters Tribe",
-  "WFRP4NPCGEN.eyebitertribe": "Eyebiter Tribe"
+  "WFRP4NPCGEN.eyebitertribe": "Eyebiter Tribe",
+  "WFRP4NPCGEN.origin.human.arabyan-nom.label": "City State Trait",
+  "WFRP4NPCGEN.origin.human.breton-noble-nom.label": "Dukedom Trait",
+  "WFRP4NPCGEN.origin.human.breton-lowborn-nom.label": "Dukedom Trait",
+  "WFRP4NPCGEN.origin.human.cathayan-nom.label": "Provincial Trait",
+  "WFRP4NPCGEN.origin.human.estalian-nom.label": "Region Trait",
+  "WFRP4NPCGEN.origin.human.indan-nom.label": "Kingdom Trait",
+  "WFRP4NPCGEN.origin.human.gospodar-nom.label": "Provincial Trait",
+  "WFRP4NPCGEN.origin.human.ungol-nom.label": "Provincial Trait",
+  "WFRP4NPCGEN.origin.human.nipponese-nom.label": "Clan Trait",
+  "WFRP4NPCGEN.origin.human.norscan-nom.label": "Tribe Trait",
+  "WFRP4NPCGEN.origin.human.southlander-nom.label": "Tribe Trait",
+  "WFRP4NPCGEN.origin.human.tilean-nom.label": "City State Trait",
+  "WFRP4NPCGEN.origin.ogre.label": "Tribe Trait"
 }

@@ -4,6 +4,7 @@ import { i18n } from '../constant.js';
 import RegisterSettings from '../util/register-settings.js';
 import ReferentialUtil from '../util/referential-util.js';
 import RandomUtil from '../util/random-util.js';
+import { origin, randomTalent } from '../referential/species-referential.js';
 
 class Model {
   public others: string[];
@@ -59,6 +60,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
   // private randomTalentsNbr: number;
   // private origins: { [origin: string]: ReferentialOthersModel };
   // private randomOriginsTalentsNbr: { [origin: string]: number };
+  private originLabel: string;
 
   private callback: (
     others: string[],
@@ -74,6 +76,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
     _randomTalentsNbr: number,
     _origins: { [origin: string]: ReferentialOthersModel },
     _randomOriginsTalentsNbr: { [origin: string]: number },
+    originLabel: string,
     callback: (
       others: string[],
       randomTalents: string[],
@@ -90,6 +93,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
     // this.randomTalentsNbr = randomTalentsNbr;
     // this.origins = origins;
     // this.randomOriginsTalentsNbr = randomOriginsTalentsNbr;
+    this.originLabel = originLabel;
     this.callback = callback;
 
     // Init
@@ -147,6 +151,12 @@ export class SpeciesOthersChooser extends AbstractChooser<
       rdmOriTalNbr[origin] =
         refOrigins[origin]?.find((ro) => typeof ro === 'number') ?? 0;
     }
+    const originLabel =
+      subSpeciesKey != null
+        ? i18n().localize(
+            `WFRP4NPCGEN.origin.${speciesKey}.${subSpeciesKey}.label`
+          )
+        : i18n().localize(`WFRP4NPCGEN.origin.${speciesKey}.label`);
 
     new SpeciesOthersChooser(
       new Model(
@@ -160,6 +170,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
       rdmTalNbr,
       origins,
       rdmOriTalNbr,
+      originLabel,
       callback,
       undo
     ).render(true);
@@ -222,11 +233,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
       const model = new OtherModel();
       for (let ref of refOther.model) {
         model.model.push(
-          new SelectModel(
-            ref,
-            ReferentialUtil.resolveName(ref),
-            data[i] === ref
-          )
+          new SelectModel(ref, this.resolveName(ref), data[i] === ref)
         );
       }
       models.model.push(model);
@@ -254,5 +261,17 @@ export class SpeciesOthersChooser extends AbstractChooser<
       others.model.push(other);
     }
     return others;
+  }
+
+  private resolveName(name: string) {
+    if (name?.startsWith(randomTalent)) {
+      const nbrRandom = Number(name.replace(randomTalent, ''));
+      return `${nbrRandom} ${i18n().localize(
+        'WFRP4NPCGEN.common.button.Random'
+      )}`;
+    } else if (name?.startsWith(origin)) {
+      return this.originLabel;
+    }
+    return ReferentialUtil.resolveName(name);
   }
 }

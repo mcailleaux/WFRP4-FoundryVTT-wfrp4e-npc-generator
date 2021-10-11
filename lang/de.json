@@ -182,5 +182,18 @@
   "WFRP4NPCGEN.ironskintribe": "Ironskin Tribe",
   "WFRP4NPCGEN.thelazarghs": "The Lazarghs",
   "WFRP4NPCGEN.mountaineaterstribe": "Mountaineaters Tribe",
-  "WFRP4NPCGEN.eyebitertribe": "Eyebiter Tribe"
+  "WFRP4NPCGEN.eyebitertribe": "Eyebiter Tribe",
+  "WFRP4NPCGEN.origin.human.arabyan-nom.label": "Stadt-Staat-Eigenschaft",
+  "WFRP4NPCGEN.origin.human.breton-noble-nom.label": "Herzogtum-Eigenschaft",
+  "WFRP4NPCGEN.origin.human.breton-lowborn-nom.label": "Herzogtum-Eigenschaft",
+  "WFRP4NPCGEN.origin.human.cathayan-nom.label": "Provinziale-Eigenschaft",
+  "WFRP4NPCGEN.origin.human.estalian-nom.label": "Regionale-Eigenschaft",
+  "WFRP4NPCGEN.origin.human.indan-nom.label": "Königreichs-Eigenschaft",
+  "WFRP4NPCGEN.origin.human.gospodar-nom.label": "Provinziale-Eigenschaft",
+  "WFRP4NPCGEN.origin.human.ungol-nom.label": "Provinziale-Eigenschaft",
+  "WFRP4NPCGEN.origin.human.nipponese-nom.label": "Clan-Eigenschaft",
+  "WFRP4NPCGEN.origin.human.norscan-nom.label": "Stammes-Eigenschaft",
+  "WFRP4NPCGEN.origin.human.southlander-nom.label": "Stammes-Eigenschaft",
+  "WFRP4NPCGEN.origin.human.tilean-nom.label": "Stadt-Staat-Eigenschaft",
+  "WFRP4NPCGEN.origin.ogre.label": "Stammes-Eigenschaft"
 }
