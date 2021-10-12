@@ -17,3 +17,27 @@
 .species-others-radio-row-radio {
   flex-grow: 1;
 }
+
+.species-others-checkboxes-container {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  justify-content: space-between !important;
+  align-items: stretch !important;
+}
+
+.species-others-checkbox-container {
+  flex: 50% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: stretch !important;
+}
+
+.species-others-checkbox-label {
+  flex: 80%;
+}
+
+.species-others-checkbox {
+  flex: 20%;
+}

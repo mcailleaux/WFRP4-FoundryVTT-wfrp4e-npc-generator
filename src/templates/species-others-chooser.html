@@ -30,5 +30,34 @@
     </div>
     {{/each}}
   </div>
-  {{/each}} {{> (buttonsTemplate)}}
+  {{/each}} {{#if showRandomTalent}}
+  <div class="form-group">
+    <button id="randomRandomTalentsButton" type="button">
+      {{localize 'WFRP4NPCGEN.common.button.Random'}}
+    </button>
+  </div>
+  <div class="form-group species-others-checkboxes-container">
+    {{#each randomTalents}}
+    <div class="form-group species-others-checkbox-container">
+      <label class="species-others-checkbox-label">{{value}}</label>
+      {{#if selected}}
+      <input
+        class="species-others-checkbox random-talent-checkbox"
+        value="{{key}}"
+        type="checkbox"
+        name="select-random-talents-{{key}}"
+        checked
+      />
+      {{else}}
+      <input
+        class="species-others-checkbox random-talent-checkbox"
+        value="{{key}}"
+        type="checkbox"
+        name="select-random-talents-{{key}}"
+      />
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+  {{/if}} {{> (buttonsTemplate)}}
 </form>

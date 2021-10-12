@@ -66,7 +66,7 @@ export default class SpeciesTalentsChooser {
     );
     const randomTalentsNbr: number =
       speciesTalentsMap[speciesKey][speciesTalentsMap[speciesKey].length - 1];
-    const randomTalents: string[] = ReferentialUtil.getRandomTalents();
+    const randomTalents: string[] = ReferentialUtil.getOldRandomTalents();
 
     let initChoiceTalents: string[];
     let initRandomTalents: string[] = [];

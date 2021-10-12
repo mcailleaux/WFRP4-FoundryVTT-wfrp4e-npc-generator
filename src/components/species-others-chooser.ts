@@ -54,10 +54,13 @@ export class SpeciesOthersChooser extends AbstractChooser<
     origin: OthersModel;
     randomTalents: SelectModel[];
     randomOriginTalents: SelectModel[];
+    showRandomTalent: boolean;
   }
 > {
   private others: ReferentialOthersModel;
-  // private randomTalentsNbr: number;
+  private randomTalents: string[];
+  private randomTalentsNbr: number;
+  private oldestSelectedRandomTalents: string[] = [];
   // private origins: { [origin: string]: ReferentialOthersModel };
   // private randomOriginsTalentsNbr: { [origin: string]: number };
   private originLabel: string;
@@ -73,7 +76,8 @@ export class SpeciesOthersChooser extends AbstractChooser<
   constructor(
     object: Model,
     others: ReferentialOthersModel,
-    _randomTalentsNbr: number,
+    randomTalents: string[],
+    randomTalentsNbr: number,
     _origins: { [origin: string]: ReferentialOthersModel },
     _randomOriginsTalentsNbr: { [origin: string]: number },
     originLabel: string,
@@ -90,7 +94,8 @@ export class SpeciesOthersChooser extends AbstractChooser<
     super(object, previousCallback, options);
 
     this.others = others;
-    // this.randomTalentsNbr = randomTalentsNbr;
+    this.randomTalents = randomTalents;
+    this.randomTalentsNbr = randomTalentsNbr;
     // this.origins = origins;
     // this.randomOriginsTalentsNbr = randomOriginsTalentsNbr;
     this.originLabel = originLabel;
@@ -157,6 +162,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
             `WFRP4NPCGEN.origin.${speciesKey}.${subSpeciesKey}.label`
           )
         : i18n().localize(`WFRP4NPCGEN.origin.${speciesKey}.label`);
+    const randomTalents = await ReferentialUtil.getRandomTalents();
 
     new SpeciesOthersChooser(
       new Model(
@@ -167,6 +173,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
         initRandomOriginTalents ?? []
       ),
       others,
+      randomTalents,
       rdmTalNbr,
       origins,
       rdmOriTalNbr,
@@ -187,11 +194,21 @@ export class SpeciesOthersChooser extends AbstractChooser<
       this.selectOther(id, event.currentTarget.value);
       this.render();
     });
+    this.handleClick(html, '#randomRandomTalentsButton', (_event) => {
+      this.randomRandomTalents();
+      this.render();
+    });
+    this.handleClick(html, '.random-talent-checkbox', (event) => {
+      this.toggleRandomTalent(event.currentTarget.value);
+      this.render();
+    });
   }
 
   protected isValid(data: Model): boolean {
     const othersValid = data.others.length === this.model.others.model.length;
-    return othersValid;
+    const randomTalentsValid =
+      this.randomTalentsNbr === this.model.data.randomTalents.length;
+    return othersValid && randomTalentsValid;
   }
 
   protected yes(data: Model) {
@@ -215,6 +232,18 @@ export class SpeciesOthersChooser extends AbstractChooser<
     this.updateDataFromModel();
   }
 
+  private randomRandomTalents() {
+    const randomTalents = RandomUtil.getRandomValues(
+      this.randomTalents,
+      this.randomTalentsNbr
+    );
+    for (let rdmTalent of this.model.randomTalents) {
+      rdmTalent.selected = randomTalents.includes(rdmTalent.key);
+    }
+    this.oldestSelectedRandomTalents = randomTalents;
+    this.updateDataFromModel();
+  }
+
   private selectOther(id: string, value: string) {
     const modelOther = this.model.others.model.find((oth) => oth.id === id);
     if (modelOther != null) {
@@ -225,7 +254,37 @@ export class SpeciesOthersChooser extends AbstractChooser<
     }
   }
 
+  private toggleRandomTalent(value: string) {
+    const rdmTalent = this.model.randomTalents.find((rt) => rt.key === value);
+    if (rdmTalent != null) {
+      rdmTalent.selected = !rdmTalent.selected;
+      if (
+        this.model.randomTalents.filter((rt) => rt.selected).length >
+        this.randomTalentsNbr
+      ) {
+        const oldestSelected = this.model.randomTalents.find(
+          (rt) => rt.key === this.oldestSelectedRandomTalents[0]
+        );
+        if (oldestSelected != null) {
+          oldestSelected.selected = false;
+          this.oldestSelectedRandomTalents.splice(0, 1);
+          this.oldestSelectedRandomTalents.push(value);
+        }
+      } else {
+        if (rdmTalent.selected) {
+          this.oldestSelectedRandomTalents.push(value);
+        } else {
+          this.oldestSelectedRandomTalents = this.oldestSelectedRandomTalents.filter(
+            (rt) => rt !== rdmTalent.key
+          );
+        }
+      }
+      this.updateDataFromModel();
+    }
+  }
+
   private initModelFromData() {
+    // Init Others
     const data = this.model.data.others;
     const models = new OthersModel();
     let i = 0;
@@ -240,6 +299,22 @@ export class SpeciesOthersChooser extends AbstractChooser<
       i++;
     }
     this.model.others = models;
+
+    // Init Random Talents
+    this.model.randomTalents = [];
+    for (let rdmTalent of this.randomTalents) {
+      this.model.randomTalents.push(
+        new SelectModel(
+          rdmTalent,
+          rdmTalent,
+          this.model.data.randomTalents.includes(rdmTalent)
+        )
+      );
+    }
+    this.model.showRandomTalent = this.randomTalentsNbr > 0;
+    this.oldestSelectedRandomTalents = this.model.randomTalents
+      .filter((rt) => rt.selected)
+      .map((rt) => rt.key);
   }
 
   private updateDataFromModel() {
@@ -250,6 +325,9 @@ export class SpeciesOthersChooser extends AbstractChooser<
       );
     }
     this.model.data.others = others;
+    this.model.data.randomTalents = this.model.randomTalents
+      .filter((rt) => rt.selected)
+      .map((rt) => rt.key);
   }
 
   private static refOthersToModel(refOthers: any[]): ReferentialOthersModel {

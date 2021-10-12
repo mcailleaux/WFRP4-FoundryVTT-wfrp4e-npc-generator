@@ -7,6 +7,7 @@ import {
   origin,
   psychologyPrefix,
   randomTalent,
+  randomTalents,
   speciesOrigin,
   speciesOthers,
   speciesSkills,
@@ -59,6 +60,8 @@ export default class ReferentialUtil {
     };
   };
 
+  private static randomTalents: string[];
+
   private static referentialLoaded = false;
   private static creatureReferentialLoaded = false;
 
@@ -77,6 +80,7 @@ export default class ReferentialUtil {
               await Promise.all([
                 this.getSpeciesSkillsMap(),
                 this.getSpeciesOthersMap(),
+                this.getRandomTalents(),
               ]);
               await Promise.all([
                 this.getSubSpeciesSkillsMap(),
@@ -204,7 +208,7 @@ export default class ReferentialUtil {
     return wfrp4e().config.speciesTalents;
   }
 
-  public static getRandomTalents(): string[] {
+  public static getOldRandomTalents(): string[] {
     return wfrp4e().tables.talents.rows.map((row: any) => row.name);
   }
 
@@ -1153,6 +1157,21 @@ export default class ReferentialUtil {
         this.speciesRefFilter(onlyToChoose, onlyAuto)
       ) ?? []
     );
+  }
+
+  public static async getRandomTalents(): Promise<string[]> {
+    if (this.randomTalents == null) {
+      this.randomTalents = [];
+      for (let talent of randomTalents) {
+        try {
+          const refTalent = await this.findTalent(talent);
+          this.randomTalents.push(refTalent.name);
+        } catch (e) {
+          console.warn(`Cant find Random Talent : ${talent}`);
+        }
+      }
+    }
+    return Promise.resolve(this.randomTalents);
   }
 
   private static async initSpeciesEntities(
