@@ -4,7 +4,7 @@
     "package": "sh ./package.sh"
   },
   "devDependencies": {
-    "@league-of-foundry-developers/foundry-vtt-types": "0.8.8-8",
+    "@league-of-foundry-developers/foundry-vtt-types": "0.8.9-7",
     "husky": "4.3.7",
     "prettier": "2.2.1",
     "pretty-quick": "3.1.0",

@@ -55,11 +55,14 @@ export class SpeciesOthersChooser extends AbstractChooser<
     randomTalents: SelectModel[];
     randomOriginTalents: SelectModel[];
     showRandomTalent: boolean;
+    randomTalentsNbr: number;
+    selectedRandomTalentsNbr: number;
+    selectableRandomTalentsNbr: number;
   }
 > {
   private others: ReferentialOthersModel;
   private randomTalents: string[];
-  private randomTalentsNbr: number;
+  private baseRandomTalentsNbr: number;
   private oldestSelectedRandomTalents: string[] = [];
   // private origins: { [origin: string]: ReferentialOthersModel };
   // private randomOriginsTalentsNbr: { [origin: string]: number };
@@ -77,6 +80,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
     object: Model,
     others: ReferentialOthersModel,
     randomTalents: string[],
+    baseRandomTalentsNbr: number,
     randomTalentsNbr: number,
     _origins: { [origin: string]: ReferentialOthersModel },
     _randomOriginsTalentsNbr: { [origin: string]: number },
@@ -95,7 +99,8 @@ export class SpeciesOthersChooser extends AbstractChooser<
 
     this.others = others;
     this.randomTalents = randomTalents;
-    this.randomTalentsNbr = randomTalentsNbr;
+    this.baseRandomTalentsNbr = baseRandomTalentsNbr;
+    this.model.randomTalentsNbr = randomTalentsNbr;
     // this.origins = origins;
     // this.randomOriginsTalentsNbr = randomOriginsTalentsNbr;
     this.originLabel = originLabel;
@@ -140,7 +145,12 @@ export class SpeciesOthersChooser extends AbstractChooser<
           )
         : await ReferentialUtil.getSpeciesOthers(speciesKey, true);
     const others = this.refOthersToModel(refOthers);
-    const rdmTalNbr = refOthers.find((ro) => typeof ro === 'number') ?? 0;
+    const baseRandomTalentsNbr =
+      refOthers.find((ro) => typeof ro === 'number') ?? 0;
+    let rdmTalNbr = baseRandomTalentsNbr;
+    for (const other of initOthers.filter((t) => t.startsWith(randomTalent))) {
+      rdmTalNbr += ReferentialUtil.resolveRandomPrefix(other);
+    }
     const refOrigins =
       subSpeciesKey != null
         ? await ReferentialUtil.getSubSpeciesOrigins(
@@ -174,6 +184,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
       ),
       others,
       randomTalents,
+      baseRandomTalentsNbr,
       rdmTalNbr,
       origins,
       rdmOriTalNbr,
@@ -207,7 +218,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
   protected isValid(data: Model): boolean {
     const othersValid = data.others.length === this.model.others.model.length;
     const randomTalentsValid =
-      this.randomTalentsNbr === this.model.data.randomTalents.length;
+      this.model.randomTalentsNbr === this.model.data.randomTalents.length;
     return othersValid && randomTalentsValid;
   }
 
@@ -229,13 +240,14 @@ export class SpeciesOthersChooser extends AbstractChooser<
         selectModel.selected = randomKey === selectModel.key;
       }
     }
+    this.updateRandomNumber();
     this.updateDataFromModel();
   }
 
   private randomRandomTalents() {
     const randomTalents = RandomUtil.getRandomValues(
       this.randomTalents,
-      this.randomTalentsNbr
+      this.model.randomTalentsNbr
     );
     for (let rdmTalent of this.model.randomTalents) {
       rdmTalent.selected = randomTalents.includes(rdmTalent.key);
@@ -250,6 +262,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
       for (let selectModel of modelOther.model) {
         selectModel.selected = value === selectModel.key;
       }
+      this.updateRandomNumber();
       this.updateDataFromModel();
     }
   }
@@ -260,7 +273,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
       rdmTalent.selected = !rdmTalent.selected;
       if (
         this.model.randomTalents.filter((rt) => rt.selected).length >
-        this.randomTalentsNbr
+        this.model.randomTalentsNbr
       ) {
         const oldestSelected = this.model.randomTalents.find(
           (rt) => rt.key === this.oldestSelectedRandomTalents[0]
@@ -311,10 +324,39 @@ export class SpeciesOthersChooser extends AbstractChooser<
         )
       );
     }
-    this.model.showRandomTalent = this.randomTalentsNbr > 0;
+    this.model.showRandomTalent = this.model.randomTalentsNbr > 0;
+    this.model.selectedRandomTalentsNbr = this.model.data.randomTalents.length;
+    this.model.selectableRandomTalentsNbr =
+      this.model.randomTalentsNbr - this.model.selectedRandomTalentsNbr;
     this.oldestSelectedRandomTalents = this.model.randomTalents
       .filter((rt) => rt.selected)
       .map((rt) => rt.key);
+  }
+
+  private updateRandomNumber() {
+    let extraRdmNbr = 0;
+    for (const modelOther of this.model.others.model) {
+      for (const selectModel of modelOther.model.filter(
+        (sm) => sm.selected && sm.key.startsWith(randomTalent)
+      )) {
+        extraRdmNbr += ReferentialUtil.resolveRandomPrefix(selectModel.key);
+      }
+    }
+    this.model.randomTalentsNbr = this.baseRandomTalentsNbr + extraRdmNbr;
+    this.model.showRandomTalent = this.model.randomTalentsNbr > 0;
+    const currentLength = this.model.randomTalents.filter((rt) => rt.selected)
+      .length;
+    if (currentLength > this.model.randomTalentsNbr) {
+      for (let i = this.model.randomTalentsNbr; i < currentLength; i++) {
+        const oldestSelected = this.model.randomTalents.find(
+          (rt) => rt.key === this.oldestSelectedRandomTalents[0]
+        );
+        if (oldestSelected != null) {
+          oldestSelected.selected = false;
+          this.oldestSelectedRandomTalents.splice(0, 1);
+        }
+      }
+    }
   }
 
   private updateDataFromModel() {
@@ -328,6 +370,9 @@ export class SpeciesOthersChooser extends AbstractChooser<
     this.model.data.randomTalents = this.model.randomTalents
       .filter((rt) => rt.selected)
       .map((rt) => rt.key);
+    this.model.selectedRandomTalentsNbr = this.model.data.randomTalents.length;
+    this.model.selectableRandomTalentsNbr =
+      this.model.randomTalentsNbr - this.model.selectedRandomTalentsNbr;
   }
 
   private static refOthersToModel(refOthers: any[]): ReferentialOthersModel {

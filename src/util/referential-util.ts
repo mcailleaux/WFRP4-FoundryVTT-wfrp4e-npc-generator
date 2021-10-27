@@ -1259,6 +1259,13 @@ export default class ReferentialUtil {
     return name;
   }
 
+  public static resolveRandomPrefix(name: string): number {
+    if (!name.startsWith(randomTalent)) {
+      return 0;
+    }
+    return Number(name.replace(randomTalent, ''));
+  }
+
   private static resolvePrefix(name: string): string {
     if (name?.startsWith(traitPrefix)) {
       return traitPrefix;
