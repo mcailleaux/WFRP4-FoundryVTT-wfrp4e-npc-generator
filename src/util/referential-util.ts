@@ -1135,7 +1135,8 @@ export default class ReferentialUtil {
     onlyToChoose = false,
     onlyAuto = false
   ): Promise<{ [origin: string]: any[] }> {
-    const map = (await this.getSubSpeciesOriginsMap())[key][subKey] ?? {};
+    const originMap = await this.getSubSpeciesOriginsMap();
+    const map = (originMap[key] != null ? originMap[key][subKey] : {}) ?? {};
     const result = {};
     for (let origin of Object.keys(map)) {
       result[origin] =

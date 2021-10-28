@@ -11,3 +11,6 @@ export const items = () => (<any>game).items;
 export const world = () => (<any>game).world;
 export const notifications = () => (<any>ui).notifications;
 export const initTemplates = (paths: string[]) => loadTemplates(paths);
+export const names = () => (<any>game).wfrp4e.names;
+export const generateName = (speciesKey: string) =>
+  names().generateName({ species: speciesKey });

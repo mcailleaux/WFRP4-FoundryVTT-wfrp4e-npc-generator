@@ -10,6 +10,7 @@ import ReferentialUtil from '../../util/referential-util.js';
 import { SpeciesOthersChooser } from '../../components/species-others-chooser.js';
 import { SpeciesOthers } from '../../models/npc/species-others.js';
 import { SpeciesSkills } from '../../models/npc/species-skills.js';
+import { NameChooser } from '../../components/name-chooser.js';
 
 export class NpcGenerator {
   public static readonly compendium = CompendiumUtil;
@@ -18,6 +19,7 @@ export class NpcGenerator {
   public static readonly careerChooser = CareerChooser;
   public static readonly speciesSkillsChooser = SpeciesSkillsChooser;
   public static readonly speciesOthersChooser = SpeciesOthersChooser;
+  public static readonly nameChooser = NameChooser;
 
   public static async generateNpc(
     _callback?: (model: NpcModel, actorData: any, actor: any) => void
@@ -132,12 +134,37 @@ export class NpcGenerator {
         model.speciesOthers.originKey = originKey;
         model.speciesOthers.origin = origin;
 
-        this.selectSpeciesOthers(model, callback);
-
-        // this.selectName(model, callback);
+        this.selectName(model, callback);
       },
       () => {
         this.selectSpeciesSkills(model, callback);
+      }
+    );
+  }
+
+  private static async selectName(
+    model: NpcModel,
+    callback: (model: NpcModel) => void
+  ) {
+    if (model.name == null) {
+      const speciesMap = ReferentialUtil.getSpeciesMap();
+      model.name = `${model.careers[model.careers.length - 1]} ${
+        speciesMap[model.speciesKey]
+      }`;
+    }
+    await this.nameChooser.selectName(
+      model.name,
+      model.speciesKey,
+      true,
+      (name: string) => {
+        model.name = name;
+
+        this.selectName(model, callback);
+
+        // this.selectOptions(model, callback);
+      },
+      () => {
+        this.selectSpeciesOthers(model, callback);
       }
     );
   }

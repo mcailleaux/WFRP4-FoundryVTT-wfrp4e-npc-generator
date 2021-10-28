@@ -1,0 +1,14 @@
+<form autocomplete="off">
+  {{#if showRandom}}
+  <div class="form-group">
+    <button id="randomNameButton" type="button">
+      {{localize 'WFRP4NPCGEN.common.button.Random'}}
+    </button>
+  </div>
+  {{/if}}
+  <div class="form-group">
+    <label> {{localize 'WFRP4NPCGEN.name.select.label'}} </label>
+    <input id="nameInput" name="name" type="text" value="{{data.name}}" />
+  </div>
+  {{> (buttonsTemplate)}}
+</form>
