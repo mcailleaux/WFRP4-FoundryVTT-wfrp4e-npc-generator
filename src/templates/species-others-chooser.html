@@ -46,7 +46,39 @@
       {{/if}} {{/each}}
     </select>
   </div>
-  {{/if}} {{#if showRandomTalent}}
+  {{#if showOriginOthers}}
+  <div class="form-group">
+    <button id="randomSpeciesOriginOthersButton" type="button">
+      {{localize 'WFRP4NPCGEN.common.button.Random'}}
+    </button>
+  </div>
+  {{#each origin.model}}
+  <div class="form-group species-origins-row">
+    {{#each this.model}}
+    <div class="species-origins-radio-row">
+      <label class="species-origins-radio-row-label">{{value}}</label>
+      {{#if selected}}
+      <input
+        class="species-origins-radio-row-radio species-origin-other-radio"
+        value="{{key}}"
+        data-id="{{../id}}"
+        type="radio"
+        name="select-origins-{{key}}"
+        checked
+      />
+      {{else}}
+      <input
+        class="species-origins-radio-row-radio species-origin-other-radio"
+        value="{{key}}"
+        data-id="{{../id}}"
+        type="radio"
+        name="select-origins-{{key}}"
+      />
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+  {{/each}} {{/if}} {{/if}} {{#if showRandomTalent}}
   <div class="form-group">
     <button id="randomRandomTalentsButton" type="button">
       {{localize 'WFRP4NPCGEN.common.button.Random'}}

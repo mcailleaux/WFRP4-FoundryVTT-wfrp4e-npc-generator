@@ -50,6 +50,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
   Model,
   {
     showOrigin: boolean;
+    showOriginOthers: boolean;
     originLabel: string;
     selectedOriginKey: string | null;
     origins: SelectModel[];
@@ -212,12 +213,12 @@ export class SpeciesOthersChooser extends AbstractChooser<
       const randomOriginKey = RandomUtil.getRandomValue(
         Object.keys(this.origins)
       );
-      this.selectOrigin(randomOriginKey);
+      this.selectOriginKey(randomOriginKey);
       this.render();
     });
     this.handleClick(html, '#originSelect', (event) => {
       const originKey = event.currentTarget.value;
-      this.selectOrigin(originKey);
+      this.selectOriginKey(originKey);
       this.render();
     });
     this.handleClick(html, '#randomRandomTalentsButton', (_event) => {
@@ -226,6 +227,15 @@ export class SpeciesOthersChooser extends AbstractChooser<
     });
     this.handleClick(html, '.random-talent-checkbox', (event) => {
       this.toggleRandomTalent(event.currentTarget.value);
+      this.render();
+    });
+    this.handleClick(html, '#randomSpeciesOriginOthersButton', (_event) => {
+      this.randomOriginOthers();
+      this.render();
+    });
+    this.handleClick(html, '.species-origin-other-radio', (event) => {
+      const id = event.currentTarget.getAttribute('data-id');
+      this.selectOriginOther(id, event.currentTarget.value);
       this.render();
     });
   }
@@ -239,7 +249,10 @@ export class SpeciesOthersChooser extends AbstractChooser<
       data.others.length + offsetResult === this.model.others.model.length;
     const randomTalentsValid =
       this.model.randomTalentsNbr === this.model.data.randomTalents.length;
-    return othersValid && randomTalentsValid;
+    const originValid =
+      data.originKey == null ||
+      data.origin.length === this.model.origin?.model.length;
+    return othersValid && randomTalentsValid && originValid;
   }
 
   protected yes(data: Model) {
@@ -259,7 +272,20 @@ export class SpeciesOthersChooser extends AbstractChooser<
         selectModel.selected = randomKey === selectModel.key;
       }
     }
-    this.updateOrigins();
+    this.updateOrigins(false);
+    this.updateRandomNumber();
+    this.updateDataFromModel();
+  }
+
+  private randomOriginOthers() {
+    for (let modelOther of this.model.origin?.model ?? []) {
+      const keys = modelOther.model.map((mo) => mo.key);
+      const randomKey = RandomUtil.getRandomValue(keys);
+      for (let selectModel of modelOther.model) {
+        selectModel.selected = randomKey === selectModel.key;
+      }
+    }
+    this.updateOrigins(false);
     this.updateRandomNumber();
     this.updateDataFromModel();
   }
@@ -286,13 +312,25 @@ export class SpeciesOthersChooser extends AbstractChooser<
           selectModel.selected = value === selectModel.key;
         }
       }
-      this.updateOrigins();
+      this.updateOrigins(false);
       this.updateRandomNumber();
       this.updateDataFromModel();
     }
   }
 
-  private selectOrigin(originKey: string) {
+  private selectOriginOther(id: string, value: string) {
+    const modelOther = this.model.origin?.model.find((oth) => oth.id === id);
+    if (modelOther != null) {
+      for (let selectModel of modelOther.model) {
+        selectModel.selected = value === selectModel.key;
+      }
+      this.updateOrigins(false);
+      this.updateRandomNumber();
+      this.updateDataFromModel();
+    }
+  }
+
+  private selectOriginKey(originKey: string) {
     this.model.selectedOriginKey = originKey;
     for (const origin of this.model.origins) {
       origin.selected = origin.key === originKey;
@@ -393,6 +431,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
         i++;
       }
       this.model.origin = originModels;
+      this.model.showOriginOthers = originModels.model.length > 0;
     }
     const selectedOrigin = this.model.others.model
       .find(
@@ -404,7 +443,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
     this.model.showOrigin = selectedOrigin != null;
   }
 
-  private updateOrigins() {
+  private updateOrigins(forceRazModel = true) {
     const selectedOrigin = this.model.others.model
       .find(
         (osm) =>
@@ -414,12 +453,16 @@ export class SpeciesOthersChooser extends AbstractChooser<
       ?.model.find((om) => om.key.startsWith(origin) && om.selected);
     const hasSelectedOrigin = selectedOrigin != null;
 
+    const razModel =
+      forceRazModel ||
+      (hasSelectedOrigin && this.model.selectedOriginKey == null);
+
     if (hasSelectedOrigin) {
       this.model.selectedOriginKey =
         this.model.selectedOriginKey != null
           ? this.model.selectedOriginKey
           : Object.keys(this.origins)[0];
-      if (this.model.selectedOriginKey != null) {
+      if (this.model.selectedOriginKey != null && razModel) {
         const originModels = new OthersModel();
         for (let refOther of this.origins[this.model.selectedOriginKey].model) {
           const model = new OtherModel();
@@ -431,11 +474,11 @@ export class SpeciesOthersChooser extends AbstractChooser<
           originModels.model.push(model);
         }
         this.model.origin = originModels;
-      } else {
-        this.model.origin = null;
+        this.model.showOriginOthers = originModels.model.length > 0;
       }
     } else {
       this.model.origin = null;
+      this.model.showOriginOthers = false;
     }
 
     this.model.showOrigin = hasSelectedOrigin;
@@ -489,6 +532,13 @@ export class SpeciesOthersChooser extends AbstractChooser<
     this.model.selectedRandomTalentsNbr = this.model.data.randomTalents.length;
     this.model.selectableRandomTalentsNbr =
       this.model.randomTalentsNbr - this.model.selectedRandomTalentsNbr;
+    const originOthers: string[] = [];
+    for (let modelOther of this.model.origin?.model ?? []) {
+      originOthers.push(
+        ...modelOther.model.filter((sm) => sm.selected).map((sm) => sm.key)
+      );
+    }
+    this.model.data.origin = originOthers;
   }
 
   private static refOthersToModel(refOthers: any[]): ReferentialOthersModel {

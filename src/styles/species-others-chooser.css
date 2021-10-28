@@ -1,11 +1,13 @@
-.species-others-row {
+.species-others-row,
+.species-origins-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: stretch;
 }
 
-.species-others-radio-row {
+.species-others-radio-row,
+.species-origins-radio-row {
   flex: 100%;
   max-width: 50%;
   display: flex;
@@ -15,7 +17,9 @@
 }
 
 .species-others-radio-row-label,
-.species-others-radio-row-radio {
+.species-others-radio-row-radio,
+.species-origins-radio-row-label,
+.species-origins-radio-row-radio {
   flex-grow: 1;
 }
 
