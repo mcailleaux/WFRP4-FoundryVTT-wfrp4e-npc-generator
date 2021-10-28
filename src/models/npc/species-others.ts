@@ -3,5 +3,4 @@ export class SpeciesOthers {
   public randomTalents: string[] = [];
   public originKey: string;
   public origin: string[] = [];
-  public randomOriginTalents: string[] = [];
 }

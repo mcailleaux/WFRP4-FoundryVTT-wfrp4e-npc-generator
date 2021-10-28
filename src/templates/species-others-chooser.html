@@ -30,7 +30,23 @@
     </div>
     {{/each}}
   </div>
-  {{/each}} {{#if showRandomTalent}}
+  {{/each}} {{#if showOrigin}}
+  <div class="form-group">
+    <button id="randomOrigin" type="button">
+      {{localize 'WFRP4NPCGEN.common.button.Random'}}
+    </button>
+  </div>
+  <div class="form-group">
+    <label> {{originLabel}} </label>
+    <select id="originSelect">
+      {{#each origins}} {{#if selected}}
+      <option value="{{key}}" selected="selected">{{localize value}}</option>
+      {{else}}
+      <option value="{{key}}">{{localize value}}</option>
+      {{/if}} {{/each}}
+    </select>
+  </div>
+  {{/if}} {{#if showRandomTalent}}
   <div class="form-group">
     <button id="randomRandomTalentsButton" type="button">
       {{localize 'WFRP4NPCGEN.common.button.Random'}}

@@ -4,27 +4,28 @@ import { i18n } from '../constant.js';
 import RegisterSettings from '../util/register-settings.js';
 import ReferentialUtil from '../util/referential-util.js';
 import RandomUtil from '../util/random-util.js';
-import { origin, randomTalent } from '../referential/species-referential.js';
+import {
+  origin,
+  originNames,
+  randomTalent,
+} from '../referential/species-referential.js';
 
 class Model {
   public others: string[];
   public randomTalents: string[];
-  public originKey: string;
+  public originKey: string | null;
   public origin: string[];
-  public randomOriginTalents: string[];
 
   constructor(
     others: string[],
     randomTalents: string[],
     originKey: string,
-    origin: string[],
-    randomOriginTalents: string[]
+    origin: string[]
   ) {
     this.others = others;
     this.randomTalents = randomTalents;
     this.originKey = originKey;
     this.origin = origin;
-    this.randomOriginTalents = randomOriginTalents;
   }
 }
 
@@ -49,11 +50,12 @@ export class SpeciesOthersChooser extends AbstractChooser<
   Model,
   {
     showOrigin: boolean;
-    originName: string;
+    originLabel: string;
+    selectedOriginKey: string | null;
+    origins: SelectModel[];
     others: OthersModel;
-    origin: OthersModel;
+    origin: OthersModel | null;
     randomTalents: SelectModel[];
-    randomOriginTalents: SelectModel[];
     showRandomTalent: boolean;
     randomTalentsNbr: number;
     selectedRandomTalentsNbr: number;
@@ -64,16 +66,14 @@ export class SpeciesOthersChooser extends AbstractChooser<
   private randomTalents: string[];
   private baseRandomTalentsNbr: number;
   private oldestSelectedRandomTalents: string[] = [];
-  // private origins: { [origin: string]: ReferentialOthersModel };
-  // private randomOriginsTalentsNbr: { [origin: string]: number };
-  private originLabel: string;
+  private origins: { [origin: string]: ReferentialOthersModel };
+  private randomOriginsTalentsNbr: { [origin: string]: number };
 
   private callback: (
     others: string[],
     randomTalents: string[],
-    originKey: string,
-    origin: string[],
-    randomOriginTalents: string[]
+    originKey: string | null,
+    origin: string[]
   ) => void;
 
   constructor(
@@ -82,15 +82,15 @@ export class SpeciesOthersChooser extends AbstractChooser<
     randomTalents: string[],
     baseRandomTalentsNbr: number,
     randomTalentsNbr: number,
-    _origins: { [origin: string]: ReferentialOthersModel },
-    _randomOriginsTalentsNbr: { [origin: string]: number },
+    origins: { [origin: string]: ReferentialOthersModel },
+    randomOriginsTalentsNbr: { [origin: string]: number },
+    originKey: string,
     originLabel: string,
     callback: (
       others: string[],
       randomTalents: string[],
       originKey: string,
-      origin: string[],
-      randomOriginTalents: string[]
+      origin: string[]
     ) => void,
     previousCallback: (() => void) | null,
     options?: Partial<FormApplication.Options>
@@ -101,9 +101,10 @@ export class SpeciesOthersChooser extends AbstractChooser<
     this.randomTalents = randomTalents;
     this.baseRandomTalentsNbr = baseRandomTalentsNbr;
     this.model.randomTalentsNbr = randomTalentsNbr;
-    // this.origins = origins;
-    // this.randomOriginsTalentsNbr = randomOriginsTalentsNbr;
-    this.originLabel = originLabel;
+    this.origins = origins;
+    this.randomOriginsTalentsNbr = randomOriginsTalentsNbr;
+    this.model.selectedOriginKey = originKey ?? Object.keys(origins)[0] ?? null;
+    this.model.originLabel = originLabel;
     this.callback = callback;
 
     // Init
@@ -124,15 +125,13 @@ export class SpeciesOthersChooser extends AbstractChooser<
     initRandomTalents: string[],
     initOriginKey: string,
     initOrigin: string[],
-    initRandomOriginTalents: string[],
     speciesKey: string,
     subSpeciesKey: string,
     callback: (
       others: string[],
       randomTalents: string[],
       originKey: string,
-      origin: string[],
-      randomOriginTalents: string[]
+      origin: string[]
     ) => void,
     undo: () => void
   ) {
@@ -160,7 +159,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
           )
         : await ReferentialUtil.getSpeciesOrigins(speciesKey, true);
     const origins = {};
-    const rdmOriTalNbr = {};
+    const rdmOriTalNbr: { [key: string]: number } = {};
     for (let origin of Object.keys(refOrigins)) {
       origins[origin] = this.refOthersToModel(refOrigins[origin]);
       rdmOriTalNbr[origin] =
@@ -174,13 +173,16 @@ export class SpeciesOthersChooser extends AbstractChooser<
         : i18n().localize(`WFRP4NPCGEN.origin.${speciesKey}.label`);
     const randomTalents = await ReferentialUtil.getRandomTalents();
 
+    if (initOriginKey != null) {
+      rdmTalNbr += rdmOriTalNbr[initOriginKey] ?? 0;
+    }
+
     new SpeciesOthersChooser(
       new Model(
         initOthers ?? [],
         initRandomTalents ?? [],
         initOriginKey,
-        initOrigin ?? [],
-        initRandomOriginTalents ?? []
+        initOrigin ?? []
       ),
       others,
       randomTalents,
@@ -188,6 +190,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
       rdmTalNbr,
       origins,
       rdmOriTalNbr,
+      initOriginKey,
       originLabel,
       callback,
       undo
@@ -205,6 +208,18 @@ export class SpeciesOthersChooser extends AbstractChooser<
       this.selectOther(id, event.currentTarget.value);
       this.render();
     });
+    this.handleClick(html, '#randomOrigin', (_event) => {
+      const randomOriginKey = RandomUtil.getRandomValue(
+        Object.keys(this.origins)
+      );
+      this.selectOrigin(randomOriginKey);
+      this.render();
+    });
+    this.handleClick(html, '#originSelect', (event) => {
+      const originKey = event.currentTarget.value;
+      this.selectOrigin(originKey);
+      this.render();
+    });
     this.handleClick(html, '#randomRandomTalentsButton', (_event) => {
       this.randomRandomTalents();
       this.render();
@@ -216,7 +231,12 @@ export class SpeciesOthersChooser extends AbstractChooser<
   }
 
   protected isValid(data: Model): boolean {
-    const othersValid = data.others.length === this.model.others.model.length;
+    const singleOriginNotSelected = this.model.others.model.find(
+      (om) => om.model.length === 1 && !om.model[0].selected
+    );
+    const offsetResult = singleOriginNotSelected ? 1 : 0;
+    const othersValid =
+      data.others.length + offsetResult === this.model.others.model.length;
     const randomTalentsValid =
       this.model.randomTalentsNbr === this.model.data.randomTalents.length;
     return othersValid && randomTalentsValid;
@@ -227,8 +247,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
       data?.others ?? [],
       data.randomTalents ?? [],
       data.originKey,
-      data.origin,
-      data.randomOriginTalents
+      data.origin
     );
   }
 
@@ -240,6 +259,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
         selectModel.selected = randomKey === selectModel.key;
       }
     }
+    this.updateOrigins();
     this.updateRandomNumber();
     this.updateDataFromModel();
   }
@@ -259,12 +279,27 @@ export class SpeciesOthersChooser extends AbstractChooser<
   private selectOther(id: string, value: string) {
     const modelOther = this.model.others.model.find((oth) => oth.id === id);
     if (modelOther != null) {
-      for (let selectModel of modelOther.model) {
-        selectModel.selected = value === selectModel.key;
+      if (modelOther.model.length === 1) {
+        modelOther.model[0].selected = !modelOther.model[0].selected;
+      } else {
+        for (let selectModel of modelOther.model) {
+          selectModel.selected = value === selectModel.key;
+        }
       }
+      this.updateOrigins();
       this.updateRandomNumber();
       this.updateDataFromModel();
     }
+  }
+
+  private selectOrigin(originKey: string) {
+    this.model.selectedOriginKey = originKey;
+    for (const origin of this.model.origins) {
+      origin.selected = origin.key === originKey;
+    }
+    this.updateOrigins();
+    this.updateRandomNumber();
+    this.updateDataFromModel();
   }
 
   private toggleRandomTalent(value: string) {
@@ -331,6 +366,79 @@ export class SpeciesOthersChooser extends AbstractChooser<
     this.oldestSelectedRandomTalents = this.model.randomTalents
       .filter((rt) => rt.selected)
       .map((rt) => rt.key);
+
+    // Init Origin Select
+    this.model.origins = [];
+    for (const origin of Object.keys(this.origins)) {
+      this.model.origins.push(
+        new SelectModel(
+          origin,
+          originNames[origin],
+          origin === this.model.selectedOriginKey
+        )
+      );
+    }
+    if (this.model.selectedOriginKey != null) {
+      const originData = this.model.data.origin;
+      const originModels = new OthersModel();
+      i = 0;
+      for (let refOther of this.origins[this.model.selectedOriginKey].model) {
+        const model = new OtherModel();
+        for (let ref of refOther.model) {
+          model.model.push(
+            new SelectModel(ref, this.resolveName(ref), originData[i] === ref)
+          );
+        }
+        originModels.model.push(model);
+        i++;
+      }
+      this.model.origin = originModels;
+    }
+    const selectedOrigin = this.model.others.model
+      .find(
+        (osm) =>
+          osm.model.find((om) => om.key.startsWith(origin) && om.selected) !=
+          null
+      )
+      ?.model.find((om) => om.key.startsWith(origin) && om.selected);
+    this.model.showOrigin = selectedOrigin != null;
+  }
+
+  private updateOrigins() {
+    const selectedOrigin = this.model.others.model
+      .find(
+        (osm) =>
+          osm.model.find((om) => om.key.startsWith(origin) && om.selected) !=
+          null
+      )
+      ?.model.find((om) => om.key.startsWith(origin) && om.selected);
+    const hasSelectedOrigin = selectedOrigin != null;
+
+    if (hasSelectedOrigin) {
+      this.model.selectedOriginKey =
+        this.model.selectedOriginKey != null
+          ? this.model.selectedOriginKey
+          : Object.keys(this.origins)[0];
+      if (this.model.selectedOriginKey != null) {
+        const originModels = new OthersModel();
+        for (let refOther of this.origins[this.model.selectedOriginKey].model) {
+          const model = new OtherModel();
+          for (let ref of refOther.model) {
+            model.model.push(
+              new SelectModel(ref, this.resolveName(ref), false)
+            );
+          }
+          originModels.model.push(model);
+        }
+        this.model.origin = originModels;
+      } else {
+        this.model.origin = null;
+      }
+    } else {
+      this.model.origin = null;
+    }
+
+    this.model.showOrigin = hasSelectedOrigin;
   }
 
   private updateRandomNumber() {
@@ -342,6 +450,12 @@ export class SpeciesOthersChooser extends AbstractChooser<
         extraRdmNbr += ReferentialUtil.resolveRandomPrefix(selectModel.key);
       }
     }
+
+    if (this.model.showOrigin) {
+      extraRdmNbr +=
+        this.randomOriginsTalentsNbr[this.model.selectedOriginKey ?? ''] ?? 0;
+    }
+
     this.model.randomTalentsNbr = this.baseRandomTalentsNbr + extraRdmNbr;
     this.model.showRandomTalent = this.model.randomTalentsNbr > 0;
     const currentLength = this.model.randomTalents.filter((rt) => rt.selected)
@@ -370,6 +484,8 @@ export class SpeciesOthersChooser extends AbstractChooser<
     this.model.data.randomTalents = this.model.randomTalents
       .filter((rt) => rt.selected)
       .map((rt) => rt.key);
+    this.model.data.originKey =
+      this.model.origin != null ? this.model.selectedOriginKey : null;
     this.model.selectedRandomTalentsNbr = this.model.data.randomTalents.length;
     this.model.selectableRandomTalentsNbr =
       this.model.randomTalentsNbr - this.model.selectedRandomTalentsNbr;
@@ -393,7 +509,7 @@ export class SpeciesOthersChooser extends AbstractChooser<
         'WFRP4NPCGEN.common.button.Random'
       )}`;
     } else if (name?.startsWith(origin)) {
-      return this.originLabel;
+      return this.model.originLabel;
     }
     return ReferentialUtil.resolveName(name);
   }

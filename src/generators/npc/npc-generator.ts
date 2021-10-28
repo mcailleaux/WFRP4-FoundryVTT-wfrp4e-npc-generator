@@ -119,21 +119,18 @@ export class NpcGenerator {
       model.speciesOthers.randomTalents,
       model.speciesOthers.originKey,
       model.speciesOthers.origin,
-      model.speciesOthers.randomOriginTalents,
       model.speciesKey,
       model.subSpeciesKey,
       (
         others: string[],
         randomTalents: string[],
         originKey: string,
-        origin: string[],
-        randomOriginTalents: string[]
+        origin: string[]
       ) => {
         model.speciesOthers.others = others;
         model.speciesOthers.randomTalents = randomTalents;
         model.speciesOthers.originKey = originKey;
         model.speciesOthers.origin = origin;
-        model.speciesOthers.randomOriginTalents = randomOriginTalents;
 
         this.selectSpeciesOthers(model, callback);
 
