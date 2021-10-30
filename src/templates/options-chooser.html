@@ -1,0 +1,68 @@
+<form autocomplete="off">
+  {{#each optionsCheck}}
+  <div class="form-group">
+    <label>{{localize value}}</label>
+    {{#if selected}}
+    <input
+      class="options-checkbox"
+      value="{{key}}"
+      type="checkbox"
+      name="options-checkbox-{{key}}"
+      checked
+    />
+    {{else}}
+    <input
+      class="options-checkbox"
+      value="{{key}}"
+      type="checkbox"
+      name="options-checkbox-{{key}}"
+    />
+    {{/if}}
+  </div>
+  {{/each}} {{#each effectsModel}}
+  <div class="form-group">
+    <label> {{localize label}} </label>
+    <select id="effect-select-{{key}}" class="effect-select" data-id="{{key}}">
+      {{#each values}} {{#if selected}}
+      <option value="{{key}}" selected="selected">{{localize value}}</option>
+      {{else}}
+      <option value="{{key}}">{{localize value}}</option>
+      {{/if}} {{/each}}
+    </select>
+  </div>
+  {{/each}}
+  <div class="form-group">
+    <label> {{localize 'WFRP4NPCGEN.options.select.genPath.label'}} </label>
+    <input
+      id="genPathInput"
+      name="genPathInput"
+      type="text"
+      value="{{data.options.genPath}}"
+    />
+  </div>
+  <div class="form-group">
+    <label> {{localize 'WFRP4NPCGEN.options.select.imagePath.label'}} </label>
+    <div class="form-fields">
+      {{filePicker target="imagePathInput" type="image"}}
+      <input
+        id="imagePathInput"
+        name="imagePathInput"
+        type="text"
+        value="{{data.options.imagePath}}"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label> {{localize 'WFRP4NPCGEN.options.select.tokenPath.label'}} </label>
+    <div class="form-fields">
+      {{filePicker target="tokenPathInput" type="image"}}
+      <input
+        id="tokenPathInput"
+        name="tokenPathInput"
+        type="text"
+        value="{{data.options.tokenPath}}"
+      />
+    </div>
+  </div>
+  {{> (buttonsTemplate)}}
+</form>

@@ -1,10 +1,12 @@
+export declare type GenerationSingleProfile = {
+  name: string;
+  genPath?: string;
+  imagePath?: string;
+  tokenPath?: string;
+};
+
 export declare type GenerationProfile = {
-  profiles: {
-    name: string;
-    genPath?: string;
-    imagePath?: string;
-    tokenPath?: string;
-  }[];
+  profiles: GenerationSingleProfile[];
 };
 
 export default class GenerationProfiles {

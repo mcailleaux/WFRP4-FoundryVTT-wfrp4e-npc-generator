@@ -77,6 +77,7 @@ export abstract class AbstractChooser<DATA, MODEL = {}> extends FormApplication<
   }
 
   public activateListeners(html: JQuery) {
+    super.activateListeners(html);
     this.handleClick(html, `#${this.model.id}-no`, async (_event) => {
       await this.close();
       this.no();

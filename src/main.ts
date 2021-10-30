@@ -20,6 +20,7 @@ Hooks.once('init', () => {
     `modules/${RegisterSettings.moduleName}/templates/species-skills-chooser.html`,
     `modules/${RegisterSettings.moduleName}/templates/species-others-chooser.html`,
     `modules/${RegisterSettings.moduleName}/templates/name-chooser.html`,
+    `modules/${RegisterSettings.moduleName}/templates/options-chooser.html`,
   ]);
 });
 

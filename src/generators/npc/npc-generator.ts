@@ -11,6 +11,8 @@ import { SpeciesOthersChooser } from '../../components/species-others-chooser.js
 import { SpeciesOthers } from '../../models/npc/species-others.js';
 import { SpeciesSkills } from '../../models/npc/species-skills.js';
 import { NameChooser } from '../../components/name-chooser.js';
+import Options from '../../util/options.js';
+import { OptionsChooser } from '../../components/options-chooser.js';
 
 export class NpcGenerator {
   public static readonly compendium = CompendiumUtil;
@@ -20,6 +22,7 @@ export class NpcGenerator {
   public static readonly speciesSkillsChooser = SpeciesSkillsChooser;
   public static readonly speciesOthersChooser = SpeciesOthersChooser;
   public static readonly nameChooser = NameChooser;
+  public static readonly optionsChooser = OptionsChooser;
 
   public static async generateNpc(
     _callback?: (model: NpcModel, actorData: any, actor: any) => void
@@ -158,13 +161,31 @@ export class NpcGenerator {
       true,
       (name: string) => {
         model.name = name;
-
-        this.selectName(model, callback);
-
-        // this.selectOptions(model, callback);
+        this.selectOptions(model, callback);
       },
       () => {
         this.selectSpeciesOthers(model, callback);
+      }
+    );
+  }
+
+  private static async selectOptions(
+    model: NpcModel,
+    callback: (model: NpcModel) => void
+  ) {
+    await this.optionsChooser.selectOptions(
+      false,
+      model.options,
+      model.speciesKey,
+      (options: Options) => {
+        model.options = options;
+
+        this.selectOptions(model, callback);
+
+        // this.finalize(model, callback);
+      },
+      () => {
+        this.selectName(model, callback);
       }
     );
   }
