@@ -3,11 +3,9 @@ import TrappingUtil from './util/trapping-util.js';
 import RegisterSettings from './util/register-settings.js';
 import CreatureGenerator from './creature-generator.js';
 import { actors, i18n, initTemplates, user, wfrp4e } from './constant.js';
-import { NpcGenerator as NewNpcGenerator } from './generators/npc/npc-generator.js';
 
 Hooks.once('init', () => {
   wfrp4e().npcGen = NpcGenerator;
-  wfrp4e().newNpcGen = NewNpcGenerator;
   wfrp4e().creatureGen = CreatureGenerator;
 
   RegisterSettings.initSettings();
@@ -31,9 +29,6 @@ Hooks.on('renderActorDirectory', (_app: ActorSheet, html: JQuery) => {
     });
     addActorActionButton(html, 'WFRP4NPCGEN.actor.directory.button', () => {
       NpcGenerator.generateNpc();
-    });
-    addActorActionButton(html, 'Tmp New NPC Gen', () => {
-      NewNpcGenerator.generateNpc();
     });
   }
 });
