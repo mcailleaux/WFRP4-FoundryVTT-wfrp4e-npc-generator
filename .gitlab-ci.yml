@@ -21,7 +21,7 @@ build:
     - cp src/styles/* dist/styles/
     - cp module.json dist
     - cd dist
-    - zip wfrp4e-npc-generator.zip -r *.* src lang util templates styles -x ".*"
+    - zip wfrp4e-npc-generator.zip -r *.* src lang util referential templates styles -x ".*"
   artifacts:
     name: wfrp4e-npc-generator
     when: on_success
@@ -44,7 +44,7 @@ build_beta:
     - cp src/styles/* dist/styles/
     - cp module-beta.json dist/module.json
     - cd dist
-    - zip wfrp4e-npc-generator.zip -r *.* src lang util templates styles -x ".*"
+    - zip wfrp4e-npc-generator.zip -r *.* src lang util referential templates styles -x ".*"
   artifacts:
     name: wfrp4e-npc-generator
     when: on_success
