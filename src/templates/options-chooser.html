@@ -30,7 +30,18 @@
       {{/if}} {{/each}}
     </select>
   </div>
-  {{/each}}
+  {{/each}} {{#if showProfiles}}
+  <div class="form-group">
+    <label> {{localize 'WFRP4NPCGEN.options.select.profiles.label'}} </label>
+    <select id="profiles-select" class="profiles-select">
+      {{#each profilesModel}} {{#if selected}}
+      <option value="{{key}}" selected="selected">{{localize value}}</option>
+      {{else}}
+      <option value="{{key}}">{{localize value}}</option>
+      {{/if}} {{/each}}
+    </select>
+  </div>
+  {{/if}}
   <div class="form-group">
     <label> {{localize 'WFRP4NPCGEN.options.select.genPath.label'}} </label>
     <input

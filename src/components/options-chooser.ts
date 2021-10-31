@@ -44,6 +44,7 @@ export class OptionsChooser extends AbstractChooser<
     showInitWeapons: boolean;
     optionsCheck: SelectModel[];
     effectsModel: EffectModel[];
+    profilesModel: SelectModel[];
   }
 > {
   private callback: (options: IOptions) => void;
@@ -71,6 +72,7 @@ export class OptionsChooser extends AbstractChooser<
 
     this.initOptionsCheck();
     this.initEffects();
+    this.initProfiles();
   }
 
   public static get defaultOptions(): FormApplication.Options {
@@ -115,6 +117,10 @@ export class OptionsChooser extends AbstractChooser<
     this.handleChange(html, '.effect-select', (event) => {
       const key = event.currentTarget.getAttribute('data-id');
       this.toggleEffect(key, event.currentTarget.value);
+      this.render();
+    });
+    this.handleChange(html, '#profiles-select', (event) => {
+      this.toggleProfile(event.currentTarget.value);
       this.render();
     });
     this.handleInput(html, '#genPathInput', (event) => {
@@ -212,6 +218,16 @@ export class OptionsChooser extends AbstractChooser<
     );
   }
 
+  private initProfiles() {
+    this.model.profilesModel = [];
+    this.model.profilesModel.push(new SelectModel('', '', true));
+    this.model.profilesModel.push(
+      ...this.profiles.map(
+        (profile) => new SelectModel(profile.name, profile.name, false)
+      )
+    );
+  }
+
   private toggleOption(key: string) {
     const option = this.model.optionsCheck.find((oc) => oc.key === key);
     if (option != null) {
@@ -227,6 +243,26 @@ export class OptionsChooser extends AbstractChooser<
         effectModel.selected = effectModel.key === value;
       }
       this.model.data.options[key] = getGenerateEffectOptionEnum(value);
+    }
+  }
+
+  private toggleProfile(name: string) {
+    const profile =
+      name != null && name.length > 0
+        ? this.model.profilesModel.find((pf) => pf.key === name)
+        : null;
+    if (profile != null) {
+      for (const profileModel of this.model.profilesModel) {
+        profileModel.selected = profileModel.key === name;
+      }
+      const refProfile = this.profiles.find((pf) => pf.name === name) ?? null;
+      this.model.data.options.genPath = refProfile?.genPath ?? '';
+      this.model.data.options.tokenPath = refProfile?.tokenPath ?? '';
+      this.model.data.options.imagePath = refProfile?.imagePath ?? '';
+    } else {
+      for (const profileModel of this.model.profilesModel) {
+        profileModel.selected = profileModel.key.length === 0;
+      }
     }
   }
 }
